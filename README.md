@@ -1,5 +1,5 @@
 # Project Fury
-Mobile Application To Act As A Companion To Help Students With Projects, Assignments Or Any Other Task Based Task.
+Mobile Application to act as a companion to help Students with projects, assignments or any other task based task.
 
 ## Dependencies
 * Android Studio 2.1.2
