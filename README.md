@@ -3,6 +3,7 @@ Mobile Application to act as a companion to help Students with projects, assignm
 
 ## Dependencies
 * Android Studio 2.1.2
+* Git 2.9.2
 * Android API 4.4 (KitKat)
 * Gradle 2.1.2
 * Build Tools 24.0.0
