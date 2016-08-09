@@ -1,3 +1,13 @@
 <resources>
-	<string name="app_name">Project_Fury</string>
+    <string name="app_name">Project Fury</string>
+
+    <!--Activity Titles-->
+    <string name="title_activity_login">Login Activity</string>
+    <string name="title_activity_register">Register Activity</string>
+    <string name="title_activity_dashboard">Dashboard Activity</string>
+
+    <!-- Button Strings -->
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+
 </resources>
