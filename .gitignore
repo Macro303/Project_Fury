@@ -39,6 +39,7 @@ captures/
 .idea/dataSources.local.xml
 .idea/dataSources.ids
 .idea/dataSources.xml
+.idea/gradle.xml
 
 # Keystore files
 *.jks
