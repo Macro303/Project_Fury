@@ -40,6 +40,8 @@ captures/
 .idea/dataSources.ids
 .idea/dataSources.xml
 .idea/gradle.xml
+.idea/codeStyleSettings.xml
+.idea/misc.xml
 
 # Keystore files
 *.jks
