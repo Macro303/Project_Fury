@@ -7,11 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import tobedevelopers.project_fury.DashboardActivity;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.RegisterActivity;
 import tobedevelopers.project_fury.Runnable1Param;
+import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.LoginContract;
+import tobedevelopers.project_fury.register.implementation.RegisterView;
 
 public class LoginView extends AppCompatActivity implements LoginContract.View, LoginContract.Navigation{
 
@@ -51,7 +51,7 @@ public class LoginView extends AppCompatActivity implements LoginContract.View, 
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				Intent createRegisterIntent = new Intent( getParam1(), RegisterActivity.class );
+				Intent createRegisterIntent = new Intent( getParam1(), RegisterView.class );
 				startActivity( createRegisterIntent );
 			}
 		} );
@@ -62,7 +62,7 @@ public class LoginView extends AppCompatActivity implements LoginContract.View, 
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				Intent createDashboardIntent = new Intent( getParam1(), DashboardActivity.class );
+				Intent createDashboardIntent = new Intent( getParam1(), DashboardView.class );
 				startActivity( createDashboardIntent );
 			}
 		} );
