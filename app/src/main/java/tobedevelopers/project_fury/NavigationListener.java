@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import tobedevelopers.project_fury.all_boards.implementation.AllBoardsView;
 import tobedevelopers.project_fury.backlog.implementation.BacklogView;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.implementation.LoginView;
@@ -43,6 +44,10 @@ public class NavigationListener implements NavigationView.OnNavigationItemSelect
 				case R.id.navigationMenu_settingsItem:
 					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Settings View Called" );
 					activity.startActivity( new Intent( activity.getApplicationContext(), SettingsView.class ) );
+					return true;
+				case R.id.navigationMenu_allBoardsItem:
+					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "All Boards View Called" );
+					activity.startActivity( new Intent( activity.getApplicationContext(), AllBoardsView.class ) );
 					return true;
 				case R.id.navigationMenu_logOutItem:
 					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Login View Called" );

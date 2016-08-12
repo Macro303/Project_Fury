@@ -60,6 +60,9 @@
 		<activity
 			android:name=".settings.implementation.SettingsView"
 			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name=".all_boards.implementation.AllBoardsView"
+			android:theme="@style/AppTheme.NoActionBar"/>
 	</application>
 
 </manifest>

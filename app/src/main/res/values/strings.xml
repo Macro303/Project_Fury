@@ -11,6 +11,7 @@
 	<string name="title_activity_backlog">Backlog</string>
 	<string name="title_activity_createTask">Create Task</string>
 	<string name="title_activity_settings">Settings</string>
+	<string name="title_activity_allBoards">All Boards</string>
 
 	<!-- Button Strings -->
 	<string name="button_login">Login</string>
@@ -27,6 +28,7 @@
 	<string name="button_editTask">Edit Task</string>
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
+	<string name="button_projectBoard">Project Board</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
