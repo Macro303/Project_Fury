@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import tobedevelopers.project_fury.BaseActivity;
+import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.register.RegisterContract;
 
-public class RegisterView extends BaseActivity implements RegisterContract.View, RegisterContract.Navigation{
+public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
 
 	//UI References
 	private Button mCreateAccountButton;

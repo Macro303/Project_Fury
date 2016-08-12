@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import tobedevelopers.project_fury.BaseActivity;
+import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.LoginContract;
 import tobedevelopers.project_fury.register.implementation.RegisterView;
 
-public class LoginView extends BaseActivity implements LoginContract.View, LoginContract.Navigation{
+public class LoginView extends BaseView implements LoginContract.View, LoginContract.Navigation{
 
 	//UI References
 	private Button mLoginButton;
@@ -58,7 +58,7 @@ public class LoginView extends BaseActivity implements LoginContract.View, Login
 	}
 
 	@Override
-	public void navigateToLogin(){
+	public void navigateToDashboard(){
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){

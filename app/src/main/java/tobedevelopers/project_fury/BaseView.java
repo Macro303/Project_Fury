@@ -7,7 +7,7 @@ import android.util.Log;
 /**
  * Created by Macro303 on 10/08/2016.
  */
-public class BaseActivity extends AppCompatActivity{
+public class BaseView extends AppCompatActivity{
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){

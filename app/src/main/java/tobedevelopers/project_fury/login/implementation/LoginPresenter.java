@@ -33,7 +33,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 		LoginContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-			navigation.navigateToLogin();
+			navigation.navigateToDashboard();
 		}
 	}
 }

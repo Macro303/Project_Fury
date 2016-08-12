@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import tobedevelopers.project_fury.BaseActivity;
+import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.NavigationListener;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
@@ -18,7 +18,7 @@ import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
 import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 
-public class DashboardView extends BaseActivity implements DashboardContract.View, DashboardContract.Navigation{
+public class DashboardView extends BaseView implements DashboardContract.View, DashboardContract.Navigation{
 
 	//UI References
 	private DrawerLayout mDrawerLayout;

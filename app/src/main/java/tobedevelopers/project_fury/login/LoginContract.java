@@ -12,7 +12,7 @@ public interface LoginContract{
 	interface Navigation{
 		void navigateToRegister();
 
-		void navigateToLogin();
+		void navigateToDashboard();
 	}
 
 	interface Presenter{
