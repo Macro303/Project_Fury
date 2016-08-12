@@ -1,15 +1,17 @@
 <resources>
-    <string name="app_name">Project Fury</string>
+	<string name="app_name">Project Fury</string>
 
 	<!-- Activity Strings --><!-- Title Strings -->
-    <string name="title_activity_login">Login Activity</string>
+	<string name="title_activity_login">Login Activity</string>
 	<string name="title_activity_register">Register</string>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="title_activity_createProject">Create Project</string>
 	<string name="title_activity_projectInfo">Project Info</string>
 	<string name="title_activity_taskInfo">Task Info</string>
+	<string name="title_activity_backlog">Backlog</string>
+	<string name="title_activity_createTask">Create Task</string>
 
-    <!-- Button Strings -->
+	<!-- Button Strings -->
 	<string name="button_login">Login</string>
 	<string name="button_register">Register</string>
 	<string name="button_createAccount">Create Account</string>

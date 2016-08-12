@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import tobedevelopers.project_fury.backlog.implementation.BacklogView;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.implementation.LoginView;
 
@@ -33,6 +34,10 @@ public class NavigationListener implements NavigationView.OnNavigationItemSelect
 				case R.id.navigationMenu_dashboardItem:
 					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Dashboard View Called" );
 					activity.startActivity( new Intent( activity.getApplicationContext(), DashboardView.class ) );
+					return true;
+				case R.id.navigationMenu_backlogItem:
+					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Backlog View Called" );
+					activity.startActivity( new Intent( activity.getApplicationContext(), BacklogView.class ) );
 					return true;
 				case R.id.navigationMenu_logOutItem:
 					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Login View Called" );

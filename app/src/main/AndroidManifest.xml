@@ -27,25 +27,35 @@
 			android:name=".dashboard.implementation.DashboardView"
 			android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
-			android:name=".create_project.implementation.CreateProjectView"
-			android:parentActivityName=".dashboard.implementation.DashboardView">
+			android:name=".create_project.implementation.CreateProjectView">
+			<!--android:parentActivityName=".dashboard.implementation.DashboardView">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".dashboard.implementation.DashboardView"/>
+				android:value=".dashboard.implementation.DashboardView"/>-->
 		</activity>
 		<activity
-			android:name=".project_info.implementation.ProjectInfoView"
-			android:parentActivityName=".dashboard.implementation.DashboardView">
+			android:name=".project_info.implementation.ProjectInfoView">
+			<!--android:parentActivityName=".dashboard.implementation.DashboardView">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".dashboard.implementation.DashboardView"/>
+				android:value=".dashboard.implementation.DashboardView"/>-->
 		</activity>
 		<activity
-			android:name=".task_info.implementation.TaskInfoView"
-			android:parentActivityName=".dashboard.implementation.DashboardView">
+			android:name=".task_info.implementation.TaskInfoView">
+			<!--android:parentActivityName=".dashboard.implementation.DashboardView">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value=".dashboard.implementation.DashboardView"/>
+				android:value=".dashboard.implementation.DashboardView"/>-->
+		</activity>
+		<activity
+			android:name=".backlog.implementation.BacklogView"
+			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name=".create_task.implementation.CreateTaskView">
+			<!--android:parentActivityName=".backlog.implementation.BacklogView">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".backlog.implementation.BacklogView"/>-->
 		</activity>
 	</application>
 

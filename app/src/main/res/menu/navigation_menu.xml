@@ -9,6 +9,11 @@
 			android:title="@string/title_activity_dashboard"/>
 
 		<item
+			android:id="@+id/navigationMenu_backlogItem"
+			android:checked="false"
+			android:title="@string/title_activity_backlog"/>
+
+		<item
 			android:id="@+id/navigationMenu_logOutItem"
 			android:checked="false"
 			android:title="@string/navigation_logOut"/>
