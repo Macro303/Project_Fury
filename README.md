@@ -10,6 +10,7 @@ Mobile Application to act as a companion to help Students with projects, assignm
 * JUnit 4.12
 * AppCompat-v7 24.1.1
 * Support-Annotations 24.1.1
+* CardView 24.1.1
 * ButterKnife 5.1.1
 * RoboGuice 4.0.0
 * RoboBlender 4.0.0 (Provided)
