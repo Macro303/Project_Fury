@@ -21,15 +21,21 @@
 	<string name="button_addColumn">Add Column</string>
 	<string name="button_removeColumn">Remove Column</string>
 	<string name="button_editProject">Edit Project</string>
+	<string name="button_editTask">Edit Task</string>
+	<string name="button_removeTask">Remove Task</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
 	<string name="textView_taskListTitle">Tasks</string>
 	<string name="textView_taskColumn">Column</string>
+	<string name="textView_taskAssignee">Task Assignee:</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
 	<string name="navigation_open">Open</string>
 	<string name="navigation_close">Close</string>
+
+	<!-- Spinner Strings -->
+	<string name="spinner_taskAssignee">No One Assigned</string>
 
 </resources>

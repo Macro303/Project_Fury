@@ -41,7 +41,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			navigation.navigateToDashboard();
+			navigation.navigateToPrevious();
 	}
 
 	@Override

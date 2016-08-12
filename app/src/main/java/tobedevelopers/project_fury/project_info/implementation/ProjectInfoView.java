@@ -71,7 +71,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	}
 
 	@Override
-	public void navigateToDashboard(){
+	public void navigateToPrevious(){
 		finish();
 	}
 
