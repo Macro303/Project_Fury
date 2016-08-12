@@ -3,15 +3,15 @@
 
 	<!-- Activity Strings --><!-- Title Strings -->
     <string name="title_activity_login">Login Activity</string>
-	<string name="title_register">Register</string>
-	<string name="title_dashboard">Dashboard</string>
-	<string name="title_createProject">Create Project</string>
-	<string name="title_projectInfo">Project Info</string>
-	<string name="title_taskInfo">Task Info</string>
+	<string name="title_activity_register">Register</string>
+	<string name="title_activity_dashboard">Dashboard</string>
+	<string name="title_activity_createProject">Create Project</string>
+	<string name="title_activity_projectInfo">Project Info</string>
+	<string name="title_activity_taskInfo">Task Info</string>
 
     <!-- Button Strings -->
-    <string name="login_button">Login</string>
-    <string name="register_button">Register</string>
+	<string name="button_login">Login</string>
+	<string name="button_register">Register</string>
 	<string name="button_createAccount">Create Account</string>
 	<string name="button_createProject">Create Project</string>
 	<string name="button_projectInfo">Project</string>

@@ -23,6 +23,6 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		RegisterContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			navigation.finish();
+			navigation.navigateToLogin();
 	}
 }

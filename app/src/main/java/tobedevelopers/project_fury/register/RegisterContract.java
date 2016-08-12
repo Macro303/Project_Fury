@@ -10,7 +10,7 @@ public interface RegisterContract{
 	}
 
 	interface Navigation{
-		void finish();
+		void navigateToLogin();
 	}
 
 	interface Presenter{

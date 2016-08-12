@@ -32,7 +32,7 @@ public class DashboardView extends BaseActivity implements DashboardContract.Vie
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( getString( R.string.title_dashboard ) );
+		setTitle( getString( R.string.title_activity_dashboard ) );
 		setContentView( R.layout.activity_dashboard );
 		super.onCreate( savedInstanceState );
 		presenter = new DashboardPresenter( this, this );

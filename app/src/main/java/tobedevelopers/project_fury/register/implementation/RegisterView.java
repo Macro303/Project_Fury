@@ -17,7 +17,7 @@ public class RegisterView extends BaseActivity implements RegisterContract.View,
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( getString( R.string.title_register ) );
+		setTitle( getString( R.string.title_activity_register ) );
 		setContentView( R.layout.activity_register );
 		super.onCreate( savedInstanceState );
 		presenter = new RegisterPresenter( this, this );
@@ -32,5 +32,10 @@ public class RegisterView extends BaseActivity implements RegisterContract.View,
 				presenter.userSelectCreateAccount();
 			}
 		} );
+	}
+
+	@Override
+	public void navigateToLogin(){
+		finish();
 	}
 }

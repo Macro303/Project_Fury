@@ -12,7 +12,7 @@ public class CreateProjectView extends BaseActivity{
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( getString( R.string.title_createProject ) );
+		setTitle( getString( R.string.title_activity_createProject ) );
 		setContentView( R.layout.activity_create_project );
 		super.onCreate( savedInstanceState );
 	}

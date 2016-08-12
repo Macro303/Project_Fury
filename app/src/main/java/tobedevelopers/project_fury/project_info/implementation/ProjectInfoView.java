@@ -12,7 +12,7 @@ public class ProjectInfoView extends BaseActivity{
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( getString( R.string.title_projectInfo ) );
+		setTitle( getString( R.string.title_activity_projectInfo ) );
 		setContentView( R.layout.activity_project_info );
 		super.onCreate( savedInstanceState );
 	}

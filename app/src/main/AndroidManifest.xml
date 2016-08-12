@@ -10,9 +10,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
 		<activity
-			android:name=".login.implementation.LoginView"
-			android:label="@string/title_activity_login"
-			android:theme="@style/AppTheme.NoActionBar">
+			android:name=".login.implementation.LoginView">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
