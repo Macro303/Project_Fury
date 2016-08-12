@@ -57,6 +57,9 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".backlog.implementation.BacklogView"/>-->
 		</activity>
+		<activity
+			android:name=".settings.implementation.SettingsView"
+			android:theme="@style/AppTheme.NoActionBar"/>
 	</application>
 
 </manifest>

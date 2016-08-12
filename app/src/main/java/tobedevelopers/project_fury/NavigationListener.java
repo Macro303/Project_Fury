@@ -10,6 +10,7 @@ import android.widget.Toast;
 import tobedevelopers.project_fury.backlog.implementation.BacklogView;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.implementation.LoginView;
+import tobedevelopers.project_fury.settings.implementation.SettingsView;
 
 /**
  * Created by Macro303 on 10/08/2016.
@@ -38,6 +39,10 @@ public class NavigationListener implements NavigationView.OnNavigationItemSelect
 				case R.id.navigationMenu_backlogItem:
 					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Backlog View Called" );
 					activity.startActivity( new Intent( activity.getApplicationContext(), BacklogView.class ) );
+					return true;
+				case R.id.navigationMenu_settingsItem:
+					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Settings View Called" );
+					activity.startActivity( new Intent( activity.getApplicationContext(), SettingsView.class ) );
 					return true;
 				case R.id.navigationMenu_logOutItem:
 					Log.d( activity.getApplicationContext().getString( R.string.app_name ), "Login View Called" );

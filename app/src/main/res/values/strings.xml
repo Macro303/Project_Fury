@@ -10,6 +10,7 @@
 	<string name="title_activity_taskInfo">Task Info</string>
 	<string name="title_activity_backlog">Backlog</string>
 	<string name="title_activity_createTask">Create Task</string>
+	<string name="title_activity_settings">Settings</string>
 
 	<!-- Button Strings -->
 	<string name="button_login">Login</string>
