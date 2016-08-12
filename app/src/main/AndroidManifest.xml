@@ -1,5 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="tobedevelopers.project_fury">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="tobedevelopers.project_fury">
 
 	<application
 		android:allowBackup="true"
@@ -7,7 +9,44 @@
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-
+		<activity
+			android:name=".login.implementation.LoginView">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".register.implementation.RegisterView"
+			android:parentActivityName=".login.implementation.LoginView">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".login.implementation.LoginView"/>
+		</activity>
+		<activity
+			android:name=".dashboard.implementation.DashboardView"
+			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name=".create_project.implementation.CreateProjectView"
+			android:parentActivityName=".dashboard.implementation.DashboardView">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".dashboard.implementation.DashboardView"/>
+		</activity>
+		<activity
+			android:name=".project_info.implementation.ProjectInfoView"
+			android:parentActivityName=".dashboard.implementation.DashboardView">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".dashboard.implementation.DashboardView"/>
+		</activity>
+		<activity
+			android:name=".task_info.implementation.TaskInfoView"
+			android:parentActivityName=".dashboard.implementation.DashboardView">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".dashboard.implementation.DashboardView"/>
+		</activity>
 	</application>
 
 </manifest>
