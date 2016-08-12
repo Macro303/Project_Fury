@@ -11,8 +11,6 @@ public interface CreateProjectContract{
 
 	interface Navigation{
 		void navigateToProjectInfo();
-
-		void navigateToDashboard();
 	}
 
 	interface Presenter{

@@ -49,9 +49,4 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 			}
 		} );
 	}
-
-	@Override
-	public void navigateToDashboard(){
-		finish();
-	}
 }

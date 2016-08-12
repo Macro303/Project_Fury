@@ -16,6 +16,11 @@
 	<string name="button_createProject">Create Project</string>
 	<string name="button_projectInfo">Project</string>
 	<string name="button_taskInfo">Task</string>
+	<string name="button_addUser">Add User</string>
+	<string name="button_removeMe">Remove Me</string>
+	<string name="button_addColumn">Add Column</string>
+	<string name="button_removeColumn">Remove Column</string>
+	<string name="button_editProject">Edit Project</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
