@@ -25,6 +25,7 @@
 	<string name="button_editProject">Edit Project</string>
 	<string name="button_editTask">Edit Task</string>
 	<string name="button_removeTask">Remove Task</string>
+	<string name="button_createTask">Create Task</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
