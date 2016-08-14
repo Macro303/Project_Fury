@@ -1,17 +1,15 @@
 package tobedevelopers.project_fury.register.implementation;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.register.RegisterContract;
 
 public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
-
-	//UI References
-	private Button mCreateAccountButton;
 
 	private RegisterContract.Presenter presenter;
 
@@ -20,18 +18,17 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		setTitle( getString( R.string.title_activity_register ) );
 		setContentView( R.layout.activity_register );
 		super.onCreate( savedInstanceState );
+
+		ButterKnife.bind( this );
+
 		presenter = new RegisterPresenter( this, this );
+	}
 
-		//UI References
-		mCreateAccountButton = ( Button ) findViewById( R.id.registerActivity_createAccountButton );
-
-		//Button Config
-		mCreateAccountButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectCreateAccount();
-			}
-		} );
+	//Button Listener
+	@OnClick( R.id.registerActivity_createAccountButton )
+	public void onUserSelectCreateAccount(){
+		Toast.makeText( this, "Registered", Toast.LENGTH_SHORT ).show();
+		presenter.userSelectCreateAccount();
 	}
 
 	@Override

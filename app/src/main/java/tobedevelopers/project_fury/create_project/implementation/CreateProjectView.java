@@ -2,9 +2,10 @@ package tobedevelopers.project_fury.create_project.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
@@ -16,9 +17,6 @@ import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
  */
 public class CreateProjectView extends BaseView implements CreateProjectContract.View, CreateProjectContract.Navigation{
 
-	//UI References
-	private Button mCreateProjectButton;
-
 	private CreateProjectContract.Presenter presenter;
 
 	@Override
@@ -27,17 +25,16 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 		setContentView( R.layout.activity_create_project );
 		super.onCreate( savedInstanceState );
 
+		ButterKnife.bind( this );
+
 		presenter = new CreateProjectPresenter( this, this );
+	}
 
-		//UI References
-		mCreateProjectButton = ( Button ) findViewById( R.id.createProjectActivity_createProjectButton );
-
-		mCreateProjectButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectCreateProject();
-			}
-		} );
+	//Button Listener
+	@OnClick( R.id.createProjectActivity_createProjectButton )
+	public void onUserSelectCreateProject(){
+		Toast.makeText( this, "Create Project", Toast.LENGTH_SHORT ).show();
+		presenter.userSelectCreateProject();
 	}
 
 	@Override

@@ -39,6 +39,7 @@ public class BacklogView extends BaseView implements BacklogContract.View, Backl
 		setTitle( getString( R.string.title_activity_backlog ) );
 		setContentView( R.layout.activity_backlog );
 		super.onCreate( savedInstanceState );
+
 		presenter = new BacklogPresenter( this, this );
 
 		//UI References

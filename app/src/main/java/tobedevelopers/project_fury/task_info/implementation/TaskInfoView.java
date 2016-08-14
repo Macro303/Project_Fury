@@ -2,9 +2,10 @@ package tobedevelopers.project_fury.task_info.implementation;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.task_info.TaskInfoContract;
@@ -14,10 +15,6 @@ import tobedevelopers.project_fury.task_info.TaskInfoContract;
  */
 public class TaskInfoView extends BaseView implements TaskInfoContract.View, TaskInfoContract.Navigation{
 
-	//UI References
-	private Button mEditTaskButton;
-	private Button mRemoveTaskButton;
-
 	private TaskInfoContract.Presenter presenter;
 
 	@Override
@@ -25,25 +22,28 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		setTitle( getString( R.string.title_activity_taskInfo ) );
 		setContentView( R.layout.activity_task_info );
 		super.onCreate( savedInstanceState );
+
+		ButterKnife.bind( this );
+
 		presenter = new TaskInfoPresenter( this, this );
+	}
 
-		//UI References
-		mEditTaskButton = ( Button ) findViewById( R.id.taskInfoActivity_editTaskButton );
-		mRemoveTaskButton = ( Button ) findViewById( R.id.taskInfoActivity_removeTaskButton );
-
-		//Button Config
-		mEditTaskButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
+	//Buttons Listener
+	@OnClick( { R.id.taskInfoActivity_editTaskButton, R.id.taskInfoActivity_removeTaskButton } )
+	public void onUserSelectAButton( View view ){
+		switch( view.getId() ){
+			case R.id.taskInfoActivity_editTaskButton:
+				Toast.makeText( this, "Edit Task", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectEditTask();
-			}
-		} );
-		mRemoveTaskButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
+				break;
+			case R.id.taskInfoActivity_removeTaskButton:
+				Toast.makeText( this, "Remove Task", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectRemoveTask();
-			}
-		} );
+				break;
+			default:
+				Toast.makeText( this, "An Error has occured", Toast.LENGTH_SHORT ).show();
+				break;
+		}
 	}
 
 	@Override
