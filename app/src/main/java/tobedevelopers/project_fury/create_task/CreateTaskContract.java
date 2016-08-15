@@ -10,12 +10,14 @@ public interface CreateTaskContract{
 	}
 
 	interface Navigation{
-		void navigateToTaskInfo();
-
 		void navigateToPrevious();
+
+		void navigateToPreviousAfterCreate();
 	}
 
 	interface Presenter{
 		void userSelectCreateTask();
+
+		void userSelectBack();
 	}
 }

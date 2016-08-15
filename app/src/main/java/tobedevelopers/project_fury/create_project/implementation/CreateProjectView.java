@@ -1,6 +1,5 @@
 package tobedevelopers.project_fury.create_project.implementation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +8,6 @@ import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
 import tobedevelopers.project_fury.create_project.CreateProjectContract;
-import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
 
 /**
  * Created by Macro303 on 11/08/2016.
@@ -47,7 +45,6 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 			@Override
 			public void run(){
 				finish();
-				startActivity( new Intent( getParam1(), ProjectInfoView.class ) );
 			}
 		} );
 	}

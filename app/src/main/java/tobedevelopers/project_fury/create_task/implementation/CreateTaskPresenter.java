@@ -18,11 +18,20 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 	}
 
 	@Override
+	public void userSelectBack(){
+		CreateTaskContract.View view = viewWeakReference.get();
+		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			navigation.navigateToPrevious();
+	}
+
+	@Override
 	public void userSelectCreateTask(){
 		CreateTaskContract.View view = viewWeakReference.get();
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			navigation.navigateToTaskInfo();
+			navigation.navigateToPreviousAfterCreate();
 	}
 }

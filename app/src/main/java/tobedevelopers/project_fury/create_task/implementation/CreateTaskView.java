@@ -1,6 +1,5 @@
 package tobedevelopers.project_fury.create_task.implementation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,7 +9,6 @@ import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
 import tobedevelopers.project_fury.create_task.CreateTaskContract;
-import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 
 /**
  * Created by Macro303 on 12/08/2016.
@@ -48,7 +46,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	public boolean onOptionsItemSelected( MenuItem item ){
 		switch( item.getItemId() ){
 			case android.R.id.home:
-				navigateToPrevious();
+				presenter.userSelectBack();
 				return true;
 		}
 
@@ -61,12 +59,11 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	}
 
 	@Override
-	public void navigateToTaskInfo(){
+	public void navigateToPreviousAfterCreate(){
 		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
 			@Override
 			public void run(){
 				finish();
-				startActivity( new Intent( getParam1(), TaskInfoView.class ) );
 			}
 		} );
 	}
