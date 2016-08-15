@@ -46,7 +46,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	}
 
 	@Override
-	public void navigateToProjectInfo(){
+	public void navigateToPrevious(){
 		runOnUiThread( new Runnable1Param< CreateProjectView >( this ){
 			@Override
 			public void run(){

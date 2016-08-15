@@ -23,7 +23,7 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-			navigation.navigateToProjectInfo();
+			navigation.navigateToPrevious();
 		}
 	}
 }

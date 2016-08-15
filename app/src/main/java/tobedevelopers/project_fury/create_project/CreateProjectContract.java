@@ -10,7 +10,7 @@ public interface CreateProjectContract{
 	}
 
 	interface Navigation{
-		void navigateToProjectInfo();
+		void navigateToPrevious();
 	}
 
 	interface Presenter{

@@ -2,9 +2,12 @@ package tobedevelopers.project_fury.login.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
@@ -13,10 +16,6 @@ import tobedevelopers.project_fury.login.LoginContract;
 import tobedevelopers.project_fury.register.implementation.RegisterView;
 
 public class LoginView extends BaseView implements LoginContract.View, LoginContract.Navigation{
-
-	//UI References
-	private Button mLoginButton;
-	private Button mRegisterButton;
 
 	private LoginContract.Presenter presenter;
 
@@ -28,23 +27,26 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 
 		presenter = new LoginPresenter( this, this );
 
-		//UI References
-		mLoginButton = ( Button ) findViewById( R.id.loginActivity_loginButton );
-		mRegisterButton = ( Button ) findViewById( R.id.loginActivity_registerButton );
+		ButterKnife.bind( this );
+	}
 
-		//Button config
-		mLoginButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectDashboard();
-			}
-		} );
-		mRegisterButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
+	//Buttons Listener
+	@OnClick( { R.id.loginActivity_loginButton, R.id.loginActivity_registerButton } )
+	public void onUserSelectAButton( View view ){
+		switch( view.getId() ){
+			case R.id.loginActivity_loginButton:
+				Toast.makeText( this, "Login", Toast.LENGTH_SHORT ).show();
+				presenter.userSelectLogin();
+				break;
+			case R.id.loginActivity_registerButton:
+				Toast.makeText( this, "Register", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectRegister();
-			}
-		} );
+				break;
+			default:
+				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				break;
+		}
 	}
 
 	@Override

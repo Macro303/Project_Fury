@@ -7,8 +7,6 @@ import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.backlog.implementation.BacklogPresenter;
 import tobedevelopers.project_fury.create_project.CreateProjectContract;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectPresenter;
-import tobedevelopers.project_fury.create_task.CreateTaskContract;
-import tobedevelopers.project_fury.create_task.implementation.CreateTaskPresenter;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardPresenter;
 import tobedevelopers.project_fury.login.LoginContract;
@@ -101,7 +99,7 @@ public class FURY005 extends ApplicationTestCase< Application >{
 
 		BacklogContract.Presenter presenter = new BacklogPresenter( mockView, mockNavigation );
 
-		presenter.userSelectAddTask();
+		presenter.userSelectCreateTask();
 		verify( mockNavigation ).navigateToCreateTask();
 	}
 
@@ -135,17 +133,6 @@ public class FURY005 extends ApplicationTestCase< Application >{
 		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( mockView, mockNavigation );
 
 		presenter.userSelectCreateProject();
-		verify( mockNavigation ).navigateToProjectInfo();
-	}
-
-	//Create Task Activity Navigation
-	public void testOnUserSelectCreateTask(){
-		CreateTaskContract.View mockView = mock( CreateTaskContract.View.class );
-		CreateTaskContract.Navigation mockNavigation = mock( CreateTaskContract.Navigation.class );
-
-		CreateTaskContract.Presenter presenter = new CreateTaskPresenter( mockView, mockNavigation );
-
-		presenter.userSelectCreateTask();
-		verify( mockNavigation ).navigateToTaskInfo();
+		verify( mockNavigation ).navigateToPrevious();
 	}
 }

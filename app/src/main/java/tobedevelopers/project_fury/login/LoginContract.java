@@ -18,6 +18,6 @@ public interface LoginContract{
 	interface Presenter{
 		void userSelectRegister();
 
-		void userSelectDashboard();
+		void userSelectLogin();
 	}
 }

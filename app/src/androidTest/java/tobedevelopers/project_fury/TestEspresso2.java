@@ -12,6 +12,8 @@ import tobedevelopers.project_fury.register.implementation.RegisterView;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
@@ -22,13 +24,25 @@ public class TestEspresso2{
 
 	@Rule
 	public ActivityTestRule< LoginView > loginViewActivityTestRule = new ActivityTestRule<>( LoginView.class );
-	@Rule
-	public ActivityTestRule< RegisterView > registerViewActivityTestRule = new ActivityTestRule<>( RegisterView.class );
+	TestEspresso3 test = new TestEspresso3();
+
+	@Test
+	public void loginView(){
+		onView( withId( R.id.loginActivity_loginButton ) ).check( matches( isDisplayed() ) );
+		onView( withId( R.id.loginActivity_registerButton ) ).check( matches( isDisplayed() ) );
+	}
 
 	@Test
 	public void clickRegister(){
 		onView( withId( R.id.loginActivity_registerButton ) ).perform( click() );
+		test.clickCreateAccount();
 	}
+}
+
+class TestEspresso3{
+
+	@Rule
+	public ActivityTestRule< RegisterView > registerViewActivityTestRule = new ActivityTestRule<>( RegisterView.class );
 
 	@Test
 	public void clickCreateAccount(){

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -19,11 +18,6 @@ import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 
 public class DashboardView extends BaseNavigationView implements DashboardContract.View, DashboardContract.Navigation{
 
-	//UI References
-	private Button mCreateProjectButton;
-	private Button mProjectInfoButton;
-	private Button mTaskInfoButton;
-
 	private DashboardContract.Presenter presenter;
 
 	@Override
@@ -31,34 +25,10 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		setTitle( getString( R.string.title_activity_dashboard ) );
 		setContentView( R.layout.activity_dashboard );
 		super.onCreate( savedInstanceState );
+
 		presenter = new DashboardPresenter( this, this );
 
 		ButterKnife.bind( this );
-
-		//UI References
-		mCreateProjectButton = ( Button ) findViewById( R.id.dashboardActivity_createProjectButton );
-		mProjectInfoButton = ( Button ) findViewById( R.id.dashboardActivity_projectInfoButton );
-		mTaskInfoButton = ( Button ) findViewById( R.id.dashboardActivity_taskInfoButton );
-
-		//Button Config
-		mCreateProjectButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectCreateProject();
-			}
-		} );
-		mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectProjectInfo();
-			}
-		} );
-		mTaskInfoButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectTaskInfo();
-			}
-		} );
 	}
 
 	//Button Listener
