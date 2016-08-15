@@ -17,16 +17,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		this.navigationWeakReference = new WeakReference<>( navigation );
 	}
 
-
-	@Override
-	public void userSelectBack(){
-		ProjectInfoContract.View view = viewWeakReference.get();
-		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-
-		if( view != null && navigation != null )
-			navigation.navigateToPrevious();
-	}
-
 	@Override
 	public void userSelectAddColumn(){
 		ProjectInfoContract.View view = viewWeakReference.get();

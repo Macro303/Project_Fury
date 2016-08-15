@@ -18,15 +18,6 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectBack(){
-		TaskInfoContract.View view = viewWeakReference.get();
-		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
-
-		if( view != null && navigation != null )
-			navigation.navigateToPrevious();
-	}
-
-	@Override
 	public void userSelectEditTask(){
 		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();

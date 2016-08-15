@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.backlog.implementation;
+package tobedevelopers.project_fury.project_board.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,39 +7,39 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import tobedevelopers.project_fury.BaseNavigationView;
+import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
-import tobedevelopers.project_fury.backlog.BacklogContract;
-import tobedevelopers.project_fury.backlog.BacklogFragmentPagerAdapter;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
+import tobedevelopers.project_fury.project_board.ProjectBoardContract;
+import tobedevelopers.project_fury.project_board.ProjectBoardFragmentPagerAdapter;
 
 /**
- * Created by Macro303 on 12/08/2016.
+ * Created by Macro303 on 13/08/2016.
  */
-public class BacklogView extends BaseNavigationView implements BacklogContract.View, BacklogContract.Navigation{
+public class ProjectBoardView extends BaseView implements ProjectBoardContract.View, ProjectBoardContract.Navigation{
 
 	//UI References
 	private TabLayout mTabLayout;
 	private ViewPager mViewPager;
 	private FloatingActionButton mCreateTaskButton;
 
-	private BacklogContract.Presenter presenter;
+	private ProjectBoardContract.Presenter presenter;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( getString( R.string.title_activity_backlog ) );
-		setContentView( R.layout.activity_backlog );
+		setTitle( R.string.title_activity_projectBoard );
+		setContentView( R.layout.activity_project_board );
 		super.onCreate( savedInstanceState );
-		presenter = new BacklogPresenter( this, this );
+		presenter = new ProjectBoardPresenter( this, this );
 
 		//UI References
-		mTabLayout = ( TabLayout ) findViewById( R.id.backlogActivity_tabLayout );
-		mViewPager = ( ViewPager ) findViewById( R.id.backlogActivity_viewPager );
-		mCreateTaskButton = ( FloatingActionButton ) findViewById( R.id.backlogActivity_createTaskButton );
+		mTabLayout = ( TabLayout ) findViewById( R.id.projectBoardActivity_tabLayout );
+		mViewPager = ( ViewPager ) findViewById( R.id.projectBoardActivity_viewPager );
+		mCreateTaskButton = ( FloatingActionButton ) findViewById( R.id.projectBoardActivity_createTaskButton );
 
 		//Tab Config
-		mViewPager.setAdapter( new BacklogFragmentPagerAdapter( getSupportFragmentManager() ) );
+		mViewPager.setAdapter( new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() ) );
 		mTabLayout.setupWithViewPager( mViewPager );
 
 		//Button Config
@@ -53,7 +53,7 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 
 	@Override
 	public void navigateToCreateTask(){
-		runOnUiThread( new Runnable1Param< BacklogView >( this ){
+		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
 			@Override
 			public void run(){
 				startActivity( new Intent( getParam1(), CreateTaskView.class ) );

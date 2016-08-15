@@ -20,8 +20,6 @@ public interface ProjectInfoContract{
 	}
 
 	interface Presenter{
-		void userSelectBack();
-
 		void userSelectAddUser();
 
 		void userSelectRemoveMe();

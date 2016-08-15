@@ -12,6 +12,7 @@
 	<string name="title_activity_createTask">Create Task</string>
 	<string name="title_activity_settings">Settings</string>
 	<string name="title_activity_allBoards">All Boards</string>
+	<string name="title_activity_projectBoard">Project Board</string>
 
 	<!-- Button Strings -->
 	<string name="button_login">Login</string>

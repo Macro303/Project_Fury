@@ -11,6 +11,8 @@ public interface CreateTaskContract{
 
 	interface Navigation{
 		void navigateToTaskInfo();
+
+		void navigateToPrevious();
 	}
 
 	interface Presenter{

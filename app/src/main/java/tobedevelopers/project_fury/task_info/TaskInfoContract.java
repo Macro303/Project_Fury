@@ -14,8 +14,6 @@ public interface TaskInfoContract{
 	}
 
 	interface Presenter{
-		void userSelectBack();
-
 		void userSelectEditTask();
 
 		void userSelectRemoveTask();

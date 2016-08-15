@@ -18,7 +18,7 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 	}
 
 	@Override
-	public void userSelectAddTask(){
+	public void userSelectCreateTask(){
 		BacklogContract.View view = viewWeakReference.get();
 		BacklogContract.Navigation navigation = navigationWeakReference.get();
 

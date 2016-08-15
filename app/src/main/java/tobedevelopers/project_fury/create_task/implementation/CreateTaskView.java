@@ -2,10 +2,10 @@ package tobedevelopers.project_fury.create_task.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
@@ -17,6 +17,9 @@ import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
  */
 public class CreateTaskView extends BaseView implements CreateTaskContract.View, CreateTaskContract.Navigation{
 
+	//UI References
+	private Button mCreateTaskButton;
+
 	private CreateTaskContract.Presenter presenter;
 
 	@Override
@@ -24,17 +27,37 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		setTitle( getString( R.string.title_activity_createTask ) );
 		setContentView( R.layout.activity_create_task );
 		super.onCreate( savedInstanceState );
-
-		ButterKnife.bind( this );
-
 		presenter = new CreateTaskPresenter( this, this );
+
+		//UI References
+		mCreateTaskButton = ( Button ) findViewById( R.id.createTaskActivity_createTaskButton );
+
+		//Toolbar Config
+		getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+
+		//Button Config
+		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick( View view ){
+				presenter.userSelectCreateTask();
+			}
+		} );
 	}
 
-	//Button Listener
-	@OnClick( R.id.createTaskActivity_createTaskButton )
-	public void onUserSelectCreateTask(){
-		Toast.makeText( this, "Create Task", Toast.LENGTH_SHORT ).show();
-		presenter.userSelectCreateTask();
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item ){
+		switch( item.getItemId() ){
+			case android.R.id.home:
+				navigateToPrevious();
+				return true;
+		}
+
+		return super.onOptionsItemSelected( item );
+	}
+
+	@Override
+	public void navigateToPrevious(){
+		finish();
 	}
 
 	@Override
@@ -42,6 +65,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
 			@Override
 			public void run(){
+				finish();
 				startActivity( new Intent( getParam1(), TaskInfoView.class ) );
 			}
 		} );

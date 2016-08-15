@@ -1,9 +1,9 @@
-package tobedevelopers.project_fury.backlog;
+package tobedevelopers.project_fury.project_board;
 
 /**
- * Created by Macro303 on 12/08/2016.
+ * Created by Macro303 on 13/08/2016.
  */
-public interface BacklogContract{
+public interface ProjectBoardContract{
 
 	interface View{
 

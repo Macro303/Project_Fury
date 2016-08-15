@@ -1,25 +1,21 @@
 package tobedevelopers.project_fury.all_boards.implementation;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import tobedevelopers.project_fury.BaseView;
-import tobedevelopers.project_fury.NavigationListener;
+import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.all_boards.AllBoardsContract;
+import tobedevelopers.project_fury.all_boards.AllBoardsRecyclerAdapter;
 
 /**
  * Created by Macro303 on 12/08/2016.
  */
-public class AllBoardsView extends BaseView implements AllBoardsContract.View, AllBoardsContract.Navigation{
+public class AllBoardsView extends BaseNavigationView implements AllBoardsContract.View, AllBoardsContract.Navigation{
 
 	//UI References
-	private DrawerLayout mDrawerLayout;
-	private Toolbar mToolbar;
-	private NavigationView mNavigationView;
+	private RecyclerView mRecyclerView;
 
 	private AllBoardsContract.Presenter presenter;
 
@@ -31,17 +27,12 @@ public class AllBoardsView extends BaseView implements AllBoardsContract.View, A
 		presenter = new AllBoardsPresenter( this, this );
 
 		//UI References
-		mDrawerLayout = ( DrawerLayout ) findViewById( R.id.allBoardsActivity_drawerLayout );
-		mToolbar = ( Toolbar ) findViewById( R.id.allBoardsActivity_toolbar );
-		mNavigationView = ( NavigationView ) findViewById( R.id.allBoardsActivity_navigationView );
+		mRecyclerView = ( RecyclerView ) findViewById( R.id.allBoardsActivity_recyclerView );
 
-		//Toolbar Config
-		setSupportActionBar( mToolbar );
-
-		//Navigation Config
-		mNavigationView.setNavigationItemSelectedListener( new NavigationListener( this ) );
-		ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, mToolbar, R.string.navigation_open, R.string.navigation_close );
-		mDrawerLayout.addDrawerListener( drawerToggle );
-		drawerToggle.syncState();
+		//Recycler Config
+		mRecyclerView.setHasFixedSize( true );
+		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+		AllBoardsRecyclerAdapter recyclerAdapter = new AllBoardsRecyclerAdapter( this/*Fragment Information*/ );
+		mRecyclerView.setAdapter( recyclerAdapter );
 	}
 }

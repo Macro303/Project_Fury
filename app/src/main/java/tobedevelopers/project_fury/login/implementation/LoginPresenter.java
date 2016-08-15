@@ -28,7 +28,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 	}
 
 	@Override
-	public void userSelectLogin(){
+	public void userSelectDashboard(){
 		LoginContract.View view = viewWeakReference.get();
 		LoginContract.Navigation navigation = navigationWeakReference.get();
 
