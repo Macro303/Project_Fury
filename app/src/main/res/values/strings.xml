@@ -2,7 +2,7 @@
 	<string name="app_name">Project Fury</string>
 
 	<!-- Activity Strings --><!-- Title Strings -->
-	<string name="title_activity_login">Login Activity</string>
+	<string name="title_activity_login">Login</string>
 	<string name="title_activity_register">Register</string>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="title_activity_createProject">Create Project</string>
@@ -44,5 +44,8 @@
 
 	<!-- Spinner Strings -->
 	<string name="spinner_taskAssignee">No One Assigned</string>
+
+	<!-- Error Strings -->
+	<string name="error_message">Error with %1s</string>
 
 </resources>

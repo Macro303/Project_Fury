@@ -1,10 +1,13 @@
 package tobedevelopers.project_fury.create_task.implementation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
@@ -15,9 +18,6 @@ import tobedevelopers.project_fury.create_task.CreateTaskContract;
  */
 public class CreateTaskView extends BaseView implements CreateTaskContract.View, CreateTaskContract.Navigation{
 
-	//UI References
-	private Button mCreateTaskButton;
-
 	private CreateTaskContract.Presenter presenter;
 
 	@Override
@@ -27,19 +27,25 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		super.onCreate( savedInstanceState );
 		presenter = new CreateTaskPresenter( this, this );
 
-		//UI References
-		mCreateTaskButton = ( Button ) findViewById( R.id.createTaskActivity_createTaskButton );
+		ButterKnife.bind( this );
 
 		//Toolbar Config
 		getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+	}
 
-		//Button Config
-		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
+	//Button Listener
+	@OnClick( R.id.createTaskActivity_createTaskButton )
+	public void onUserSelectAButton( View view ){
+		switch( view.getId() ){
+			case R.id.createTaskActivity_createTaskButton:
+				Toast.makeText( this, "Create Task", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectCreateTask();
-			}
-		} );
+				break;
+			default:
+				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				break;
+		}
 	}
 
 	@Override
