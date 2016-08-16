@@ -39,6 +39,7 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:cardview-v7:24.1.1'
     compile 'com.daimajia.numberprogressbar:library:1.2@aar'
+    compile 'com.google.code.gson:gson:2.7'
 
     //Roboguice
     provided 'org.roboguice:roboblender:4.0.0'
