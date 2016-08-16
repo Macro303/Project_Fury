@@ -1,17 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<android.support.design.widget.CoordinatorLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_margin="20dp"
-	android:orientation="vertical">
+	android:layout_height="match_parent">
 
-	<Button
-		android:id="@+id/registerActivity_createAccountButton"
-		android:layout_width="wrap_content"
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:layout_marginTop="20dp"
-		android:text="@string/button_createAccount"/>
+		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-</LinearLayout>
+	</android.support.design.widget.AppBarLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_margin="20dp"
+		android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/registerActivity_instructionsTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_marginBottom="20dp"
+			android:text="@string/textView_registerInstructions"
+			android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/registerActivity_usernameEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_below="@+id/registerActivity_instructionsTextView"
+				android:hint="@string/hint_username"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/registerActivity_emailEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_below="@+id/registerActivity_usernameEditText"
+				android:layout_marginTop="10dp"
+				android:enabled="false"
+				android:hint="@string/hint_email"
+				android:inputType="textEmailAddress"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/registerActivity_passwordEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_below="@+id/registerActivity_emailEditText"
+				android:layout_marginTop="10dp"
+				android:enabled="false"
+				android:fontFamily="sans-serif"
+				android:hint="@string/hint_password"
+				android:inputType="textPassword"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<EditText
+				android:id="@+id/registerActivity_confirmPasswordEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_below="@+id/registerActivity_passwordEditText"
+				android:layout_marginTop="10dp"
+				android:enabled="false"
+				android:fontFamily="sans-serif"
+				android:hint="@string/hint_confirmPassword"
+				android:inputType="textPassword"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<Button
+			android:id="@+id/registerActivity_createAccountButton"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentStart="true"
+			android:layout_below="@id/registerActivity_confirmPasswordEditText"
+			android:layout_gravity="center"
+			android:layout_marginTop="15dp"
+			android:enabled="false"
+			android:text="@string/button_createAccount"/>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="10dp">
+
+			<TextView
+				android:id="@+id/registerActivity_userInstructionTextView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:gravity="center"
+				android:text="@string/textView_userInstruction"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textStyle="italic"/>
+
+			<Button
+				android:id="@+id/registerActivity_returnToLoginButton"
+				style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_marginStart="105dp"
+				android:fontFamily="sans-serif"
+				android:text="@string/button_returnToLoginButton"/>
+
+			<TextView
+				android:id="@+id/textView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_below="@+id/registerActivity_returnToLoginButton"
+				android:clickable="true"
+				android:focusableInTouchMode="true"
+				android:onClick="onUserSelectAButton"
+				android:text="Already a User? Login"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+		</RelativeLayout>
+	</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

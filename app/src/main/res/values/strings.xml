@@ -3,7 +3,7 @@
 
 	<!-- Activity Strings --><!-- Title Strings -->
 	<string name="title_activity_login">Login</string>
-	<string name="title_activity_register">Register</string>
+	<string name="title_activity_register">Register New Account</string>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="title_activity_createProject">Create Project</string>
 	<string name="title_activity_projectInfo">Project Info</string>
@@ -30,12 +30,21 @@
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">Project Board</string>
+	<string name="button_returnToLoginButton">Login</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
 	<string name="textView_taskListTitle">Tasks</string>
 	<string name="textView_taskColumn">Column</string>
 	<string name="textView_taskAssignee">Task Assignee:</string>
+	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
+	<string name="textView_userInstruction">Already a User?</string>
+
+	<!-- Hints -->
+	<string name="hint_username">Username</string>
+	<string name="hint_email">Email</string>
+	<string name="hint_password">Password</string>
+	<string name="hint_confirmPassword">Confirm Password</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
@@ -47,5 +56,9 @@
 
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>
+
+
+	<string name="textView_userInstruction2">Already a User? Login</string>
+	<string name="button_userInstruction">Already a User? Login</string>
 
 </resources>

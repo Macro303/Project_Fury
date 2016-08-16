@@ -25,4 +25,65 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		if( view != null && navigation != null )
 			navigation.navigateToLogin();
 	}
+
+	@Override
+	public void userSelectLogin(){
+		RegisterContract.View view = viewWeakReference.get();
+		RegisterContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			navigation.navigateToLogin();
+	}
+
+	@Override
+	public void userEnterUsername( String username ){
+		RegisterContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			if( username.length() >= 6 && username.length() <= 20 ){
+				view.enableEmailEditText();
+			}else{
+				view.disableEmailEditText();
+			}
+		}
+	}
+
+	@Override
+	public void userEnterEmail( String email ){
+		RegisterContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			if( email.length() >= 6 && email.length() <= 20 ){
+				view.enablePasswordEditText();
+			}else{
+				view.disablePasswordEditText();
+			}
+		}
+	}
+
+	@Override
+	public void userEnterPassword( String password ){
+		RegisterContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			if( password.length() >= 6 && password.length() <= 20 ){
+				view.enableConfirmPasswordEditText();
+			}else{
+				view.disableConfirmPassword();
+			}
+		}
+	}
+
+	@Override
+	public void userEnterConfirmPassword( String confirmPassword ){
+		RegisterContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			if( confirmPassword.length() >= 6 && confirmPassword.length() <= 20 ){
+				view.enableCreateAccountButton();
+			}else{
+				view.disableCreateAccountButton();
+			}
+		}
+	}
 }
