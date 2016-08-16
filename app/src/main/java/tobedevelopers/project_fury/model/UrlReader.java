@@ -1,8 +1,10 @@
 package tobedevelopers.project_fury.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -21,6 +23,7 @@ public class UrlReader{
 		this.urlString = urlString;
 	}
 
+	@NonNull
 	private String readAll( Reader rd ) throws IOException{
 		StringBuilder sb = new StringBuilder();
 		int cp;
@@ -29,17 +32,67 @@ public class UrlReader{
 		return sb.toString();
 	}
 
+	private HttpURLConnection startConnection( String requestType ) throws IOException{
+		URL url = new URL( urlString );
+		HttpURLConnection connection = ( HttpURLConnection ) url.openConnection();
+		connection.setRequestMethod( requestType );
+		connection.setDoInput( true );
+		connection.setDoOutput( true );
+		connection.connect();
+		return connection;
+	}
+
 	public String getFromUrl(){
 		HttpURLConnection connection = null;
 		try{
-			URL url = new URL( urlString );
-			connection = ( HttpURLConnection ) url.openConnection();
-			connection.setRequestMethod( "GET" );
-			connection.connect();
+			connection = startConnection( "GET" );
 			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
-			String response = readAll( br );
+			return readAll( br );
+		}catch( IOException ioe ){
+			Log.e( "Project Fury", ioe.toString() );
+			return null;
+		}finally{
 			connection.disconnect();
-			return response;
+		}
+	}
+
+	public String postToUrl( String parameter ){
+		HttpURLConnection connection = null;
+		try{
+			connection = startConnection( "POST" );
+			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
+				wr.write( parameter.getBytes( "UTF-8" ) );
+			}
+			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
+			return readAll( br );
+		}catch( IOException ioe ){
+			Log.e( "Project Fury", ioe.toString() );
+			return null;
+		}finally{
+			connection.disconnect();
+		}
+	}
+
+	public String putToUrl(){
+		HttpURLConnection connection = null;
+		try{
+			connection = startConnection( "PUT" );
+			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
+			return readAll( br );
+		}catch( IOException ioe ){
+			Log.e( "Project Fury", ioe.toString() );
+			return null;
+		}finally{
+			connection.disconnect();
+		}
+	}
+
+	public String deleteFromUrl(){
+		HttpURLConnection connection = null;
+		try{
+			connection = startConnection( "DELETE" );
+			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
+			return readAll( br );
 		}catch( IOException ioe ){
 			Log.e( "Project Fury", ioe.toString() );
 			return null;
