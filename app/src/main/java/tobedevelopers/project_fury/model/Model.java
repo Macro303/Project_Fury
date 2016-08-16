@@ -13,10 +13,35 @@ public class Model{
 	public Model(){
 	}
 
-	public String get( String callMessage ){
+	public Response get(){
+		urlReader = new UrlReader( apiAddress );
+		return new Gson().fromJson( urlReader.getFromUrl(), Response.class );
+	}
+
+	public Response getUser(){
 		urlReader = new UrlReader( apiAddress + "users" );
-		Response response = new Gson().fromJson( urlReader.getFromUrl(), Response.class );
-		return response.getMessage();
+		return new Gson().fromJson( urlReader.getFromUrl(), Response.class );
+	}
+
+	public User postUser( String[] values ){
+		urlReader = new UrlReader( apiAddress + "users" );
+		String parameters = "firstName=" + values[ 0 ] + "&lastName=" + values[ 1 ];
+		return new Gson().fromJson( urlReader.postToUrl( parameters ), User.class );
+	}
+
+	public User getUserId( int id ){
+		urlReader = new UrlReader( apiAddress + "users/" + id );
+		return new Gson().fromJson( urlReader.getFromUrl(), User.class );
+	}
+
+	public Response putUserId( int id ){
+		urlReader = new UrlReader( apiAddress + "users/" + id );
+		return new Gson().fromJson( urlReader.putToUrl(), Response.class );
+	}
+
+	public Response deleteUserId( int id ){
+		urlReader = new UrlReader( apiAddress + "users/" + id );
+		return new Gson().fromJson( urlReader.deleteFromUrl(), Response.class );
 	}
 
 }

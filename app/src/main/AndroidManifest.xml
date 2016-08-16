@@ -1,5 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="tobedevelopers.project_fury">
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="tobedevelopers.project_fury">
+
+	<uses-permission android:name="android.permission.INTERNET"/>
 
 	<application
 		android:allowBackup="true"
