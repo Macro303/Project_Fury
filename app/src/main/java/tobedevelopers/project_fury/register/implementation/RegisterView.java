@@ -1,8 +1,8 @@
 package tobedevelopers.project_fury.register.implementation;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.Runnable1Param;
@@ -20,12 +21,18 @@ import tobedevelopers.project_fury.register.RegisterContract;
 public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
 
 	@Bind( R.id.registerActivity_createAccountButton )
-	Button createAccountButton;
+	Button mCreateAccountButton;
+	@Bind( R.id.registerActivity_usernameEditText )
+	EditText mUserNameEditText;
+	@Bind( R.id.registerActivity_emailEditText )
+	EditText mEmailEditText;
+	@Bind( R.id.registerActivity_passwordEditText )
+	EditText mPasswordEditText;
+	@Bind( R.id.registerActivity_confirmPasswordEditText )
+	EditText mConfirmPasswordEditText;
+
 	private RegisterContract.Presenter presenter;
-	private EditText usernameEditText;
-	private EditText emailEditText;
-	private EditText passwordEditText;
-	private EditText confirmPasswordEditText;
+	private Drawable warning;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -36,81 +43,9 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		presenter = new RegisterPresenter( this, this );
 
 		ButterKnife.bind( this );
-
-		usernameEditText = ( EditText ) findViewById( R.id.registerActivity_usernameEditText );
-		usernameEditText.addTextChangedListener( new TextWatcher(){
-			@Override
-			public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void afterTextChanged( Editable editable ){
-				presenter.userEnterUsername( editable.toString() );
-			}
-		} );
-
-		emailEditText = ( EditText ) findViewById( R.id.registerActivity_emailEditText );
-		emailEditText.addTextChangedListener( new TextWatcher(){
-			@Override
-			public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void afterTextChanged( Editable editable ){
-				presenter.userEnterEmail( editable.toString() );
-			}
-		} );
-
-		passwordEditText = ( EditText ) findViewById( R.id.registerActivity_passwordEditText );
-		passwordEditText.addTextChangedListener( new TextWatcher(){
-			@Override
-			public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void afterTextChanged( Editable editable ){
-				presenter.userEnterPassword( editable.toString() );
-			}
-		} );
-
-		confirmPasswordEditText = ( EditText ) findViewById( R.id.registerActivity_confirmPasswordEditText );
-		confirmPasswordEditText.addTextChangedListener( new TextWatcher(){
-			@Override
-			public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ){
-
-			}
-
-			@Override
-			public void afterTextChanged( Editable editable ){
-				presenter.userEnterConfirmPassword( editable.toString() );
-			}
-		} );
 	}
 
-	//Button Listener
+	//Buttons Listeners
 	@OnClick( { R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton, R.id.textView } )
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
@@ -132,6 +67,27 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		}
 	}
 
+	//Text Change Listeners
+	@OnTextChanged( value = { R.id.registerActivity_usernameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangedUserNameEditText( Editable editable ){
+		presenter.userEnterUsername( editable.toString() );
+	}
+
+	@OnTextChanged( value = { R.id.registerActivity_emailEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangedEmailEditText( Editable editable ){
+		presenter.userEnterEmail( editable.toString() );
+	}
+
+	@OnTextChanged( value = { R.id.registerActivity_passwordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangedPasswordEditText( Editable editable ){
+		presenter.userEnterPassword( editable.toString() );
+	}
+
+	@OnTextChanged( value = { R.id.registerActivity_confirmPasswordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangeConfirmPasswordEditText( Editable editable ){
+		presenter.userEnterConfirmPassword( editable.toString() );
+	}
+
 	@Override
 	public void navigateToLogin(){
 		finish();
@@ -142,7 +98,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().createAccountButton.setEnabled( true );
+				getParam1().mCreateAccountButton.setEnabled( true );
 			}
 		} );
 	}
@@ -152,7 +108,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().emailEditText.setEnabled( true );
+				getParam1().mEmailEditText.setEnabled( true );
 			}
 		} );
 	}
@@ -162,7 +118,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().passwordEditText.setEnabled( true );
+				getParam1().mPasswordEditText.setEnabled( true );
 			}
 		} );
 	}
@@ -172,7 +128,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().confirmPasswordEditText.setEnabled( true );
+				getParam1().mConfirmPasswordEditText.setEnabled( true );
 			}
 		} );
 	}
@@ -182,7 +138,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().createAccountButton.setEnabled( false );
+				getParam1().mCreateAccountButton.setEnabled( false );
 			}
 		} );
 	}
@@ -192,7 +148,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().emailEditText.setEnabled( false );
+				getParam1().mEmailEditText.setEnabled( false );
 			}
 		} );
 	}
@@ -202,7 +158,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().passwordEditText.setEnabled( false );
+				getParam1().mPasswordEditText.setEnabled( false );
 			}
 		} );
 	}
@@ -212,8 +168,48 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				getParam1().confirmPasswordEditText.setEnabled( false );
+				getParam1().mConfirmPasswordEditText.setEnabled( false );
 			}
 		} );
 	}
+
+	@Override
+	public void setUsernameValidation(){
+		runOnUiThread( new Runnable1Param< EditText >( mUserNameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Minimum of 6 Characters" );
+			}
+		} );
+	}
+
+	@Override
+	public void setEmailValidation(){
+		runOnUiThread( new Runnable1Param< EditText >( mEmailEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Please enter a valid email" );
+			}
+		} );
+	}
+
+	@Override
+	public void setPasswordValidation(){
+		runOnUiThread( new Runnable1Param< EditText >( mPasswordEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Minimum of 6 Characters" );
+			}
+		} );
+	}
+//
+//	@Override
+//	public void setConfirmPasswordValidation(){
+//		runOnUiThread( new Runnable1Param<EditText>(mConfirmPasswordEditText){
+//			@Override
+//			public void run(){
+//				getParam1().setError( "Pleas" );
+//			}
+//		} );
+//	}
 }

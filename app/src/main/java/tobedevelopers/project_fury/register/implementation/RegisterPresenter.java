@@ -12,6 +12,8 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 	private WeakReference< RegisterContract.View > viewWeakReference;
 	private WeakReference< RegisterContract.Navigation > navigationWeakReference;
 
+	private String mPassword;
+
 	public RegisterPresenter( RegisterContract.View view, RegisterContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
@@ -40,10 +42,16 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		RegisterContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( username.length() >= 6 && username.length() <= 20 ){
+			if( username.length() >= 6 && username.length() < 20 ){
 				view.enableEmailEditText();
 			}else{
-				view.disableEmailEditText();
+				if( username.length() < 6 ){
+					view.setUsernameValidation();
+					view.disableEmailEditText();
+					view.disablePasswordEditText();
+					view.disableConfirmPassword();
+					view.disableCreateAccountButton();
+				}
 			}
 		}
 	}
@@ -51,12 +59,15 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 	@Override
 	public void userEnterEmail( String email ){
 		RegisterContract.View view = viewWeakReference.get();
-
+		String mEmailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 		if( view != null ){
-			if( email.length() >= 6 && email.length() <= 20 ){
+			if( email.matches( mEmailPattern ) && email.length() > 0 ){
 				view.enablePasswordEditText();
 			}else{
+				view.setEmailValidation();
 				view.disablePasswordEditText();
+				view.disableConfirmPassword();
+				view.disableCreateAccountButton();
 			}
 		}
 	}
@@ -66,10 +77,15 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		RegisterContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( password.length() >= 6 && password.length() <= 20 ){
+			if( password.length() >= 6 && password.length() < 20 ){
 				view.enableConfirmPasswordEditText();
+				mPassword = password;
 			}else{
-				view.disableConfirmPassword();
+				if( password.length() < 6 ){
+					view.setPasswordValidation();
+					view.disableConfirmPassword();
+					view.disableCreateAccountButton();
+				}
 			}
 		}
 	}
@@ -79,9 +95,10 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		RegisterContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( confirmPassword.length() >= 6 && confirmPassword.length() <= 20 ){
+			if( confirmPassword.equals( mPassword ) ){
 				view.enableCreateAccountButton();
 			}else{
+//				view.setConfirmPasswordValidation();
 				view.disableCreateAccountButton();
 			}
 		}

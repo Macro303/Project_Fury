@@ -37,7 +37,9 @@
 				android:layout_height="wrap_content"
 				android:layout_alignParentStart="true"
 				android:layout_below="@+id/registerActivity_instructionsTextView"
+				android:digits="@string/alphaNumericCharacters"
 				android:hint="@string/hint_username"
+				android:maxLength="20"
 				android:singleLine="true"/>
 
 		</android.support.design.widget.TextInputLayout>
@@ -53,7 +55,6 @@
 				android:layout_alignParentStart="true"
 				android:layout_below="@+id/registerActivity_usernameEditText"
 				android:layout_marginTop="10dp"
-				android:enabled="false"
 				android:hint="@string/hint_email"
 				android:inputType="textEmailAddress"
 				android:singleLine="true"/>
@@ -71,10 +72,11 @@
 				android:layout_alignParentStart="true"
 				android:layout_below="@+id/registerActivity_emailEditText"
 				android:layout_marginTop="10dp"
-				android:enabled="false"
+				android:digits="@string/alphaNumericCharacters"
 				android:fontFamily="sans-serif"
 				android:hint="@string/hint_password"
 				android:inputType="textPassword"
+				android:maxLength="20"
 				android:singleLine="true"/>
 
 		</android.support.design.widget.TextInputLayout>
@@ -90,10 +92,11 @@
 				android:layout_alignParentStart="true"
 				android:layout_below="@+id/registerActivity_passwordEditText"
 				android:layout_marginTop="10dp"
-				android:enabled="false"
+				android:digits="@string/alphaNumericCharacters"
 				android:fontFamily="sans-serif"
 				android:hint="@string/hint_confirmPassword"
 				android:inputType="textPassword"
+				android:maxLength="20"
 				android:singleLine="true"/>
 
 		</android.support.design.widget.TextInputLayout>

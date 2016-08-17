@@ -21,6 +21,14 @@ public interface RegisterContract{
 		void disablePasswordEditText();
 
 		void disableConfirmPassword();
+
+		void setUsernameValidation();
+
+		void setEmailValidation();
+
+		void setPasswordValidation();
+
+//		void setConfirmPasswordValidation();
 	}
 
 	interface Navigation{

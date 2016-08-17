@@ -61,4 +61,6 @@
 	<string name="textView_userInstruction2">Already a User? Login</string>
 	<string name="button_userInstruction">Already a User? Login</string>
 
+	<string name="alphaNumericCharacters">1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
 </resources>
