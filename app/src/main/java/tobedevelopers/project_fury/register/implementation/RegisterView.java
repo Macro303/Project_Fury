@@ -1,6 +1,5 @@
 package tobedevelopers.project_fury.register.implementation;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -32,7 +31,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	EditText mConfirmPasswordEditText;
 
 	private RegisterContract.Presenter presenter;
-	private Drawable warning;
+	private String mPassword;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -81,11 +80,12 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	@OnTextChanged( value = { R.id.registerActivity_passwordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedPasswordEditText( Editable editable ){
 		presenter.userEnterPassword( editable.toString() );
+		mPassword = editable.toString();
 	}
 
 	@OnTextChanged( value = { R.id.registerActivity_confirmPasswordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangeConfirmPasswordEditText( Editable editable ){
-		presenter.userEnterConfirmPassword( editable.toString() );
+		presenter.userEnterConfirmPassword( editable.toString(), mPassword );
 	}
 
 	@Override

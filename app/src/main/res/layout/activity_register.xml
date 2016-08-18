@@ -75,7 +75,6 @@
 				android:digits="@string/alphaNumericCharacters"
 				android:fontFamily="sans-serif"
 				android:hint="@string/hint_password"
-				android:inputType="textPassword"
 				android:maxLength="20"
 				android:singleLine="true"/>
 
@@ -95,7 +94,6 @@
 				android:digits="@string/alphaNumericCharacters"
 				android:fontFamily="sans-serif"
 				android:hint="@string/hint_confirmPassword"
-				android:inputType="textPassword"
 				android:maxLength="20"
 				android:singleLine="true"/>
 

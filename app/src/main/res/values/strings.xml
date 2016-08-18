@@ -31,6 +31,7 @@
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">Project Board</string>
 	<string name="button_returnToLoginButton">Login</string>
+	<string name="button_userInstruction">Already a User? Login</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
@@ -39,6 +40,7 @@
 	<string name="textView_taskAssignee">Task Assignee:</string>
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
 	<string name="textView_userInstruction">Already a User?</string>
+	<string name="textView_userInstruction2">Already a User? Login</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -57,10 +59,7 @@
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>
 
-
-	<string name="textView_userInstruction2">Already a User? Login</string>
-	<string name="button_userInstruction">Already a User? Login</string>
-
+	<!-- Misc -->
 	<string name="alphaNumericCharacters">1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 
 </resources>

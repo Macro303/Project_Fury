@@ -46,6 +46,6 @@ public interface RegisterContract{
 
 		void userEnterPassword( String password );
 
-		void userEnterConfirmPassword( String confirmPassword );
+		void userEnterConfirmPassword( String confirmPassword, String password );
 	}
 }

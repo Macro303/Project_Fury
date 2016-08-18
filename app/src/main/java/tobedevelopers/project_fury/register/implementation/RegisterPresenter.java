@@ -12,8 +12,6 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 	private WeakReference< RegisterContract.View > viewWeakReference;
 	private WeakReference< RegisterContract.Navigation > navigationWeakReference;
 
-	private String mPassword;
-
 	public RegisterPresenter( RegisterContract.View view, RegisterContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
@@ -51,6 +49,11 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 					view.disablePasswordEditText();
 					view.disableConfirmPassword();
 					view.disableCreateAccountButton();
+				}else if( username.length() > 20 ){
+					view.disableEmailEditText();
+					view.disablePasswordEditText();
+					view.disableConfirmPassword();
+					view.disableCreateAccountButton();
 				}
 			}
 		}
@@ -79,10 +82,12 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		if( view != null ){
 			if( password.length() >= 6 && password.length() < 20 ){
 				view.enableConfirmPasswordEditText();
-				mPassword = password;
 			}else{
 				if( password.length() < 6 ){
 					view.setPasswordValidation();
+					view.disableConfirmPassword();
+					view.disableCreateAccountButton();
+				}else if( password.length() > 20 ){
 					view.disableConfirmPassword();
 					view.disableCreateAccountButton();
 				}
@@ -91,11 +96,11 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 	}
 
 	@Override
-	public void userEnterConfirmPassword( String confirmPassword ){
+	public void userEnterConfirmPassword( String confirmPassword, String password ){
 		RegisterContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( confirmPassword.equals( mPassword ) ){
+			if( confirmPassword.equals( password ) ){
 				view.enableCreateAccountButton();
 			}else{
 //				view.setConfirmPasswordValidation();
