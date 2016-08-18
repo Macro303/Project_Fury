@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -88,6 +89,13 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		presenter.userEnterConfirmPassword( editable.toString(), mPassword );
 	}
 
+	public void hideSoftKeyboard(){
+		if( getCurrentFocus() != null ){
+			InputMethodManager inputMethodManager = ( InputMethodManager ) getSystemService( INPUT_METHOD_SERVICE );
+			inputMethodManager.hideSoftInputFromWindow( getCurrentFocus().getWindowToken(), 0 );
+		}
+	}
+
 	@Override
 	public void navigateToLogin(){
 		finish();
@@ -99,6 +107,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 			@Override
 			public void run(){
 				getParam1().mCreateAccountButton.setEnabled( true );
+				hideSoftKeyboard();
 			}
 		} );
 	}
