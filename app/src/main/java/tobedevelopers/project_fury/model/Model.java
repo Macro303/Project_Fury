@@ -13,12 +13,7 @@ public class Model{
 	public Model(){
 	}
 
-	public Response get(){
-		urlReader = new UrlReader( apiAddress );
-		return new Gson().fromJson( urlReader.getFromUrl(), Response.class );
-	}
-
-	public Response getUser(){
+	public Response getAllUsers(){
 		urlReader = new UrlReader( apiAddress + "users" );
 		return new Gson().fromJson( urlReader.getFromUrl(), Response.class );
 	}
