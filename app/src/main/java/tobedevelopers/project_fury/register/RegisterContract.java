@@ -8,27 +8,19 @@ public interface RegisterContract{
 	interface View{
 		void enableCreateAccountButton();
 
-		void enableEmailEditText();
-
-		void enablePasswordEditText();
-
-		void enableConfirmPasswordEditText();
-
 		void disableCreateAccountButton();
 
-		void disableEmailEditText();
-
-		void disablePasswordEditText();
-
-		void disableConfirmPassword();
-
 		void setUsernameValidation();
+
+		void setUsernameOver20CharValidation();
 
 		void setEmailValidation();
 
 		void setPasswordValidation();
 
-//		void setConfirmPasswordValidation();
+		void setPasswordOver20CharValidation();
+
+		void setConfirmPasswordValidation();
 	}
 
 	interface Navigation{

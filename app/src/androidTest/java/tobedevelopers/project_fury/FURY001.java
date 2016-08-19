@@ -26,7 +26,7 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterUsername( "Andrea1234" );
-		verify( viewMock ).enableEmailEditText();
+		verify(viewMock).disableCreateAccountButton();
 	}
 
 	public void testInvalidTooShortUsername(){
@@ -37,9 +37,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 
 		presenter.userEnterUsername( "and" );
 		verify( viewMock ).setUsernameValidation();
-		verify( viewMock ).disableEmailEditText();
-		verify( viewMock ).disablePasswordEditText();
-		verify( viewMock ).disableConfirmPassword();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -50,9 +47,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterUsername( "123456789012345678901" );
-		verify( viewMock ).disableEmailEditText();
-		verify( viewMock ).disablePasswordEditText();
-		verify( viewMock ).disableConfirmPassword();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -78,7 +72,7 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterEmail( "awolff@live.ca" );
-		verify( viewMock ).enablePasswordEditText();
+		verify(viewMock).disableCreateAccountButton();
 	}
 
 	public void testInvalidEmail(){
@@ -89,8 +83,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 
 		presenter.userEnterEmail( "awolff.com+" );
 		verify( viewMock ).setEmailValidation();
-		verify( viewMock ).disablePasswordEditText();
-		verify( viewMock ).disableConfirmPassword();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -102,7 +94,7 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterPassword( "Password123" );
-		verify( viewMock ).enableConfirmPasswordEditText();
+		verify(viewMock).disableCreateAccountButton();
 	}
 
 	public void testInvalidTooShortPassword(){
@@ -113,7 +105,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 
 		presenter.userEnterPassword( "pass" );
 		verify( viewMock ).setPasswordValidation();
-		verify( viewMock ).disableConfirmPassword();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -124,7 +115,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterPassword( "abcdefgh123456789012345" );
-		verify( viewMock ).disableConfirmPassword();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 

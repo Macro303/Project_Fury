@@ -46,7 +46,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	//Buttons Listeners
-	@OnClick( { R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton, R.id.textView } )
+	@OnClick({R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton})
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
@@ -55,9 +55,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 				break;
 			case R.id.registerActivity_returnToLoginButton:
 				//Toast.makeText( this, "Login", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectLogin();
-				break;
-			case R.id.textView:
 				presenter.userSelectLogin();
 				break;
 			default:
@@ -113,71 +110,11 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
-	public void enableEmailEditText(){
-		runOnUiThread( new Runnable1Param< RegisterView >( this ){
-			@Override
-			public void run(){
-				getParam1().mEmailEditText.setEnabled( true );
-			}
-		} );
-	}
-
-	@Override
-	public void enablePasswordEditText(){
-		runOnUiThread( new Runnable1Param< RegisterView >( this ){
-			@Override
-			public void run(){
-				getParam1().mPasswordEditText.setEnabled( true );
-			}
-		} );
-	}
-
-	@Override
-	public void enableConfirmPasswordEditText(){
-		runOnUiThread( new Runnable1Param< RegisterView >( this ){
-			@Override
-			public void run(){
-				getParam1().mConfirmPasswordEditText.setEnabled( true );
-			}
-		} );
-	}
-
-	@Override
 	public void disableCreateAccountButton(){
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
 				getParam1().mCreateAccountButton.setEnabled( false );
-			}
-		} );
-	}
-
-	@Override
-	public void disableEmailEditText(){
-		runOnUiThread( new Runnable1Param< RegisterView >( this ){
-			@Override
-			public void run(){
-				getParam1().mEmailEditText.setEnabled( false );
-			}
-		} );
-	}
-
-	@Override
-	public void disablePasswordEditText(){
-		runOnUiThread( new Runnable1Param< RegisterView >( this ){
-			@Override
-			public void run(){
-				getParam1().mPasswordEditText.setEnabled( false );
-			}
-		} );
-	}
-
-	@Override
-	public void disableConfirmPassword(){
-		runOnUiThread( new Runnable1Param< RegisterView >( this ){
-			@Override
-			public void run(){
-				getParam1().mConfirmPasswordEditText.setEnabled( false );
 			}
 		} );
 	}
@@ -190,6 +127,16 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 				getParam1().setError( "Minimum of 6 Characters" );
 			}
 		} );
+	}
+
+	@Override
+	public void setUsernameOver20CharValidation() {
+		runOnUiThread(new Runnable1Param<EditText>(mUserNameEditText) {
+			@Override
+			public void run() {
+				getParam1().setError("Maximum of 20 Characters");
+			}
+		});
 	}
 
 	@Override
@@ -211,14 +158,24 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 			}
 		} );
 	}
-//
-//	@Override
-//	public void setConfirmPasswordValidation(){
-//		runOnUiThread( new Runnable1Param<EditText>(mConfirmPasswordEditText){
-//			@Override
-//			public void run(){
-//				getParam1().setError( "Pleas" );
-//			}
-//		} );
-//	}
+
+	@Override
+	public void setPasswordOver20CharValidation() {
+		runOnUiThread(new Runnable1Param<EditText>(mPasswordEditText) {
+			@Override
+			public void run() {
+				getParam1().setError("Maximum of 20 Characters");
+			}
+		});
+	}
+
+	@Override
+	public void setConfirmPasswordValidation() {
+		runOnUiThread(new Runnable1Param<EditText>(mConfirmPasswordEditText) {
+			@Override
+			public void run() {
+				getParam1().setError("Password does not currently match");
+			}
+		});
+	}
 }
