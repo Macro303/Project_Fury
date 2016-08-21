@@ -17,7 +17,9 @@ import tobedevelopers.project_fury.register.implementation.RegisterView;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
@@ -125,6 +127,21 @@ public class FURY001RegisterTest {
 
         //Login button enabled
         onView(withId(R.id.registerActivity_returnToLoginButton)).check(matches(isEnabled()));
+    }
+
+    @Test
+    public void testInvalidCharacterInput(){
+        onView( withId( R.id.registerActivity_usernameEditText ) ).perform( typeText( "':|][?" ), closeSoftKeyboard() );
+        onView( withId( R.id.registerActivity_usernameEditText ) ).perform( click() );
+        onView( withId( R.id.registerActivity_usernameEditText ) ).check( matches( withText( "" ) ) );
+
+        onView( withId( R.id.registerActivity_passwordEditText ) ).perform( typeText( "':|][?" ), closeSoftKeyboard() );
+        onView( withId( R.id.registerActivity_passwordEditText ) ).perform( click() );
+        onView( withId( R.id.registerActivity_passwordEditText ) ).check( matches( withText( "" ) ) );
+
+        onView( withId( R.id.registerActivity_confirmPasswordEditText ) ).perform( typeText( "':|][?" ), closeSoftKeyboard() );
+        onView( withId( R.id.registerActivity_confirmPasswordEditText ) ).perform( click() );
+        onView( withId( R.id.registerActivity_confirmPasswordEditText ) ).check( matches( withText( "" ) ) );
     }
 }
 
