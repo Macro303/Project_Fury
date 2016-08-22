@@ -18,9 +18,14 @@ import java.nio.charset.Charset;
 public class UrlReader{
 
 	private final String urlString;
+	private int responseCode;
 
 	public UrlReader( String urlString ){
 		this.urlString = urlString;
+	}
+
+	public int getResponseCode(){
+		return responseCode;
 	}
 
 	@NonNull
@@ -47,43 +52,54 @@ public class UrlReader{
 		try{
 			connection = startConnection( "GET" );
 			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
+			responseCode = connection.getResponseCode();
 			return readAll( br );
 		}catch( IOException ioe ){
 			Log.e( "Project Fury", ioe.toString() );
 			return null;
 		}finally{
-			connection.disconnect();
+			if( connection != null )
+				connection.disconnect();
 		}
 	}
 
-	public String postToUrl( String parameter ){
+	public String postToUrl( String parameters ){
 		HttpURLConnection connection = null;
 		try{
 			connection = startConnection( "POST" );
 			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
-				wr.write( parameter.getBytes( "UTF-8" ) );
+				wr.write( parameters.getBytes( "UTF-8" ) );
 			}
 			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
+			responseCode = connection.getResponseCode();
 			return readAll( br );
 		}catch( IOException ioe ){
-			Log.e( "Project Fury", ioe.toString() );
+			//Log.e( "Project Fury", ioe.toString() );
+			System.out.println( ioe.toString() );
 			return null;
 		}finally{
-			connection.disconnect();
+			if( connection != null )
+				connection.disconnect();
 		}
 	}
 
-	public String putToUrl(){
+	public String putToUrl( String parameters ){
 		HttpURLConnection connection = null;
 		try{
 			connection = startConnection( "PUT" );
+			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
+				wr.write( parameters.getBytes( "UTF-8" ) );
+			}
 			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
+			responseCode = connection.getResponseCode();
 			return readAll( br );
 		}catch( IOException ioe ){
-			Log.e( "Project Fury", ioe.toString() );
+			//Log.e( "Project Fury", ioe.toString() );
+			System.out.println( ioe.toString() );
 			return null;
 		}finally{
-			connection.disconnect();
+			if( connection != null )
+				connection.disconnect();
 		}
 	}
 
@@ -97,7 +113,8 @@ public class UrlReader{
 			Log.e( "Project Fury", ioe.toString() );
 			return null;
 		}finally{
-			connection.disconnect();
+			if( connection != null )
+				connection.disconnect();
 		}
 	}
 }

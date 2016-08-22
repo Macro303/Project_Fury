@@ -17,17 +17,6 @@ public class User{
 	private Date createdAt;
 	@SerializedName( "updated_at" )
 	private Date updatedAt;
-	private int userID;
-	@SerializedName( "first-name" )
-	private String firstName;
-	@SerializedName( "last-name" )
-	private String lastName;
-
-	public User( int userID, String firstName, String lastName ){
-		this.userID = userID;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 
 	public User( Boolean admin, Date createdAt, String email, Date updatedAt, String password, String username ){
 		this.admin = admin;
@@ -36,18 +25,6 @@ public class User{
 		this.updatedAt = updatedAt;
 		this.password = password;
 		this.username = username;
-	}
-
-	public int getUserID(){
-		return userID;
-	}
-
-	public String getFirstName(){
-		return firstName;
-	}
-
-	public String getLastName(){
-		return lastName;
 	}
 
 	public Boolean getAdmin(){
@@ -74,20 +51,8 @@ public class User{
 		return username;
 	}
 
-	/*@Override
-	public String toString(){
-		return "User ID: " + userID +
-			       "\nFirst Name: " + firstName +
-			       "\nLast Name: " + lastName;
-	}*/
-
 	@Override
 	public String toString(){
-		return "Username: " + username +
-			       "\nPassword: " + password +
-			       "\nEmail: " + email +
-			       "\nAdmin: " + admin +
-			       "\nCreated At: " + createdAt +
-			       "\nUpdated At: " + updatedAt;
+		return "Username: " + username + "\nPassword: " + password + "\nEmail: " + email + "\nAdmin: " + admin + "\nCreated At: " + createdAt.toString() + "\nUpdated At: " + updatedAt.toString();
 	}
 }
