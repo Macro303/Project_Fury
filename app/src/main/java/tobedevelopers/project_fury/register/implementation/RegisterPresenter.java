@@ -1,5 +1,7 @@
 package tobedevelopers.project_fury.register.implementation;
 
+import android.os.AsyncTask;
+
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.register.RegisterContract;
@@ -12,6 +14,10 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     private WeakReference<RegisterContract.View> viewWeakReference;
     private WeakReference<RegisterContract.Navigation> navigationWeakReference;
 
+    private String mUsername;
+    private String mEmail;
+    private String mPassword;
+
     public RegisterPresenter(RegisterContract.View view, RegisterContract.Navigation navigation) {
         this.viewWeakReference = new WeakReference<>(view);
         this.navigationWeakReference = new WeakReference<>(navigation);
@@ -22,8 +28,41 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         RegisterContract.View view = viewWeakReference.get();
         RegisterContract.Navigation navigation = navigationWeakReference.get();
 
-        if (view != null && navigation != null)
-            navigation.navigateToLogin();
+        if( view != null && navigation != null ){
+//            new UserRegisterTask( ).execute(mUsername, mEmail, mPassword);
+//            navigation.navigateToLogin();
+            new AsyncTask< String, Void, Boolean >(){
+
+                @Override
+                protected void onPreExecute(){
+                    RegisterContract.View view = viewWeakReference.get();
+
+                    if( view != null ){
+                        view.registrationInProgress();
+                    }
+                }
+
+                @Override
+                protected Boolean doInBackground( String... strings ){
+
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute( final Boolean success ){
+                    RegisterContract.View view = viewWeakReference.get();
+                    RegisterContract.Navigation navigation = navigationWeakReference.get();
+
+                    if( view != null ){
+                        if( success ){
+                            navigation.navigateToLogin();
+                        }else{
+                            view.setUsernameAlreadyUsedValidation();
+                        }
+                    }
+                }
+            }.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+        }
     }
 
     @Override
@@ -41,6 +80,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
         if (view != null) {
             if (username.length() >= 6 && username.length() < 20) {
+                mUsername = username;
                 view.disableCreateAccountButton();
             } else {
                 if (username.length() < 6) {
@@ -61,7 +101,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
         if (view != null) {
             if (email.matches(mEmailPattern) && email.length() > 0) {
-
+                mEmail = email;
                 view.disableCreateAccountButton();
             } else {
                 view.setEmailValidation();
@@ -76,6 +116,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
         if (view != null) {
             if (password.length() >= 6 && password.length() < 20) {
+                mPassword = password;
                 view.disableCreateAccountButton();
             } else {
                 if (password.length() < 6) {
@@ -102,4 +143,47 @@ public class RegisterPresenter implements RegisterContract.Presenter {
             }
         }
     }
+
+//    public class UserRegisterTask extends AsyncTask<String, Void, Boolean> {
+//
+////        private final String mUsername;
+////        private final String mEmail;
+////        private final String mPassword;
+//
+//        public UserRegisterTask() {
+////            mUsername = username;
+////            mEmail = email;
+////            mPassword = password;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            RegisterContract.View view = viewWeakReference.get();
+//
+//            if(view != null) {
+//                view.registrationInProgress();
+//            }
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground( String... params ){
+//
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(final Boolean success) {
+//            RegisterContract.View view = viewWeakReference.get();
+//            RegisterContract.Navigation navigation = navigationWeakReference.get();
+//
+//            if(view != null){
+//                if( success ){
+//                    navigation.navigateToLogin();
+//                }else{
+//                    view.setUsernameAlreadyUsedValidation();
+//                }
+//            }
+//        }
+//    }
 }

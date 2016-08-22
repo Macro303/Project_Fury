@@ -120,6 +120,16 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
+	public void registrationInProgress(){
+		runOnUiThread( new Runnable1Param< RegisterView >( this ){
+			@Override
+			public void run(){
+				Toast.makeText( getParam1(), "Registration in progress, please wait...", Toast.LENGTH_SHORT ).show();
+			}
+		} );
+	}
+
+	@Override
 	public void setUsernameValidation(){
 		runOnUiThread( new Runnable1Param< EditText >( mUserNameEditText ){
 			@Override
@@ -137,6 +147,16 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 				getParam1().setError("Maximum of 20 Characters");
 			}
 		});
+	}
+
+	@Override
+	public void setUsernameAlreadyUsedValidation(){
+		runOnUiThread( new Runnable1Param< EditText >( mUserNameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Username already in use" );
+			}
+		} );
 	}
 
 	@Override

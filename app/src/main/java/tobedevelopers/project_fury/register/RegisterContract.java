@@ -10,9 +10,13 @@ public interface RegisterContract{
 
 		void disableCreateAccountButton();
 
+		void registrationInProgress();
+
 		void setUsernameValidation();
 
 		void setUsernameOver20CharValidation();
+
+		void setUsernameAlreadyUsedValidation();
 
 		void setEmailValidation();
 
