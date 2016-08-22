@@ -198,4 +198,9 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 			}
 		});
 	}
+
+	@Override
+	public void noInternetAccessValidation(){
+		Toast.makeText( this, "No Internet Access", Toast.LENGTH_LONG ).show();
+	}
 }

@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.Response;
 import tobedevelopers.project_fury.register.RegisterContract;
 
 /**
@@ -13,6 +16,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     private WeakReference<RegisterContract.View> viewWeakReference;
     private WeakReference<RegisterContract.Navigation> navigationWeakReference;
+    private ModelContract modelContract;
 
     private String mUsername;
     private String mEmail;
@@ -21,6 +25,8 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     public RegisterPresenter(RegisterContract.View view, RegisterContract.Navigation navigation) {
         this.viewWeakReference = new WeakReference<>(view);
         this.navigationWeakReference = new WeakReference<>(navigation);
+        this.modelContract = new Model();
+
     }
 
     @Override
@@ -29,9 +35,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         RegisterContract.Navigation navigation = navigationWeakReference.get();
 
         if( view != null && navigation != null ){
-//            new UserRegisterTask( ).execute(mUsername, mEmail, mPassword);
-//            navigation.navigateToLogin();
-            new AsyncTask< String, Void, Boolean >(){
+            new AsyncTask< String, Void, Response >(){
 
                 @Override
                 protected void onPreExecute(){
@@ -43,19 +47,20 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                 }
 
                 @Override
-                protected Boolean doInBackground( String... strings ){
-
-                    return null;
+                protected Response doInBackground( String... strings ){
+                    return modelContract.createUser( mUsername, mPassword, mEmail );
                 }
 
                 @Override
-                protected void onPostExecute( final Boolean success ){
+                protected void onPostExecute( Response response ){
                     RegisterContract.View view = viewWeakReference.get();
                     RegisterContract.Navigation navigation = navigationWeakReference.get();
 
                     if( view != null ){
-                        if( success ){
+                        if( response.getError().equals( "Passed" ) ){
                             navigation.navigateToLogin();
+                        }else if( response.getError().equals( "No Internet Access" ) ){
+                            view.noInternetAccessValidation();
                         }else{
                             view.setUsernameAlreadyUsedValidation();
                         }
@@ -143,47 +148,4 @@ public class RegisterPresenter implements RegisterContract.Presenter {
             }
         }
     }
-
-//    public class UserRegisterTask extends AsyncTask<String, Void, Boolean> {
-//
-////        private final String mUsername;
-////        private final String mEmail;
-////        private final String mPassword;
-//
-//        public UserRegisterTask() {
-////            mUsername = username;
-////            mEmail = email;
-////            mPassword = password;
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            RegisterContract.View view = viewWeakReference.get();
-//
-//            if(view != null) {
-//                view.registrationInProgress();
-//            }
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground( String... params ){
-//
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(final Boolean success) {
-//            RegisterContract.View view = viewWeakReference.get();
-//            RegisterContract.Navigation navigation = navigationWeakReference.get();
-//
-//            if(view != null){
-//                if( success ){
-//                    navigation.navigateToLogin();
-//                }else{
-//                    view.setUsernameAlreadyUsedValidation();
-//                }
-//            }
-//        }
-//    }
 }

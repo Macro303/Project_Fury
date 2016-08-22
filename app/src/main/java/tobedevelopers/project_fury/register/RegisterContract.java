@@ -25,6 +25,8 @@ public interface RegisterContract{
 		void setPasswordOver20CharValidation();
 
 		void setConfirmPasswordValidation();
+
+		void noInternetAccessValidation();
 	}
 
 	interface Navigation{
