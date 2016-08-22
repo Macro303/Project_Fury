@@ -5,18 +5,36 @@ package tobedevelopers.project_fury.model;
  */
 public class Response{
 
-	private String message;
+	private String error;
+	@Deprecated
+	private String reason;
+	private User[] results;
 
-	public Response( String message ){
-		this.message = message;
+	@Deprecated
+	public Response( String error, String reason ){
+		this.error = error;
+		this.reason = reason;
 	}
 
-	public String getMessage(){
-		return message;
+	public Response( String error ){
+		this.error = error;
+	}
+
+	public String getError(){
+		return error;
+	}
+
+	@Deprecated
+	public String getReason(){
+		return reason;
+	}
+
+	public User[] getResults(){
+		return results;
 	}
 
 	@Override
 	public String toString(){
-		return "Message: " + message;
+		return "Error: " + error + "\nReason: " + reason;
 	}
 }
