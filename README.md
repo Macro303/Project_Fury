@@ -2,15 +2,23 @@
 Mobile Application to act as a companion to help Students with projects, assignments or any other task based task.
 
 ## Dependencies
-* Android Studio 2.1.2
+* Android Studio 2.1.3
 * Git 2.9.2
 * Android API 4.4 (KitKat)
-* Gradle 2.1.2
+* Gradle 2.1.3
 * Build Tools 24.0.0
-* JUnit 4.12
 * AppCompat-v7 24.1.1
 * Support-Annotations 24.1.1
-* CardView 24.1.1
-* ButterKnife 5.1.1
+* Design 24.1.1
+* CardView-v7 24.1.1
+* NumberProgressBar Library 1.2@aar
+* Butterknife 7.0.1
+* JUnit 4.12
+* Mockito-Core 1.10.19
+* Espresso-Core 2.2.2
+* Espresso-Contrib 2.2
+* Dexmaker 1.2
+* Dexmaker-Mockito 1.2
+
 * RoboGuice 4.0.0
 * RoboBlender 4.0.0 (Provided)
