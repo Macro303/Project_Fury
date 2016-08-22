@@ -41,7 +41,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 				break;
 			case R.id.dashboardActivity_projectInfoButton:
 				Toast.makeText( this, "Project Info", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectCreateProject();
+				presenter.userSelectProjectInfo();
 				break;
 			case R.id.dashboardActivity_taskInfoButton:
 				Toast.makeText( this, "Create Project", Toast.LENGTH_SHORT ).show();
