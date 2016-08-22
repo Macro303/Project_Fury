@@ -10,6 +10,9 @@ import tobedevelopers.project_fury.model.Response;
  */
 public class ModelTest extends TestCase{
 
+	/**
+	 * Test that creates a user in the DB and checks if a user was created
+	 */
 	public void testCreateUser(){
 		String value = "Passed";
 		Response response = new Model().createUser( "Username", "Password", "Email@Email.com" );
@@ -17,6 +20,9 @@ public class ModelTest extends TestCase{
 		assertTrue( value.equals( response.getError() ) );
 	}
 
+	/**
+	 * Test that checks if it can get all the users from the DB
+	 */
 	public void testGetAllUsers(){
 		String value = "Passed";
 		Response response = new Model().getAllUsers();
@@ -24,24 +30,33 @@ public class ModelTest extends TestCase{
 		assertTrue( value.equals( response.getError() ) );
 	}
 
+	/**
+	 * Test that checks if it can get a select user from the DB by using the users username
+	 */
 	public void testGetSelectedUser(){
 		String value = "Passed";
 		Response response = new Model().getUser( "Username" );
-		System.out.println( "Test Get Selected User: " + response.toString() );
+		System.out.println( "Test Get Selected User:\n" + response.toString() );
 		assertTrue( value.equals( response.getError() ) );
 	}
 
+	/**
+	 * Test that updates the select user by its username, and returns the new user information
+	 */
 	public void testUpdateSelectedUser(){
 		String value = "Passed";
 		Response response = new Model().updateUser( "Username", "Password", "EmailMe@EmailMe.com" );
-		System.out.println( "Test Update Selected User: " + response.toString() );
+		System.out.println( "Test Update Selected User:\n" + response.toString() );
 		assertTrue( value.equals( response.getError() ) );
 	}
 
+	/**
+	 * Test that deletes the select user by its username from the DB
+	 */
 	public void testDeleteSelectedUser(){
 		String value = "Passed";
 		Response response = new Model().deleteUser( "Username" );
-		System.out.println( "Test Delete User Model: " + response.toString() );
+		System.out.println( "Test Delete User Model:\n" + response.toString() );
 		assertTrue( value.equals( response.getError() ) );
 	}
 }
