@@ -1,7 +1,6 @@
 package tobedevelopers.project_fury.model;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -41,6 +40,7 @@ public class UrlReader{
 		URL url = new URL( urlString );
 		HttpURLConnection connection = ( HttpURLConnection ) url.openConnection();
 		connection.setRequestMethod( requestType );
+		connection.setRequestProperty( "Content-type", "application/x-www-form-urlencoded" );
 		connection.setDoInput( true );
 		connection.setDoOutput( true );
 		connection.connect();
@@ -51,11 +51,13 @@ public class UrlReader{
 		HttpURLConnection connection = null;
 		try{
 			connection = startConnection( "GET" );
-			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
 			responseCode = connection.getResponseCode();
-			return readAll( br );
+			if( responseCode == 200 || responseCode == 201 || responseCode == 204 )
+				return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
+			throw new RuntimeException( "Failed : HTTP error code : " + responseCode );
+		}catch( RuntimeException e ){
+			return null;
 		}catch( IOException ioe ){
-			Log.e( "Project Fury", ioe.toString() );
 			return null;
 		}finally{
 			if( connection != null )
@@ -63,20 +65,15 @@ public class UrlReader{
 		}
 	}
 
-	public String postToUrl( String parameters ){
+	public void postToUrl( String parameters ){
 		HttpURLConnection connection = null;
 		try{
 			connection = startConnection( "POST" );
 			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
 				wr.write( parameters.getBytes( "UTF-8" ) );
 			}
-			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
 			responseCode = connection.getResponseCode();
-			return readAll( br );
 		}catch( IOException ioe ){
-			//Log.e( "Project Fury", ioe.toString() );
-			System.out.println( ioe.toString() );
-			return null;
 		}finally{
 			if( connection != null )
 				connection.disconnect();
@@ -90,12 +87,13 @@ public class UrlReader{
 			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
 				wr.write( parameters.getBytes( "UTF-8" ) );
 			}
-			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
 			responseCode = connection.getResponseCode();
-			return readAll( br );
+			if( responseCode == 200 || responseCode == 201 || responseCode == 204 )
+				return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
+			throw new RuntimeException( "Failed : HTTP error code : " + responseCode );
+		}catch( RuntimeException e ){
+			return null;
 		}catch( IOException ioe ){
-			//Log.e( "Project Fury", ioe.toString() );
-			System.out.println( ioe.toString() );
 			return null;
 		}finally{
 			if( connection != null )
@@ -107,10 +105,13 @@ public class UrlReader{
 		HttpURLConnection connection = null;
 		try{
 			connection = startConnection( "DELETE" );
-			BufferedReader br = new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) );
-			return readAll( br );
+			responseCode = connection.getResponseCode();
+			if( responseCode == 200 || responseCode == 201 || responseCode == 204 )
+				return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
+			throw new RuntimeException( "Failed : HTTP error code : " + responseCode );
+		}catch( RuntimeException e ){
+			return null;
 		}catch( IOException ioe ){
-			Log.e( "Project Fury", ioe.toString() );
 			return null;
 		}finally{
 			if( connection != null )
