@@ -58,6 +58,7 @@ public class UrlReader{
 		}catch( RuntimeException e ){
 			return null;
 		}catch( IOException ioe ){
+			responseCode = -1;
 			return null;
 		}finally{
 			if( connection != null )
@@ -74,6 +75,7 @@ public class UrlReader{
 			}
 			responseCode = connection.getResponseCode();
 		}catch( IOException ioe ){
+			responseCode = -1;
 		}finally{
 			if( connection != null )
 				connection.disconnect();
@@ -94,6 +96,7 @@ public class UrlReader{
 		}catch( RuntimeException e ){
 			return null;
 		}catch( IOException ioe ){
+			responseCode = -1;
 			return null;
 		}finally{
 			if( connection != null )
@@ -112,6 +115,7 @@ public class UrlReader{
 		}catch( RuntimeException e ){
 			return null;
 		}catch( IOException ioe ){
+			responseCode = -1;
 			return null;
 		}finally{
 			if( connection != null )

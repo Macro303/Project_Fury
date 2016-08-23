@@ -6,7 +6,27 @@ package tobedevelopers.project_fury.register;
 public interface RegisterContract{
 
 	interface View{
+		void enableCreateAccountButton();
 
+		void disableCreateAccountButton();
+
+		void registrationInProgress();
+
+		void setUsernameValidation();
+
+		void setUsernameOver20CharValidation();
+
+		void setUsernameAlreadyUsedValidation();
+
+		void setEmailValidation();
+
+		void setPasswordValidation();
+
+		void setPasswordOver20CharValidation();
+
+		void setConfirmPasswordValidation();
+
+		void noInternetAccessValidation();
 	}
 
 	interface Navigation{
@@ -15,5 +35,15 @@ public interface RegisterContract{
 
 	interface Presenter{
 		void userSelectCreateAccount();
+
+		void userSelectLogin();
+
+		void userEnterUsername( String username );
+
+		void userEnterEmail( String email );
+
+		void userEnterPassword( String password );
+
+		void userEnterConfirmPassword( String confirmPassword, String password );
 	}
 }

@@ -25,6 +25,8 @@ public class Model implements ModelContract{
 		urlReader.postToUrl( parameters );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 || urlReader.getResponseCode() == 204 )
 			return new Response( "Passed", "Passed" );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access", "Error" );
 		return new Response( "500", "Error" );
 	}
 
@@ -34,6 +36,8 @@ public class Model implements ModelContract{
 		String response = urlReader.getFromUrl();
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 || urlReader.getResponseCode() == 204 )
 			return new Response( "Passed", "Passed", new Gson().fromJson( response, User[].class ) );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access", "Error" );
 		return new Response( "500", "Error" );
 	}
 
@@ -42,6 +46,8 @@ public class Model implements ModelContract{
 		String response = urlReader.getFromUrl();
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 || urlReader.getResponseCode() == 204 )
 			return new Response( "Passed", "Passed", new Gson().fromJson( response, User[].class ) );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access", "Error" );
 		return new Response( "500", "Error" );
 	}
 
@@ -51,6 +57,8 @@ public class Model implements ModelContract{
 		urlReader.putToUrl( parameters );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 || urlReader.getResponseCode() == 204 )
 			return getUser( username );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access", "Error" );
 		return new Response( "500", "Error" );
 	}
 
@@ -59,6 +67,8 @@ public class Model implements ModelContract{
 		urlReader.deleteFromUrl();
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 || urlReader.getResponseCode() == 204 )
 			return new Response( "Passed", "Passed" );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access", "Error" );
 		return new Response( "500", "Error" );
 	}
 
