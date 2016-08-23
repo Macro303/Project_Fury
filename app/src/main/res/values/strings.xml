@@ -47,6 +47,8 @@
 	<string name="hint_email">Email</string>
 	<string name="hint_password">Password</string>
 	<string name="hint_confirmPassword">Confirm Password</string>
+	<string name="hint_projectName">Project Name</string>
+	<string name="hint_projectDescription">Project Description</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
@@ -59,6 +61,11 @@
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>
 	<string name="error_registrationInProgress">Registration in progress, please wait...</string>
+	<string name="error_projectCreationInProgress">Project creation in progress, please wait...</string>
+	<string name="error_min3Characters">Minimum of 3 characters</string>
+	<string name="error_min6Characters">Minimum of 6 characters</string>
+	<string name="error_max20Characters">Maximum of 20 characters</string>
+	<string name="error_max128Characters">Maximum of 128 characters</string>
 	<string name="error_usernameMinCharacter">Minimum of 6 characters</string>
 	<string name="error_usernameMaxCharacter">Maximum of 20 characters</string>
 	<string name="error_usernameAlreadyAUser">Username already in user</string>
@@ -69,6 +76,6 @@
 	<string name="error_noInternetAccess">No Internet Access</string>
 
 	<!-- Misc -->
-	<string name="alphaNumericCharacters">1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
 
 </resources>
