@@ -1,12 +1,12 @@
 package tobedevelopers.project_fury.register.implementation;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -23,13 +23,13 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	@Bind( R.id.registerActivity_createAccountButton )
 	Button mCreateAccountButton;
 	@Bind( R.id.registerActivity_usernameEditText )
-	EditText mUserNameEditText;
+	TextInputEditText mUserNameEditText;
 	@Bind( R.id.registerActivity_emailEditText )
-	EditText mEmailEditText;
+	TextInputEditText mEmailEditText;
 	@Bind( R.id.registerActivity_passwordEditText )
-	EditText mPasswordEditText;
+	TextInputEditText mPasswordEditText;
 	@Bind( R.id.registerActivity_confirmPasswordEditText )
-	EditText mConfirmPasswordEditText;
+	TextInputEditText mConfirmPasswordEditText;
 
 	private RegisterContract.Presenter presenter;
 	private String mPassword;
@@ -124,83 +124,85 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				Toast.makeText( getParam1(), "Registration in progress, please wait...", Toast.LENGTH_SHORT ).show();
+				Toast.makeText(getParam1(), getString(R.string.error_registrationInProgress), Toast.LENGTH_SHORT).show();
 			}
 		} );
 	}
 
 	@Override
 	public void setUsernameValidation(){
-		runOnUiThread( new Runnable1Param< EditText >( mUserNameEditText ){
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
 			@Override
 			public void run(){
-				getParam1().setError( "Minimum of 6 Characters" );
+				getParam1().setError(getString(R.string.error_usernameMinCharacter));
 			}
 		} );
 	}
 
 	@Override
 	public void setUsernameOver20CharValidation() {
-		runOnUiThread(new Runnable1Param<EditText>(mUserNameEditText) {
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
 			@Override
 			public void run() {
-				getParam1().setError("Maximum of 20 Characters");
+				getParam1().setError(getString(R.string.error_usernameMaxCharacter));
 			}
 		});
 	}
 
 	@Override
 	public void setUsernameAlreadyUsedValidation(){
-		runOnUiThread( new Runnable1Param< EditText >( mUserNameEditText ){
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
 			@Override
 			public void run(){
-				getParam1().setError( "Username already in use" );
+				getParam1().setError(getString(R.string.error_usernameAlreadyAUser));
+				mPasswordEditText.getEditableText().clear();
+				mConfirmPasswordEditText.getEditableText().clear();
 			}
 		} );
 	}
 
 	@Override
 	public void setEmailValidation(){
-		runOnUiThread( new Runnable1Param< EditText >( mEmailEditText ){
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mEmailEditText) {
 			@Override
 			public void run(){
-				getParam1().setError( "Please enter a valid email" );
+				getParam1().setError(getString(R.string.error_emailValidation));
 			}
 		} );
 	}
 
 	@Override
 	public void setPasswordValidation(){
-		runOnUiThread( new Runnable1Param< EditText >( mPasswordEditText ){
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mPasswordEditText) {
 			@Override
 			public void run(){
-				getParam1().setError( "Minimum of 6 Characters" );
+				getParam1().setError(getString(R.string.error_passwordMinCharacter));
 			}
 		} );
 	}
 
 	@Override
 	public void setPasswordOver20CharValidation() {
-		runOnUiThread(new Runnable1Param<EditText>(mPasswordEditText) {
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mPasswordEditText) {
 			@Override
 			public void run() {
-				getParam1().setError("Maximum of 20 Characters");
+				getParam1().setError(getString(R.string.error_passwordMaxCharacter));
 			}
 		});
 	}
 
 	@Override
 	public void setConfirmPasswordValidation() {
-		runOnUiThread(new Runnable1Param<EditText>(mConfirmPasswordEditText) {
+		runOnUiThread(new Runnable1Param<TextInputEditText>(mConfirmPasswordEditText) {
 			@Override
 			public void run() {
-				getParam1().setError("Password does not currently match");
+				getParam1().setError(getString(R.string.error_confirmPasswordValidation));
 			}
 		});
 	}
 
 	@Override
 	public void noInternetAccessValidation(){
-		Toast.makeText( this, "No Internet Access", Toast.LENGTH_LONG ).show();
+		Toast.makeText(this, getString(R.string.error_noInternetAccess), Toast.LENGTH_LONG).show();
 	}
 }

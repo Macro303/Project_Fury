@@ -1,10 +1,10 @@
 package tobedevelopers.project_fury;
 
+import android.support.design.widget.TextInputEditText;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
-import android.widget.EditText;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -46,10 +46,10 @@ public class FURY001RegisterTest {
 
             @Override
             protected boolean matchesSafely(View view) {
-                if (!(view instanceof EditText)) {
+                if (!(view instanceof TextInputEditText)) {
                     return false;
                 }
-                EditText editText = (EditText) view;
+                TextInputEditText editText = (TextInputEditText) view;
                 return editText.getError().toString().equals(expected);
             }
         };
@@ -95,12 +95,12 @@ public class FURY001RegisterTest {
         //Username too short
         onView(withId(R.id.registerActivity_usernameEditText)).perform(click(), replaceText("And"));
         onView(withId(R.id.registerActivity_usernameEditText)).check(matches(withText("And")));
-        onView(withId(R.id.registerActivity_usernameEditText)).check(matches(withError("Minimum of 6 Characters")));
+        onView(withId(R.id.registerActivity_usernameEditText)).check(matches(withError("Minimum of 6 characters")));
 
         //Username too long
         onView(withId(R.id.registerActivity_usernameEditText)).perform(click(), replaceText("12345678901234567890"));
         onView(withId(R.id.registerActivity_usernameEditText)).check(matches(withText("12345678901234567890")));
-        onView(withId(R.id.registerActivity_usernameEditText)).check(matches(withError("Maximum of 20 Characters")));
+        onView(withId(R.id.registerActivity_usernameEditText)).check(matches(withError("Maximum of 20 characters")));
 
         //Email invalid
         onView(withId(R.id.registerActivity_emailEditText)).perform(click(), replaceText("awolff.com"));
@@ -110,12 +110,12 @@ public class FURY001RegisterTest {
         //Password too short
         onView(withId(R.id.registerActivity_passwordEditText)).perform(click(), replaceText("Pass"));
         onView(withId(R.id.registerActivity_passwordEditText)).check(matches(withText("Pass")));
-        onView(withId(R.id.registerActivity_passwordEditText)).check(matches(withError("Minimum of 6 Characters")));
+        onView(withId(R.id.registerActivity_passwordEditText)).check(matches(withError("Minimum of 6 characters")));
 
         //Password too long
         onView(withId(R.id.registerActivity_passwordEditText)).perform(click(), replaceText("12345678901234567890"));
         onView(withId(R.id.registerActivity_passwordEditText)).check(matches(withText("12345678901234567890")));
-        onView(withId(R.id.registerActivity_passwordEditText)).check(matches(withError("Maximum of 20 Characters")));
+        onView(withId(R.id.registerActivity_passwordEditText)).check(matches(withError("Maximum of 20 characters")));
 
         //Confirm Password does not match Password
         onView(withId(R.id.registerActivity_confirmPasswordEditText)).perform(click(), replaceText("123456"));

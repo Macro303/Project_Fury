@@ -39,7 +39,7 @@
 	<string name="textView_taskColumn">Column</string>
 	<string name="textView_taskAssignee">Task Assignee:</string>
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
-	<string name="textView_userInstruction">Already a User?</string>
+	<string name="textView_userInstruction_register">Already a User?</string>
 	<string name="textView_userInstruction2">Already a User? Login</string>
 
 	<!-- Hints -->
@@ -58,6 +58,15 @@
 
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>
+	<string name="error_registrationInProgress">Registration in progress, please wait...</string>
+	<string name="error_usernameMinCharacter">Minimum of 6 characters</string>
+	<string name="error_usernameMaxCharacter">Maximum of 20 characters</string>
+	<string name="error_usernameAlreadyAUser">Username already in user</string>
+	<string name="error_emailValidation">Please enter a valid email</string>
+	<string name="error_passwordMinCharacter">Minimum of 6 characters</string>
+	<string name="error_passwordMaxCharacter">Maximum of 20 characters</string>
+	<string name="error_confirmPasswordValidation">Password does not currently match</string>
+	<string name="error_noInternetAccess">No Internet Access</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>

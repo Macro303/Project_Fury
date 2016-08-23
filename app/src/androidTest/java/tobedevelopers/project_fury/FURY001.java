@@ -50,20 +50,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
-//	public void testInvalidCharactersUsername(){
-//		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-//		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-//
-//		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-//
-//		presenter.userEnterUsername( "/*-+^*%" );
-//		verify( viewMock ).setUsernameValidation();
-//		verify( viewMock ).disableEmailEditText();
-//		verify( viewMock ).disablePasswordEditText();
-//		verify( viewMock ).disableConfirmPassword();
-//		verify( viewMock ).disableCreateAccountButton();
-//	}
-
 	//Email Validation
 	public void testValidEmail(){
 		RegisterContract.View viewMock = mock( RegisterContract.View.class );
@@ -117,19 +103,6 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		presenter.userEnterPassword( "abcdefgh123456789012345" );
 		verify( viewMock ).disableCreateAccountButton();
 	}
-
-//	public void testInvalidCharacterPassword() {
-//		RegisterContract.View viewMock = mock(RegisterContract.View.class);
-//		RegisterContract.Navigation navigationMock = mock(RegisterContract.Navigation.class);
-//
-//		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-//
-//		presenter.userEnterPassword( "/*-+&_*)" );
-//		verify( viewMock ).enableConfirmPasswordEditText();
-//		verify( viewMock ).setPasswordValidation();
-//		verify( viewMock ).disableConfirmPassword();
-//		verify( viewMock ).disableCreateAccountButton();
-//	}
 
 	//Confirm Validation
 	public void testValidConfirmPassword(){
