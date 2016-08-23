@@ -51,27 +51,6 @@ public class FURY004UnitTests extends ApplicationTestCase< Application >{
 		verify( viewMock ).disableCreateProjectButton();
 	}
 
-	//Project Description Validation
-	public void testValidProjectDescriptionNull(){
-		CreateProjectContract.View viewMock = mock( CreateProjectContract.View.class );
-		CreateProjectContract.Navigation navigationMock = mock( CreateProjectContract.Navigation.class );
-
-		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( viewMock, navigationMock );
-
-		presenter.userEnterProjectDescription( "" );
-		verify( viewMock ).enableCreateProjectButton();
-	}
-
-	public void testValidProjectDescription(){
-		CreateProjectContract.View viewMock = mock( CreateProjectContract.View.class );
-		CreateProjectContract.Navigation navigationMock = mock( CreateProjectContract.Navigation.class );
-
-		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( viewMock, navigationMock );
-
-		presenter.userEnterProjectDescription( "This project is about making an application to do fun things and have pretty pictures" );
-		verify( viewMock ).enableCreateProjectButton();
-	}
-
 	public void testProjectDescriptionTooLongValidation(){
 		CreateProjectContract.View viewMock = mock( CreateProjectContract.View.class );
 		CreateProjectContract.Navigation navigationMock = mock( CreateProjectContract.Navigation.class );
