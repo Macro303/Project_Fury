@@ -50,7 +50,10 @@ public class UrlReader{
 	public String getFromUrl(){
 		HttpURLConnection connection = null;
 		try{
-			connection = startConnection( "GET" );
+			URL url = new URL( urlString );
+			connection = ( HttpURLConnection ) url.openConnection();
+			connection.setRequestMethod( "GET" );
+			connection.connect();
 			responseCode = connection.getResponseCode();
 			if( responseCode == 200 || responseCode == 201 || responseCode == 204 )
 				return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
@@ -58,6 +61,7 @@ public class UrlReader{
 		}catch( RuntimeException e ){
 			return null;
 		}catch( IOException ioe ){
+			responseCode = -1;
 			return null;
 		}finally{
 			if( connection != null )
@@ -74,6 +78,7 @@ public class UrlReader{
 			}
 			responseCode = connection.getResponseCode();
 		}catch( IOException ioe ){
+			responseCode = -1;
 		}finally{
 			if( connection != null )
 				connection.disconnect();
@@ -94,6 +99,7 @@ public class UrlReader{
 		}catch( RuntimeException e ){
 			return null;
 		}catch( IOException ioe ){
+			responseCode = -1;
 			return null;
 		}finally{
 			if( connection != null )
@@ -112,6 +118,7 @@ public class UrlReader{
 		}catch( RuntimeException e ){
 			return null;
 		}catch( IOException ioe ){
+			responseCode = -1;
 			return null;
 		}finally{
 			if( connection != null )

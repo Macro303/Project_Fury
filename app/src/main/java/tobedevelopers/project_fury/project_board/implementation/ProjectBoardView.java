@@ -9,7 +9,7 @@ import android.view.View;
 
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
+import tobedevelopers.project_fury.Runnable.Runnable1Param;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
 import tobedevelopers.project_fury.project_board.ProjectBoardContract;
 import tobedevelopers.project_fury.project_board.ProjectBoardFragmentPagerAdapter;

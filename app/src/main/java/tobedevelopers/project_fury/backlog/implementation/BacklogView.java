@@ -9,7 +9,7 @@ import android.view.View;
 
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
+import tobedevelopers.project_fury.Runnable.Runnable1Param;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.backlog.BacklogFragmentPagerAdapter;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;

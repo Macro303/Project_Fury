@@ -6,7 +6,23 @@ package tobedevelopers.project_fury.login;
 public interface LoginContract{
 
 	interface View{
+		void enableLoginButton();
 
+		void disableLoginButton();
+
+		void loginInProgress();
+
+		void usernameUnderValidation();
+
+		void usernameOverValidation();
+
+		void passwordUnderValidation();
+
+		void passwordOverValidation();
+
+		void internetAccessValidation();
+
+		void userValidation();
 	}
 
 	interface Navigation{
@@ -19,5 +35,9 @@ public interface LoginContract{
 		void userSelectRegister();
 
 		void userSelectLogin();
+
+		void userEnterUsername( String username );
+
+		void userEnterPassword( String password );
 	}
 }

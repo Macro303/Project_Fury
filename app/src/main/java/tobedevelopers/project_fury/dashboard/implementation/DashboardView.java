@@ -10,7 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
+import tobedevelopers.project_fury.Runnable.Runnable1Param;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
