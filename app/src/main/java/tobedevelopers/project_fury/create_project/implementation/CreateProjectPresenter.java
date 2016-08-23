@@ -85,9 +85,7 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( projectDescription.length() < 128 ){
-				view.enableCreateProjectButton();
-			}else if( projectDescription.length() > 127 ){
+			if( projectDescription.length() > 127 ){
 				view.setProjectDescriptionOver128CharValidation();
 				view.disableCreateProjectButton();
 			}

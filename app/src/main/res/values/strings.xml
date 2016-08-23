@@ -5,7 +5,7 @@
 	<string name="title_activity_login">Login</string>
 	<string name="title_activity_register">Register New Account</string>
 	<string name="title_activity_dashboard">Dashboard</string>
-	<string name="title_activity_createProject">Create Project</string>
+	<string name="title_activity_createProject">Create a Project</string>
 	<string name="title_activity_projectInfo">Project Info</string>
 	<string name="title_activity_taskInfo">Task Info</string>
 	<string name="title_activity_backlog">Backlog</string>
