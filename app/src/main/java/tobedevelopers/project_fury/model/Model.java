@@ -9,6 +9,8 @@ public class Model implements ModelContract{
 
 	private static UrlReader urlReader;
 	private static String apiAddress = "https://young-stream-51673.herokuapp.com/api/";
+	private static String username;
+	private static String apiKey;
 
 	public Model(){
 	}

@@ -1,5 +1,6 @@
 <resources>
 	<string name="app_name">Project Fury</string>
+	<string name="app_subtitle">Don\'t Get Angry, Get Organised</string>
 
 	<!-- Activity Strings --><!-- Title Strings -->
 	<string name="title_activity_login">Login</string>
@@ -16,7 +17,7 @@
 
 	<!-- Button Strings -->
 	<string name="button_login">Login</string>
-	<string name="button_register">Register</string>
+	<string name="button_register">Register Here</string>
 	<string name="button_createAccount">Create Account</string>
 	<string name="button_createProject">Create Project</string>
 	<string name="button_projectInfo">Project</string>
@@ -38,6 +39,7 @@
 	<string name="textView_taskListTitle">Tasks</string>
 	<string name="textView_taskColumn">Column</string>
 	<string name="textView_taskAssignee">Task Assignee:</string>
+	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
 	<string name="textView_userInstruction_register">Already a User?</string>
 	<string name="textView_userInstruction2">Already a User? Login</string>

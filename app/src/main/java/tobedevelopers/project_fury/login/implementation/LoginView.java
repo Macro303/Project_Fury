@@ -2,20 +2,35 @@ package tobedevelopers.project_fury.login.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.TextInputEditText;
+import android.text.Editable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
+import tobedevelopers.project_fury.Runnable.Runnable1Param;
+import tobedevelopers.project_fury.Runnable.Runnable2Param;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.LoginContract;
 import tobedevelopers.project_fury.register.implementation.RegisterView;
 
 public class LoginView extends BaseView implements LoginContract.View, LoginContract.Navigation{
+
+	@Bind( R.id.loginActivity_usernameEditText )
+	protected TextInputEditText mUsernameEditText;
+	@Bind( R.id.loginActivity_passwordEditText )
+	protected TextInputEditText mPasswordEditText;
+	@Bind( R.id.loginActivity_loginButton )
+	protected Button mLoginButton;
+	@Bind( R.id.loginActivity_registerButton )
+	protected Button mRegisterButton;
 
 	private LoginContract.Presenter presenter;
 
@@ -35,18 +50,28 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
-				Toast.makeText( this, "Login", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectLogin();
+				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
 				break;
 			case R.id.loginActivity_registerButton:
-				Toast.makeText( this, "Register", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectRegister();
+				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT ).show();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
 				break;
 		}
+	}
+
+	//Text Change Listeners
+	@OnTextChanged( value = { R.id.loginActivity_usernameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangedUsernameEditText( Editable editable ){
+		presenter.userEnterUsername( editable.toString() );
+	}
+
+	@OnTextChanged( value = R.id.loginActivity_passwordEditText, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangedPasswordEditText( Editable editable ){
+		presenter.userEnterPassword( editable.toString() );
 	}
 
 	@Override
@@ -66,6 +91,92 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 			public void run(){
 				finish();
 				startActivity( new Intent( getParam1(), DashboardView.class ) );
+			}
+		} );
+	}
+
+	@Override
+	public void enableLoginButton(){
+		runOnUiThread( new Runnable1Param< LoginView >( this ){
+			@Override
+			public void run(){
+				getParam1().mLoginButton.setEnabled( true );
+			}
+		} );
+	}
+
+	@Override
+	public void disableLoginButton(){
+		runOnUiThread( new Runnable1Param< LoginView >( this ){
+			@Override
+			public void run(){
+				getParam1().mLoginButton.setEnabled( true );
+			}
+		} );
+	}
+
+	@Override
+	public void loginInProgress(){
+		runOnUiThread( new Runnable1Param< LoginView >( this ){
+			@Override
+			public void run(){
+				Toast.makeText( getParam1(), "Login in progress, please wait...", Toast.LENGTH_LONG ).show();
+			}
+		} );
+	}
+
+	@Override
+	public void usernameUnderValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Minimum of 6 Characters" );
+			}
+		} );
+	}
+
+	@Override
+	public void usernameOverValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Maximum of 20 Characters" );
+			}
+		} );
+	}
+
+	@Override
+	public void passwordUnderValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Minimum of 6 Characters" );
+			}
+		} );
+	}
+
+	@Override
+	public void passwordOverValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Maximum of 20 Characters" );
+			}
+		} );
+	}
+
+	@Override
+	public void internetAccessValidation(){
+		ToastLog.makeWarn( this, "No Internet Access", Toast.LENGTH_LONG ).show();
+	}
+
+	@Override
+	public void userValidation(){
+		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mUsernameEditText, mPasswordEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( "Invalid Username/Password" );
+				getParam2().setError( "Invalid Username/Password" );
 			}
 		} );
 	}

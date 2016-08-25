@@ -50,7 +50,10 @@ public class UrlReader{
 	public String getFromUrl(){
 		HttpURLConnection connection = null;
 		try{
-			connection = startConnection( "GET" );
+			URL url = new URL( urlString );
+			connection = ( HttpURLConnection ) url.openConnection();
+			connection.setRequestMethod( "GET" );
+			connection.connect();
 			responseCode = connection.getResponseCode();
 			if( responseCode == 200 || responseCode == 201 || responseCode == 204 )
 				return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
