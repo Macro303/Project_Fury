@@ -14,12 +14,12 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable.Runnable1Param;
-import tobedevelopers.project_fury.Runnable.Runnable2Param;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.LoginContract;
 import tobedevelopers.project_fury.register.implementation.RegisterView;
+import tobedevelopers.project_fury.runnable.Runnable1Param;
+import tobedevelopers.project_fury.runnable.Runnable2Param;
 
 public class LoginView extends BaseView implements LoginContract.View, LoginContract.Navigation{
 

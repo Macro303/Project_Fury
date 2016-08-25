@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.Runnable;
+package tobedevelopers.project_fury.runnable;
 
 /**
  * Created by Macro303 on 23/08/2016.
