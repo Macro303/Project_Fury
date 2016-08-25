@@ -15,8 +15,8 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
 import tobedevelopers.project_fury.register.RegisterContract;
+import tobedevelopers.project_fury.runnable.Runnable1Param;
 
 public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
 
