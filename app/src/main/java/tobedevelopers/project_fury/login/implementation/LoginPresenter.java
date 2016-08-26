@@ -50,14 +50,15 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.getUser( mUsername );
+//					return model.getUser( mUsername );
+					return null;
 				}
 
 				@Override
 				protected void onPostExecute( Response response ){
 					LoginContract.View view = viewWeakReference.get();
 
-					switch( response.getError() ){
+					switch( response.getMessage() ){
 						case "Passed":
 							navigationWeakReference.get().navigateToDashboard();
 							break;

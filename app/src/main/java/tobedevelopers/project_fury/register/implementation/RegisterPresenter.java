@@ -44,14 +44,15 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return modelContract.createUser( mUsername, mPassword, mEmail );
+//					return modelContract.createUser( mUsername, mPassword, mEmail );
+					return null;
 				}
 
 				@Override
 				protected void onPostExecute( Response response ){
 					RegisterContract.View view = viewWeakReference.get();
 
-					switch( response.getError() ){
+					switch( response.getMessage() ){
 						case "Passed":
 							navigationWeakReference.get().navigateToLogin();
 							break;

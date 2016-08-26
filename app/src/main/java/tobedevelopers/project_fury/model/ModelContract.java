@@ -5,9 +5,19 @@ package tobedevelopers.project_fury.model;
  */
 public interface ModelContract{
 
-	Response createUser( String username, String password, String email );
+	Response registerUser( String username, String email, String password );
 
-	Response createUser( String username, String password, String email, boolean admin );
+	Response registerUser( String username, String email, String password, boolean admin );
 
-	Response getUser( String username );
+	Response login( String username, String password );
+
+	UsernameResponse getAllUsers( String username );
+
+	ProjectResponse getAllProjects();
+
+	ProjectResponse getProject( String projectName );
+
+	Response createProject( String projectName );
+
+	Response createProject( String projectName, String projectDescription );
 }
