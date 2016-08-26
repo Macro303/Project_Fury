@@ -71,11 +71,12 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 			if( projectName.length() < 3 ){
 				view.setProjectNameUnderValidation();
 				view.disableCreateProjectButton();
-			}else if( projectName.length() >= 20 ){
-				view.setProjectNameOverValidation();
+			}else if( projectName.length() > 20 )
 				view.disableCreateProjectButton();
-			}else
+			else
 				view.enableCreateProjectButton();
+			if( projectName.length() >= 20 )
+				view.setProjectNameOverValidation();
 		}
 	}
 
@@ -85,10 +86,10 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 
 		if( view != null ){
 			mProjectDescription = projectDescription;
-			if( projectDescription.length() >= 128 ){
-				view.setProjectDescriptionOverValidation();
+			if( projectDescription.length() > 128 )
 				view.disableCreateProjectButton();
-			}
+			if( projectDescription.length() >= 128 )
+				view.setProjectDescriptionOverValidation();
 		}
 	}
 }

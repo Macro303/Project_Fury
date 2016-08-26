@@ -97,7 +97,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 		if( view != null ){
 			mEmail = email;
-			if( !email.matches( mEmailPattern ) && email.length() <= 0 )
+			if( !email.matches( mEmailPattern ) || email.length() <= 0 )
 				view.setEmailValidation();
 			view.disableCreateAccountButton();
 		}

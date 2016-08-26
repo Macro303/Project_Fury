@@ -95,13 +95,15 @@ public class LoginPresenter implements LoginContract.Presenter{
 			if( password.length() < 6 ){
 				view.setPasswordUnderValidation();
 				view.disableLoginButton();
-			}else if( password.length() >= 20 ){
-				view.setPasswordOverValidation();
+			}else if( password.length() > 20 )
 				view.disableLoginButton();
-			}else if( mUsername.length() >= 6 && mUsername.length() <= 20 )
+			else if( mUsername.length() >= 6 && mUsername.length() <= 20 )
 				view.enableLoginButton();
 			else
 				view.disableLoginButton();
+			if( password.length() >= 20 )
+				view.setPasswordOverValidation();
+
 		}
 	}
 }
