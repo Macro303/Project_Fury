@@ -79,13 +79,11 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 		if( view != null ){
 			mUsername = username;
-			if( username.length() < 6 ){
+			if( username.length() < 6 )
 				view.usernameUnderValidation();
-				view.disableLoginButton();
-			}else if( username.length() >= 20 ){
+			else if( username.length() >= 20 )
 				view.usernameOverValidation();
-				view.disableLoginButton();
-			}
+			view.disableLoginButton();
 		}
 	}
 
@@ -97,7 +95,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 			if( password.length() < 6 ){
 				view.passwordUnderValidation();
 				view.disableLoginButton();
-			}else if( password.length() > 19 ){
+			}else if( password.length() >= 20 ){
 				view.passwordOverValidation();
 				view.disableLoginButton();
 			}else if( mUsername.length() >= 6 && mUsername.length() < 20 )

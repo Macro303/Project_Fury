@@ -51,11 +51,11 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
 				presenter.userSelectLogin();
-				ToastLog.makeDebug( this, getString( R.string.title_activity_dashboard ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
 				break;
 			case R.id.loginActivity_registerButton:
 				presenter.userSelectRegister();
-				ToastLog.makeDebug( this, getString( R.string.title_activity_register ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT ).show();
 				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
@@ -66,6 +66,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	//Text Change Listeners
 	@OnTextChanged( value = { R.id.loginActivity_usernameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedUsernameEditText( Editable editable ){
+		mPasswordEditText.getEditableText().clear();
 		presenter.userEnterUsername( editable.toString() );
 	}
 

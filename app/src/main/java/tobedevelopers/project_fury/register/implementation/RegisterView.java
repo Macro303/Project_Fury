@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.register.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,6 +14,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.register.RegisterContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
@@ -50,16 +50,15 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
-				//Toast.makeText( this, "Create Account", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
-				//Toast.makeText( this, "Login", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectLogin();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
 				break;
 		}
 	}
@@ -67,16 +66,21 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	//Text Change Listeners
 	@OnTextChanged( value = { R.id.registerActivity_usernameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedUserNameEditText( Editable editable ){
+		mPasswordEditText.getEditableText().clear();
+		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterUsername( editable.toString() );
 	}
 
 	@OnTextChanged( value = { R.id.registerActivity_emailEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedEmailEditText( Editable editable ){
+		mPasswordEditText.getEditableText().clear();
+		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterEmail( editable.toString() );
 	}
 
 	@OnTextChanged( value = { R.id.registerActivity_passwordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedPasswordEditText( Editable editable ){
+		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterPassword( editable.toString() );
 		mPassword = editable.toString();
 	}
@@ -124,7 +128,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				Toast.makeText( getParam1(), getString( R.string.error_registrationInProgress ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeInfo( getParam1(), getString( R.string.error_registrationInProgress ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -203,6 +207,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void noInternetAccessValidation(){
-		Toast.makeText( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
 }
