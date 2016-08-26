@@ -12,9 +12,9 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Macro303 on 25/08/2016.
  */
-public class Fury002UnitTests extends ApplicationTestCase< Application >{
+public class FURY002UnitTests extends ApplicationTestCase< Application >{
 
-	public Fury002UnitTests(){
+	public FURY002UnitTests(){
 		super( Application.class );
 	}
 
