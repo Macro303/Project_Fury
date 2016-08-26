@@ -111,6 +111,9 @@ public class FURY001UnitTests extends ApplicationTestCase< Application >{
 
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
+		presenter.userEnterUsername( "Andrea123" );
+		presenter.userEnterEmail( "awolff@live.ca" );
+		presenter.userEnterPassword( "123456" );
 		presenter.userEnterConfirmPassword( "123456", "123456" );
 		verify( viewMock ).enableCreateAccountButton();
 	}

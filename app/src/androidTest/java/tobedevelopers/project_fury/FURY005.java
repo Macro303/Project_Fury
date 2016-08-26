@@ -13,8 +13,6 @@ import tobedevelopers.project_fury.login.LoginContract;
 import tobedevelopers.project_fury.login.implementation.LoginPresenter;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoPresenter;
-import tobedevelopers.project_fury.register.RegisterContract;
-import tobedevelopers.project_fury.register.implementation.RegisterPresenter;
 import tobedevelopers.project_fury.task_info.TaskInfoContract;
 import tobedevelopers.project_fury.task_info.implementation.TaskInfoPresenter;
 
@@ -29,16 +27,16 @@ public class FURY005 extends ApplicationTestCase< Application >{
 		super( Application.class );
 	}
 
-	//Login Activity Navigation
-	public void testOnUserSelectLogin(){
-		LoginContract.View mockView = mock( LoginContract.View.class );
-		LoginContract.Navigation mockNavigation = mock( LoginContract.Navigation.class );
-
-		LoginContract.Presenter presenter = new LoginPresenter( mockView, mockNavigation );
-
-		presenter.userSelectLogin();
-		verify( mockNavigation ).navigateToDashboard();
-	}
+//	//Login Activity Navigation
+//	public void testOnUserSelectLogin(){
+//		LoginContract.View mockView = mock( LoginContract.View.class );
+//		LoginContract.Navigation mockNavigation = mock( LoginContract.Navigation.class );
+//
+//		LoginContract.Presenter presenter = new LoginPresenter( mockView, mockNavigation );
+//
+//		presenter.userSelectLogin();
+//		verify( mockNavigation ).navigateToDashboard();
+//	}
 
 	public void testOnUserSelectRegister(){
 		LoginContract.View mockView = mock( LoginContract.View.class );
@@ -50,16 +48,16 @@ public class FURY005 extends ApplicationTestCase< Application >{
 		verify( mockNavigation ).navigateToRegister();
 	}
 
-	//Register Activity Navigation
-	public void testOnUserSelectCreateAccount(){
-		RegisterContract.View mockView = mock( RegisterContract.View.class );
-		RegisterContract.Navigation mockNavigation = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( mockView, mockNavigation );
-
-		presenter.userSelectCreateAccount();
-		verify( mockNavigation ).navigateToLogin();
-	}
+//	//Register Activity Navigation
+//	public void testOnUserSelectCreateAccount(){
+//		RegisterContract.View mockView = mock( RegisterContract.View.class );
+//		RegisterContract.Navigation mockNavigation = mock( RegisterContract.Navigation.class );
+//
+//		RegisterContract.Presenter presenter = new RegisterPresenter( mockView, mockNavigation );
+//
+//		presenter.userSelectCreateAccount();
+//		verify( mockNavigation ).navigateToLogin();
+//	}
 
 	//Dashboard Activity Navigation
 	public void testOnUserSelectCreateProject(){
