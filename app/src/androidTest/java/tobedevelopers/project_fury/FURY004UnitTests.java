@@ -36,7 +36,7 @@ public class FURY004UnitTests extends ApplicationTestCase< Application >{
 		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( viewMock, navigationMock );
 
 		presenter.userEnterProjectName( "bo" );
-		verify( viewMock ).setProjectNameUnder3CharValidation();
+		verify( viewMock ).setProjectNameUnderValidation();
 		verify( viewMock ).disableCreateProjectButton();
 	}
 
@@ -47,7 +47,7 @@ public class FURY004UnitTests extends ApplicationTestCase< Application >{
 		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( viewMock, navigationMock );
 
 		presenter.userEnterProjectName( "123456789012345678901" );
-		verify( viewMock ).setProjectNameOver20CharValidation();
+		verify( viewMock ).setProjectNameOverValidation();
 		verify( viewMock ).disableCreateProjectButton();
 	}
 
@@ -58,7 +58,7 @@ public class FURY004UnitTests extends ApplicationTestCase< Application >{
 		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( viewMock, navigationMock );
 
 		presenter.userEnterProjectDescription( "Lorem ipsum dolor1 sit amet consectetur adipiscing elit Morbi a lectus sit amet elit egestas hendrerit ut a metus1 Nulla eu sed1" );
-		verify( viewMock ).setProjectDescriptionOver128CharValidation();
+		verify( viewMock ).setProjectDescriptionOverValidation();
 		verify( viewMock ).disableCreateProjectButton();
 	}
 

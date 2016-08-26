@@ -134,7 +134,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
-	public void setUsernameValidation(){
+	public void setUsernameUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
@@ -144,7 +144,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
-	public void setUsernameOver20CharValidation(){
+	public void setUsernameOverCharValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
@@ -176,7 +176,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
-	public void setPasswordValidation(){
+	public void setPasswordUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
@@ -186,7 +186,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
-	public void setPasswordOver20CharValidation(){
+	public void setPasswordOverValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){

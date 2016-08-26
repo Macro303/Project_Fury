@@ -12,17 +12,17 @@ public interface LoginContract{
 
 		void loginInProgress();
 
-		void usernameUnderValidation();
+		void setUsernameUnderValidation();
 
-		void usernameOverValidation();
+		void setUsernameOverValidation();
 
-		void passwordUnderValidation();
+		void setPasswordUnderValidation();
 
-		void passwordOverValidation();
+		void setPasswordOverValidation();
 
-		void internetAccessValidation();
+		void noInternetAccessValidation();
 
-		void userValidation();
+		void setInvalidUserValidation();
 	}
 
 	interface Navigation{

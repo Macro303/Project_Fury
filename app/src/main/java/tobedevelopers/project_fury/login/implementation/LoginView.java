@@ -127,7 +127,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	}
 
 	@Override
-	public void usernameUnderValidation(){
+	public void setUsernameUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
@@ -137,7 +137,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	}
 
 	@Override
-	public void usernameOverValidation(){
+	public void setUsernameOverValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
@@ -147,7 +147,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	}
 
 	@Override
-	public void passwordUnderValidation(){
+	public void setPasswordUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
@@ -157,7 +157,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	}
 
 	@Override
-	public void passwordOverValidation(){
+	public void setPasswordOverValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
@@ -167,12 +167,12 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	}
 
 	@Override
-	public void internetAccessValidation(){
+	public void noInternetAccessValidation(){
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
 
 	@Override
-	public void userValidation(){
+	public void setInvalidUserValidation(){
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mUsernameEditText, mPasswordEditText ){
 			@Override
 			public void run(){

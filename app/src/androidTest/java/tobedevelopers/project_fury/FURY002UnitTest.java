@@ -12,9 +12,9 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by Macro303 on 25/08/2016.
  */
-public class FURY002UnitTests extends ApplicationTestCase< Application >{
+public class FURY002UnitTest extends ApplicationTestCase< Application >{
 
-	public FURY002UnitTests(){
+	public FURY002UnitTest(){
 		super( Application.class );
 	}
 
@@ -45,7 +45,7 @@ public class FURY002UnitTests extends ApplicationTestCase< Application >{
 		LoginContract.Presenter presenter = new LoginPresenter( mockView, mockNavigation );
 
 		presenter.userEnterUsername( "User" );
-		verify( mockView ).usernameUnderValidation();
+		verify( mockView ).setUsernameUnderValidation();
 		verify( mockView ).disableLoginButton();
 	}
 
@@ -56,7 +56,7 @@ public class FURY002UnitTests extends ApplicationTestCase< Application >{
 		LoginContract.Presenter presenter = new LoginPresenter( mockView, mockNavigation );
 
 		presenter.userEnterUsername( "123456789012345678901" );
-		verify( mockView ).usernameOverValidation();
+		verify( mockView ).setUsernameOverValidation();
 		verify( mockView ).disableLoginButton();
 	}
 
@@ -78,7 +78,7 @@ public class FURY002UnitTests extends ApplicationTestCase< Application >{
 		LoginContract.Presenter presenter = new LoginPresenter( mockView, mockNavigation );
 
 		presenter.userEnterPassword( "Pass" );
-		verify( mockView ).passwordUnderValidation();
+		verify( mockView ).setPasswordUnderValidation();
 		verify( mockView ).disableLoginButton();
 	}
 
@@ -89,7 +89,7 @@ public class FURY002UnitTests extends ApplicationTestCase< Application >{
 		LoginContract.Presenter presenter = new LoginPresenter( mockView, mockNavigation );
 
 		presenter.userEnterPassword( "123456789012345678901" );
-		verify( mockView ).passwordOverValidation();
+		verify( mockView ).setPasswordOverValidation();
 		verify( mockView ).disableLoginButton();
 	}
 
@@ -108,6 +108,6 @@ public class FURY002UnitTests extends ApplicationTestCase< Application >{
 	 verify( mockView ).disableLoginButton();
 	 verify( mockView ).enableLoginButton();
 	 verify( mockView ).loginInProgress();
-	 verify( mockView ).internetAccessValidation();
+	 verify( mockView ).noInternetAccessValidation();
 	 }*/
 }

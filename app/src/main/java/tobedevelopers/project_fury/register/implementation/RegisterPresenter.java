@@ -83,9 +83,9 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		if( view != null ){
 			mUsername = username;
 			if( username.length() < 6 )
-				view.setUsernameValidation();
+				view.setUsernameUnderValidation();
 			else if( username.length() >= 20 )
-				view.setUsernameOver20CharValidation();
+				view.setUsernameOverCharValidation();
 			view.disableCreateAccountButton();
 		}
 	}
@@ -110,9 +110,9 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		if( view != null ){
 			mPassword = password;
 			if( password.length() < 6 )
-				view.setPasswordValidation();
+				view.setPasswordUnderValidation();
 			else if( password.length() >= 20 )
-				view.setPasswordOver20CharValidation();
+				view.setPasswordOverValidation();
 			view.disableCreateAccountButton();
 		}
 	}
@@ -126,7 +126,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 				view.setConfirmPasswordValidation();
 				view.disableCreateAccountButton();
 			}else if( mUsername != null && mEmail != null ){
-				if( ( mUsername.length() >= 6 && mUsername.length() < 20 ) && mEmail.length() > 0 && ( mPassword.length() >= 6 && mPassword.length() < 20 ) )
+				if( ( mUsername.length() >= 6 && mUsername.length() <= 20 ) && mEmail.length() > 0 && ( mPassword.length() >= 6 && mPassword.length() <= 20 ) )
 					view.enableCreateAccountButton();
 			}else
 				view.disableCreateAccountButton();

@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.create_project.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +13,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_project.CreateProjectContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
@@ -47,12 +47,11 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createProjectActivity_createProjectButton:
-				Toast.makeText( this, "Create Project", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Project", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectCreateProject();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
 				break;
 		}
 	}
@@ -103,13 +102,13 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 		runOnUiThread( new Runnable1Param< CreateProjectView >( this ){
 			@Override
 			public void run(){
-				Toast.makeText( getParam1(), getString( R.string.error_projectCreationInProgress ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeInfo( getParam1(), getString( R.string.error_projectCreationInProgress ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
 
 	@Override
-	public void setProjectNameUnder3CharValidation(){
+	public void setProjectNameUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
 			public void run(){
@@ -119,7 +118,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	}
 
 	@Override
-	public void setProjectNameOver20CharValidation(){
+	public void setProjectNameOverValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
 			public void run(){
@@ -129,7 +128,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	}
 
 	@Override
-	public void setProjectDescriptionOver128CharValidation(){
+	public void setProjectDescriptionOverValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectDescriptionEditText ){
 			@Override
 			public void run(){
@@ -140,6 +139,6 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 
 	@Override
 	public void noInternetAccessValidation(){
-		Toast.makeText( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
 }

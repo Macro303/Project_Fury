@@ -36,7 +36,7 @@ public class FURY001UnitTests extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterUsername( "and" );
-		verify( viewMock ).setUsernameValidation();
+		verify( viewMock ).setUsernameUnderValidation();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -90,7 +90,7 @@ public class FURY001UnitTests extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterPassword( "pass" );
-		verify( viewMock ).setPasswordValidation();
+		verify( viewMock ).setPasswordUnderValidation();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 

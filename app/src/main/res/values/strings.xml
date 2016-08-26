@@ -1,8 +1,9 @@
 <resources>
+	<!-- App Strings -->
 	<string name="app_name">Project Fury</string>
 	<string name="app_subtitle">Don\'t Get Angry, Get Organised</string>
 
-	<!-- Activity Strings --><!-- Title Strings -->
+	<!-- Title Strings -->
 	<string name="title_activity_login">Login</string>
 	<string name="title_activity_register">Register New Account</string>
 	<string name="title_activity_dashboard">Dashboard</string>

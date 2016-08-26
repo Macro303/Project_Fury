@@ -12,11 +12,11 @@ public interface CreateProjectContract{
 
 		void projectCreationInProgress();
 
-		void setProjectNameUnder3CharValidation();
+		void setProjectNameUnderValidation();
 
-		void setProjectNameOver20CharValidation();
+		void setProjectNameOverValidation();
 
-		void setProjectDescriptionOver128CharValidation();
+		void setProjectDescriptionOverValidation();
 
 		void noInternetAccessValidation();
 	}

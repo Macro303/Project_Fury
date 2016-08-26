@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.not;
  * Created by Macro303 on 25/08/2016.
  */
 @RunWith( AndroidJUnit4.class )
-public class FURY002LoginTest{
+public class FURY002LoginTests{
 
 	@Rule
 	public ActivityTestRule< LoginView > loginViewActivityTestRule = new ActivityTestRule<>( LoginView.class );

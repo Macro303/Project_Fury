@@ -62,10 +62,10 @@ public class LoginPresenter implements LoginContract.Presenter{
 							navigationWeakReference.get().navigateToDashboard();
 							break;
 						case "No Internet Access":
-							view.internetAccessValidation();
+							view.noInternetAccessValidation();
 							break;
 						default:
-							view.userValidation();
+							view.setInvalidUserValidation();
 							break;
 					}
 				}
@@ -80,9 +80,9 @@ public class LoginPresenter implements LoginContract.Presenter{
 		if( view != null ){
 			mUsername = username;
 			if( username.length() < 6 )
-				view.usernameUnderValidation();
+				view.setUsernameUnderValidation();
 			else if( username.length() >= 20 )
-				view.usernameOverValidation();
+				view.setUsernameOverValidation();
 			view.disableLoginButton();
 		}
 	}
@@ -93,12 +93,12 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 		if( view != null ){
 			if( password.length() < 6 ){
-				view.passwordUnderValidation();
+				view.setPasswordUnderValidation();
 				view.disableLoginButton();
 			}else if( password.length() >= 20 ){
-				view.passwordOverValidation();
+				view.setPasswordOverValidation();
 				view.disableLoginButton();
-			}else if( mUsername.length() >= 6 && mUsername.length() < 20 )
+			}else if( mUsername.length() >= 6 && mUsername.length() <= 20 )
 				view.enableLoginButton();
 			else
 				view.disableLoginButton();

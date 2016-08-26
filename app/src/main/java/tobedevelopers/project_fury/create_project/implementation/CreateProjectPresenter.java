@@ -15,6 +15,9 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 	private WeakReference< CreateProjectContract.Navigation > navigationWeakReference;
 	private ModelContract modelContract;
 
+	private String mProjectName;
+	private String mProjectDescription;
+
 	public CreateProjectPresenter( CreateProjectContract.View view, CreateProjectContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
@@ -27,38 +30,34 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-//			new AsyncTask< String, Void, Response >(){
-//
-//				@Override
-//				protected void onPreExecute(){
-//					CreateProjectContract.View view = viewWeakReference.get();
-//
-//					if( view != null ){
-//						view.projectCreationInProgress();
-//					}
-//				}
-//
-//				@Override
-//				protected Response doInBackground( String... strings ){
-//					return modelContract.
-//				}
-//
-//				@Override
-//				protected void onPostExecute( Response response ){
-//					RegisterContract.View view = viewWeakReference.get();
-//					RegisterContract.Navigation navigation = navigationWeakReference.get();
-//
-//					if( view != null ){
-//						if( response.getError().equals( "Passed" ) ){
-//							navigation.navigateToLogin();
-//						}else if( response.getError().equals( "No Internet Access" ) ){
-//							view.noInternetAccessValidation();
-//						}else{
-//							view.setUsernameAlreadyUsedValidation();
-//						}
-//					}
-//				}
-//			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+/*			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					viewWeakReference.get().projectCreationInProgress();
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return modelContract.createProject( mProjectName, mProjectDescription );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					RegisterContract.View view = viewWeakReference.get();
+					switch( response.getError() ){
+						case "Passed":
+							navigationWeakReference.get().navigateToLogin();
+							break;
+						case "No Internet Access":
+							view.noInternetAccessValidation();
+							break;
+						default:
+							view.setUsernameAlreadyUsedValidation();
+							break;
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );*/
 			navigation.navigateToPrevious();
 		}
 	}
@@ -68,15 +67,15 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( projectName.length() >= 3 && projectName.length() < 20 ){
+			mProjectName = projectName;
+			if( projectName.length() < 3 ){
+				view.setProjectNameUnderValidation();
+				view.disableCreateProjectButton();
+			}else if( projectName.length() >= 20 ){
+				view.setProjectNameOverValidation();
+				view.disableCreateProjectButton();
+			}else
 				view.enableCreateProjectButton();
-			}else if( projectName.length() < 3 ){
-				view.setProjectNameUnder3CharValidation();
-				view.disableCreateProjectButton();
-			}else if( projectName.length() > 19 ){
-				view.setProjectNameOver20CharValidation();
-				view.disableCreateProjectButton();
-			}
 		}
 	}
 
@@ -85,8 +84,9 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( projectDescription.length() > 127 ){
-				view.setProjectDescriptionOver128CharValidation();
+			mProjectDescription = projectDescription;
+			if( projectDescription.length() >= 128 ){
+				view.setProjectDescriptionOverValidation();
 				view.disableCreateProjectButton();
 			}
 		}
