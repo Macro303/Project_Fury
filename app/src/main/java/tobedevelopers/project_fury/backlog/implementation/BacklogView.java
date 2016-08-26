@@ -12,7 +12,7 @@ import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.backlog.BacklogFragmentPagerAdapter;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
-import tobedevelopers.project_fury.runnable.Runnable1Param;
+import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
  * Created by Macro303 on 12/08/2016.

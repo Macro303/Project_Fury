@@ -15,7 +15,7 @@ import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.create_project.CreateProjectContract;
-import tobedevelopers.project_fury.runnable.Runnable1Param;
+import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
  * Created by Macro303 on 11/08/2016.

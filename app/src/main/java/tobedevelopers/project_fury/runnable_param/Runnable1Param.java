@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.runnable;
+package tobedevelopers.project_fury.runnable_param;
 
 /**
  * Created by A on 8/9/2016.

@@ -18,8 +18,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 	private WeakReference< LoginContract.Navigation > navigationWeakReference;
 	private ModelContract model;
 
-	private String username;
-	private String password;
+	private String mUsername;
 
 	public LoginPresenter( LoginContract.View view, LoginContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -32,9 +31,8 @@ public class LoginPresenter implements LoginContract.Presenter{
 		LoginContract.View view = viewWeakReference.get();
 		LoginContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
+		if( view != null && navigation != null )
 			navigation.navigateToRegister();
-		}
 	}
 
 	@Override
@@ -47,31 +45,28 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 				@Override
 				protected void onPreExecute(){
-					LoginContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						view.loginInProgress();
-					}
+					viewWeakReference.get().loginInProgress();
 				}
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.getUser( username );
+					return model.getUser( mUsername );
 				}
 
 				@Override
 				protected void onPostExecute( Response response ){
 					LoginContract.View view = viewWeakReference.get();
-					LoginContract.Navigation navigation = navigationWeakReference.get();
 
-					if( view != null ){
-						if( response.getError().equals( "Passed" ) ){
-							navigation.navigateToDashboard();
-						}else if( response.getError().equals( "No Internet Access" ) ){
+					switch( response.getError() ){
+						case "Passed":
+							navigationWeakReference.get().navigateToDashboard();
+							break;
+						case "No Internet Access":
 							view.internetAccessValidation();
-						}else{
+							break;
+						default:
 							view.userValidation();
-						}
+							break;
 					}
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
@@ -83,20 +78,13 @@ public class LoginPresenter implements LoginContract.Presenter{
 		LoginContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( username.length() >= 6 && username.length() < 20 ){
-				this.username = username;
-				if( password != null && !password.isEmpty() )
-					view.enableLoginButton();
-				else
-					view.disableLoginButton();
-			}else{
-				if( username.length() < 6 ){
-					view.usernameUnderValidation();
-					view.disableLoginButton();
-				}else if( username.length() > 19 ){
-					view.usernameOverValidation();
-					view.disableLoginButton();
-				}
+			mUsername = username;
+			if( username.length() < 6 ){
+				view.usernameUnderValidation();
+				view.disableLoginButton();
+			}else if( username.length() >= 20 ){
+				view.usernameOverValidation();
+				view.disableLoginButton();
 			}
 		}
 	}
@@ -106,21 +94,16 @@ public class LoginPresenter implements LoginContract.Presenter{
 		LoginContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( password.length() >= 6 && password.length() < 20 ){
-				this.password = password;
-				if( username != null && !username.isEmpty() )
-					view.enableLoginButton();
-				else
-					view.disableLoginButton();
-			}else{
-				if( password.length() < 6 ){
-					view.passwordUnderValidation();
-					view.disableLoginButton();
-				}else if( password.length() > 19 ){
-					view.passwordOverValidation();
-					view.disableLoginButton();
-				}
-			}
+			if( password.length() < 6 ){
+				view.passwordUnderValidation();
+				view.disableLoginButton();
+			}else if( password.length() > 19 ){
+				view.passwordOverValidation();
+				view.disableLoginButton();
+			}else if( mUsername.length() >= 6 && mUsername.length() < 20 )
+				view.enableLoginButton();
+			else
+				view.disableLoginButton();
 		}
 	}
 }

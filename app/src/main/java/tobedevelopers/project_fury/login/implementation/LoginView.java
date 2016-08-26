@@ -18,8 +18,8 @@ import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
 import tobedevelopers.project_fury.login.LoginContract;
 import tobedevelopers.project_fury.register.implementation.RegisterView;
-import tobedevelopers.project_fury.runnable.Runnable1Param;
-import tobedevelopers.project_fury.runnable.Runnable2Param;
+import tobedevelopers.project_fury.runnable_param.Runnable1Param;
+import tobedevelopers.project_fury.runnable_param.Runnable2Param;
 
 public class LoginView extends BaseView implements LoginContract.View, LoginContract.Navigation{
 
@@ -51,11 +51,11 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
 				presenter.userSelectLogin();
-				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, getString( R.string.title_activity_dashboard ), Toast.LENGTH_SHORT ).show();
 				break;
 			case R.id.loginActivity_registerButton:
 				presenter.userSelectRegister();
-				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, getString( R.string.title_activity_register ), Toast.LENGTH_SHORT ).show();
 				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
@@ -110,7 +110,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				getParam1().mLoginButton.setEnabled( true );
+				getParam1().mLoginButton.setEnabled( false );
 			}
 		} );
 	}
@@ -120,7 +120,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				Toast.makeText( getParam1(), "Login in progress, please wait...", Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), getString( R.string.error_loginInProgress ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -130,7 +130,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( "Minimum of 6 Characters" );
+				getParam1().setError( getString( R.string.error_min6Characters ) );
 			}
 		} );
 	}
@@ -140,7 +140,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( "Maximum of 20 Characters" );
+				getParam1().setError( getString( R.string.error_max20Characters ) );
 			}
 		} );
 	}
@@ -150,7 +150,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( "Minimum of 6 Characters" );
+				getParam1().setError( getString( R.string.error_min6Characters ) );
 			}
 		} );
 	}
@@ -160,14 +160,14 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( "Maximum of 20 Characters" );
+				getParam1().setError( getString( R.string.error_max20Characters ) );
 			}
 		} );
 	}
 
 	@Override
 	public void internetAccessValidation(){
-		ToastLog.makeWarn( this, "No Internet Access", Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
 
 	@Override
@@ -175,8 +175,8 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mUsernameEditText, mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( "Invalid Username/Password" );
-				getParam2().setError( "Invalid Username/Password" );
+				getParam1().setError( getString( R.string.error_invalidUsernamePassword ) );
+				getParam2().setError( getString( R.string.error_invalidUsernamePassword ) );
 			}
 		} );
 	}

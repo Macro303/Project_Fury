@@ -31,18 +31,15 @@
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">Project Board</string>
-	<string name="button_returnToLoginButton">Login</string>
-	<string name="button_userInstruction">Already a User? Login</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
 	<string name="textView_taskListTitle">Tasks</string>
 	<string name="textView_taskColumn">Column</string>
 	<string name="textView_taskAssignee">Task Assignee:</string>
-	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
+	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_userInstruction_register">Already a User?</string>
-	<string name="textView_userInstruction2">Already a User? Login</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -62,20 +59,18 @@
 
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>
-	<string name="error_registrationInProgress">Registration in progress, please wait...</string>
-	<string name="error_projectCreationInProgress">Project creation in progress, please wait...</string>
+	<string name="error_loginInProgress">Login in progress, please wait&#8230;</string>
+	<string name="error_registrationInProgress">Registration in progress, please wait&#8230;</string>
+	<string name="error_projectCreationInProgress">Project creation in progress, please wait&#8230;</string>
 	<string name="error_min3Characters">Minimum of 3 characters</string>
 	<string name="error_min6Characters">Minimum of 6 characters</string>
 	<string name="error_max20Characters">Maximum of 20 characters</string>
 	<string name="error_max128Characters">Maximum of 128 characters</string>
-	<string name="error_usernameMinCharacter">Minimum of 6 characters</string>
-	<string name="error_usernameMaxCharacter">Maximum of 20 characters</string>
 	<string name="error_usernameAlreadyAUser">Username already in user</string>
 	<string name="error_emailValidation">Please enter a valid email</string>
-	<string name="error_passwordMinCharacter">Minimum of 6 characters</string>
-	<string name="error_passwordMaxCharacter">Maximum of 20 characters</string>
 	<string name="error_confirmPasswordValidation">Password does not currently match</string>
 	<string name="error_noInternetAccess">No Internet Access</string>
+	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>

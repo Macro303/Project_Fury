@@ -16,7 +16,7 @@ import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.register.RegisterContract;
-import tobedevelopers.project_fury.runnable.Runnable1Param;
+import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
 
@@ -46,7 +46,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	//Buttons Listeners
-	@OnClick({R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton})
+	@OnClick( { R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton } )
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
@@ -124,37 +124,37 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				Toast.makeText(getParam1(), getString(R.string.error_registrationInProgress), Toast.LENGTH_SHORT).show();
+				Toast.makeText( getParam1(), getString( R.string.error_registrationInProgress ), Toast.LENGTH_SHORT ).show();
 			}
 		} );
 	}
 
 	@Override
 	public void setUsernameValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_usernameMinCharacter));
+				getParam1().setError( getString( R.string.error_min6Characters ) );
 			}
 		} );
 	}
 
 	@Override
-	public void setUsernameOver20CharValidation() {
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
+	public void setUsernameOver20CharValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
-			public void run() {
-				getParam1().setError(getString(R.string.error_usernameMaxCharacter));
+			public void run(){
+				getParam1().setError( getString( R.string.error_max20Characters ) );
 			}
-		});
+		} );
 	}
 
 	@Override
 	public void setUsernameAlreadyUsedValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_usernameAlreadyAUser));
+				getParam1().setError( getString( R.string.error_usernameAlreadyAUser ) );
 				mPasswordEditText.getEditableText().clear();
 				mConfirmPasswordEditText.getEditableText().clear();
 			}
@@ -163,46 +163,46 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void setEmailValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mEmailEditText) {
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mEmailEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_emailValidation));
+				getParam1().setError( getString( R.string.error_emailValidation ) );
 			}
 		} );
 	}
 
 	@Override
 	public void setPasswordValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mPasswordEditText) {
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_passwordMinCharacter));
+				getParam1().setError( getString( R.string.error_min6Characters ) );
 			}
 		} );
 	}
 
 	@Override
-	public void setPasswordOver20CharValidation() {
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mPasswordEditText) {
+	public void setPasswordOver20CharValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
-			public void run() {
-				getParam1().setError(getString(R.string.error_passwordMaxCharacter));
+			public void run(){
+				getParam1().setError( getString( R.string.error_max20Characters ) );
 			}
-		});
+		} );
 	}
 
 	@Override
-	public void setConfirmPasswordValidation() {
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mConfirmPasswordEditText) {
+	public void setConfirmPasswordValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mConfirmPasswordEditText ){
 			@Override
-			public void run() {
-				getParam1().setError(getString(R.string.error_confirmPasswordValidation));
+			public void run(){
+				getParam1().setError( getString( R.string.error_confirmPasswordValidation ) );
 			}
-		});
+		} );
 	}
 
 	@Override
 	public void noInternetAccessValidation(){
-		Toast.makeText(this, getString(R.string.error_noInternetAccess), Toast.LENGTH_LONG).show();
+		Toast.makeText( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
 }
