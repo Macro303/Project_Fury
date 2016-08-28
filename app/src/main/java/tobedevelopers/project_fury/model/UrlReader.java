@@ -47,14 +47,10 @@ public class UrlReader{
 			connection.setRequestMethod( "GET" );
 			connection.connect();
 			responseCode = connection.getResponseCode();
-			/*if( responseCode == 500 )
-				throw new RuntimeException( "Failed: HTTP error code: " + responseCode );*/
 			return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
 		}catch( IOException ioe ){
 			responseCode = -1;
 			return null;
-		/*}catch( RuntimeException re ){
-			return null;*/
 		}finally{
 			if( connection != null )
 				connection.disconnect();
@@ -68,15 +64,21 @@ public class UrlReader{
 			connection = ( HttpURLConnection ) url.openConnection();
 			connection.setRequestProperty( "Authorization", headers[ 0 ] );
 			connection.setRequestMethod( "POST" );
+			connection.setRequestProperty( "Content-type", "application/x-www-form-urlencoded" );
+			connection.setDoOutput( true );
 			connection.connect();
 			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
 				wr.write( parameters.getBytes( "UTF-8" ) );
 			}
 			responseCode = connection.getResponseCode();
-			System.out.println( "Response Code: " + responseCode );
+			if( responseCode == 400 || responseCode == 401 || responseCode == 500 ){
+				throw new RuntimeException( responseCode + " Error" );
+			}
 			return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
 		}catch( IOException ioe ){
 			responseCode = -1;
+			return null;
+		}catch( RuntimeException re ){
 			return null;
 		}finally{
 			if( connection != null )

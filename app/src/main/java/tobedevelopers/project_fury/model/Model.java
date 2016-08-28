@@ -10,10 +10,14 @@ public class Model implements ModelContract{
 
 	private static UrlReader urlReader;
 	//	private static String apiAddress = "https://young-stream-51673.herokuapp.com/api/";
-	private static String apiAddress = "https://fury-test.herokuapp.com/api";
+	private static String apiAddress = "https://fury-test.herokuapp.com/api/";
 	private static String token;
 
 	public Model(){
+	}
+
+	public String getToken(){
+		return token;
 	}
 
 	@Override
@@ -29,7 +33,7 @@ public class Model implements ModelContract{
 	@Override
 	public Response registerUser( String username, String password, String email, boolean admin ){
 		urlReader = new UrlReader( apiAddress + "register" );
-		String parameters = "username=" + username.toLowerCase() + "&email=" + email + "&password=" + password + "&admin=" + admin;
+		String parameters = "username=" + username.toLowerCase() + "&password=" + password + "&email=" + email + "&admin=" + admin;
 		String response = urlReader.post( parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
@@ -49,9 +53,7 @@ public class Model implements ModelContract{
 			token = new Gson().fromJson( response, JsonObject.class ).get( "token" ).getAsString();
 			return new Response( "Success" );
 		}
-		if( urlReader.getResponseCode() == 400 || urlReader.getResponseCode() == 401 )
-			return new Gson().fromJson( response, Response.class );
-		return new Response( "500 Error" );
+		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 
 	@Override
