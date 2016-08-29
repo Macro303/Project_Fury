@@ -11,7 +11,7 @@
 	<string name="title_activity_projectInfo">Project Info</string>
 	<string name="title_activity_taskInfo">Task Info</string>
 	<string name="title_activity_backlog">Backlog</string>
-	<string name="title_activity_createTask">Create Task</string>
+	<string name="title_activity_createTask">Create a Task</string>
 	<string name="title_activity_settings">Settings</string>
 	<string name="title_activity_allBoards">All Boards</string>
 	<string name="title_activity_projectBoard">Project Board</string>

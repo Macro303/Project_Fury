@@ -128,7 +128,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), getString( R.string.error_taskCreationInProgress ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), getString( R.string.error_inProgress ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -138,7 +138,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mTaskNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_min3Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 3 ), 3 ) );
 			}
 		} );
 	}
@@ -148,7 +148,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mTaskNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max20Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}
@@ -158,7 +158,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mTaskDescriptionEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max128Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 128 ), 128 ) );
 			}
 		} );
 	}

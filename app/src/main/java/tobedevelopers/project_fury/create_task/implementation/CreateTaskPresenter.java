@@ -47,7 +47,7 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 			}else
 				view.enableCreateTaskButton();
 			if( taskName.length() >= 20 ){
-				view.setTaskDescriptionOverValidation();
+				view.setTaskNameOverValidation();
 			}
 		}
 	}
