@@ -130,7 +130,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< ProjectInfoView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), getString( R.string.error_projectUpdatingInProgress ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), getString( R.string.error_inProgress ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -140,7 +140,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_min3Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 3 ), 3 ) );
 			}
 		} );
 	}
@@ -150,7 +150,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max20Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}
@@ -160,7 +160,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectDescriptionEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max128Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 128 ), 128 ) );
 			}
 		} );
 	}
