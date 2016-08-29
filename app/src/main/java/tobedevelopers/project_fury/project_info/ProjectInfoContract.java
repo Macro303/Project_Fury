@@ -13,6 +13,16 @@ public interface ProjectInfoContract{
 		void displayColumnRemoved();
 
 		void displayProjectEdited();
+
+		void projectUpdatingInProgress();
+
+		void setProjectNameUnderValidation();
+
+		void setProjectNameOverValidation();
+
+		void setProjectDescriptionOverValidation();
+
+		void noInternetAccessValidation();
 	}
 
 	interface Navigation{
@@ -31,5 +41,9 @@ public interface ProjectInfoContract{
 		void userSelectRemoveColumn();
 
 		void userSelectEditProject();
+
+		void userEnterProjectName( String projectName );
+
+		void userEnterProjectDescription( String projectDescription );
 	}
 }

@@ -8,10 +8,10 @@
 	<string name="title_activity_register">Register New Account</string>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="title_activity_createProject">Create a Project</string>
-	<string name="title_activity_projectInfo">Project Info</string>
-	<string name="title_activity_taskInfo">Task Info</string>
+	<string name="title_activity_projectInfo">Project Information</string>
+	<string name="title_activity_taskInfo">Task Information</string>
 	<string name="title_activity_backlog">Backlog</string>
-	<string name="title_activity_createTask">Create Task</string>
+	<string name="title_activity_createTask">Create a Task</string>
 	<string name="title_activity_settings">Settings</string>
 	<string name="title_activity_allBoards">All Boards</string>
 	<string name="title_activity_projectBoard">Project Board</string>
@@ -41,6 +41,7 @@
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
 	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_userInstruction_register">Already a User?</string>
+	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -63,6 +64,7 @@
 	<string name="error_loginInProgress">Login in progress, please wait&#8230;</string>
 	<string name="error_registrationInProgress">Registration in progress, please wait&#8230;</string>
 	<string name="error_projectCreationInProgress">Project creation in progress, please wait&#8230;</string>
+	<string name="error_projectUpdatingInProgress">Project updating in progress, please wait&#8230;</string>
 	<string name="error_min3Characters">Minimum of 3 characters</string>
 	<string name="error_min6Characters">Minimum of 6 characters</string>
 	<string name="error_max20Characters">Maximum of 20 characters</string>

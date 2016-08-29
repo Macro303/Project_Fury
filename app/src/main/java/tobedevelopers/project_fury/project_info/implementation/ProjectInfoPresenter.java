@@ -2,6 +2,8 @@ package tobedevelopers.project_fury.project_info.implementation;
 
 import java.lang.ref.WeakReference;
 
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 
 /**
@@ -11,10 +13,15 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 	private WeakReference< ProjectInfoContract.View > viewWeakReference;
 	private WeakReference< ProjectInfoContract.Navigation > navigationWeakReference;
+	private ModelContract model;
+
+	private String mProjectName;
+	private String mProjectDescription;
 
 	public ProjectInfoPresenter( ProjectInfoContract.View view, ProjectInfoContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
+		this.model = new Model();
 	}
 
 	@Override
@@ -69,5 +76,31 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 		if( view != null && navigation != null )
 			view.displayProjectEdited();
+	}
+
+	@Override
+	public void userEnterProjectName( String projectName ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			mProjectName = projectName;
+			if( projectName.length() < 3 ){
+				view.setProjectNameUnderValidation();
+			}else if( projectName.length() >= 20 ){
+				view.setProjectNameOverValidation();
+			}
+		}
+	}
+
+	@Override
+	public void userEnterProjectDescription( String projectDescription ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			mProjectDescription = projectDescription;
+			if( projectDescription.length() >= 128 ){
+				view.setProjectDescriptionOverValidation();
+			}
+		}
 	}
 }
