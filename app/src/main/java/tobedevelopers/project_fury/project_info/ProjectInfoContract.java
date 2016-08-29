@@ -6,19 +6,21 @@ package tobedevelopers.project_fury.project_info;
 public interface ProjectInfoContract{
 
 	interface View{
-		void displayColumnAdded();
+		//		void displayColumnAdded();
+//
+//		void displayUserAdded();
+//
+//		void displayColumnRemoved();
+//
+		void editProjectDescription();
 
-		void displayUserAdded();
-
-		void displayColumnRemoved();
-
-		void displayProjectEdited();
+		void saveProjectDescription();
 
 		void projectUpdatingInProgress();
 
-		void setProjectNameUnderValidation();
-
-		void setProjectNameOverValidation();
+//		void setProjectNameUnderValidation();
+//
+//		void setProjectNameOverValidation();
 
 		void setProjectDescriptionOverValidation();
 
@@ -32,17 +34,19 @@ public interface ProjectInfoContract{
 	interface Presenter{
 		void userSelectBack();
 
-		void userSelectAddUser();
-
-		void userSelectRemoveMe();
-
-		void userSelectAddColumn();
-
-		void userSelectRemoveColumn();
+//		void userSelectAddUser();
+//
+//		void userSelectRemoveMe();
+//
+//		void userSelectAddColumn();
+//
+//		void userSelectRemoveColumn();
 
 		void userSelectEditProject();
 
-		void userEnterProjectName( String projectName );
+		void userSelectSaveProject();
+
+//		void userEnterProjectName( String projectName );
 
 		void userEnterProjectDescription( String projectDescription );
 	}

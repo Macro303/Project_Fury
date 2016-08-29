@@ -33,64 +33,72 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			navigation.navigateToPrevious();
 	}
 
-	@Override
-	public void userSelectAddColumn(){
-		ProjectInfoContract.View view = viewWeakReference.get();
-		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-
-		if( view != null && navigation != null )
-			view.displayColumnAdded();
-	}
-
-	@Override
-	public void userSelectAddUser(){
-		ProjectInfoContract.View view = viewWeakReference.get();
-		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-
-		if( view != null && navigation != null )
-			view.displayUserAdded();
-	}
-
-	@Override
-	public void userSelectRemoveMe(){
-		ProjectInfoContract.View view = viewWeakReference.get();
-		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-
-		if( view != null && navigation != null )
-			navigation.navigateToPrevious();
-	}
-
-	@Override
-	public void userSelectRemoveColumn(){
-		ProjectInfoContract.View view = viewWeakReference.get();
-		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-
-		if( view != null && navigation != null )
-			view.displayColumnRemoved();
-	}
+//	@Override
+//	public void userSelectAddColumn(){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+//
+//		if( view != null && navigation != null )
+//			view.displayColumnAdded();
+//	}
+//
+//	@Override
+//	public void userSelectAddUser(){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+//
+//		if( view != null && navigation != null )
+//			view.displayUserAdded();
+//	}
+//
+//	@Override
+//	public void userSelectRemoveMe(){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+//
+//		if( view != null && navigation != null )
+//			navigation.navigateToPrevious();
+//	}
+//
+//	@Override
+//	public void userSelectRemoveColumn(){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+//
+//		if( view != null && navigation != null )
+//			view.displayColumnRemoved();
+//	}
 
 	@Override
 	public void userSelectEditProject(){
 		ProjectInfoContract.View view = viewWeakReference.get();
-		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			view.displayProjectEdited();
+		if( view != null )
+			view.editProjectDescription();
 	}
 
 	@Override
-	public void userEnterProjectName( String projectName ){
+	public void userSelectSaveProject(){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			mProjectName = projectName;
-			if( projectName.length() < 3 ){
-				view.setProjectNameUnderValidation();
-			}else if( projectName.length() >= 20 ){
-				view.setProjectNameOverValidation();
-			}
+			view.saveProjectDescription();
 		}
 	}
+
+//	@Override
+//	public void userEnterProjectName( String projectName ){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//
+//		if( view != null ){
+//			mProjectName = projectName;
+//			if( projectName.length() < 3 ){
+//				view.setProjectNameUnderValidation();
+//			}else if( projectName.length() >= 20 ){
+//				view.setProjectNameOverValidation();
+//			}
+//		}
+//	}
 
 	@Override
 	public void userEnterProjectDescription( String projectDescription ){
