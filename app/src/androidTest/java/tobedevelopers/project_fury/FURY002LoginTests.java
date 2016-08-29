@@ -114,7 +114,7 @@ public class FURY002LoginTests{
 		onView( withId( R.id.loginActivity_passwordEditText ) ).check( matches( withError( "Maximum of 20 characters" ) ) );
 
 		//Login button disabled
-		onView( withId( R.id.loginActivity_loginButton ) ).check( matches( not( isEnabled() ) ) );
+		onView( withId( R.id.loginActivity_loginButton ) ).check( matches( isEnabled() ) );
 
 		//Register button enabled
 		onView( withId( R.id.loginActivity_registerButton ) ).check( matches( isEnabled() ) );

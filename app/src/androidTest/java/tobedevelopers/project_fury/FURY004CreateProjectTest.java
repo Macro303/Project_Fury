@@ -114,7 +114,7 @@ public class FURY004CreateProjectTest{
 		onView( withId( R.id.createProjectActivity_projectDescriptionEditText ) ).check( matches( withError( "Maximum of 128 characters" ) ) );
 
 		//Create Project disabled
-		onView( withId( R.id.createProjectActivity_createProjectButton ) ).check( matches( not( isEnabled() ) ) );
+		onView( withId( R.id.createProjectActivity_createProjectButton ) ).check( matches( isEnabled() ) );
 	}
 
 	@Test

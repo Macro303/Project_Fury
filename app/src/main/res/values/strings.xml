@@ -69,8 +69,6 @@
 		<item quantity="one">Maximum of %1d character</item>
 		<item quantity="other">Maximum of %1d characters</item>
 	</plurals>
-	<string name="error_minCharacters">Minimum of %1d characters</string>
-	<string name="error_maxCharacters">Maximum of %1d characters</string>
 	<string name="error_alreadyExists">%1s already exists</string>
 	<string name="error_emailValidation">Please enter a valid email</string>
 	<string name="error_confirmPasswordValidation">Password does not currently match</string>
