@@ -47,9 +47,13 @@ public class UrlReader{
 			connection.setRequestMethod( "GET" );
 			connection.connect();
 			responseCode = connection.getResponseCode();
+			if( responseCode == 400 || responseCode == 401 || responseCode == 500 )
+				throw new RuntimeException( responseCode + " Error" );
 			return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
 		}catch( IOException ioe ){
 			responseCode = -1;
+			return null;
+		}catch( RuntimeException re ){
 			return null;
 		}finally{
 			if( connection != null )

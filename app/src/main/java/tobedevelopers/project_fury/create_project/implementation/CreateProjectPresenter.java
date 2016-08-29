@@ -1,10 +1,13 @@
 package tobedevelopers.project_fury.create_project.implementation;
 
+import android.os.AsyncTask;
+
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.create_project.CreateProjectContract;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.Response;
 
 /**
  * Created by Macro303 on 11/08/2016.
@@ -30,7 +33,7 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-/*			new AsyncTask< String, Void, Response >(){
+			new AsyncTask< String, Void, Response >(){
 
 				@Override
 				protected void onPreExecute(){
@@ -44,20 +47,21 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 
 				@Override
 				protected void onPostExecute( Response response ){
-					RegisterContract.View view = viewWeakReference.get();
-					switch( response.getError() ){
-						case "Passed":
-							navigationWeakReference.get().navigateToLogin();
+					CreateProjectContract.View view = viewWeakReference.get();
+
+					switch( response.getMessage() ){
+						case "Project creation successful.":
+							navigationWeakReference.get().navigateToPrevious();
 							break;
 						case "No Internet Access":
 							view.noInternetAccessValidation();
 							break;
 						default:
-							view.setUsernameAlreadyUsedValidation();
+							view.setProjectAlreadyUsedValidation();
 							break;
 					}
 				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );*/
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 			navigation.navigateToPrevious();
 		}
 	}

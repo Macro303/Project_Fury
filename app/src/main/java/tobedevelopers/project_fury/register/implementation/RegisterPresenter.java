@@ -44,8 +44,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-//					return modelContract.createUser( mUsername, mPassword, mEmail );
-					return null;
+					return modelContract.registerUser( mUsername, mPassword, mEmail );
 				}
 
 				@Override
@@ -53,7 +52,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 					RegisterContract.View view = viewWeakReference.get();
 
 					switch( response.getMessage() ){
-						case "Passed":
+						case "Registration Successful.":
 							navigationWeakReference.get().navigateToLogin();
 							break;
 						case "No Internet Access":

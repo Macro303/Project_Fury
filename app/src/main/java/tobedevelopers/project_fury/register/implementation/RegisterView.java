@@ -128,7 +128,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), getString( R.string.error_registrationInProgress ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -138,7 +138,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_min6Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
 			}
 		} );
 	}
@@ -148,7 +148,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max20Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}
@@ -158,7 +158,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_usernameAlreadyAUser ) );
+				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
 				mPasswordEditText.getEditableText().clear();
 				mConfirmPasswordEditText.getEditableText().clear();
 			}
@@ -180,7 +180,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_min6Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
 			}
 		} );
 	}
@@ -190,7 +190,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max20Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}

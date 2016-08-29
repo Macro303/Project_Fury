@@ -19,6 +19,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 	private ModelContract model;
 
 	private String mUsername;
+	private String mPassword;
 
 	public LoginPresenter( LoginContract.View view, LoginContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -50,8 +51,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-//					return model.getUser( mUsername );
-					return null;
+					return model.login( mUsername, mPassword );
 				}
 
 				@Override
@@ -59,7 +59,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 					LoginContract.View view = viewWeakReference.get();
 
 					switch( response.getMessage() ){
-						case "Passed":
+						case "Success":
 							navigationWeakReference.get().navigateToDashboard();
 							break;
 						case "No Internet Access":
@@ -93,6 +93,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 		LoginContract.View view = viewWeakReference.get();
 
 		if( view != null ){
+			mPassword = password;
 			if( password.length() < 6 ){
 				view.setPasswordUnderValidation();
 				view.disableLoginButton();
