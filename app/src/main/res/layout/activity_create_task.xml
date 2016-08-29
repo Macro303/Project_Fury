@@ -3,14 +3,70 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_margin="20dp"
 	android:orientation="vertical">
 
-	<Button
-		android:id="@+id/createTaskActivity_createTaskButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/button_createTask"/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_margin="20dp"
+		android:orientation="vertical">
 
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="30dp"/>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<android.support.design.widget.TextInputEditText
+				android:id="@+id/createTaskActivity_taskNameEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:digits="@string/alphaNumericCharacters"
+				android:hint="@string/hint_taskName"
+				android:inputType="textNoSuggestions"
+				android:maxLength="20"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp">
+
+			<android.support.design.widget.TextInputEditText
+				android:id="@+id/createTaskActivity_taskDescriptionEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/createTaskActivity_taskNameEditText"
+				android:layout_marginBottom="40dp"
+				android:digits="@string/alphaNumericCharacters"
+				android:gravity="top|left"
+				android:hint="@string/hint_taskDescription"
+				android:inputType="textNoSuggestions"
+				android:maxLength="128"
+				android:maxLines="6"
+				android:scrollbars="vertical"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="bottom"
+			android:orientation="horizontal">
+
+			<Button
+				android:id="@+id/createTaskActivity_createTaskButton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:enabled="false"
+				android:text="@string/button_createTask"/>
+
+		</LinearLayout>
+	</LinearLayout>
 </LinearLayout>

@@ -6,7 +6,19 @@ package tobedevelopers.project_fury.create_task;
 public interface CreateTaskContract{
 
 	interface View{
+		void enableCreateTaskButton();
 
+		void disableCreateTaskButton();
+
+		void taskCreationInProgress();
+
+		void setTaskNameUnderValidation();
+
+		void setTaskNameOverValidation();
+
+		void setTaskDescriptionOverValidation();
+
+		void noInternetAccessValidation();
 	}
 
 	interface Navigation{
@@ -19,5 +31,9 @@ public interface CreateTaskContract{
 		void userSelectCreateTask();
 
 		void userSelectBack();
+
+		void userEnterTaskName( String taskName );
+
+		void userEnterTaskDescription( String taskDescription );
 	}
 }

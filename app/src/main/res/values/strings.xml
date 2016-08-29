@@ -49,6 +49,8 @@
 	<string name="hint_confirmPassword">Confirm Password</string>
 	<string name="hint_projectName">Project Name</string>
 	<string name="hint_projectDescription">Project Description</string>
+	<string name="hint_taskName">Task Name</string>
+	<string name="hint_taskDescription">Task Description</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
@@ -63,6 +65,7 @@
 	<string name="error_loginInProgress">Login in progress, please wait&#8230;</string>
 	<string name="error_registrationInProgress">Registration in progress, please wait&#8230;</string>
 	<string name="error_projectCreationInProgress">Project creation in progress, please wait&#8230;</string>
+	<string name="error_taskCreationInProgress">Task creation in progress, please wait&#8230;</string>
 	<string name="error_min3Characters">Minimum of 3 characters</string>
 	<string name="error_min6Characters">Minimum of 6 characters</string>
 	<string name="error_max20Characters">Maximum of 20 characters</string>
