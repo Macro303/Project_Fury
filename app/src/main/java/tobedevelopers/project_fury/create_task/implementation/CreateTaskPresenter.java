@@ -1,10 +1,13 @@
 package tobedevelopers.project_fury.create_task.implementation;
 
+import android.os.AsyncTask;
+
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.create_task.CreateTaskContract;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.Response;
 
 /**
  * Created by Macro303 on 12/08/2016.
@@ -42,13 +45,12 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 			if( taskName.length() < 3 ){
 				view.setTaskNameUnderValidation();
 				view.disableCreateTaskButton();
-			}else if( taskName.length() > 20 ){
+			}else if( taskName.length() > 20 )
 				view.disableCreateTaskButton();
-			}else
+			else
 				view.enableCreateTaskButton();
-			if( taskName.length() >= 20 ){
+			if( taskName.length() >= 20 )
 				view.setTaskNameOverValidation();
-			}
 		}
 	}
 
@@ -58,12 +60,10 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 
 		if( view != null ){
 			mTaskDescription = taskDescription;
-			if( taskDescription.length() > 128 ){
+			if( taskDescription.length() > 128 )
 				view.disableCreateTaskButton();
-			}
-			if( taskDescription.length() >= 128 ){
+			if( taskDescription.length() >= 128 )
 				view.setTaskDescriptionOverValidation();
-			}
 		}
 	}
 
@@ -72,7 +72,36 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		CreateTaskContract.View view = viewWeakReference.get();
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			navigation.navigateToPreviousAfterCreate();
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					viewWeakReference.get().taskCreationInProgress();
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.createTask( "", mTaskName, mTaskDescription );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					CreateTaskContract.View view = viewWeakReference.get();
+
+					switch( response.getMessage() ){
+						case "Project task successful.":
+							navigationWeakReference.get().navigateToPrevious();
+							break;
+						case "No Internet Access":
+							view.noInternetAccessValidation();
+							break;
+						default:
+							break;
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			navigation.navigateToPrevious();
+		}
 	}
 }

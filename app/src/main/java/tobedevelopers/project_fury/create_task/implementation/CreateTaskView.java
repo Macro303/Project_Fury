@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.create_task.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -51,12 +50,11 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createTaskActivity_createTaskButton:
-				Toast.makeText( this, "Create Task", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Task", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectCreateTask();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
 				break;
 		}
 	}
@@ -94,16 +92,6 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	}
 
 	@Override
-	public void navigateToPreviousAfterCreate(){
-		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
-			@Override
-			public void run(){
-				finish();
-			}
-		} );
-	}
-
-	@Override
 	public void enableCreateTaskButton(){
 		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
 			@Override
@@ -128,7 +116,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), getString( R.string.error_inProgress ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Creation" ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}

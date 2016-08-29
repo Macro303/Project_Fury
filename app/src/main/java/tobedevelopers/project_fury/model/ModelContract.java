@@ -20,4 +20,8 @@ public interface ModelContract{
 	Response createProject( String projectName );
 
 	Response createProject( String projectName, String projectDescription );
+
+	TaskResponse getTask( String projectName, String taskID );
+
+	TaskResponse createTask( String projectName, String taskName, String taskDescription );
 }
