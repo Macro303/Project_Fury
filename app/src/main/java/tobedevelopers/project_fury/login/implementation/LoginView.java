@@ -121,7 +121,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), getString( R.string.error_loginInProgress ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -131,7 +131,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_min6Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
 			}
 		} );
 	}
@@ -141,7 +141,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max20Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}
@@ -151,7 +151,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_min6Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
 			}
 		} );
 	}
@@ -161,7 +161,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError( getString( R.string.error_max20Characters ) );
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}

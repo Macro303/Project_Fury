@@ -19,6 +19,8 @@ public interface CreateProjectContract{
 		void setProjectDescriptionOverValidation();
 
 		void noInternetAccessValidation();
+
+		void setProjectAlreadyUsedValidation();
 	}
 
 	interface Navigation{
