@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.register.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,8 +14,9 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.register.RegisterContract;
+import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
 
@@ -46,20 +46,19 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	//Buttons Listeners
-	@OnClick({R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton})
+	@OnClick( { R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton } )
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
-				//Toast.makeText( this, "Create Account", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
-				//Toast.makeText( this, "Login", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectLogin();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
 				break;
 		}
 	}
@@ -67,16 +66,21 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	//Text Change Listeners
 	@OnTextChanged( value = { R.id.registerActivity_usernameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedUserNameEditText( Editable editable ){
+		mPasswordEditText.getEditableText().clear();
+		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterUsername( editable.toString() );
 	}
 
 	@OnTextChanged( value = { R.id.registerActivity_emailEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedEmailEditText( Editable editable ){
+		mPasswordEditText.getEditableText().clear();
+		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterEmail( editable.toString() );
 	}
 
 	@OnTextChanged( value = { R.id.registerActivity_passwordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedPasswordEditText( Editable editable ){
+		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterPassword( editable.toString() );
 		mPassword = editable.toString();
 	}
@@ -124,37 +128,37 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				Toast.makeText(getParam1(), getString(R.string.error_registrationInProgress), Toast.LENGTH_SHORT).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
 
 	@Override
-	public void setUsernameValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
+	public void setUsernameUnderValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_usernameMinCharacter));
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
 			}
 		} );
 	}
 
 	@Override
-	public void setUsernameOver20CharValidation() {
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
+	public void setUsernameOverCharValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
-			public void run() {
-				getParam1().setError(getString(R.string.error_usernameMaxCharacter));
+			public void run(){
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
-		});
+		} );
 	}
 
 	@Override
 	public void setUsernameAlreadyUsedValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mUserNameEditText) {
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_usernameAlreadyAUser));
+				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
 				mPasswordEditText.getEditableText().clear();
 				mConfirmPasswordEditText.getEditableText().clear();
 			}
@@ -163,46 +167,46 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void setEmailValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mEmailEditText) {
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mEmailEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_emailValidation));
+				getParam1().setError( getString( R.string.error_emailValidation ) );
 			}
 		} );
 	}
 
 	@Override
-	public void setPasswordValidation(){
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mPasswordEditText) {
+	public void setPasswordUnderValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
 			public void run(){
-				getParam1().setError(getString(R.string.error_passwordMinCharacter));
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
 			}
 		} );
 	}
 
 	@Override
-	public void setPasswordOver20CharValidation() {
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mPasswordEditText) {
+	public void setPasswordOverValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
 			@Override
-			public void run() {
-				getParam1().setError(getString(R.string.error_passwordMaxCharacter));
+			public void run(){
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
-		});
+		} );
 	}
 
 	@Override
-	public void setConfirmPasswordValidation() {
-		runOnUiThread(new Runnable1Param<TextInputEditText>(mConfirmPasswordEditText) {
+	public void setConfirmPasswordValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mConfirmPasswordEditText ){
 			@Override
-			public void run() {
-				getParam1().setError(getString(R.string.error_confirmPasswordValidation));
+			public void run(){
+				getParam1().setError( getString( R.string.error_confirmPasswordValidation ) );
 			}
-		});
+		} );
 	}
 
 	@Override
 	public void noInternetAccessValidation(){
-		Toast.makeText(this, getString(R.string.error_noInternetAccess), Toast.LENGTH_LONG).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
 }

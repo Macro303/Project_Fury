@@ -10,8 +10,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.Runnable1Param;
 import tobedevelopers.project_fury.create_task.CreateTaskContract;
+import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
  * Created by Macro303 on 12/08/2016.

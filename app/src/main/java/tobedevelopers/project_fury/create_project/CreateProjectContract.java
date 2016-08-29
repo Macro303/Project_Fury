@@ -6,7 +6,21 @@ package tobedevelopers.project_fury.create_project;
 public interface CreateProjectContract{
 
 	interface View{
+		void enableCreateProjectButton();
 
+		void disableCreateProjectButton();
+
+		void projectCreationInProgress();
+
+		void setProjectNameUnderValidation();
+
+		void setProjectNameOverValidation();
+
+		void setProjectDescriptionOverValidation();
+
+		void noInternetAccessValidation();
+
+		void setProjectAlreadyUsedValidation();
 	}
 
 	interface Navigation{
@@ -16,5 +30,8 @@ public interface CreateProjectContract{
 	interface Presenter{
 		void userSelectCreateProject();
 
+		void userEnterProjectName( String projectName );
+
+		void userEnterProjectDescription( String projectDescription );
 	}
 }

@@ -12,9 +12,9 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by A on 8/18/2016.
  */
-public class FURY001 extends ApplicationTestCase< Application >{
+public class FURY001UnitTests extends ApplicationTestCase< Application >{
 
-	public FURY001(){
+	public FURY001UnitTests(){
 		super( Application.class );
 	}
 
@@ -36,7 +36,7 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterUsername( "and" );
-		verify( viewMock ).setUsernameValidation();
+		verify( viewMock ).setUsernameUnderValidation();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -90,7 +90,7 @@ public class FURY001 extends ApplicationTestCase< Application >{
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
 		presenter.userEnterPassword( "pass" );
-		verify( viewMock ).setPasswordValidation();
+		verify( viewMock ).setPasswordUnderValidation();
 		verify( viewMock ).disableCreateAccountButton();
 	}
 
@@ -111,6 +111,9 @@ public class FURY001 extends ApplicationTestCase< Application >{
 
 		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
 
+		presenter.userEnterUsername( "Andrea123" );
+		presenter.userEnterEmail( "awolff@live.ca" );
+		presenter.userEnterPassword( "123456" );
 		presenter.userEnterConfirmPassword( "123456", "123456" );
 		verify( viewMock ).enableCreateAccountButton();
 	}

@@ -12,17 +12,17 @@ public interface RegisterContract{
 
 		void registrationInProgress();
 
-		void setUsernameValidation();
+		void setUsernameUnderValidation();
 
-		void setUsernameOver20CharValidation();
+		void setUsernameOverCharValidation();
 
 		void setUsernameAlreadyUsedValidation();
 
 		void setEmailValidation();
 
-		void setPasswordValidation();
+		void setPasswordUnderValidation();
 
-		void setPasswordOver20CharValidation();
+		void setPasswordOverValidation();
 
 		void setConfirmPasswordValidation();
 
