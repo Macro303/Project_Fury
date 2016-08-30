@@ -62,17 +62,6 @@ public class FURY008UnitTests extends ApplicationTestCase< Application >{
 		verify( viewMock ).disableCreateTaskButton();
 	}
 
-	//Create Task Navigation
-	public void testCreateTaskButtonNavigationToPrevious(){
-		CreateTaskContract.View viewMock = mock( CreateTaskContract.View.class );
-		CreateTaskContract.Navigation navigationMock = mock( CreateTaskContract.Navigation.class );
-
-		CreateTaskContract.Presenter presenter = new CreateTaskPresenter( viewMock, navigationMock );
-
-		presenter.userSelectCreateTask();
-		verify( navigationMock ).navigateToPreviousAfterCreate();
-	}
-
 	//Back button Navigation
 	public void testBackButtonNavigateToPrevious(){
 		CreateTaskContract.View viewMock = mock( CreateTaskContract.View.class );
