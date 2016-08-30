@@ -25,8 +25,7 @@ public class TaskResponse extends Response{
 	@Override
 	public String toString(){
 		return "TaskResponse{" +
-			       "message='" + message + '\'' +
-			       ", tasks=" + Arrays.toString( tasks ) +
-			       '}';
+			       "tasks=" + Arrays.toString( tasks ) +
+			       "} " + super.toString();
 	}
 }

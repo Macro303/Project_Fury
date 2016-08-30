@@ -94,6 +94,35 @@ public class UrlReader{
 		return post( new String[]{ "" }, parameters );
 	}
 
+	public String put( String[] headers, String parameters ){
+		HttpURLConnection connection = null;
+		try{
+			URL url = new URL( urlString );
+			connection = ( HttpURLConnection ) url.openConnection();
+			connection.setRequestProperty( "Authorization", headers[ 0 ] );
+			connection.setRequestMethod( "PUT" );
+			connection.setRequestProperty( "Content-type", "application/x-www-form-urlencoded" );
+			connection.setDoOutput( true );
+			connection.connect();
+			try( DataOutputStream wr = new DataOutputStream( connection.getOutputStream() ) ){
+				wr.write( parameters.getBytes( "UTF-8" ) );
+			}
+			responseCode = connection.getResponseCode();
+			if( responseCode == 400 || responseCode == 401 || responseCode == 500 ){
+				throw new RuntimeException( responseCode + " Error" );
+			}
+			return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
+		}catch( IOException ioe ){
+			responseCode = -1;
+			return null;
+		}catch( RuntimeException re ){
+			return null;
+		}finally{
+			if( connection != null )
+				connection.disconnect();
+		}
+	}
+
 	/*private HttpURLConnection startConnection( String requestType ) throws IOException{
 		URL url = new URL( urlString );
 		HttpURLConnection connection = ( HttpURLConnection ) url.openConnection();

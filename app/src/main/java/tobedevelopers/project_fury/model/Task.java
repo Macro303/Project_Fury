@@ -11,19 +11,22 @@ public class Task{
 	private String taskID;
 	private String name;
 	private String description;
-	private String userAssigned;
+	@SerializedName( "userAssigned" )
+	private String assignee;
 	private String projectParent;
 	private Priority priority = Priority.UNASSIGNED;
+	private String columnIn;
 
 	@Override
 	public String toString(){
 		return "Task{" +
-			       "description='" + description + '\'' +
-			       ", taskID='" + taskID + '\'' +
+			       "assignee='" + assignee + '\'' +
+			       ", columnIn='" + columnIn + '\'' +
+			       ", description='" + description + '\'' +
 			       ", name='" + name + '\'' +
-			       ", userAssigned='" + userAssigned + '\'' +
-			       ", projectParent='" + projectParent + '\'' +
 			       ", priority=" + priority +
+			       ", projectParent='" + projectParent + '\'' +
+			       ", taskID='" + taskID + '\'' +
 			       '}';
 	}
 

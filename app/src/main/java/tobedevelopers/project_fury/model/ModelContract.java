@@ -15,13 +15,25 @@ public interface ModelContract{
 
 	ProjectResponse getAllProjects();
 
-	ProjectResponse getProject( String projectName );
+	ProjectResponse getProject( String projectID );
 
 	Response createProject( String projectName );
 
 	Response createProject( String projectName, String projectDescription );
 
-	TaskResponse getTask( String projectName, String taskID );
+	Response updateProject( String projectID, String projectDescription );
 
-	TaskResponse createTask( String projectName, String taskName, String taskDescription );
+	TaskResponse getTask( String projectID, String taskID );
+
+	TaskResponse getAllUserTasks();
+
+	TaskResponse getAllProjectTasks( String projectID );
+
+	Response createTask( String projectID, String taskName );
+
+	Response createTaskNoAssignee( String projectID, String taskName, String taskDescription );
+
+	Response createTaskNoDescription( String projectID, String taskName, String assignee );
+
+	Response createTask( String projectID, String taskName, String taskDescription, String assignee );
 }
