@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ProjectResponse;
 import tobedevelopers.project_fury.model.Response;
+import tobedevelopers.project_fury.model.TaskResponse;
 import tobedevelopers.project_fury.model.UsernameResponse;
 
 /**
@@ -13,30 +14,18 @@ import tobedevelopers.project_fury.model.UsernameResponse;
 public class ModelTest extends TestCase{
 
 	public void testRegister(){
+		Model model = new Model();
 		String value = "Response{message=\'Registration Successful.\'}";
-		Response response = new Model().registerUser( "Username", "Password", "Email@Email.com" );
+		Response response = model.registerUser( "Username", "Password", "Email@Email.com" );
 		System.out.println( "Test Register:\n" + response.toString() );
 		assertTrue( value.equals( response.toString() ) );
 	}
 
 	public void testLogin(){
-		String responseValue = "Response{message=\'Success\'}";
 		Model model = new Model();
-		String token = model.getToken();
-		System.out.println( "Token Before:\n" + token );
+		String value = "Response{message=\'Success\'}";
 		Response response = model.login( "Username", "Password" );
 		System.out.println( "Test Login:\n" + response.toString() );
-		token = model.getToken();
-		System.out.println( "Token After:\n" + token );
-		assertTrue( responseValue.equals( response.toString() ) );
-	}
-
-	public void testGetProjects(){
-		Model model = new Model();
-		String value = "ProjectResponse{message=\'Success\', projects=[]}";
-		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
-		ProjectResponse response = model.getAllProjects();
-		System.out.println( "Test Get Projects:\n" + response.toString() );
 		assertTrue( value.equals( response.toString() ) );
 	}
 
@@ -49,70 +38,63 @@ public class ModelTest extends TestCase{
 		assertTrue( value.equals( response.toString() ) );
 	}
 
+	public void testGetAllProjects(){
+		Model model = new Model();
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		ProjectResponse response = model.getAllProjects();
+		System.out.println( "Test Get Projects:\n" + response.toString() );
+	}
+
 	public void testGetProject(){
 		Model model = new Model();
-		String value = "ProjectResponse{message=\'Success\', projects=[Project{description=\'Description\', name=\'project\', usersOnProject=[username]}]}";
 		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
-		ProjectResponse response = model.getProject( "Project" );
+		ProjectResponse response = model.getProject( "57c4f83466d8de03003bea62" );
 		System.out.println( "Test Get Project:\n" + response.toString() );
-		assertTrue( value.equals( response.toString() ) );
 	}
 
 	public void testGetAllUsers(){
 		Model model = new Model();
-		String value = "UsernameResponse{message='Success', usernames=[starlord, drax, gamorra, rocket, iamgroot, Username, shinychrome, shinychrom, sjsjshshsh, ShinyChrome, shshdhdh, shinychromew, sjsjsjsjs, 12345678901234567890, username]}";
 		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
 		UsernameResponse response = model.getAllUsers();
 		System.out.println( "Test Get All Users:\n" + response.toString() );
+	}
+
+	public void testUpdateProject(){
+		Model model = new Model();
+		String value = "Response{message='Update successful.'}";
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		Response response = model.updateProject( "57c4f83466d8de03003bea62", "New Description" );
+		System.out.println( "Test Update Project:\n" + response.toString() );
 		assertTrue( value.equals( response.toString() ) );
 	}
 
-	/**
-	 * Test that creates a user in the DB and checks if a user was created
-	 public void testCreateUser(){
-	 String value = "Passed";
-	 Response response = new Model().createUser( "Username", "Password", "Email@Email.com" );
-	 System.out.println( "Test Create User:\n" + response.toString() );
-	 assertTrue( value.equals( response.getError() ) );
-	 }
-
-	 *//**
-	 * Test that checks if it can get all the users from the DB
-	 *//*
-	public void testGetAllUsers(){
-		String value = "Passed";
-		Response response = new Model().getAllUsers();
-		System.out.println( "Test Get All Users:\n" + response.toString() );
-		assertTrue( value.equals( response.getError() ) );
+	public void testCreateTask(){
+		Model model = new Model();
+		String value = "Response{message='Task creation successful.'}";
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		Response response = model.createTask( "57c4f83466d8de03003bea62", "Task", "Description", "Username" );
+		System.out.println( "Test Create Task:\n" + response.toString() );
+		assertTrue( value.equals( response.toString() ) );
 	}
 
-	*//**
-	 * Test that checks if it can get a select user from the DB by using the users username
-	 *//*
-	public void testGetSelectedUser(){
-		String value = "Passed";
-		Response response = new Model().getUser( "Username" );
-		System.out.println( "Test Get Selected User:\n" + response.toString() );
-		assertTrue( value.equals( response.getError() ) );
+	public void testGetAllProjectTasks(){
+		Model model = new Model();
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		TaskResponse response = model.getAllProjectTasks( "57c4f83466d8de03003bea62" );
+		System.out.println( "Test Get All Project Tasks:\n" + response.toString() );
 	}
 
-	*//**
-	 * Test that updates the select user by its username, and returns the new user information
-	 *//*
-	public void testUpdateSelectedUser(){
-		String value = "Passed";
-		Response response = new Model().updateUser( "Username", "Password", "EmailMe@EmailMe.com" );
-		System.out.println( "Test Update Selected User:\n" + response.toString() );
-		assertTrue( value.equals( response.getError() ) );
+	public void testGetAllUserTasks(){
+		Model model = new Model();
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		TaskResponse response = model.getAllUserTasks();
+		System.out.println( "Test Get All User Task:\n" + response.toString() );
 	}
 
-	*//**
-	 * Test that deletes the select user by its username from the DB
-	 *//*
-	public void testDeleteSelectedUser(){
-		String value = "Passed";
-		Response response = new Model().deleteUser( "Username" );
-		System.out.println( "Test Delete User Model:\n" + response.toString() );
-		assertTrue( value.equals( response.getError() ) );
-	}*/
+	public void testGetTask(){
+		Model model = new Model();
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		TaskResponse response = model.getTask( "57c4f83466d8de03003bea62", "57c503d711d6150300bff578" );
+		System.out.println( "Test Get Task:\n" + response.toString() );
+	}
 }
