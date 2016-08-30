@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class Model implements ModelContract{
 
 	private static UrlReader urlReader;
-	//	private static String apiAddress = "https://young-stream-51673.herokuapp.com/api/";
-	private static String apiAddress = "https://fury-test.herokuapp.com/api/";
+	private static String apiAddress = "https://young-stream-51673.herokuapp.com/api/";
+	//	private static String apiAddress = "https://fury-test.herokuapp.com/api/";
 	private static String token;
 
 	public Model(){
@@ -112,5 +112,82 @@ public class Model implements ModelContract{
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
 			return new Gson().fromJson( response, Response.class );
 		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response createTask( String projectID, String taskName ){
+		return createTask( projectID, taskName, "", "" );
+	}
+
+	@Override
+	public Response updateProject( String projectID, String projectDescription ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String parameters = "description=" + projectDescription;
+		String response = urlReader.put( headers, parameters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public TaskResponse getTask( String projectID, String taskID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new TaskResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
+		return new TaskResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response createTaskNoAssignee( String projectID, String taskName, String taskDescription ){
+		return createTask( projectID, taskName, taskDescription, "" );
+	}
+
+	@Override
+	public Response createTaskNoDescription( String projectID, String taskName, String assignee ){
+		return createTask( projectID, taskName, "", assignee );
+	}
+
+	@Override
+	public Response createTask( String projectID, String taskName, String taskDescription, String assignee ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + assignee.toLowerCase();
+		String response = urlReader.post( headers, parameters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public TaskResponse getAllProjectTasks( String projectID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new TaskResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
+		return new TaskResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public TaskResponse getAllUserTasks(){
+		urlReader = new UrlReader( apiAddress + "users/tasks" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new TaskResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
+		return new TaskResponse( urlReader.getResponseCode() + " Error" );
 	}
 }
