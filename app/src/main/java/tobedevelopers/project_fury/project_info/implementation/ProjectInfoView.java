@@ -71,7 +71,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				presenter.userSelectRemoveColumn();
 				break;*/
 			case R.id.projectInfoActivity_editProjectButton:
-				Toast.makeText( this, "Edit Project", Toast.LENGTH_SHORT ).show();
+				//Toast.makeText( this, "Edit Project", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectEditProject();
 				break;
 			case R.id.projectInfoActivity_saveProjectButton:
@@ -110,11 +110,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	public void navigateToPrevious(){
 		finish();
 	}
-
-//	@Override
-//	public void displayColumnAdded(){
-//		Toast.makeText( getApplicationContext(), "A New Column Was Added", Toast.LENGTH_SHORT ).show();
-//	}
 //
 //	@Override
 //	public void displayUserAdded(){
@@ -128,7 +123,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void editProjectDescription(){
-		//ToastLog.makeInfo( getApplicationContext(), "The Project Was Edited", Toast.LENGTH_SHORT ).show();
 		runOnUiThread( new Runnable2Param< Button, TextInputEditText >( mEditProjectButton, mProjectDescriptionEditText ){
 			@Override
 			public void run(){
@@ -162,7 +156,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< ProjectInfoView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project information" ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project description saving" ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}
@@ -200,5 +194,11 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	@Override
 	public void noInternetAccessValidation(){
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+	}
+
+	@Override
+	public void defaultErrorMessage(){
+		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG ).show();
+		mProjectDescriptionEditText.getEditableText().clear();
 	}
 }

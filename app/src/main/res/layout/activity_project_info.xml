@@ -73,20 +73,6 @@
 			android:orientation="vertical">
 
 			<!--
-					<ListView
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="2"/>
-
-
-					<LinearLayout
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:gravity="center"
-						android:orientation="vertical">
-						-->
-			<!--
 				<Button
 					android:id="@+id/projectInfoActivity_addUserButton"
 					android:layout_width="wrap_content"
@@ -99,47 +85,6 @@
 					android:layout_height="wrap_content"
 					android:text="@string/button_removeMe"/>
 					-->
-			<!--
-					</LinearLayout>
-
-				</LinearLayout>
-
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
-
-
-					<ListView
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="2"/>
-
-
-					<LinearLayout
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:gravity="center"
-						android:orientation="vertical">
-						-->
-			<!--
-						<Button
-							android:id="@+id/projectInfoActivity_addColumnButton"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="@string/button_addColumn"/>
-
-						<Button
-							android:id="@+id/projectInfoActivity_removeColumnButton"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="@string/button_removeColumn"/>
-							-->
-			<!--
-					</LinearLayout>
-
-				</LinearLayout>
-				-->
 
 			<Button
 				android:id="@+id/projectInfoActivity_editProjectButton"

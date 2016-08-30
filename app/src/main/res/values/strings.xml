@@ -76,6 +76,7 @@
 	<string name="error_confirmPasswordValidation">Password does not currently match</string>
 	<string name="error_noInternetAccess">No Internet Access</string>
 	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
+	<string name="error_defaultError">Your request cannot be processed at this time</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>

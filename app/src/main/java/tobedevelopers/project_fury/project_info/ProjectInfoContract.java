@@ -6,12 +6,9 @@ package tobedevelopers.project_fury.project_info;
 public interface ProjectInfoContract{
 
 	interface View{
-		//		void displayColumnAdded();
-//
+
 //		void displayUserAdded();
-//
-//		void displayColumnRemoved();
-//
+
 		void editProjectDescription();
 
 		void saveProjectDescription();
@@ -25,6 +22,8 @@ public interface ProjectInfoContract{
 		void setProjectDescriptionOverValidation();
 
 		void noInternetAccessValidation();
+
+		void defaultErrorMessage();
 	}
 
 	interface Navigation{
@@ -37,10 +36,6 @@ public interface ProjectInfoContract{
 //		void userSelectAddUser();
 //
 //		void userSelectRemoveMe();
-//
-//		void userSelectAddColumn();
-//
-//		void userSelectRemoveColumn();
 
 		void userSelectEditProject();
 
