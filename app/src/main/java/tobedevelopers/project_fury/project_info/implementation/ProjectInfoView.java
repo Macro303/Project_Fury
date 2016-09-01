@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.project_info.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -80,15 +79,15 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				presenter.userSelectRemoveColumn();
 				break;*/
 			case R.id.projectInfoActivity_editProjectButton:
-				//Toast.makeText( this, "Edit Project", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectEditProject();
 				break;
 			case R.id.projectInfoActivity_saveProjectButton:
+				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT ).show();
 				presenter.userSelectSaveProject();
 				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
 				break;
 		}
 	}
