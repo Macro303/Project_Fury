@@ -21,6 +21,22 @@ public class Project{
 		this.usersOnProject = usersOnProject;
 	}
 
+	public String getDescription(){
+		return description;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public String getProjectID(){
+		return projectID;
+	}
+
+	public String[] getUsersOnProject(){
+		return usersOnProject;
+	}
+
 	@Override
 	public String toString(){
 		return "Project{" +
