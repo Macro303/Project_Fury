@@ -82,7 +82,6 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					System.out.println( "Assignee: " + mAssignee );
 					return model.createTask( Model.getSelectedProject().getProjectID(), mTaskName, mTaskDescription, mAssignee );
 				}
 
@@ -98,11 +97,11 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 							view.noInternetAccessValidation();
 							break;
 						default:
+							view.errorValidation();
 							break;
 					}
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-			navigation.navigateToPrevious();
 		}
 	}
 }

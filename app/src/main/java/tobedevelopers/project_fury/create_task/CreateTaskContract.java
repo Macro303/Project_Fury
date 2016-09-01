@@ -19,6 +19,8 @@ public interface CreateTaskContract{
 		void setTaskDescriptionOverValidation();
 
 		void noInternetAccessValidation();
+
+		void errorValidation();
 	}
 
 	interface Navigation{

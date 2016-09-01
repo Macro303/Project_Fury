@@ -177,4 +177,9 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	public void noInternetAccessValidation(){
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
 	}
+
+	@Override
+	public void errorValidation(){
+		ToastLog.makeWarn( this, getString( R.string.error_havingIssues ), Toast.LENGTH_LONG ).show();
+	}
 }
