@@ -79,15 +79,15 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				presenter.userSelectRemoveColumn();
 				break;*/
 			case R.id.projectInfoActivity_editProjectButton:
-				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT );
 				presenter.userSelectEditProject();
 				break;
 			case R.id.projectInfoActivity_saveProjectButton:
-				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
 				presenter.userSelectSaveProject();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -158,7 +158,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< ProjectInfoView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project description saving" ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project description saving" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -175,12 +175,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void defaultErrorMessage(){
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 		mProjectDescriptionEditText.getEditableText().clear();
 	}
 }
