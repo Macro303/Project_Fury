@@ -90,7 +90,7 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 					CreateTaskContract.View view = viewWeakReference.get();
 
 					switch( response.getMessage() ){
-						case "Project task successful.":
+						case "Task creation successful.":
 							navigationWeakReference.get().navigateToPrevious();
 							break;
 						case "No Internet Access":

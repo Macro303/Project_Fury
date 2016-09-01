@@ -47,11 +47,11 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createProjectActivity_createProjectButton:
-				ToastLog.makeDebug( this, "Create Project", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Project", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateProject();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -102,7 +102,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 		runOnUiThread( new Runnable1Param< CreateProjectView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project Creation" ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project Creation" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -139,7 +139,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 
 	@Override
 	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override

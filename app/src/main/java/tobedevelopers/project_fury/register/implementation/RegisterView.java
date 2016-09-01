@@ -50,15 +50,15 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
-				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
-				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				presenter.userSelectLogin();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -128,7 +128,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -207,6 +207,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 }

@@ -72,11 +72,11 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createTaskActivity_createTaskButton:
-				ToastLog.makeDebug( this, "Create Task", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Task", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateTask( mAssigneeSpinner.getSelectedItem().toString() );
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -138,7 +138,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Creation" ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Creation" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -175,11 +175,11 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void errorValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_havingIssues ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
 }

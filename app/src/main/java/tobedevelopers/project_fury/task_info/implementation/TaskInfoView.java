@@ -1,7 +1,6 @@
 package tobedevelopers.project_fury.task_info.implementation;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -10,6 +9,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.task_info.TaskInfoContract;
 
 /**
@@ -38,16 +38,15 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.taskInfoActivity_editTaskButton:
-				Toast.makeText( this, "Edit Task", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Edit Task", Toast.LENGTH_SHORT );
 				presenter.userSelectEditTask();
 				break;
 			case R.id.taskInfoActivity_removeTaskButton:
-				Toast.makeText( this, "Remove Task", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Remove Task", Toast.LENGTH_SHORT );
 				presenter.userSelectRemoveTask();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -70,6 +69,6 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	@Override
 	public void displayTaskEdited(){
-		Toast.makeText( getApplicationContext(), "The Task Was Edited", Toast.LENGTH_SHORT ).show();
+		ToastLog.makeDebug( getApplicationContext(), "The Task Was Edited", Toast.LENGTH_SHORT );
 	}
 }

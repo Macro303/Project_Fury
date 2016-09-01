@@ -51,14 +51,14 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
 				presenter.userSelectLogin();
-				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				break;
 			case R.id.loginActivity_registerButton:
 				presenter.userSelectRegister();
-				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT );
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -121,7 +121,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG ).show();
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -168,7 +168,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 
 	@Override
 	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
