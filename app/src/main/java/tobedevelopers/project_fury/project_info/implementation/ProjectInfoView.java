@@ -16,6 +16,7 @@ import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
+import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.runnable_param.Runnable2Param;
@@ -48,6 +49,14 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 		//Toolbar Config
 		getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+
+		//Spinner Config
+		addItemsToFields();
+	}
+
+	private void addItemsToFields(){
+		mProjectNameEditText.setText( Model.getSelectedProject().getName() );
+		mProjectDescriptionEditText.setText( Model.getSelectedProject().getDescription() );
 	}
 
 	//Button Listener
@@ -83,12 +92,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				break;
 		}
 	}
-
-	//Text Change Listener
-//	@OnTextChanged( value = { R.id.projectInfoActivity_projectNameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
-//	public void onUserChangedProjectNameEditText( Editable editable ){
-//		presenter.userEnterProjectName( editable.toString() );
-//	}
 
 	@OnTextChanged( value = { R.id.projectInfoActivity_projectDescriptionEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedProjectDescriptionEditText( Editable editable ){
@@ -160,26 +163,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 		} );
 	}
-//
-//	@Override
-//	public void setProjectNameUnderValidation(){
-//		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
-//			@Override
-//			public void run(){
-//				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 3 ), 3 ) );
-//			}
-//		} );
-//	}
-//
-//	@Override
-//	public void setProjectNameOverValidation(){
-//		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
-//			@Override
-//			public void run(){
-//				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
-//			}
-//		} );
-//	}
 
 	@Override
 	public void setProjectDescriptionOverValidation(){

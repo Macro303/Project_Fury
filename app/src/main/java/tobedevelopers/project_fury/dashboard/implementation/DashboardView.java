@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
@@ -80,6 +81,21 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 			@Override
 			public void run(){
 				startActivity( new Intent( getParam1(), TaskInfoView.class ) );
+			}
+		} );
+	}
+
+	@Override
+	public void noInternetAccessValidation(){
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG ).show();
+	}
+
+	@Override
+	public void loadingInProgress(){
+		runOnUiThread( new Runnable1Param< DashboardView >( this ){
+			@Override
+			public void run(){
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Loading" ), Toast.LENGTH_LONG ).show();
 			}
 		} );
 	}

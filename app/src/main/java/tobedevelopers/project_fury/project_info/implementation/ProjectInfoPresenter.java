@@ -18,8 +18,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	private WeakReference< ProjectInfoContract.Navigation > navigationWeakReference;
 	private ModelContract model;
 
-	private String mProjectID = "57c53e24e86bc30300f43a04";
-	private String mProjectName;
 	private String mProjectDescription;
 
 	public ProjectInfoPresenter( ProjectInfoContract.View view, ProjectInfoContract.Navigation navigation ){
@@ -66,10 +64,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	@Override
 	public void userSelectSaveProject(){
 		ProjectInfoContract.View view = viewWeakReference.get();
-//
-//		if( view != null ){
-//			view.saveProjectDescription();
-//		}
 
 		if( view != null ){
 			new AsyncTask< String, Void, Response >(){
@@ -84,7 +78,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.updateProject( mProjectID, mProjectDescription );
+					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectDescription );
 				}
 
 				@Override
@@ -109,20 +103,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
-
-//	@Override
-//	public void userEnterProjectName( String projectName ){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//
-//		if( view != null ){
-//			mProjectName = projectName;
-//			if( projectName.length() < 3 ){
-//				view.setProjectNameUnderValidation();
-//			}else if( projectName.length() >= 20 ){
-//				view.setProjectNameOverValidation();
-//			}
-//		}
-//	}
 
 	@Override
 	public void userEnterProjectDescription( String projectDescription ){

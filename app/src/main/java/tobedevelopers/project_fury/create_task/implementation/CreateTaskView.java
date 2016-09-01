@@ -180,6 +180,6 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void errorValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_havingIssues ), Toast.LENGTH_LONG ).show();
+		ToastLog.makeWarn( this, getString( R.string.error_message ), Toast.LENGTH_LONG ).show();
 	}
 }
