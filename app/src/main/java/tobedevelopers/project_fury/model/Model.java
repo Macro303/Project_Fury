@@ -16,8 +16,17 @@ public class Model implements ModelContract{
 	private static String apiAddress = "https://young-stream-51673.herokuapp.com/api/";
 	//	private static String apiAddress = "https://fury-test.herokuapp.com/api/";
 	private static String token;
+	private static Project selectedProject;
 
 	public Model(){
+	}
+
+	public static Project getSelectedProject(){
+		return selectedProject;
+	}
+
+	public static void setSelectedProject( Project _selectedProject ){
+		selectedProject = _selectedProject;
 	}
 
 	public String getToken(){

@@ -79,7 +79,9 @@ public class ModelTest extends TestCase{
 
 	public void testGetAllProjectTasks(){
 		Model model = new Model();
-		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		String value = model.login( "Username", "Password" ).getMessage();
+		System.out.println( value );
+		assertTrue( "Success".equals( value ) );
 		TaskResponse response = model.getAllProjectTasks( "57c4f83466d8de03003bea62" );
 		System.out.println( "Test Get All Project Tasks:\n" + response.toString() );
 	}
