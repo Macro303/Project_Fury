@@ -5,8 +5,14 @@ import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,6 +22,7 @@ import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_task.CreateTaskContract;
+import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
@@ -29,6 +36,8 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	TextInputEditText mTaskDescriptionEditText;
 	@Bind( R.id.createTaskActivity_createTaskButton )
 	Button mCreateTaskButton;
+	@Bind( R.id.createTaskActivity_assigneeSpinner )
+	Spinner mAssigneeSpinner;
 
 	private CreateTaskContract.Presenter presenter;
 
@@ -43,6 +52,19 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 		//Toolbar Config
 		getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+
+		//Spinner Config
+		addItemsToSpinner();
+	}
+
+	private void addItemsToSpinner(){
+		String[] users = Model.getSelectedProject().getUsersOnProject();
+		List< String > list = new LinkedList<>( Arrays.asList( users ) );
+		list.add( 0, getString( R.string.spinner_taskAssignee ) );
+		users = list.toArray( new String[ list.size() ] );
+		ArrayAdapter< String > dataAdapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, users );
+		mAssigneeSpinner.setAdapter( dataAdapter );
+		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 	}
 
 	//Button Listener
@@ -51,7 +73,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		switch( view.getId() ){
 			case R.id.createTaskActivity_createTaskButton:
 				ToastLog.makeDebug( this, "Create Task", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectCreateTask();
+				presenter.userSelectCreateTask( mAssigneeSpinner.getSelectedItem().toString() );
 				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();

@@ -26,7 +26,7 @@ public interface CreateTaskContract{
 	}
 
 	interface Presenter{
-		void userSelectCreateTask();
+		void userSelectCreateTask( final String mAssignee );
 
 		void userSelectBack();
 

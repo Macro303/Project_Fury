@@ -58,7 +58,7 @@
 	<string name="navigation_close">Close</string>
 
 	<!-- Spinner Strings -->
-	<string name="spinner_taskAssignee">No One Assigned</string>
+	<string name="spinner_taskAssignee">Unassigned</string>
 
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>

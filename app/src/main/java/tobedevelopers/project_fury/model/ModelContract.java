@@ -5,6 +5,10 @@ package tobedevelopers.project_fury.model;
  */
 public interface ModelContract{
 
+//	void setSelectedProject( Project _selectedProject );
+//
+//	Project getSelectedProject();
+
 	Response registerUser( String username, String password, String email );
 
 	Response registerUser( String username, String password, String email, boolean admin );

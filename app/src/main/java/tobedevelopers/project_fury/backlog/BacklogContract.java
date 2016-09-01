@@ -6,7 +6,9 @@ package tobedevelopers.project_fury.backlog;
 public interface BacklogContract{
 
 	interface View{
+		void noInternetAccessValidation();
 
+		void loadingInProgress();
 	}
 
 	interface Navigation{

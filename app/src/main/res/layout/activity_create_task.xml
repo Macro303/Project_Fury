@@ -53,6 +53,13 @@
 
 		</android.support.design.widget.TextInputLayout>
 
+		<Spinner
+			android:id="@+id/createTaskActivity_assigneeSpinner"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:prompt="@string/spinner_taskAssignee"
+			android:spinnerMode="dropdown"/>
+
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

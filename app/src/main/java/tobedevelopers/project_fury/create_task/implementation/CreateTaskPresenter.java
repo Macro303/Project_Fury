@@ -18,8 +18,8 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 	private WeakReference< CreateTaskContract.Navigation > navigationWeakReference;
 	private ModelContract model;
 
-	private String mTaskName;
-	private String mTaskDescription;
+	private String mTaskName = "";
+	private String mTaskDescription = "";
 
 	public CreateTaskPresenter( CreateTaskContract.View view, CreateTaskContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -68,7 +68,7 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 	}
 
 	@Override
-	public void userSelectCreateTask(){
+	public void userSelectCreateTask( final String mAssignee ){
 		CreateTaskContract.View view = viewWeakReference.get();
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
@@ -82,7 +82,8 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.createTask( "", mTaskName, mTaskDescription );
+					System.out.println( "Assignee: " + mAssignee );
+					return model.createTask( Model.getSelectedProject().getProjectID(), mTaskName, mTaskDescription, mAssignee );
 				}
 
 				@Override
