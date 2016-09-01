@@ -32,4 +32,6 @@ public class FURY010ProjectInfoTest{
 		onView( withId( R.id.projectInfoActivity_projectDescriptionEditText ) ).check( matches( isDisplayed() ) );
 		onView( withText( "Edit Project" ) ).check( matches( isDisplayed() ) );
 	}
+
+
 }
