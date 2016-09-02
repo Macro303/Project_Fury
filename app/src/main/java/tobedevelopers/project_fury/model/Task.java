@@ -17,6 +17,34 @@ public class Task{
 	private Priority priority = Priority.UNASSIGNED;
 	private String columnIn;
 
+	public String getAssignee(){
+		return assignee;
+	}
+
+	public String getColumnIn(){
+		return columnIn;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public Priority getPriority(){
+		return priority;
+	}
+
+	public String getProjectParent(){
+		return projectParent;
+	}
+
+	public String getTaskID(){
+		return taskID;
+	}
+
 	@Override
 	public String toString(){
 		return "Task{" +

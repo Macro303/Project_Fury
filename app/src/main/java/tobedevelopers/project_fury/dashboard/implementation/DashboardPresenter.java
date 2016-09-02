@@ -8,6 +8,7 @@ import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.ProjectResponse;
+import tobedevelopers.project_fury.model.TaskResponse;
 
 /**
  * Created by Macro303 on 10/08/2016.
@@ -77,7 +78,38 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			navigation.navigateToTaskInfo();
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, TaskResponse >(){
+
+				@Override
+				protected void onPreExecute(){
+					viewWeakReference.get().loadingInProgress();
+				}
+
+				@Override
+				protected TaskResponse doInBackground( String... strings ){
+					Model.setSelectedProject( model.getAllProjects().getProjects()[ 0 ] );
+					return model.getAllProjectTasks( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( TaskResponse response ){
+					DashboardContract.View view = viewWeakReference.get();
+					DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+					switch( response.getMessage() ){
+						case "Success":
+							Model.setSelectedTask( response.getTasks()[ 0 ] );
+							navigation.navigateToTaskInfo();
+							break;
+						case "No Internet Access":
+							view.noInternetAccessValidation();
+							break;
+						default:
+							break;
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
 	}
 }

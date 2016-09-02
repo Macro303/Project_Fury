@@ -17,6 +17,7 @@ public class Model implements ModelContract{
 	//	private static String apiAddress = "https://fury-test.herokuapp.com/api/";
 	private static String token;
 	private static Project selectedProject;
+	private static Task selectedTask;
 
 	public Model(){
 	}
@@ -27,6 +28,14 @@ public class Model implements ModelContract{
 
 	public static void setSelectedProject( Project _selectedProject ){
 		selectedProject = _selectedProject;
+	}
+
+	public static Task getSelectedTask(){
+		return selectedTask;
+	}
+
+	public static void setSelectedTask( Task _selectedTask ){
+		selectedTask = _selectedTask;
 	}
 
 	public String getToken(){
@@ -198,5 +207,18 @@ public class Model implements ModelContract{
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
 			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
 		return new TaskResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee;
+		String response = urlReader.put( headers, parameters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 }

@@ -40,4 +40,6 @@ public interface ModelContract{
 	Response createTaskNoDescription( String projectID, String taskName, String assignee );
 
 	Response createTask( String projectID, String taskName, String taskDescription, String assignee );
+
+	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee );
 }
