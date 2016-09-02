@@ -15,15 +15,17 @@ public interface ProjectInfoContract{
 
 		void projectUpdatingInProgress();
 
-//		void setProjectNameUnderValidation();
-//
-//		void setProjectNameOverValidation();
+		void setProjectNameUnderValidation();
+
+		void setProjectNameOverValidation();
 
 		void setProjectDescriptionOverValidation();
 
 		void noInternetAccessValidation();
 
 		void defaultErrorMessage();
+
+		void setInvalidUserValidation();
 	}
 
 	interface Navigation{
@@ -43,7 +45,7 @@ public interface ProjectInfoContract{
 
 		void userSelectSaveProject();
 
-//		void userEnterProjectName( String projectName );
+		void userEnterProjectName( String projectName );
 
 		void userEnterProjectDescription( String projectDescription );
 	}

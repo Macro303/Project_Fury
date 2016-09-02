@@ -19,6 +19,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	private ModelContract model;
 
 	private String mProjectDescription;
+	private String mProjectName;
 
 	public ProjectInfoPresenter( ProjectInfoContract.View view, ProjectInfoContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -79,7 +80,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectDescription );
+					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectName, mProjectDescription );
 				}
 
 				@Override
@@ -96,12 +97,26 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 								break;
 							default:
 								view.saveProjectDescription();
-								view.defaultErrorMessage();
+								view.setInvalidUserValidation();
 								break;
 						}
 					}
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userEnterProjectName( String projectName ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			mProjectName = projectName;
+			if( projectName.length() < 3 ){
+				view.setProjectNameUnderValidation();
+			}else if( projectName.length() >= 20 ){
+				view.setProjectNameOverValidation();
+			}
 		}
 	}
 

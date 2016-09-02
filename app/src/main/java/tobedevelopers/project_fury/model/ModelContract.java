@@ -25,7 +25,7 @@ public interface ModelContract{
 
 	Response createProject( String projectName, String projectDescription );
 
-	Response updateProject( String projectID, String projectDescription );
+	Response updateProject( String projectID, String projectName, String projectDescription );
 
 	Response deleteProject( String projectID );
 

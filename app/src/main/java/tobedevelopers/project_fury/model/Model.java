@@ -129,10 +129,10 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response updateProject( String projectID, String projectDescription ){
+	public Response updateProject( String projectID, String projectName, String projectDescription ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "description=" + projectDescription;
+		String parameters = "name=" + projectName + "&description=" + projectDescription;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
