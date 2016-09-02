@@ -33,6 +33,7 @@
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">Project Board</string>
+	<string name="button_saveTask">Save Task Changes</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
