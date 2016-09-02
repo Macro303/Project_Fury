@@ -3,42 +3,104 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_margin="20dp"
 	android:orientation="vertical">
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="match_parent"
+		android:layout_margin="20dp"
+		android:orientation="vertical">
 
 		<TextView
-			android:layout_width="0dp"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="5dp"
-			android:layout_weight="1"
-			android:text="@string/textView_taskAssignee"/>
+			android:layout_marginBottom="20dp"
+			android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<android.support.design.widget.TextInputEditText
+				android:id="@+id/taskInfoActivity_taskNameEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="false"
+				android:cursorVisible="false"
+				android:digits="@string/alphaNumericCharacters"
+				android:editable="false"
+				android:focusable="false"
+				android:focusableInTouchMode="false"
+				android:hint="@string/hint_taskName"
+				android:inputType="textNoSuggestions"
+				android:maxLength="20"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp">
+
+			<android.support.design.widget.TextInputEditText
+				android:id="@+id/taskInfoActivity_taskDescriptionEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="40dp"
+				android:clickable="false"
+				android:cursorVisible="false"
+				android:digits="@string/alphaNumericCharacters"
+				android:focusable="false"
+				android:focusableInTouchMode="false"
+				android:gravity="top|left"
+				android:hint="@string/hint_taskDescription"
+				android:inputType="textNoSuggestions"
+				android:maxLength="128"
+				android:maxLines="6"
+				android:scrollbars="vertical"/>
+
+		</android.support.design.widget.TextInputLayout>
 
 		<Spinner
-			android:layout_width="0dp"
+			android:id="@+id/taskInfoActivity_assigneeSpinner"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="5dp"
-			android:layout_weight="2"
-			android:prompt="@string/spinner_taskAssignee"
-			android:spinnerMode="dropdown"/>
+			android:clickable="false"
+			android:prompt="@string/spinner_taskAssignee"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="30dp"
+			android:orientation="vertical">
+
+			<Button
+				android:id="@+id/taskInfoActivity_editTaskButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="right"
+				android:layout_marginBottom="20dp"
+				android:text="@string/button_editTask"/>
+
+			<Button
+				android:id="@+id/taskInfoActivity_saveTaskButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="right"
+				android:layout_marginBottom="20dp"
+				android:text="@string/button_saveTask"
+				android:visibility="gone"/>
+
+		</LinearLayout>
+
+		<Button
+			android:id="@+id/taskInfoActivity_deleteTaskButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/button_removeTask"/>
 
 	</LinearLayout>
-
-	<Button
-		android:id="@+id/taskInfoActivity_editTaskButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/button_editTask"/>
-
-	<Button
-		android:id="@+id/taskInfoActivity_removeTaskButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/button_removeTask"/>
 
 </LinearLayout>
