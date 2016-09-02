@@ -13,6 +13,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.Project;
+import tobedevelopers.project_fury.model.ProjectResponse;
+import tobedevelopers.project_fury.model.Response;
+import tobedevelopers.project_fury.model.TaskResponse;
+import tobedevelopers.project_fury.model.UsernameResponse;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -25,12 +32,57 @@ import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by A on 8/29/2016.
  */
 @RunWith( AndroidJUnit4.class )
 public class FURY008CreateTaskTest{
+
+//	public WeakReference<BacklogContract.View> viewWeakReference;
+//	public WeakReference<BacklogContract.Navigation> navigationWeakReference;
+//	public ModelContract model;
+//
+//	public void testing(){
+//		BacklogContract.View view = viewWeakReference.get();
+//		BacklogContract.Navigation navigation = navigationWeakReference.get();
+//
+//		new AsyncTask< String, Void, ProjectResponse >(){
+//
+//			@Override
+//			protected void onPreExecute(){
+//				viewWeakReference.get().loadingInProgress();
+//			}
+//
+//			@Override
+//			protected ProjectResponse doInBackground( String... strings ){
+//				return model.getAllProjects();
+//			}
+//
+//			@Override
+//			protected void onPostExecute( ProjectResponse response ){
+//				BacklogContract.View view = viewWeakReference.get();
+//				BacklogContract.Navigation navigation = navigationWeakReference.get();
+//
+//				switch( response.getMessage() ){
+//					case "Success":
+//						Model.setSelectedProject( response.getProjects()[ 0 ] );
+//						navigation.navigateToCreateTask();
+//						break;
+//					case "No Internet Access":
+//						view.noInternetAccessValidation();
+//						break;
+//					default:
+//						break;
+//				}
+//			}
+//		}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+//	}
+
+//	public void getModel( ProjectResponse response){
+//		Model.setSelectedProject( response.getProjects()[ 0 ] );
+//	}
 
 	@Rule
 	public ActivityTestRule< CreateTaskView > createTaskViewActivityTestRule = new ActivityTestRule<>( CreateTaskView.class );
@@ -55,6 +107,20 @@ public class FURY008CreateTaskTest{
 
 	@Test
 	public void testCreateTaskTextWording(){
+//		TestingModel model = new TestingModel();
+//		model.testRegister();
+//		model.testLogin();
+//		model.testCreateProject();
+//		model.testGetAllProjects();
+//		model.testGetProject();
+//		model.testCreateTask();
+//		model.testGetAllUsers();
+//		model.testGetAllProjectTasks();
+		ModelContract model = new Model();
+		String[] users = { "Andrew", "Andrea" };
+		Project testProject = new Project( "Test", "This is a project", users );
+		Model.setSelectedProject( testProject );
+		Model.getSelectedProject().getUsersOnProject();
 		onView( withText( "Create a Task" ) ).check( matches( isDisplayed() ) );
 	}
 
@@ -119,6 +185,16 @@ public class FURY008CreateTaskTest{
 
 	@Test
 	public void testInvalidCharacterInput(){
+		TestingModel model = new TestingModel();
+		model.testRegister();
+		model.testLogin();
+		model.testCreateProject();
+		model.testGetAllProjects();
+		model.testGetProject();
+		model.testCreateTask();
+		model.testGetAllUsers();
+		model.testGetAllProjectTasks();
+
 		onView( withId( R.id.createTaskActivity_taskNameEditText ) ).perform( typeText( "':|][?" ), closeSoftKeyboard() );
 		onView( withId( R.id.createTaskActivity_taskNameEditText ) ).perform( click() );
 		onView( withId( R.id.createTaskActivity_taskNameEditText ) ).check( matches( withText( "" ) ) );
@@ -127,4 +203,81 @@ public class FURY008CreateTaskTest{
 		onView( withId( R.id.createTaskActivity_taskDescriptionEditText ) ).perform( click() );
 		onView( withId( R.id.createTaskActivity_taskDescriptionEditText ) ).check( matches( withText( "" ) ) );
 	}
+
+	public class TestingModel{
+		public void testRegister(){
+			Model model = new Model();
+			String value = "Response{message=\'Registration Successful.\'}";
+			Response response = model.registerUser( "Username", "Password", "Email@Email.com" );
+			System.out.println( "Test Register:\n" + response.toString() );
+			assertTrue( value.equals( response.toString() ) );
+		}
+
+		public void testLogin(){
+			Model model = new Model();
+			String value = "Response{message=\'Success\'}";
+			Response response = model.login( "Username", "Password" );
+			System.out.println( "Test Login:\n" + response.toString() );
+			assertTrue( value.equals( response.toString() ) );
+		}
+
+		public void testCreateProject(){
+			Model model = new Model();
+			String value = "Response{message=\'Project creation successful.\'}";
+			assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+			Response response = model.createProject( "Project", "Description" );
+			System.out.println( "Test Create Project:\n" + response.toString() );
+			assertTrue( value.equals( response.toString() ) );
+		}
+
+		public void testGetAllProjects(){
+			Model model = new Model();
+			assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+			ProjectResponse response = model.getAllProjects();
+			System.out.println( "Test Get Projects:\n" + response.toString() );
+		}
+
+		public void testGetProject(){
+			Model model = new Model();
+			assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+			ProjectResponse response = model.getProject( "57c4f83466d8de03003bea62" );
+			System.out.println( "Test Get Project:\n" + response.toString() );
+		}
+
+		public void testGetAllUsers(){
+			Model model = new Model();
+			assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+			UsernameResponse response = model.getAllUsers();
+			System.out.println( "Test Get All Users:\n" + response.toString() );
+		}
+
+		public void testUpdateProject(){
+			Model model = new Model();
+			String value = "Response{message='Update successful.'}";
+			assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+			Response response = model.updateProject( "57c4f83466d8de03003bea62", "New Description" );
+			System.out.println( "Test Update Project:\n" + response.toString() );
+			assertTrue( value.equals( response.toString() ) );
+		}
+
+		public void testCreateTask(){
+			Model model = new Model();
+			String value = "Response{message='Task creation successful.'}";
+			assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+			Response response = model.createTask( "57c4f83466d8de03003bea62", "Task", "Description", "Username" );
+			System.out.println( "Test Create Task:\n" + response.toString() );
+			assertTrue( value.equals( response.toString() ) );
+		}
+
+		public void testGetAllProjectTasks(){
+			Model model = new Model();
+			String value = model.login( "Username", "Password" ).getMessage();
+			System.out.println( value );
+			assertTrue( "Success".equals( value ) );
+			TaskResponse response = model.getAllProjectTasks( "57c4f83466d8de03003bea62" );
+			System.out.println( "Test Get All Project Tasks:\n" + response.toString() );
+		}
+	}
 }
+
+
