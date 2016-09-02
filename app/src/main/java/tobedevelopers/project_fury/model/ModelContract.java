@@ -27,6 +27,8 @@ public interface ModelContract{
 
 	Response updateProject( String projectID, String projectDescription );
 
+	Response deleteProject( String projectID );
+
 	TaskResponse getTask( String projectID, String taskID );
 
 	TaskResponse getAllUserTasks();

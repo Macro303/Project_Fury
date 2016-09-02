@@ -92,6 +92,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
 				android:layout_marginBottom="20dp"
+				android:minWidth="225dp"
 				android:text="@string/button_editProject"/>
 
 			<Button
@@ -100,8 +101,19 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
 				android:layout_marginBottom="20dp"
+				android:minWidth="225dp"
 				android:text="@string/button_saveProject"
 				android:visibility="gone"/>
+
+			<Button
+				android:id="@+id/projectInfoActivity_deleteProjectButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/projectInfoActivity_saveProjectButton"
+				android:layout_gravity="right"
+				android:layout_marginBottom="20dp"
+				android:minWidth="225dp"
+				android:text="@string/button_deleteProject"/>
 
 		</LinearLayout>
 
