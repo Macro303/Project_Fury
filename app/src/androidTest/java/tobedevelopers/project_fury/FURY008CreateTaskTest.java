@@ -74,10 +74,6 @@ public class FURY008CreateTaskTest{
 //		}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 //	}
 
-//	public void getModel( ProjectResponse response){
-//		Model.setSelectedProject( response.getProjects()[ 0 ] );
-//	}
-
 	@Rule
 	public ActivityTestRule< CreateTaskView > createTaskViewActivityTestRule = new ActivityTestRule<>( CreateTaskView.class );
 
