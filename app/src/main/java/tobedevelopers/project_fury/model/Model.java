@@ -142,6 +142,19 @@ public class Model implements ModelContract{
 	}
 
 	@Override
+	public Response deleteProject( String projectID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.delete( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 )
+			return new Gson().fromJson( response, Response.class );
+
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
 	public TaskResponse getTask( String projectID, String taskID ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
 		String[] headers = new String[]{ "Bearer " + token };

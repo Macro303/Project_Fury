@@ -123,6 +123,29 @@ public class UrlReader{
 		}
 	}
 
+	public String delete( String[] headers ){
+		HttpURLConnection connection = null;
+		try{
+			URL url = new URL( urlString );
+			connection = ( HttpURLConnection ) url.openConnection();
+			connection.setRequestProperty( "Authorization", headers[ 0 ] );
+			connection.setRequestMethod( "DELETE" );
+			connection.connect();
+			responseCode = connection.getResponseCode();
+			if( responseCode == 400 || responseCode == 401 || responseCode == 500 )
+				throw new RuntimeException( responseCode + " Error" );
+			return readAll( new BufferedReader( new InputStreamReader( connection.getInputStream(), Charset.forName( "UTF-8" ) ) ) );
+		}catch( IOException ioe ){
+			responseCode = -1;
+			return null;
+		}catch( RuntimeException re ){
+			return null;
+		}finally{
+			if( connection != null )
+				connection.disconnect();
+		}
+	}
+
 	/*private HttpURLConnection startConnection( String requestType ) throws IOException{
 		URL url = new URL( urlString );
 		HttpURLConnection connection = ( HttpURLConnection ) url.openConnection();

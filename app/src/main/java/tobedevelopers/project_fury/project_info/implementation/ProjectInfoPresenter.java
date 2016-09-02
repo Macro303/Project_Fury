@@ -35,6 +35,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			navigation.navigateToPrevious();
 	}
 
+
 //	@Override
 //	public void userSelectAddUser(){
 //		ProjectInfoContract.View view = viewWeakReference.get();
@@ -105,12 +106,57 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	}
 
 	@Override
+	public void userSelectDeleteProject(){
+		ProjectInfoContract.View view = viewWeakReference.get();
+		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null )
+						view.projectUpdatingInProgress();
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.deleteProject( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					ProjectInfoContract.View view = viewWeakReference.get();
+					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Delete successful.":
+								navigation.navigateToPrevious();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.defaultErrorMessage();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
 	public void userEnterProjectDescription( String projectDescription ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			mProjectDescription = projectDescription;
-			if( projectDescription.length() >= 128 ){
+			if( projectDescription.length() >= 0 ){
+				mProjectDescription = projectDescription;
+			}else if( projectDescription.length() >= 128 ){
 				view.setProjectDescriptionOverValidation();
 			}
 		}

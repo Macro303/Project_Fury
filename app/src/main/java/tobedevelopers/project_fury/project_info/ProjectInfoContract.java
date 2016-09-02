@@ -37,6 +37,8 @@ public interface ProjectInfoContract{
 //
 //		void userSelectRemoveMe();
 
+		void userSelectDeleteProject();
+
 		void userSelectEditProject();
 
 		void userSelectSaveProject();
