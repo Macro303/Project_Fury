@@ -154,9 +154,8 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		ProjectInfoContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			if( projectDescription.length() >= 0 ){
-				mProjectDescription = projectDescription;
-			}else if( projectDescription.length() >= 128 ){
+			mProjectDescription = projectDescription;
+			if( projectDescription.length() >= 128 ){
 				view.setProjectDescriptionOverValidation();
 			}
 		}
