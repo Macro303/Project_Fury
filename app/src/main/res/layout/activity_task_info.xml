@@ -68,10 +68,20 @@
 			android:id="@+id/taskInfoActivity_assigneeSpinner"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
 			android:layout_marginTop="5dp"
 			android:clickable="false"
 			android:focusable="false"
 			android:prompt="@string/spinner_taskAssignee"/>
+
+		<Spinner
+			android:id="@+id/taskInfoActivity_prioritySpinner"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:clickable="false"
+			android:entries="@array/spinner_priority"
+			android:focusable="false"/>
 
 		<LinearLayout
 			android:layout_width="match_parent"

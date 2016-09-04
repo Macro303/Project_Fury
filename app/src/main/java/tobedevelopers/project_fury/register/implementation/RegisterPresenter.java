@@ -44,7 +44,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return modelContract.registerUser( mUsername, mPassword, mEmail );
+					return modelContract.registerUser( mUsername, mPassword, mEmail, false );
 				}
 
 				@Override

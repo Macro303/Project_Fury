@@ -24,7 +24,7 @@ import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
-import tobedevelopers.project_fury.runnable_param.Runnable5Param;
+import tobedevelopers.project_fury.runnable_param.Runnable6Param;
 import tobedevelopers.project_fury.task_info.TaskInfoContract;
 
 /**
@@ -38,6 +38,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	TextInputEditText mTaskDescription;
 	@Bind( R.id.taskInfoActivity_assigneeSpinner )
 	Spinner mAssignee;
+	@Bind( R.id.taskInfoActivity_prioritySpinner )
+	Spinner mPriority;
 	@Bind( R.id.taskInfoActivity_deleteTaskButton )
 	Button mDeleteTask;
 	@Bind( R.id.taskInfoActivity_updateTaskButton )
@@ -61,19 +63,23 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		//Toolbar Config
 		getSupportActionBar().setDisplayHomeAsUpEnabled( true );
 
+		//Spinner Config
+		setAssigneeSpinner();
+
+		//InitialValues Config
 		setInitialValues();
-		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), mAssignee.getSelectedItem().toString() };
+		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString() };
 	}
 
 	private void setInitialValues(){
 		Task selectedTask = Model.getSelectedTask();
 		mTaskName.setText( selectedTask.getName() );
 		mTaskDescription.setText( selectedTask.getDescription() );
-		addItemsToSpinner();
-		setSpinnerValue( selectedTask.getAssignee() );
+		setSpinnerValue( mAssignee, selectedTask.getAssignee() );
+		setSpinnerValue( mPriority, selectedTask.getPriority().getNameValue() );
 	}
 
-	private void addItemsToSpinner(){
+	private void setAssigneeSpinner(){
 		String[] users = Model.getSelectedProject().getUsersOnProject();
 		List< String > list = new LinkedList<>( Arrays.asList( users ) );
 		list.add( 0, getString( R.string.spinner_taskAssignee ) );
@@ -83,12 +89,12 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 	}
 
-	private void setSpinnerValue( String assignee ){
+	private void setSpinnerValue( Spinner spinner, String assignee ){
 		int count = 0;
-		for( int value = 0; value < mAssignee.getCount(); value++ )
-			if( mAssignee.getItemAtPosition( value ).toString().equals( assignee ) )
+		for( int value = 0; value < spinner.getCount(); value++ )
+			if( spinner.getItemAtPosition( value ).toString().equals( assignee ) )
 				count = value;
-		mAssignee.setSelection( count );
+		spinner.setSelection( count );
 	}
 
 	//Button Listeners
@@ -101,7 +107,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				break;
 			case R.id.taskInfoActivity_saveTaskButton:
 				ToastLog.makeDebug( this, "Save Task", Toast.LENGTH_SHORT );
-				presenter.userSelectSaveTask( mAssignee.getSelectedItem().toString() );
+				presenter.userSelectSaveTask( mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString() );
 				break;
 			case R.id.taskInfoActivity_deleteTaskButton:
 				ToastLog.makeDebug( this, "Remove Task", Toast.LENGTH_SHORT );
@@ -144,12 +150,13 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 		mTaskName.setText( initialValues[ 0 ] );
 		mTaskDescription.setText( initialValues[ 1 ] );
-		setSpinnerValue( initialValues[ 2 ] );
+		setSpinnerValue( mAssignee, initialValues[ 2 ] );
+		setSpinnerValue( mPriority, initialValues[ 3 ] );
 	}
 
 	@Override
 	public void setTaskEdited(){
-		runOnUiThread( new Runnable5Param< Button, TextInputEditText, TextInputEditText, Spinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mSaveTask ){
+		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, Spinner, Spinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -165,14 +172,16 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam3().setFocusableInTouchMode( true );
 				getParam4().setClickable( true );
 				getParam4().setFocusable( true );
-				getParam5().setVisibility( View.VISIBLE );
+				getParam5().setClickable( true );
+				getParam5().setFocusable( true );
+				getParam6().setVisibility( View.VISIBLE );
 			}
 		} );
 	}
 
 	@Override
 	public void setTaskSaved(){
-		runOnUiThread( new Runnable5Param< Button, TextInputEditText, TextInputEditText, Spinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mSaveTask ){
+		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, Spinner, Spinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.VISIBLE );
@@ -188,7 +197,9 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam3().setFocusableInTouchMode( false );
 				getParam4().setClickable( false );
 				getParam4().setFocusable( false );
-				getParam5().setVisibility( View.GONE );
+				getParam5().setClickable( false );
+				getParam5().setFocusable( false );
+				getParam6().setVisibility( View.GONE );
 			}
 		} );
 	}

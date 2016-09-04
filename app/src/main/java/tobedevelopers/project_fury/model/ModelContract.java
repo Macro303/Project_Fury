@@ -5,12 +5,6 @@ package tobedevelopers.project_fury.model;
  */
 public interface ModelContract{
 
-//	void setSelectedProject( Project _selectedProject );
-//
-//	Project getSelectedProject();
-
-	Response registerUser( String username, String password, String email );
-
 	Response registerUser( String username, String password, String email, boolean admin );
 
 	Response login( String username, String password );
@@ -20,8 +14,6 @@ public interface ModelContract{
 	ProjectResponse getAllProjects();
 
 	ProjectResponse getProject( String projectID );
-
-	Response createProject( String projectName );
 
 	Response createProject( String projectName, String projectDescription );
 
@@ -33,13 +25,7 @@ public interface ModelContract{
 
 	TaskResponse getAllProjectTasks( String projectID );
 
-	Response createTask( String projectID, String taskName );
-
-	Response createTaskNoAssignee( String projectID, String taskName, String taskDescription );
-
-	Response createTaskNoDescription( String projectID, String taskName, String assignee );
-
 	Response createTask( String projectID, String taskName, String taskDescription, String assignee );
 
-	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee );
+	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String priority );
 }

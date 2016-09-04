@@ -36,7 +36,7 @@ public interface TaskInfoContract{
 
 		void userSelectEditTask();
 
-		void userSelectSaveTask( String assignee );
+		void userSelectSaveTask( String assignee, String priority );
 
 		void userSelectRemoveTask();
 

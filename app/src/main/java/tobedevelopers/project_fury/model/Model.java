@@ -43,16 +43,6 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response createProject( String projectName ){
-		return createProject( projectName, "" );
-	}
-
-	@Override
-	public Response registerUser( String username, String password, String email ){
-		return registerUser( username, password, email, false );
-	}
-
-	@Override
 	public Response registerUser( String username, String password, String email, boolean admin ){
 		urlReader = new UrlReader( apiAddress + "register" );
 		String parameters = "username=" + username.toLowerCase() + "&password=" + password + "&email=" + email + "&admin=" + admin;
@@ -133,11 +123,6 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response createTask( String projectID, String taskName ){
-		return createTask( projectID, taskName, "", "" );
-	}
-
-	@Override
 	public Response updateProject( String projectID, String projectDescription ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
 		String[] headers = new String[]{ "Bearer " + token };
@@ -160,16 +145,6 @@ public class Model implements ModelContract{
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
 			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
 		return new TaskResponse( urlReader.getResponseCode() + " Error" );
-	}
-
-	@Override
-	public Response createTaskNoAssignee( String projectID, String taskName, String taskDescription ){
-		return createTask( projectID, taskName, taskDescription, "" );
-	}
-
-	@Override
-	public Response createTaskNoDescription( String projectID, String taskName, String assignee ){
-		return createTask( projectID, taskName, "", assignee );
 	}
 
 	@Override
@@ -210,10 +185,10 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee ){
+	public Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String taskPriority ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee;
+		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee + "&priority=" + taskPriority;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );

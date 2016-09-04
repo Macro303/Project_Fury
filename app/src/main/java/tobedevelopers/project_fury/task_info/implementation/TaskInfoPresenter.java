@@ -87,7 +87,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectSaveTask( final String mAssignee ){
+	public void userSelectSaveTask( final String mAssignee, final String mPriority ){
 		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
@@ -101,7 +101,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, mAssignee );
+					return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, mAssignee, mPriority.toUpperCase() );
 				}
 
 				@Override

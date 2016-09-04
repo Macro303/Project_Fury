@@ -63,6 +63,12 @@
 
 	<!-- Spinner Strings -->
 	<string name="spinner_taskAssignee">Unassigned</string>
+	<string-array name="spinner_priority">
+		<item>Unassigned</item>
+		<item>Low</item>
+		<item>Normal</item>
+		<item>High</item>
+	</string-array>
 
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>

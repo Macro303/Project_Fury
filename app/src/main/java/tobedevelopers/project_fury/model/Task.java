@@ -58,20 +58,26 @@ public class Task{
 			       '}';
 	}
 
-	private enum Priority{
-		UNASSIGNED( 0 ),
-		LOW( 1 ),
-		NORMAL( 2 ),
-		HIGH( 3 );
+	public enum Priority{
+		UNASSIGNED( 0, "Unassigned" ),
+		LOW( 1, "Low" ),
+		NORMAL( 2, "Normal" ),
+		HIGH( 3, "High" );
 
 		private int value;
+		private String nameValue;
 
-		Priority( int value ){
+		Priority( int value, String nameValue ){
 			this.value = value;
+			this.nameValue = nameValue;
 		}
 
 		public int getValue(){
 			return value;
+		}
+
+		public String getNameValue(){
+			return nameValue;
 		}
 
 		@Override
