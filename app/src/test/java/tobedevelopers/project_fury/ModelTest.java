@@ -16,7 +16,7 @@ public class ModelTest extends TestCase{
 	public void testRegister(){
 		Model model = new Model();
 		String value = "Response{message=\'Registration Successful.\'}";
-		Response response = model.registerUser( "Username", "Password", "Email@Email.com" );
+		Response response = model.registerUser( "Username", "Password", "Email@Email.com", false );
 		System.out.println( "Test Register:\n" + response.toString() );
 		assertTrue( value.equals( response.toString() ) );
 	}
