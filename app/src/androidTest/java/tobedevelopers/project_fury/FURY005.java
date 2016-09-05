@@ -3,8 +3,6 @@ package tobedevelopers.project_fury;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import tobedevelopers.project_fury.backlog.BacklogContract;
-import tobedevelopers.project_fury.backlog.implementation.BacklogPresenter;
 import tobedevelopers.project_fury.create_project.CreateProjectContract;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectPresenter;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
@@ -70,15 +68,15 @@ public class FURY005 extends ApplicationTestCase< Application >{
 		verify( mockNavigation ).navigateToCreateProject();
 	}
 
-	public void testOnUserSelectProjectInformation(){
-		DashboardContract.View mockView = mock( DashboardContract.View.class );
-		DashboardContract.Navigation mockNavigation = mock( DashboardContract.Navigation.class );
-
-		DashboardContract.Presenter presenter = new DashboardPresenter( mockView, mockNavigation );
-
-		presenter.userSelectProjectInfo();
-		verify( mockNavigation ).navigateToProjectInfo();
-	}
+//	public void testOnUserSelectProjectInformation(){
+//		DashboardContract.View mockView = mock( DashboardContract.View.class );
+//		DashboardContract.Navigation mockNavigation = mock( DashboardContract.Navigation.class );
+//
+//		DashboardContract.Presenter presenter = new DashboardPresenter( mockView, mockNavigation );
+//
+//		presenter.userSelectProjectInfo();
+//		verify( mockNavigation ).navigateToProjectInfo();
+//	}
 
 	public void testOnUserSelectTaskInformation(){
 		DashboardContract.View mockView = mock( DashboardContract.View.class );
@@ -90,16 +88,16 @@ public class FURY005 extends ApplicationTestCase< Application >{
 		verify( mockNavigation ).navigateToTaskInfo();
 	}
 
-	//Backlog Activity Navigation
-	public void testOnUserSelectAddTask(){
-		BacklogContract.View mockView = mock( BacklogContract.View.class );
-		BacklogContract.Navigation mockNavigation = mock( BacklogContract.Navigation.class );
-
-		BacklogContract.Presenter presenter = new BacklogPresenter( mockView, mockNavigation );
-
-		presenter.userSelectCreateTask();
-		verify( mockNavigation ).navigateToCreateTask();
-	}
+//	//Backlog Activity Navigation
+//	public void testOnUserSelectAddTask(){
+//		BacklogContract.View mockView = mock( BacklogContract.View.class );
+//		BacklogContract.Navigation mockNavigation = mock( BacklogContract.Navigation.class );
+//
+//		BacklogContract.Presenter presenter = new BacklogPresenter( mockView, mockNavigation );
+//
+//		presenter.userSelectCreateTask();
+//		verify( mockNavigation ).navigateToCreateTask();
+//	}
 
 	//Project Information Activity Navigation
 	public void testOnUserSelectBackButton(){

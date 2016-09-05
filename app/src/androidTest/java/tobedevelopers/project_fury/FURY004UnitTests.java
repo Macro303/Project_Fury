@@ -57,7 +57,7 @@ public class FURY004UnitTests extends ApplicationTestCase< Application >{
 
 		CreateProjectContract.Presenter presenter = new CreateProjectPresenter( viewMock, navigationMock );
 
-		presenter.userEnterProjectDescription( "Lorem ipsum dolor1 sit amet consectetur adipiscing elit Morbi a lectus sit amet elit egestas hendrerit ut a metus1 Nulla eu sed1" );
+		presenter.userEnterProjectDescription( "Lorem ipsum dolor1 sit amet consectetur adipiscing elit Morbi a lectus sit amet elit egestas hendrerit ut a metus1 Nulla eu sed11" );
 		verify( viewMock ).setProjectDescriptionOverValidation();
 		verify( viewMock ).disableCreateProjectButton();
 	}

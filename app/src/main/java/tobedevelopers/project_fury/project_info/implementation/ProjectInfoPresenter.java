@@ -19,6 +19,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	private ModelContract model;
 
 	private String mProjectDescription;
+	private String mProjectName;
 
 	public ProjectInfoPresenter( ProjectInfoContract.View view, ProjectInfoContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -34,6 +35,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		if( view != null && navigation != null )
 			navigation.navigateToPrevious();
 	}
+
 
 //	@Override
 //	public void userSelectAddUser(){
@@ -78,7 +80,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
-					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectDescription );
+					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectName, mProjectDescription );
 				}
 
 				@Override
@@ -95,6 +97,64 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 								break;
 							default:
 								view.saveProjectDescription();
+								view.setInvalidUserValidation();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userEnterProjectName( String projectName ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			mProjectName = projectName;
+			if( projectName.length() < 3 ){
+				view.setProjectNameUnderValidation();
+			}else if( projectName.length() >= 20 ){
+				view.setProjectNameOverValidation();
+			}
+		}
+	}
+
+	@Override
+	public void userSelectDeleteProject(){
+		ProjectInfoContract.View view = viewWeakReference.get();
+		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null )
+						view.projectUpdatingInProgress();
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.deleteProject( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					ProjectInfoContract.View view = viewWeakReference.get();
+					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Delete successful.":
+								navigation.navigateToPrevious();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
 								view.defaultErrorMessage();
 								break;
 						}

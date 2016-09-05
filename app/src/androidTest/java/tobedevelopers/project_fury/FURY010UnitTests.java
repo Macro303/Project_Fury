@@ -18,6 +18,27 @@ public class FURY010UnitTests extends ApplicationTestCase< Application >{
 		super( Application.class );
 	}
 
+	//Project Name Validation
+	public void testInvalidTooShortProjectName(){
+		ProjectInfoContract.View viewMock = mock( ProjectInfoContract.View.class );
+		ProjectInfoContract.Navigation navigationMock = mock( ProjectInfoContract.Navigation.class );
+
+		ProjectInfoContract.Presenter presenter = new ProjectInfoPresenter( viewMock, navigationMock );
+
+		presenter.userEnterProjectName( "No" );
+		verify( viewMock ).setProjectNameUnderValidation();
+	}
+
+	public void testInvalidTooLongProjectName(){
+		ProjectInfoContract.View viewMock = mock( ProjectInfoContract.View.class );
+		ProjectInfoContract.Navigation navigationMock = mock( ProjectInfoContract.Navigation.class );
+
+		ProjectInfoContract.Presenter presenter = new ProjectInfoPresenter( viewMock, navigationMock );
+
+		presenter.userEnterProjectName( "123456789012345678901" );
+		verify( viewMock ).setProjectNameOverValidation();
+	}
+
 	//Project Description Validation
 	public void testInvalidTooLongProjectDescription(){
 		ProjectInfoContract.View viewMock = mock( ProjectInfoContract.View.class );

@@ -63,8 +63,17 @@ public class ModelTest extends TestCase{
 		Model model = new Model();
 		String value = "Response{message='Update successful.'}";
 		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
-		Response response = model.updateProject( "57c4f83466d8de03003bea62", "New Description" );
+		Response response = model.updateProject( "57c4f83466d8de03003bea62", "New Name", "New Description" );
 		System.out.println( "Test Update Project:\n" + response.toString() );
+		assertTrue( value.equals( response.toString() ) );
+	}
+
+	public void testDeleteProject(){
+		Model model = new Model();
+		String value = "Response{message='Delete successful.'}";
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		Response response = model.deleteProject( "57c4f83466d8de03003bea62" );
+		System.out.println( "Test Delete Project:\n" + response.toString() );
 		assertTrue( value.equals( response.toString() ) );
 	}
 

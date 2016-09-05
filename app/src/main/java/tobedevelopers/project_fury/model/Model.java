@@ -123,15 +123,28 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response updateProject( String projectID, String projectDescription ){
+	public Response updateProject( String projectID, String projectName, String projectDescription ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "description=" + projectDescription;
+		String parameters = "name=" + projectName + "&description=" + projectDescription;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
 			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response deleteProject( String projectID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.delete( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 )
+			return new Gson().fromJson( response, Response.class );
+
 		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 

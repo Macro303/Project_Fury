@@ -1,7 +1,9 @@
 package tobedevelopers.project_fury.project_info.implementation;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +35,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	Button mEditProjectButton;
 	@Bind( R.id.projectInfoActivity_saveProjectButton )
 	Button mSaveProjectButton;
+	@Bind( R.id.projectInfoActivity_deleteProjectButton )
+	Button mDeleteProjectButton;
 
 	private ProjectInfoContract.Presenter presenter;
 
@@ -59,7 +63,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	}
 
 	//Button Listener
-	@OnClick( { /*R.id.projectInfoActivity_addUserButton, R.id.projectInfoActivity_removeMeButton, R.id.projectInfoActivity_addColumnButton, R.id.projectInfoActivity_removeColumnButton,*/ R.id.projectInfoActivity_editProjectButton, R.id.projectInfoActivity_saveProjectButton } )
+	@OnClick( { /*R.id.projectInfoActivity_addUserButton, R.id.projectInfoActivity_removeMeButton, R.id.projectInfoActivity_addColumnButton, R.id.projectInfoActivity_removeColumnButton,*/ R.id.projectInfoActivity_editProjectButton, R.id.projectInfoActivity_saveProjectButton, R.id.projectInfoActivity_deleteProjectButton } )
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			/*case R.id.projectInfoActivity_addUserButton:
@@ -86,15 +90,48 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
 				presenter.userSelectSaveProject();
 				break;
+			case R.id.projectInfoActivity_deleteProjectButton:
+				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
+				alertDeleteProject();
+				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
 
+	//Text Changed Listeners
+	@OnTextChanged( value = { R.id.projectInfoActivity_projectNameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
+	public void onUserChangeProjectNameEditText( Editable editable ){
+		presenter.userEnterProjectName( editable.toString() );
+	}
+
 	@OnTextChanged( value = { R.id.projectInfoActivity_projectDescriptionEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedProjectDescriptionEditText( Editable editable ){
 		presenter.userEnterProjectDescription( editable.toString() );
+	}
+
+	private void alertDeleteProject(){
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+
+		builder.setMessage( R.string.dialog_deleteAlertInstructions )
+			.setTitle( R.string.dialog_deleteAlertTitle );
+		builder.setPositiveButton( R.string.button_dialogDelete, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				presenter.userSelectDeleteProject();
+			}
+		} );
+
+		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				// Do nothing
+			}
+		} );
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	@Override
@@ -125,10 +162,14 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void editProjectDescription(){
-		runOnUiThread( new Runnable2Param< Button, TextInputEditText >( mEditProjectButton, mProjectDescriptionEditText ){
+		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mProjectNameEditText, mProjectDescriptionEditText ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( View.GONE );
+				mEditProjectButton.setVisibility( View.GONE );
+				getParam1().setFocusable( true );
+				getParam1().setFocusableInTouchMode( true );
+				getParam1().setClickable( true );
+				getParam1().setCursorVisible( true );
 				getParam2().setFocusable( true );
 				getParam2().setFocusableInTouchMode( true );
 				getParam2().setClickable( true );
@@ -140,10 +181,14 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void saveProjectDescription(){
-		runOnUiThread( new Runnable2Param< Button, TextInputEditText >( mSaveProjectButton, mProjectDescriptionEditText ){
+		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mProjectNameEditText, mProjectDescriptionEditText ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( View.GONE );
+				mSaveProjectButton.setVisibility( View.GONE );
+				getParam1().setFocusable( false );
+				getParam1().setFocusableInTouchMode( false );
+				getParam1().setClickable( false );
+				getParam1().setCursorVisible( false );
 				getParam2().setFocusable( false );
 				getParam2().setFocusableInTouchMode( false );
 				getParam2().setClickable( false );
@@ -159,6 +204,26 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			@Override
 			public void run(){
 				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project description saving" ), Toast.LENGTH_LONG );
+			}
+		} );
+	}
+
+	@Override
+	public void setProjectNameUnderValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 3 ), 3 ) );
+			}
+		} );
+	}
+
+	@Override
+	public void setProjectNameOverValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}
@@ -181,6 +246,16 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	@Override
 	public void defaultErrorMessage(){
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
-		mProjectDescriptionEditText.getEditableText().clear();
+		//mProjectDescriptionEditText.getEditableText().clear();
+	}
+
+	@Override
+	public void setInvalidUserValidation(){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
+			@Override
+			public void run(){
+				getParam1().setError( getString( R.string.error_alreadyExists, "Project name" ) );
+			}
+		} );
 	}
 }
