@@ -29,11 +29,11 @@
 	<string name="button_removeColumn">Remove Column</string>
 	<string name="button_editProject">Edit Project Description</string>
 	<string name="button_saveProject">Save Project Description</string>
-	<string name="button_updateTask">Update Task</string>
+	<string name="button_updateTask">Edit Task</string>
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">Project Board</string>
-	<string name="button_saveTask">Save Task Changes</string>
+	<string name="button_saveTask">Save Task</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
@@ -55,6 +55,8 @@
 	<string name="hint_projectDescription">Project Description</string>
 	<string name="hint_taskName">Task Name</string>
 	<string name="hint_taskDescription">Task Description</string>
+	<string name="hint_assigneeSpinner">Assignee</string>
+	<string name="hint_prioritySpinner">Priority</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
