@@ -29,7 +29,7 @@ public class FURY011UnitTests extends ApplicationTestCase< Application >{
 		verify( viewMock ).setTaskNameUnderValidation();
 	}
 
-	public void testInvalidTooLongProjectName(){
+	public void testInvalidTooLongTaskName(){
 		TaskInfoContract.View viewMock = mock( TaskInfoContract.View.class );
 		TaskInfoContract.Navigation navigationMock = mock( TaskInfoContract.Navigation.class );
 
@@ -52,7 +52,7 @@ public class FURY011UnitTests extends ApplicationTestCase< Application >{
 	}
 
 	//Edit Task Button
-	public void testEditTaskProjectButtonNavigation(){
+	public void testEditTaskButtonNavigation(){
 		TaskInfoContract.View viewMock = mock( TaskInfoContract.View.class );
 		TaskInfoContract.Navigation navigationMock = mock( TaskInfoContract.Navigation.class );
 

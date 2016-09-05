@@ -140,30 +140,27 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginEnd="10dp"
+				android:minWidth="150dp"
 				android:text="@string/button_removeTask"/>
 
-			<LinearLayout
+			<Button
+				android:id="@+id/taskInfoActivity_updateTaskButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="10dp"
-				android:orientation="vertical">
+				android:layout_gravity="end"
+				android:layout_marginEnd="10dp"
+				android:minWidth="160dp"
+				android:text="@string/button_updateTask"/>
 
-				<Button
-					android:id="@+id/taskInfoActivity_updateTaskButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="end"
-					android:text="@string/button_updateTask"/>
-
-				<Button
-					android:id="@+id/taskInfoActivity_saveTaskButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="end"
-					android:text="@string/button_saveTask"
-					android:visibility="gone"/>
-
-			</LinearLayout>
+			<Button
+				android:id="@+id/taskInfoActivity_saveTaskButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="end"
+				android:layout_marginEnd="10dp"
+				android:minWidth="160dp"
+				android:text="@string/button_saveTask"
+				android:visibility="gone"/>
 
 		</LinearLayout>
 
