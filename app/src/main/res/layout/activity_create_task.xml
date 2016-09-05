@@ -53,12 +53,25 @@
 
 		</android.support.design.widget.TextInputLayout>
 
-		<Spinner
-			android:id="@+id/createTaskActivity_assigneeSpinner"
-			android:layout_width="match_parent"
+		<LinearLayout
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:prompt="@string/spinner_taskAssignee"
-			android:spinnerMode="dropdown"/>
+			android:gravity="center_vertical">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="5dp"
+				android:text="@string/hint_assigneeSpinner"/>
+
+			<Spinner
+				android:id="@+id/createTaskActivity_assigneeSpinner"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="5dp"
+				android:prompt="@string/spinner_taskAssignee"/>
+
+		</LinearLayout>
 
 		<LinearLayout
 			android:layout_width="match_parent"

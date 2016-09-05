@@ -119,8 +119,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	private void alertDeleteProject(){
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
 
-		builder.setMessage( R.string.dialog_deleteAlertInstructions )
-			.setTitle( R.string.dialog_deleteAlertTitle );
+		builder.setMessage( R.string.dialog_deleteAlertInstructions_project )
+			.setTitle( R.string.dialog_deleteAlertTitle_project );
 		builder.setPositiveButton( R.string.button_dialogDelete, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
@@ -154,16 +154,16 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	public void navigateToPrevious(){
 		finish();
 	}
-//
-//	@Override
-//	public void displayUserAdded(){
-//		Toast.makeText( getApplicationContext(), "A New User Was Added", Toast.LENGTH_SHORT ).show();
-//	}
-//
-//	@Override
-//	public void displayColumnRemoved(){
-//		ToastLog.makeInfo( getApplicationContext(), "A Column Was Removed", Toast.LENGTH_SHORT ).show();
-//	}
+
+/*	@Override
+	public void displayUserAdded(){
+		Toast.makeText( getApplicationContext(), "A New User Was Added", Toast.LENGTH_SHORT ).show();
+	}
+
+	@Override
+	public void displayColumnRemoved(){
+		ToastLog.makeInfo( getApplicationContext(), "A Column Was Removed", Toast.LENGTH_SHORT ).show();
+	}*/
 
 	@Override
 	public void editProjectDescription(){

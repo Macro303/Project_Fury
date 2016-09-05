@@ -108,4 +108,13 @@ public class ModelTest extends TestCase{
 		TaskResponse response = model.getTask( "57c4f83466d8de03003bea62", "57c503d711d6150300bff578" );
 		System.out.println( "Test Get Task:\n" + response.toString() );
 	}
+
+	public void testDeleteTask(){
+		Model model = new Model();
+		String value = "Response{message='Delete successful.'}";
+		assertTrue( "Success".equals( model.login( "Username", "Password" ).getMessage() ) );
+		Response response = model.deleteTask( "57ccea916fd76c030068e2c6", "57cceaae6fd76c030068e2c7" );
+		System.out.println( "Test Delete Task:\n" + response.toString() );
+		assertTrue( value.equals( response.toString() ) );
+	}
 }

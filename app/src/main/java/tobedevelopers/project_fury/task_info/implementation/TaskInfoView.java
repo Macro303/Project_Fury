@@ -1,7 +1,9 @@
 package tobedevelopers.project_fury.task_info.implementation;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,7 +116,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				break;
 			case R.id.taskInfoActivity_deleteTaskButton:
 				ToastLog.makeDebug( this, "Remove Task", Toast.LENGTH_SHORT );
-				presenter.userSelectRemoveTask();
+				alertDeleteProject();
 				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
@@ -130,6 +132,28 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	@OnTextChanged( value = { R.id.taskInfoActivity_taskDescriptionEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangedTaskDescriptionEditText( Editable editable ){
 		presenter.userEnterTaskDescription( editable.toString() );
+	}
+
+	private void alertDeleteProject(){
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+
+		builder.setMessage( R.string.dialog_deleteAlertInstructions_task )
+			.setTitle( R.string.dialog_deleteAlertTitle_task );
+		builder.setPositiveButton( R.string.button_dialogDelete, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				presenter.userSelectRemoveTask();
+			}
+		} );
+
+		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+			}
+		} );
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	@Override
@@ -213,6 +237,16 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 			@Override
 			public void run(){
 				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Update" ), Toast.LENGTH_LONG );
+			}
+		} );
+	}
+
+	@Override
+	public void taskDeletionInProgress(){
+		runOnUiThread( new Runnable1Param< TaskInfoView >( this ){
+			@Override
+			public void run(){
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Deletion" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}

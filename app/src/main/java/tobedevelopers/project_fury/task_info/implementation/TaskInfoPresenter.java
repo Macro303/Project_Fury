@@ -51,7 +51,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			navigation.navigateToPrevious();
+			new RemoveAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 	}
 
 	@Override
@@ -87,17 +87,20 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectSaveTask( final String mAssignee, final String mPriority ){
+	public void userSelectSaveTask( String mAssignee, String mPriority ){
 		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, Response >(){
+		if( view != null && navigation != null )
+			new UpdateAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, mAssignee, mPriority );
+	}
 
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().taskUpdatingInProgress();
-				}
+	private class UpdateAsyncTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			viewWeakReference.get().taskUpdatingInProgress();
+		}
 
 				@Override
 				protected Response doInBackground( String... strings ){
@@ -106,24 +109,55 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 					return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, mAssignee, mPriority.toUpperCase() );
 				}
 
-				@Override
-				protected void onPostExecute( Response response ){
-					TaskInfoContract.View view = viewWeakReference.get();
+		@Override
+		protected void onPostExecute( Response response ){
+			TaskInfoContract.View view = viewWeakReference.get();
+			TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
-					System.out.println( "Response: " + response.toString() );
-					switch( response.getMessage() ){
-						case "Update successful.":
-							navigationWeakReference.get().navigateToPrevious();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							view.defaultErrorMessage();
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			switch( response.getMessage() ){
+				case "Update successful.":
+					navigation.navigateToPrevious();
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.defaultErrorMessage();
+					break;
+			}
+		}
+	}
+
+	private class RemoveAsyncTask extends AsyncTask< String, Void, Response >{
+		@Override
+		protected Response doInBackground( String... strings ){
+			return model.deleteTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID() );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
+			TaskInfoContract.View view = viewWeakReference.get();
+			TaskInfoContract.Navigation navigation = navigationWeakReference.get();
+
+			System.out.println( response.getMessage() );
+			switch( response.getMessage() ){
+				case "Delete successful.":
+					navigation.navigateToPrevious();
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.defaultErrorMessage();
+					break;
+			}
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			viewWeakReference.get().taskDeletionInProgress();
 		}
 	}
 }

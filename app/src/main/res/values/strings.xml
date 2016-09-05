@@ -39,14 +39,15 @@
 	<string name="button_dialogCancel"> Cancel </string>
 
 	<!-- Dialogue Messages  -->
-	<string name="dialog_deleteAlertTitle"> Delete Project? </string>
-	<string name="dialog_deleteAlertInstructions"> This will permanently delete this project and all of the attached tasks </string>
+	<string name="dialog_deleteAlertTitle_project"> Delete Project? </string>
+	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this project and all of the attached tasks </string>
+	<string name="dialog_deleteAlertTitle_task">Delete Task?</string>
+	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this task and all of the attached sub-tasks</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
 	<string name="textView_taskListTitle">Tasks</string>
 	<string name="textView_taskColumn">Column</string>
-	<string name="textView_taskAssignee">Task Assignee:</string>
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
 	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_userInstruction_register">Already a User?</string>

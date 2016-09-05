@@ -12,6 +12,8 @@ public interface TaskInfoContract{
 
 		void taskUpdatingInProgress();
 
+		void taskDeletionInProgress();
+
 		void setTaskNameUnderValidation();
 
 		void setTaskNameOverValidation();

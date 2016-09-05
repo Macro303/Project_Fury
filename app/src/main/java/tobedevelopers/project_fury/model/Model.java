@@ -142,9 +142,8 @@ public class Model implements ModelContract{
 		String response = urlReader.delete( headers );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
-		if( urlReader.getResponseCode() == 200 )
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
 			return new Gson().fromJson( response, Response.class );
-
 		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 
@@ -203,6 +202,18 @@ public class Model implements ModelContract{
 		String[] headers = new String[]{ "Bearer " + token };
 		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee + "&priority=" + taskPriority;
 		String response = urlReader.put( headers, parameters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response deleteTask( String projectID, String taskID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.delete( headers );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
