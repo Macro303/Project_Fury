@@ -74,7 +74,10 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	private void setInitialValues(){
 		Task selectedTask = Model.getSelectedTask();
 		mTaskName.setText( selectedTask.getName() );
-		mTaskDescription.setText( selectedTask.getDescription() );
+		String description = selectedTask.getDescription();
+		if( description.equals( "null" ) )
+			description = "";
+		mTaskDescription.setText( description );
 		setSpinnerValue( mAssignee, selectedTask.getAssignee() );
 		setSpinnerValue( mPriority, selectedTask.getPriority().getNameValue() );
 	}

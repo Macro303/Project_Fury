@@ -80,6 +80,8 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
+					if( mProjectDescription.equals( "null" ) )
+						mProjectDescription = "";
 					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectName, mProjectDescription );
 				}
 

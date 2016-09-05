@@ -101,6 +101,8 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 
 				@Override
 				protected Response doInBackground( String... strings ){
+					if( mTaskDescription.equals( "null" ) )
+						mTaskDescription = "";
 					return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, mAssignee, mPriority.toUpperCase() );
 				}
 

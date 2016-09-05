@@ -18,6 +18,7 @@ import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.runnable_param.Runnable2Param;
@@ -58,8 +59,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	}
 
 	private void addItemsToFields(){
-		mProjectNameEditText.setText( Model.getSelectedProject().getName() );
-		mProjectDescriptionEditText.setText( Model.getSelectedProject().getDescription() );
+		Project selectedProject = Model.getSelectedProject();
+		mProjectNameEditText.setText( selectedProject.getName() );
+		String description = selectedProject.getDescription();
+		if( description.equals( "null" ) )
+			description = "";
+		mProjectDescriptionEditText.setText( description );
 	}
 
 	//Button Listener
