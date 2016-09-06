@@ -96,18 +96,17 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	private class UpdateAsyncTask extends AsyncTask< String, Void, Response >{
-
 		@Override
 		protected void onPreExecute(){
 			viewWeakReference.get().taskUpdatingInProgress();
 		}
 
-				@Override
-				protected Response doInBackground( String... strings ){
-					if( mTaskDescription.equals( "null" ) )
-						mTaskDescription = "";
-					return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, mAssignee, mPriority.toUpperCase() );
-				}
+		@Override
+		protected Response doInBackground( String... strings ){
+			if( mTaskDescription.equals( "null" ) )
+				mTaskDescription = "";
+			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, strings[ 0 ], strings[ 1 ].toUpperCase() );
+		}
 
 		@Override
 		protected void onPostExecute( Response response ){
