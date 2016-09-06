@@ -154,4 +154,19 @@ public class FURY011TaskInfoTest{
 		onView( withId( R.id.taskInfoActivity_taskDescriptionEditText ) ).perform( click() );
 		onView( withId( R.id.taskInfoActivity_taskDescriptionEditText ) ).check( matches( withText( "" ) ) );
 	}
+
+	//FURY#015 - Delete a Task
+	@Test
+	public void testDeletetask(){
+		onView( withId( R.id.taskInfoActivity_deleteTaskButton ) ).perform( click() );
+
+		onView( withText( "Delete Task?" ) ).check( matches( isDisplayed() ) );
+		onView( withText( "This will permanently delete this task and all of the attached sub-tasks" ) ).check( matches( isDisplayed() ) );
+
+		onView( withText( "Delete" ) ).check( matches( isDisplayed() ) );
+		onView( withText( "Delete" ) ).check( matches( isClickable() ) );
+
+		onView( withText( "Cancel" ) ).check( matches( isDisplayed() ) );
+		onView( withText( "Cancel" ) ).check( matches( isClickable() ) );
+	}
 }
