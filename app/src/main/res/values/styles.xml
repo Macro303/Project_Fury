@@ -1,32 +1,100 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
-        <item name="android:textAppearanceButton">@color/colorLightPrimary</item>
-        <item name="android:textColorHighlight">@color/colorPrimary</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
+		<item name="android:textAppearanceButton">@color/colorLightPrimary</item>
+		<item name="android:textColorHighlight">@color/colorPrimary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:fontFamily">sans-serif</item>
+	</style>
 
+	<style name="buttonApperance" parent="Theme.AppCompat">
+		<item name="android:background">@color/colorPrimaryDark</item>
+		<item name="android:textColor">@color/colorTextIcon</item>
+		<item name="android:fontFamily">sans-serif</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:paddingStart">@dimen/buttonPaddingStart</item>
+		<item name="android:paddingEnd">@dimen/buttonPaddingEnd</item>
+	</style>
 
-    <style name="buttonApperance" parent="Theme.AppCompat">
-        <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="android:textColor">@color/colorTextIcon</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingStart">@dimen/buttonPaddingStart</item>
-        <item name="android:paddingEnd">@dimen/buttonPaddingEnd</item>
-    </style>
+	<style name="AppTheme.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
 
+	<!-- Jonah's Attempt at Styles -->
+	<style name="BaseStyle" parent="AppTheme">
+		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
+		<item name="android:textAppearanceButton">@color/colorLightPrimary</item>
+		<item name="android:textColorHighlight">@color/colorPrimary</item>
+		<item name="android:textSize">@dimen/textSizeDimen</item>
+		<item name="android:fontFamily">sans-serif</item>
+	</style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+	<style name="LayoutStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<style name="EditTextStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:maxLines">1</item>
+		<item name="android:layout_marginTop">@dimen/editTextMarginDimen</item>
+	</style>
+
+	<style name="EditTextStyle.Restrictive" parent="EditTextStyle">
+		<item name="android:maxLength">20</item>
+		<item name="android:digits">@string/alphaNumericCharacters</item>
+	</style>
+
+	<style name="EditTextStyle.Restrictive.Disabled" parent="EditTextStyle.Restrictive">
+		<item name="android:clickable">false</item>
+		<item name="android:cursorVisible">false</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="ButtonStyle" parent="BaseStyle">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:paddingStart">@dimen/buttonPaddingDimen</item>
+		<item name="android:paddingEnd">@dimen/buttonPaddingDimen</item>
+		<item name="android:background">@color/colorPrimaryDark</item>
+		<item name="android:textColor">@color/colorTextIcon</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:fontFamily">sans-serif-smallcaps</item>
+	</style>
+
+	<style name="ButtonStyle.Sized" parent="ButtonStyle">
+		<item name="android:minWidth">@dimen/minWidthDimen</item>
+		<item name="android:layout_marginBottom">@dimen/buttonMarginDimen</item>
+	</style>
+
+	<style name="ButtonStyle.Borderless" parent="ButtonStyle">
+		<item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+		<item name="android:textColor">@color/colorAccent</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="TextStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+		<item name="android:textColor">@color/colorTextPrimary</item>
+	</style>
+
+	<style name="TextStyle.Question" parent="TextStyle">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textColor">@color/colorTextSecondary</item>
+		<item name="android:textStyle">italic</item>
+	</style>
 
 </resources>

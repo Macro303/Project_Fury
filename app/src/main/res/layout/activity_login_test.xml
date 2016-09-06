@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_margin="@dimen/layoutMarginDimen"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TextView
+		style="@style/TextStyle"
+		android:layout_marginBottom="@dimen/layoutMarginDimen"
+		android:drawablePadding="10dp"
+		android:drawableTop="@drawable/placeholder128x128"
+		android:gravity="center_horizontal"
+		android:text="@string/app_subtitle"/>
+
+	<android.support.design.widget.TextInputLayout
+		style="@style/LayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/loginActivity_usernameEditText"
+			style="@style/EditTextStyle"
+			android:digits="@string/alphaNumericCharacters"
+			android:hint="@string/hint_username"
+			android:inputType="textNoSuggestions"
+			android:maxLength="20"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		style="@style/LayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/loginActivity_passwordEditText"
+			style="@style/EditTextStyle"
+			android:digits="@string/alphaNumericCharacters"
+			android:hint="@string/hint_password"
+			android:inputType="textPassword|textNoSuggestions"
+			android:maxLength="20"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<Button
+		android:id="@+id/loginActivity_loginButton"
+		style="@style/ButtonStyle"
+		android:layout_gravity="center"
+		android:layout_marginBottom="@dimen/buttonMarginDimen"
+		android:layout_marginTop="@dimen/buttonMarginDimen"
+		android:enabled="false"
+		android:text="@string/button_login"/>
+
+	<LinearLayout
+		style="@style/LayoutStyle"
+		android:gravity="center_horizontal">
+
+		<TextView
+			style="@style/TextStyle.Question"
+			android:text="@string/textView_userInstruction_login"/>
+
+		<Button
+			android:id="@+id/loginActivity_registerButton"
+			style="@style/ButtonStyle.Borderless"
+			android:text="@string/button_register"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+
+

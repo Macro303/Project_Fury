@@ -37,7 +37,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		setTitle( getString( R.string.title_activity_login ) );
-		setContentView( R.layout.activity_login );
+		setContentView( R.layout.activity_login_test );
 		super.onCreate( savedInstanceState );
 
 		presenter = new LoginPresenter( this, this );

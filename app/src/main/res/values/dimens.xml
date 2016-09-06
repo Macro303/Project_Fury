@@ -5,4 +5,12 @@
 	<dimen name="fab_margin">16dp</dimen>
 	<dimen name="buttonPaddingStart">16dp</dimen>
 	<dimen name="buttonPaddingEnd">16dp</dimen>
+
+	<!-- Jonah's Attempt at Styles -->
+	<dimen name="buttonPaddingDimen">16dp</dimen>
+	<dimen name="buttonMarginDimen">30dp</dimen>
+	<dimen name="editTextMarginDimen">10dp</dimen>
+	<dimen name="layoutMarginDimen">20dp</dimen>
+	<dimen name="minWidthDimen">160dp</dimen>
+	<dimen name="textSizeDimen">16sp</dimen>
 </resources>

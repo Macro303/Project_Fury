@@ -44,7 +44,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		setTitle( getString( R.string.title_activity_projectInfo ) );
-		setContentView( R.layout.activity_project_info );
+		setContentView( R.layout.activity_project_info_test );
 		super.onCreate( savedInstanceState );
 
 		presenter = new ProjectInfoPresenter( this, this );
