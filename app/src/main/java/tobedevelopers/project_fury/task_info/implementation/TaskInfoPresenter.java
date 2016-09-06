@@ -140,7 +140,6 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 			TaskInfoContract.View view = viewWeakReference.get();
 			TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
-			System.out.println( response.getMessage() );
 			switch( response.getMessage() ){
 				case "Delete successful.":
 					navigation.navigateToPrevious();
