@@ -8,10 +8,10 @@
 	<string name="title_activity_register">Register New Account</string>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="title_activity_createProject">Create a Project</string>
-	<string name="title_activity_projectInfo">Project Info</string>
-	<string name="title_activity_taskInfo">Task Info</string>
+	<string name="title_activity_projectInfo">Project Information</string>
+	<string name="title_activity_taskInfo">Task Information</string>
 	<string name="title_activity_backlog">Backlog</string>
-	<string name="title_activity_createTask">Create Task</string>
+	<string name="title_activity_createTask">Create a Task</string>
 	<string name="title_activity_settings">Settings</string>
 	<string name="title_activity_allBoards">All Boards</string>
 	<string name="title_activity_projectBoard">Project Board</string>
@@ -27,20 +27,32 @@
 	<string name="button_removeMe">Remove Me</string>
 	<string name="button_addColumn">Add Column</string>
 	<string name="button_removeColumn">Remove Column</string>
+	<string name="button_updateTask">Edit Task</string>
 	<string name="button_editProject">Edit Project</string>
-	<string name="button_editTask">Edit Task</string>
+	<string name="button_saveProject">Save Project</string>
+	<string name="button_deleteProject">Delete Project</string>
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">Project Board</string>
+	<string name="button_saveTask">Save Task</string>
+	<string name="button_dialogDelete"> Delete </string>
+	<string name="button_dialogCancel"> Cancel </string>
+
+	<!-- Dialogue Messages  -->
+	<string name="dialog_deleteAlertTitle_project"> Delete Project? </string>
+	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this project and all of the attached tasks </string>
+	<string name="dialog_deleteAlertTitle_task">Delete Task?</string>
+	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this task and all of the attached sub-tasks</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
 	<string name="textView_taskListTitle">Tasks</string>
 	<string name="textView_taskColumn">Column</string>
-	<string name="textView_taskAssignee">Task Assignee:</string>
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
 	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_userInstruction_register">Already a User?</string>
+	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
+	<string name="textView_taskInfoInstruction">Below is information about this task:</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -49,6 +61,10 @@
 	<string name="hint_confirmPassword">Confirm Password</string>
 	<string name="hint_projectName">Project Name</string>
 	<string name="hint_projectDescription">Project Description</string>
+	<string name="hint_taskName">Task Name</string>
+	<string name="hint_taskDescription">Task Description</string>
+	<string name="hint_assigneeSpinner">Assignee</string>
+	<string name="hint_prioritySpinner">Priority</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
@@ -56,7 +72,13 @@
 	<string name="navigation_close">Close</string>
 
 	<!-- Spinner Strings -->
-	<string name="spinner_taskAssignee">No One Assigned</string>
+	<string name="spinner_taskAssignee">Unassigned</string>
+	<string-array name="spinner_priority">
+		<item>Unassigned</item>
+		<item>Low</item>
+		<item>Normal</item>
+		<item>High</item>
+	</string-array>
 
 	<!-- Error Strings -->
 	<string name="error_message">Error with %1s</string>
@@ -74,6 +96,7 @@
 	<string name="error_confirmPasswordValidation">Password does not currently match</string>
 	<string name="error_noInternetAccess">No Internet Access</string>
 	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
+	<string name="error_defaultError">Your request cannot be processed at this time</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>

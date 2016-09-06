@@ -25,8 +25,7 @@ public class ProjectResponse extends Response{
 	@Override
 	public String toString(){
 		return "ProjectResponse{" +
-			       "message='" + message + '\'' +
-			       ", projects=" + Arrays.toString( projects ) +
-			       '}';
+			       "projects=" + Arrays.toString( projects ) +
+			       "} " + super.toString();
 	}
 }

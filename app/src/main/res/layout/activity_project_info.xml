@@ -3,79 +3,120 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_margin="20dp"
 	android:orientation="vertical">
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="match_parent"
+		android:layout_margin="20dp"
+		android:orientation="vertical">
 
-		<ListView
-			android:layout_width="0dp"
+		<TextView
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="2"/>
+			android:layout_alignParentTop="true"
+			android:layout_marginBottom="20dp"
+			android:text="@string/textView_projectInfoInstruction"
+			android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<android.support.design.widget.TextInputEditText
+				android:id="@+id/projectInfoActivity_projectNameEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="false"
+				android:cursorVisible="false"
+				android:digits="@string/alphaNumericCharacters"
+				android:editable="false"
+				android:focusable="false"
+				android:focusableInTouchMode="false"
+				android:hint="@string/hint_projectName"
+				android:inputType="textNoSuggestions"
+				android:maxLength="20"
+				android:singleLine="true"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp">
+
+			<android.support.design.widget.TextInputEditText
+				android:id="@+id/projectInfoActivity_projectDescriptionEditText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/projectInfoActivity_projectNameEditText"
+				android:layout_marginBottom="40dp"
+				android:clickable="false"
+				android:cursorVisible="false"
+				android:digits="@string/alphaNumericCharacters"
+				android:focusable="false"
+				android:focusableInTouchMode="false"
+				android:gravity="top|left"
+				android:hint="@string/hint_projectDescription"
+				android:inputType="textNoSuggestions"
+				android:maxLength="128"
+				android:maxLines="6"
+				android:scrollbars="vertical"/>
+
+		</android.support.design.widget.TextInputLayout>
 
 		<LinearLayout
-			android:layout_width="0dp"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center"
+			android:layout_below="@id/projectInfoActivity_projectDescriptionEditText"
+			android:layout_marginTop="30dp"
 			android:orientation="vertical">
 
-			<Button
-				android:id="@+id/projectInfoActivity_addUserButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/button_addUser"/>
+			<!--
+				<Button
+					android:id="@+id/projectInfoActivity_addUserButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/button_addUser"/>
+
+				<Button
+					android:id="@+id/projectInfoActivity_removeMeButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/button_removeMe"/>
+					-->
 
 			<Button
-				android:id="@+id/projectInfoActivity_removeMeButton"
+				android:id="@+id/projectInfoActivity_editProjectButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/button_removeMe"/>
+				android:layout_gravity="right"
+				android:layout_marginBottom="20dp"
+				android:minWidth="160dp"
+				android:text="@string/button_editProject"/>
+
+			<Button
+				android:id="@+id/projectInfoActivity_saveProjectButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="right"
+				android:layout_marginBottom="20dp"
+				android:minWidth="160dp"
+				android:text="@string/button_saveProject"
+				android:visibility="gone"/>
+
+			<Button
+				android:id="@+id/projectInfoActivity_deleteProjectButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/projectInfoActivity_saveProjectButton"
+				android:layout_gravity="right"
+				android:layout_marginBottom="20dp"
+				android:minWidth="160dp"
+				android:text="@string/button_deleteProject"/>
 
 		</LinearLayout>
 
 	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<ListView
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="2"/>
-
-		<LinearLayout
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center"
-			android:orientation="vertical">
-
-			<Button
-				android:id="@+id/projectInfoActivity_addColumnButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/button_addColumn"/>
-
-			<Button
-				android:id="@+id/projectInfoActivity_removeColumnButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/button_removeColumn"/>
-
-		</LinearLayout>
-
-	</LinearLayout>
-
-	<Button
-		android:id="@+id/projectInfoActivity_editProjectButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:layout_marginTop="20dp"
-		android:text="@string/button_editProject"/>
 
 </LinearLayout>

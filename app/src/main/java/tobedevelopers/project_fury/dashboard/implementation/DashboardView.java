@@ -2,7 +2,6 @@ package tobedevelopers.project_fury.dashboard.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,6 +9,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
@@ -36,20 +36,19 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.dashboardActivity_createProjectButton:
-				Toast.makeText( this, "Create Project", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Create Project", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateProject();
 				break;
 			case R.id.dashboardActivity_projectInfoButton:
-				Toast.makeText( this, "Project Info", Toast.LENGTH_SHORT ).show();
+				ToastLog.makeDebug( this, "Project Info", Toast.LENGTH_SHORT );
 				presenter.userSelectProjectInfo();
 				break;
 			case R.id.dashboardActivity_taskInfoButton:
-				Toast.makeText(this, "Task Info", Toast.LENGTH_SHORT).show();
+				ToastLog.makeDebug( this, "Task Info", Toast.LENGTH_SHORT );
 				presenter.userSelectTaskInfo();
 				break;
 			default:
-				Toast.makeText( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT ).show();
-				Log.w( getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ) );
+				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -80,6 +79,21 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 			@Override
 			public void run(){
 				startActivity( new Intent( getParam1(), TaskInfoView.class ) );
+			}
+		} );
+	}
+
+	@Override
+	public void noInternetAccessValidation(){
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
+	}
+
+	@Override
+	public void loadingInProgress(){
+		runOnUiThread( new Runnable1Param< DashboardView >( this ){
+			@Override
+			public void run(){
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Loading" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}

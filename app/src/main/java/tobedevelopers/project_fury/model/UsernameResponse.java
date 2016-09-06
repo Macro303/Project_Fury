@@ -25,8 +25,7 @@ public class UsernameResponse extends Response{
 	@Override
 	public String toString(){
 		return "UsernameResponse{" +
-			       "message='" + message + '\'' +
-			       ", usernames=" + Arrays.toString( usernames ) +
-			       '}';
+			       "usernames=" + Arrays.toString( usernames ) +
+			       "} " + super.toString();
 	}
 }

@@ -70,7 +70,7 @@ public class BaseNavigationView extends BaseView{
 						startActivity( new Intent( getApplicationContext(), LoginView.class ) );
 						return true;
 					default:
-						ToastLog.makeError( getApplicationContext(), "Something happened in the Navigation Code", Toast.LENGTH_LONG ).show();
+						ToastLog.makeError( getApplicationContext(), "Something happened in the Navigation Code", Toast.LENGTH_LONG );
 						return true;
 				}
 			}

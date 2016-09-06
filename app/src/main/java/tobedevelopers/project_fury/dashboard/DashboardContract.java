@@ -6,7 +6,9 @@ package tobedevelopers.project_fury.dashboard;
 public interface DashboardContract{
 
 	interface View{
+		void noInternetAccessValidation();
 
+		void loadingInProgress();
 	}
 
 	interface Navigation{

@@ -6,9 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.backlog.BacklogFragmentPagerAdapter;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
@@ -59,5 +61,20 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 				startActivity( new Intent( getParam1(), CreateTaskView.class ) );
 			}
 		} );
+	}
+
+	@Override
+	public void loadingInProgress(){
+		runOnUiThread( new Runnable1Param< BacklogView >( this ){
+			@Override
+			public void run(){
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Loading" ), Toast.LENGTH_LONG );
+			}
+		} );
+	}
+
+	@Override
+	public void noInternetAccessValidation(){
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 }
