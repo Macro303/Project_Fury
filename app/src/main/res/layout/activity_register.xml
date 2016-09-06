@@ -4,6 +4,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:layout_margin="20dp"
 	android:orientation="vertical">
 
 	<LinearLayout
@@ -14,12 +15,12 @@
 
 		<TextView
 			android:id="@+id/registerActivity_instructionsTextView"
+			style="@style/AppTheme"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignParentTop="true"
 			android:layout_marginBottom="20dp"
-			android:text="@string/textView_registerInstructions"
-			android:textAppearance="?android:attr/textAppearanceMedium"/>
+			android:text="@string/textView_registerInstructions"/>
 
 		<android.support.design.widget.TextInputLayout
 			android:layout_width="match_parent"
@@ -94,15 +95,16 @@
 
 		<Button
 			android:id="@+id/registerActivity_createAccountButton"
-			android:layout_width="match_parent"
+			style="@style/buttonApperance"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
 			android:layout_below="@id/registerActivity_confirmPasswordEditText"
 			android:layout_gravity="center"
-			android:layout_marginBottom="35dp"
-			android:layout_marginTop="20dp"
+			android:layout_marginBottom="25dp"
+			android:layout_marginTop="35dp"
 			android:enabled="false"
-			android:text="@string/button_createAccount" />
+			android:text="@string/button_createAccount"/>
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -111,10 +113,12 @@
 
 			<TextView
 				android:id="@+id/registerActivity_userInstructionTextView"
+				style="@style/AppTheme"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="@string/textView_userInstruction_register"
 				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textColor="@color/colorTextPrimary"
 				android:textStyle="italic"/>
 
 			<Button
@@ -124,7 +128,7 @@
 				android:layout_height="wrap_content"
 				android:fontFamily="sans-serif"
 				android:text="@string/button_login"
-				android:textAppearance="?android:attr/textAppearanceMedium" />
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 		</LinearLayout>
 
