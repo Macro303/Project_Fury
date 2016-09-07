@@ -11,15 +11,17 @@ public interface ModelContract{
 
 	UsernameResponse getAllUsers();
 
+	Response createProject( String projectName, String projectDescription );
+
 	ProjectResponse getAllProjects();
 
 	ProjectResponse getProject( String projectID );
 
-	Response createProject( String projectName, String projectDescription );
-
 	Response updateProject( String projectID, String projectName, String projectDescription );
 
 	Response deleteProject( String projectID );
+
+	Response createTask( String projectID, String taskName, String taskDescription, String assignee );
 
 	TaskResponse getTask( String projectID, String taskID );
 
@@ -27,9 +29,15 @@ public interface ModelContract{
 
 	TaskResponse getAllProjectTasks( String projectID );
 
-	Response createTask( String projectID, String taskName, String taskDescription, String assignee );
-
 	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String priority );
 
 	Response deleteTask( String projectID, String taskID );
+
+	Response createColumn( String projectID, String columnName );
+
+	ColumnResponse getAllProjectColumns( String projectID );
+
+	ColumnResponse getColumn( String projectID, String columnID );
+
+	Response deleteColumn( String projectID, String columnID );
 }

@@ -13,16 +13,18 @@ public class Task{
 	private String description;
 	@SerializedName( "userAssigned" )
 	private String assignee;
-	private String projectParent;
+	@SerializedName( "projectParent" )
+	private String projectID;
 	private Priority priority = Priority.UNASSIGNED;
-	private String columnIn;
+	@SerializedName( "columnIn" )
+	private String columnID;
 
 	public String getAssignee(){
 		return assignee;
 	}
 
-	public String getColumnIn(){
-		return columnIn;
+	public String getColumnID(){
+		return columnID;
 	}
 
 	public String getDescription(){
@@ -37,8 +39,8 @@ public class Task{
 		return priority;
 	}
 
-	public String getProjectParent(){
-		return projectParent;
+	public String getProjectID(){
+		return projectID;
 	}
 
 	public String getTaskID(){
@@ -49,11 +51,11 @@ public class Task{
 	public String toString(){
 		return "Task{" +
 			       "assignee='" + assignee + '\'' +
-			       ", columnIn='" + columnIn + '\'' +
+			       ", columnID='" + columnID + '\'' +
 			       ", description='" + description + '\'' +
 			       ", name='" + name + '\'' +
 			       ", priority=" + priority +
-			       ", projectParent='" + projectParent + '\'' +
+			       ", projectID='" + projectID + '\'' +
 			       ", taskID='" + taskID + '\'' +
 			       '}';
 	}
