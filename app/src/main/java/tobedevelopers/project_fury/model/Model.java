@@ -263,7 +263,7 @@ public class Model implements ModelContract{
 		if( urlReader.getResponseCode() == -1 )
 			return new ColumnResponse( "No Internet Access" );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
-			return new Gson().fromJson( response, ColumnResponse.class );
+			return new ColumnResponse( "Success", new Gson().fromJson( response, Column[].class ) );
 		return new ColumnResponse( urlReader.getResponseCode() + " Error" );
 	}
 
@@ -275,8 +275,21 @@ public class Model implements ModelContract{
 		if( urlReader.getResponseCode() == -1 )
 			return new ColumnResponse( "No Internet Access" );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
-			return new Gson().fromJson( response, ColumnResponse.class );
+			return new ColumnResponse( "Success", new Gson().fromJson( response, Column[].class ) );
 		return new ColumnResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response updateColumn( String projectID, String columnID, String columnName ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String paramters = "name=" + columnName;
+		String response = urlReader.put( headers, paramters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 
 	@Override

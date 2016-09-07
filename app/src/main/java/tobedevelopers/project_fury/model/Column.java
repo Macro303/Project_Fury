@@ -12,7 +12,6 @@ public class Column{
 	private String name;
 	@SerializedName( "projectParent" )
 	private String projectID;
-	private boolean userDeletable;
 
 	public String getColumnID(){
 		return columnID;
@@ -26,17 +25,12 @@ public class Column{
 		return projectID;
 	}
 
-	public boolean isUserDeletable(){
-		return userDeletable;
-	}
-
 	@Override
 	public String toString(){
 		return "Column{" +
 			       "columnID='" + columnID + '\'' +
 			       ", name='" + name + '\'' +
 			       ", projectID='" + projectID + '\'' +
-			       ", userDeletable=" + userDeletable +
 			       '}';
 	}
 }

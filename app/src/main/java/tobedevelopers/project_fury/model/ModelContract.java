@@ -39,5 +39,7 @@ public interface ModelContract{
 
 	ColumnResponse getColumn( String projectID, String columnID );
 
+	Response updateColumn( String projectID, String columnID, String columnName );
+
 	Response deleteColumn( String projectID, String columnID );
 }
