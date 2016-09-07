@@ -18,6 +18,7 @@ public class Model implements ModelContract{
 	private static String token;
 	private static Project selectedProject;
 	private static Task selectedTask;
+	private static Column selectedColumn;
 
 	public Model(){
 	}
@@ -36,6 +37,14 @@ public class Model implements ModelContract{
 
 	public static void setSelectedTask( Task _selectedTask ){
 		selectedTask = _selectedTask;
+	}
+
+	public static Column getSelectedColumn(){
+		return selectedColumn;
+	}
+
+	public static void setSelectedColumn( Column _selectedColumn ){
+		selectedColumn = _selectedColumn;
 	}
 
 	public String getToken(){
@@ -85,6 +94,23 @@ public class Model implements ModelContract{
 		return new UsernameResponse( urlReader.getResponseCode() + " Error" );
 	}
 
+	/*
+	Project Readers
+	 */
+
+	@Override
+	public Response createProject( String projectName, String projectDescription ){
+		urlReader = new UrlReader( apiAddress + "projects" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String parameters = "name=" + projectName + "&description=" + projectDescription;
+		String response = urlReader.post( headers, parameters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
 	@Override
 	public ProjectResponse getAllProjects(){
 		urlReader = new UrlReader( apiAddress + "projects" );
@@ -107,19 +133,6 @@ public class Model implements ModelContract{
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
 			return new ProjectResponse( "Success", new Gson().fromJson( response, Project[].class ) );
 		return new ProjectResponse( urlReader.getResponseCode() + " Error" );
-	}
-
-	@Override
-	public Response createProject( String projectName, String projectDescription ){
-		urlReader = new UrlReader( apiAddress + "projects" );
-		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + projectName + "&description=" + projectDescription;
-		String response = urlReader.post( headers, parameters );
-		if( urlReader.getResponseCode() == -1 )
-			return new Response( "No Internet Access" );
-		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
-			return new Gson().fromJson( response, Response.class );
-		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 
 	@Override
@@ -147,17 +160,9 @@ public class Model implements ModelContract{
 		return new Response( urlReader.getResponseCode() + " Error" );
 	}
 
-	@Override
-	public TaskResponse getTask( String projectID, String taskID ){
-		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
-		String[] headers = new String[]{ "Bearer " + token };
-		String response = urlReader.get( headers );
-		if( urlReader.getResponseCode() == -1 )
-			return new TaskResponse( "No Internet Access" );
-		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
-			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
-		return new TaskResponse( urlReader.getResponseCode() + " Error" );
-	}
+	/*
+	Task Readers
+	 */
 
 	@Override
 	public Response createTask( String projectID, String taskName, String taskDescription, String assignee ){
@@ -173,8 +178,8 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public TaskResponse getAllProjectTasks( String projectID ){
-		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks" );
+	public TaskResponse getTask( String projectID, String taskID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
 		String[] headers = new String[]{ "Bearer " + token };
 		String response = urlReader.get( headers );
 		if( urlReader.getResponseCode() == -1 )
@@ -187,6 +192,18 @@ public class Model implements ModelContract{
 	@Override
 	public TaskResponse getAllUserTasks(){
 		urlReader = new UrlReader( apiAddress + "users/tasks" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new TaskResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
+		return new TaskResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public TaskResponse getAllProjectTasks( String projectID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks" );
 		String[] headers = new String[]{ "Bearer " + token };
 		String response = urlReader.get( headers );
 		if( urlReader.getResponseCode() == -1 )
@@ -212,6 +229,72 @@ public class Model implements ModelContract{
 	@Override
 	public Response deleteTask( String projectID, String taskID ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.delete( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	/*
+	Column Readers
+	 */
+
+	@Override
+	public Response createColumn( String projectID, String columnName ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String parameters = "name=" + columnName;
+		String response = urlReader.post( headers, parameters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public ColumnResponse getAllProjectColumns( String projectID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new ColumnResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new ColumnResponse( "Success", new Gson().fromJson( response, Column[].class ) );
+		return new ColumnResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public ColumnResponse getColumn( String projectID, String columnID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new ColumnResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new ColumnResponse( "Success", new Gson().fromJson( response, Column[].class ) );
+		return new ColumnResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response updateColumn( String projectID, String columnID, String columnName ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
+		String[] headers = new String[]{ "Bearer " + token };
+		String paramters = "name=" + columnName;
+		String response = urlReader.put( headers, paramters );
+		if( urlReader.getResponseCode() == -1 )
+			return new Response( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new Gson().fromJson( response, Response.class );
+		return new Response( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
+	public Response deleteColumn( String projectID, String columnID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
 		String[] headers = new String[]{ "Bearer " + token };
 		String response = urlReader.delete( headers );
 		if( urlReader.getResponseCode() == -1 )
