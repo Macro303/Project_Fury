@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical">
@@ -68,30 +69,74 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/projectInfoActivity_projectDescriptionEditText"
-			android:layout_marginTop="30dp"
-			android:orientation="vertical">
+			android:orientation="horizontal">
 
-			<!--
-				<Button
-					android:id="@+id/projectInfoActivity_addUserButton"
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="start"
+				android:layout_weight="1"
+				android:orientation="vertical">
+
+				<!--<Button-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"-->
+				<!--android:minWidth="160dp"-->
+				<!--android:text="@string/button_addColumn"/>-->
+
+				<TextView
+					android:id="@+id/textView"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/button_addUser"/>
+					android:text="Column Names:"
+					android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+				<ListView
+					android:id="@+id/listView"
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					tools:listitem="@layout/column_list_items"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_gravity="end"
+				android:orientation="vertical">
 
 				<Button
-					android:id="@+id/projectInfoActivity_removeMeButton"
+					android:id="@+id/projectInfoActivity_addColumnButton"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/button_removeMe"/>
-					-->
+					android:layout_gravity="end"
+					android:minWidth="160dp"
+					android:text="@string/button_addColumn"/>
+
+				<Button
+					android:id="@+id/projectInfoActivity_deleteColumnButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="end"
+					android:layout_marginBottom="40dp"
+					android:minWidth="160dp"
+					android:text="@string/button_removeColumn"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:orientation="horizontal">
 
 			<Button
 				android:id="@+id/projectInfoActivity_editProjectButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="right"
-				android:layout_marginBottom="20dp"
+				android:layout_gravity="start"
 				android:minWidth="160dp"
 				android:text="@string/button_editProject"/>
 
@@ -99,8 +144,7 @@
 				android:id="@+id/projectInfoActivity_saveProjectButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="right"
-				android:layout_marginBottom="20dp"
+				android:layout_gravity="end"
 				android:minWidth="160dp"
 				android:text="@string/button_saveProject"
 				android:visibility="gone"/>
@@ -109,12 +153,9 @@
 				android:id="@+id/projectInfoActivity_deleteProjectButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/projectInfoActivity_saveProjectButton"
-				android:layout_gravity="right"
-				android:layout_marginBottom="20dp"
+				android:layout_gravity="end"
 				android:minWidth="160dp"
 				android:text="@string/button_deleteProject"/>
-
 		</LinearLayout>
 
 	</LinearLayout>
