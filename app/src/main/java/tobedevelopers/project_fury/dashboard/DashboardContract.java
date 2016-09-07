@@ -1,5 +1,7 @@
 package tobedevelopers.project_fury.dashboard;
 
+import tobedevelopers.project_fury.model.Project;
+
 /**
  * Created by Macro303 on 10/08/2016.
  */
@@ -9,6 +11,10 @@ public interface DashboardContract{
 		void noInternetAccessValidation();
 
 		void loadingInProgress();
+
+		void loadProjectsIntoList( Project[] projects );
+
+		void defaultErrorMessage();
 	}
 
 	interface Navigation{
@@ -25,5 +31,7 @@ public interface DashboardContract{
 		void userSelectProjectInfo();
 
 		void userSelectTaskInfo();
+
+		void loadProjects();
 	}
 }

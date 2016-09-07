@@ -20,7 +20,7 @@
 	<string name="button_login">Login</string>
 	<string name="button_register">Register Here</string>
 	<string name="button_createAccount">Create Account</string>
-	<string name="button_createProject">Create Project</string>
+	<string name="button_createProject">+</string>
 	<string name="button_projectInfo">Project</string>
 	<string name="button_taskInfo">Task</string>
 	<string name="button_addUser">Add User</string>

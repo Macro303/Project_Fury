@@ -112,4 +112,44 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
+
+	@Override
+	public void loadProjects(){
+		DashboardContract.View view = viewWeakReference.get();
+		DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+	}
+
+	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
+		@Override
+		protected ProjectResponse doInBackground( Void... voids ){
+			return model.getAllProjects();
+		}
+
+		@Override
+		protected void onPostExecute( ProjectResponse response ){
+			super.onPostExecute( response );
+			DashboardContract.View view = viewWeakReference.get();
+			DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+			switch( response.getMessage() ){
+				case "Success":
+					view.loadProjectsIntoList( response.getProjects() );
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.defaultErrorMessage();
+					break;
+			}
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
+	}
 }
