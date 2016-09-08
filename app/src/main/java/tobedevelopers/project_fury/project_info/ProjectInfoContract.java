@@ -1,5 +1,7 @@
 package tobedevelopers.project_fury.project_info;
 
+import tobedevelopers.project_fury.model.Column;
+
 /**
  * Created by Macro303 on 11/08/2016.
  */
@@ -26,6 +28,8 @@ public interface ProjectInfoContract{
 		void defaultErrorMessage();
 
 		void setInvalidUserValidation();
+
+		void fillColumnList( Column[] columns );
 	}
 
 	interface Navigation{
@@ -48,5 +52,7 @@ public interface ProjectInfoContract{
 		void userEnterProjectName( String projectName );
 
 		void userEnterProjectDescription( String projectDescription );
+
+		void loadColumns();
 	}
 }

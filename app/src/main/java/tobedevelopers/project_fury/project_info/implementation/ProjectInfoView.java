@@ -1,13 +1,19 @@
 package tobedevelopers.project_fury.project_info.implementation;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -17,6 +23,7 @@ import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
+import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
@@ -38,6 +45,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	Button mSaveProjectButton;
 	@Bind( R.id.projectInfoActivity_deleteProjectButton )
 	Button mDeleteProjectButton;
+	@Bind( R.id.projectInfoActivity_columnNamesList )
+	ListView mColumnNamesList;
 
 	private ProjectInfoContract.Presenter presenter;
 
@@ -56,6 +65,9 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 		//Spinner Config
 		addItemsToFields();
+
+		//List Config
+		presenter.loadColumns();
 	}
 
 	private void addItemsToFields(){
@@ -65,6 +77,13 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		if( description.equals( "null" ) )
 			description = "";
 		mProjectDescriptionEditText.setText( description );
+	}
+
+	@Override
+	public void fillColumnList( Column[] columns ){
+		CustomArrayAdapter adapter = new CustomArrayAdapter( this, R.layout.list_item_columns, columns );
+		mColumnNamesList.setAdapter( adapter );
+		mColumnNamesList.addHeaderView( getLayoutInflater().inflate( R.layout.list_header_columns, mColumnNamesList, false ), null, false );
 	}
 
 	//Button Listener
@@ -155,16 +174,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		finish();
 	}
 
-/*	@Override
-	public void displayUserAdded(){
-		Toast.makeText( getApplicationContext(), "A New User Was Added", Toast.LENGTH_SHORT ).show();
-	}
-
-	@Override
-	public void displayColumnRemoved(){
-		ToastLog.makeInfo( getApplicationContext(), "A Column Was Removed", Toast.LENGTH_SHORT ).show();
-	}*/
-
 	@Override
 	public void editProjectDescription(){
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mProjectNameEditText, mProjectDescriptionEditText ){
@@ -183,6 +192,16 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 		} );
 	}
+
+/*	@Override
+	public void displayUserAdded(){
+		Toast.makeText( getApplicationContext(), "A New User Was Added", Toast.LENGTH_SHORT ).show();
+	}
+
+	@Override
+	public void displayColumnRemoved(){
+		ToastLog.makeInfo( getApplicationContext(), "A Column Was Removed", Toast.LENGTH_SHORT ).show();
+	}*/
 
 	@Override
 	public void saveProjectDescription(){
@@ -262,5 +281,40 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				getParam1().setError( getString( R.string.error_alreadyExists, "Project name" ) );
 			}
 		} );
+	}
+
+	private class CustomArrayAdapter extends ArrayAdapter< Column >{
+		private LayoutInflater inflater = null;
+		private Column[] columns;
+
+		public CustomArrayAdapter( Context context, int id, Column[] columns ){
+			super( context, id );
+			this.columns = columns;
+		}
+
+		@Override
+		public int getCount(){
+			return columns.length;
+		}
+
+		@Override
+		public Column getItem( int position ){
+			return columns[ position ];
+		}
+
+		@Override
+		public View getView( int position, View convertView, ViewGroup parent ){
+			View view = convertView;
+			if( view == null ){
+				inflater = LayoutInflater.from( getApplicationContext() );
+				view = inflater.inflate( R.layout.list_item_columns, null );
+			}
+			Column column = getItem( position );
+			if( column != null ){
+				TextView mTextView = ( TextView ) view.findViewById( R.id.listItem_columnName );
+				mTextView.setText( column.getName() );
+			}
+			return view;
+		}
 	}
 }

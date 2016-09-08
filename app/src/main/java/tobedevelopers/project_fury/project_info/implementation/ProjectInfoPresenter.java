@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
+import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.Response;
@@ -175,6 +176,46 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			if( projectDescription.length() >= 128 ){
 				view.setProjectDescriptionOverValidation();
 			}
+		}
+	}
+
+	@Override
+	public void loadColumns(){
+		ProjectInfoContract.View view = viewWeakReference.get();
+		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, ColumnResponse >(){
+				@Override
+				protected void onPreExecute(){
+
+				}
+
+				@Override
+				protected ColumnResponse doInBackground( String... strings ){
+					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( ColumnResponse response ){
+					ProjectInfoContract.View view = viewWeakReference.get();
+					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Success":
+								view.fillColumnList( response.getColumns() );
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.defaultErrorMessage();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
 }
