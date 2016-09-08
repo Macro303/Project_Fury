@@ -16,8 +16,8 @@ import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
+import tobedevelopers.project_fury.dashboard.Holder;
 import tobedevelopers.project_fury.dashboard.ProjectAdapter;
-import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
@@ -96,8 +96,8 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	}
 
 	@Override
-	public void loadProjectsIntoList( Project[] projects ){
-		mProjectsList.setAdapter( new ProjectAdapter( this, projects ) );
+	public void loadProjectsIntoList( Holder holder ){
+		mProjectsList.setAdapter( new ProjectAdapter( this, holder ) );
 		LayoutInflater inflater = LayoutInflater.from( this );
 		View mTop = inflater.inflate( R.layout.list_header_dashboard_project, null );
 		mProjectsList.addHeaderView( mTop );

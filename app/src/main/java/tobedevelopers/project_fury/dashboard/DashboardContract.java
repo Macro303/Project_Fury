@@ -1,7 +1,5 @@
 package tobedevelopers.project_fury.dashboard;
 
-import tobedevelopers.project_fury.model.Project;
-
 /**
  * Created by Macro303 on 10/08/2016.
  */
@@ -12,7 +10,7 @@ public interface DashboardContract{
 
 		void loadingInProgress();
 
-		void loadProjectsIntoList( Project[] projects );
+		void loadProjectsIntoList( Holder holder );
 
 		void defaultErrorMessage();
 	}

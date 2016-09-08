@@ -5,8 +5,11 @@ import android.os.AsyncTask;
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.dashboard.DashboardContract;
+import tobedevelopers.project_fury.dashboard.Holder;
+import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.ProjectResponse;
 import tobedevelopers.project_fury.model.TaskResponse;
 
@@ -122,29 +125,34 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 	}
 
-	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
+	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, Holder >{
 		@Override
-		protected ProjectResponse doInBackground( Void... voids ){
-			return model.getAllProjects();
+		protected Holder doInBackground( Void... voids ){
+			Holder holder = null;
+			ProjectResponse projectResponse = model.getAllProjects();
+			if( projectResponse.getMessage().equals( "Success" ) ){
+				holder = new Holder( projectResponse.getProjects() );
+				for( Project project : projectResponse.getProjects() ){
+					TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
+					if( taskResponse.getMessage().equals( "Success" ) ){
+						holder.addTasks( project.getName(), taskResponse.getTasks() );
+					}
+					ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
+					if( columnResponse.getMessage().equals( "Success" ) ){
+						holder.addColumns( project.getName(), columnResponse.getColumns() );
+					}
+				}
+			}
+			return holder;
 		}
 
 		@Override
-		protected void onPostExecute( ProjectResponse response ){
+		protected void onPostExecute( Holder response ){
 			super.onPostExecute( response );
 			DashboardContract.View view = viewWeakReference.get();
 			DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-			switch( response.getMessage() ){
-				case "Success":
-					view.loadProjectsIntoList( response.getProjects() );
-					break;
-				case "No Internet Access":
-					view.noInternetAccessValidation();
-					break;
-				default:
-					view.defaultErrorMessage();
-					break;
-			}
+			view.loadProjectsIntoList( response );
 		}
 
 		@Override
