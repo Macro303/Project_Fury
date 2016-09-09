@@ -124,7 +124,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 								view.noInternetAccessValidation();
 								break;
 							default:
-//								view.saveProjectDescription();
 								view.setInvalidUserValidation();
 								break;
 						}
@@ -145,10 +144,18 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 		if( view != null ){
 			mProjectName = projectName;
+			boolean error = false;
 			if( projectName.length() < 3 ){
 				view.setProjectNameUnderValidation();
+				error = true;
 			}else if( projectName.length() >= 20 ){
 				view.setProjectNameOverValidation();
+				error = false;
+			}
+			if( error ){
+				view.disableSave();
+			}else{
+				view.enableSave();
 			}
 		}
 	}

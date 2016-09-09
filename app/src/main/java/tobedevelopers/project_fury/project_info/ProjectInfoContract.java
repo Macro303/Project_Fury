@@ -23,6 +23,10 @@ public interface ProjectInfoContract{
 
 		void setProjectDescriptionOverValidation();
 
+		void enableSave();
+
+		void disableSave();
+
 		void noInternetAccessValidation();
 
 		void defaultErrorMessage();

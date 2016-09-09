@@ -76,17 +76,19 @@
 
 					<TextView
 						android:id="@+id/projectInfoActivity_columnNameTitle"
-						android:layout_width="wrap_content"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:text="Column Names:"/>
+						android:background="@color/colorAccent"
+						android:text="Column Names:"
+						android:textAppearance="?android:attr/textAppearanceMedium"
+						android:textStyle="bold"/>
 
 					<ListView
 						android:id="@+id/projectInfoActivity_columnNamesList"
-						android:layout_width="wrap_content"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_gravity="start"
 						android:background="@color/colorAccent"
-						tools:listheader="@layout/list_header_columns"
 						tools:listitem="@layout/list_item_columns"/>
 
 					<!--<com.woxthebox.draglistview.DragListView-->
@@ -95,7 +97,6 @@
 					<!--android:layout_height="wrap_content"-->
 					<!--android:layout_gravity="start"-->
 					<!--android:background="@color/colorAccent"-->
-					<!--tools:listheader="@layout/list_header_columns"-->
 					<!--tools:listitem="@layout/list_item_columns"/>-->
 
 				</LinearLayout>
@@ -113,6 +114,7 @@
 						android:layout_height="wrap_content"
 						android:layout_gravity="end"
 						android:layout_marginBottom="5dp"
+						android:enabled="false"
 						android:minWidth="150dp"
 						android:text="@string/button_addColumn"/>
 
@@ -122,6 +124,7 @@
 						android:layout_height="wrap_content"
 						android:layout_gravity="end"
 						android:layout_marginBottom="40dp"
+						android:enabled="false"
 						android:minWidth="150dp"
 						android:text="@string/button_removeColumn"/>
 

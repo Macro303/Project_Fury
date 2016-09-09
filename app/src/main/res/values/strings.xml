@@ -37,12 +37,14 @@
 	<string name="button_saveTask">Save Task</string>
 	<string name="button_dialogDelete"> Delete </string>
 	<string name="button_dialogCancel"> Cancel </string>
+	<string name="button_createColumn">Create</string>
 
 	<!-- Dialogue Messages  -->
 	<string name="dialog_deleteAlertTitle_project"> Delete Project? </string>
 	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this project and all of the attached tasks </string>
 	<string name="dialog_deleteAlertTitle_task">Delete Task?</string>
 	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this task and all of the attached sub-tasks</string>
+	<string name="dialog_addAlertTitle_column">New Column</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
@@ -65,6 +67,7 @@
 	<string name="hint_taskDescription">Task Description</string>
 	<string name="hint_assigneeSpinner">Assignee</string>
 	<string name="hint_prioritySpinner">Priority</string>
+	<string name="hint_columnName">Column Name</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
