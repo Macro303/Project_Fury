@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.util.Pair;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -18,8 +17,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,11 +53,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	Button mDeleteColumnButton;
 	@Bind( R.id.projectInfoActivity_columnNamesList )
 	ListView mColumnNamesList;
-//	@Bind( R.id.projectInfoActivity_columnNamesList )
-//	DragListView mColumnNamesList;
 
 	private ProjectInfoContract.Presenter presenter;
-	private ArrayList< Pair< Long, String > > mItemArray;
 
 	private String columnName;
 
@@ -203,6 +197,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
 				presenter.userSelectAddColumn( columnName );
+				saveProjectDescription();
 			}
 		} );
 
@@ -210,6 +205,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
 				dialogInterface.cancel();
+				saveProjectDescription();
 			}
 		} );
 

@@ -68,7 +68,7 @@
 				android:orientation="horizontal">
 
 				<LinearLayout
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_gravity="start"
 					android:layout_weight="1"
@@ -90,14 +90,6 @@
 						android:layout_gravity="start"
 						android:background="@color/colorAccent"
 						tools:listitem="@layout/list_item_columns"/>
-
-					<!--<com.woxthebox.draglistview.DragListView-->
-					<!--android:id="@+id/projectInfoActivity_columnNamesList"-->
-					<!--android:layout_width="wrap_content"-->
-					<!--android:layout_height="wrap_content"-->
-					<!--android:layout_gravity="start"-->
-					<!--android:background="@color/colorAccent"-->
-					<!--tools:listitem="@layout/list_item_columns"/>-->
 
 				</LinearLayout>
 

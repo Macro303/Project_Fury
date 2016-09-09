@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	android:orientation="horizontal">
 
 	<TextView
 		android:id="@+id/listItem_columnName"
@@ -12,6 +12,7 @@
 		android:layout_marginBottom="5dp"
 		android:layout_marginLeft="5dp"
 		android:layout_marginTop="5dp"
+		android:text="New"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:textColor="#000"/>
 
