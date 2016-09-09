@@ -100,5 +100,7 @@
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
+	<string name="editText_dialogColumnName">Column Name</string>
+	<string name="textView_dialogAddColumn">Please enter a column name</string>
 
 </resources>

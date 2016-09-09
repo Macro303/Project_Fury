@@ -37,25 +37,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			navigation.navigateToPrevious();
 	}
 
-
-//	@Override
-//	public void userSelectAddUser(){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			view.displayUserAdded();
-//	}
-//
-//	@Override
-//	public void userSelectRemoveMe(){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			navigation.navigateToPrevious();
-//	}
-
 	@Override
 	public void userSelectEditProject(){
 		ProjectInfoContract.View view = viewWeakReference.get();
@@ -107,6 +88,55 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
+	}
+
+	@Override
+	public void userSelectAddColumn( final String columnName ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null )
+						view.projectUpdatingInProgress();
+				}
+
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.createColumn( Model.getSelectedProject().getProjectID(), columnName );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Column creation successful.":
+								view.addColumnName();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+//								view.saveProjectDescription();
+								view.setInvalidUserValidation();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userSelectDeleteColumn(){
+
 	}
 
 	@Override

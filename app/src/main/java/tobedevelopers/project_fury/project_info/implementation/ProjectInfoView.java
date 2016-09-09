@@ -1,11 +1,12 @@
 package tobedevelopers.project_fury.project_info.implementation;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,8 +46,14 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	Button mSaveProjectButton;
 	@Bind( R.id.projectInfoActivity_deleteProjectButton )
 	Button mDeleteProjectButton;
+	@Bind( R.id.projectInfoActivity_addColumnButton )
+	Button mAddColumnButton;
+	@Bind( R.id.projectInfoActivity_deleteColumnButton )
+	Button mDeleteColumnButton;
 	@Bind( R.id.projectInfoActivity_columnNamesList )
 	ListView mColumnNamesList;
+//	@Bind( R.id.projectInfoActivity_columnNamesList )
+//	DragListView mColumnNamesList;
 
 	private ProjectInfoContract.Presenter presenter;
 
@@ -68,7 +75,41 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 		//List Config
 		presenter.loadColumns();
+
+//		mColumnNamesList = ( DragListView ) findViewById( R.id.projectInfoActivity_columnNamesList );
+//		mColumnNamesList.setDragListListener( new DragListView.DragListListener(){
+//			@Override
+//			public void onItemDragStarted( int position ){
+//				Toast.makeText( getBaseContext(), "Start - position: " + position, Toast.LENGTH_SHORT ).show();
+//			}
+//
+//			@Override
+//			public void onItemDragging( int itemPosition, float x, float y ){
+//
+//			}
+//
+//			@Override
+//			public void onItemDragEnded( int fromPosition, int toPosition ){
+//				if( fromPosition != toPosition ){
+//					Toast.makeText( getBaseContext(), "End - position: " + toPosition, Toast.LENGTH_SHORT ).show();
+//				}
+//			}
+//		} );
+//
+//		mColumnNamesList.setLayoutManager( new LinearLayoutManager( this ) );
+//		ItemAdapter listAdapter = new ItemAdapter( mItemArray, R.layout.list_item_columns, null, false );
 	}
+
+//	public class ItemAdapter extends DragItemAdapter< Pair< Long, String >, ItemAdapter.ViewHolder >{
+//
+//		public ItemAdapter( ArrayList< Pair< Long, String > > list, int layoutId, int grabHandleId, boolean dragOnLongPress ){
+//			super( dragOnLongPress );
+//			mLayoutId = layoutId;
+//			mGrabHandleId = grabHandleId;
+//			setHasStableIds( true );
+//			setItemList( list );
+//		}
+//	}
 
 	private void addItemsToFields(){
 		Project selectedProject = Model.getSelectedProject();
@@ -83,29 +124,13 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	public void fillColumnList( Column[] columns ){
 		CustomArrayAdapter adapter = new CustomArrayAdapter( this, R.layout.list_item_columns, columns );
 		mColumnNamesList.setAdapter( adapter );
-		mColumnNamesList.addHeaderView( getLayoutInflater().inflate( R.layout.list_header_columns, mColumnNamesList, false ), null, false );
+//		mColumnNamesList.addHeaderView( getLayoutInflater().inflate( R.layout.list_header_columns, mColumnNamesList, false ), null, false );
 	}
 
 	//Button Listener
-	@OnClick( { /*R.id.projectInfoActivity_addUserButton, R.id.projectInfoActivity_removeMeButton, R.id.projectInfoActivity_addColumnButton, R.id.projectInfoActivity_removeColumnButton,*/ R.id.projectInfoActivity_editProjectButton, R.id.projectInfoActivity_saveProjectButton, R.id.projectInfoActivity_deleteProjectButton } )
+	@OnClick( { R.id.projectInfoActivity_editProjectButton, R.id.projectInfoActivity_saveProjectButton, R.id.projectInfoActivity_deleteProjectButton, R.id.projectInfoActivity_addColumnButton, R.id.projectInfoActivity_deleteColumnButton } )
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
-			/*case R.id.projectInfoActivity_addUserButton:
-				Toast.makeText( this, "Add User", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectAddUser();
-				break;
-			case R.id.projectInfoActivity_removeMeButton:
-				Toast.makeText( this, "Remove Me", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectRemoveMe();
-				break;
-			case R.id.projectInfoActivity_addColumnButton:
-				Toast.makeText( this, "Add Column", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectAddColumn();
-				break;
-			case R.id.projectInfoActivity_removeColumnButton:
-				Toast.makeText( this, "Remove Column", Toast.LENGTH_SHORT ).show();
-				presenter.userSelectRemoveColumn();
-				break;*/
 			case R.id.projectInfoActivity_editProjectButton:
 				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT );
 				presenter.userSelectEditProject();
@@ -117,6 +142,14 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			case R.id.projectInfoActivity_deleteProjectButton:
 				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
 				alertDeleteProject();
+				break;
+			case R.id.projectInfoActivity_addColumnButton:
+				ToastLog.makeDebug( this, "Add Column", Toast.LENGTH_SHORT );
+				alertAddColumn();
+				break;
+			case R.id.projectInfoActivity_deleteColumnButton:
+				ToastLog.makeDebug( this, "Delete Column", Toast.LENGTH_SHORT );
+				alertDeleteColumn();
 				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
@@ -150,12 +183,44 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
-				// Do nothing
+				dialogInterface.cancel();
 			}
 		} );
 
 		AlertDialog dialog = builder.create();
 		dialog.show();
+	}
+
+	private void alertAddColumn(){
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+		builder.setTitle( "New Column" );
+
+		final TextInputEditText addColumnNameEditText = new TextInputEditText( this );
+		addColumnNameEditText.setHint( "Column Name" );
+		addColumnNameEditText.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS );
+
+		builder.setView( addColumnNameEditText );
+
+		builder.setPositiveButton( "Create", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				String columnName = addColumnNameEditText.getText().toString();
+				presenter.userSelectAddColumn( columnName );
+			}
+		} );
+
+		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				dialogInterface.cancel();
+			}
+		} );
+
+		builder.show();
+	}
+
+	private void alertDeleteColumn(){
+
 	}
 
 	@Override
@@ -193,16 +258,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		} );
 	}
 
-/*	@Override
-	public void displayUserAdded(){
-		Toast.makeText( getApplicationContext(), "A New User Was Added", Toast.LENGTH_SHORT ).show();
-	}
-
-	@Override
-	public void displayColumnRemoved(){
-		ToastLog.makeInfo( getApplicationContext(), "A Column Was Removed", Toast.LENGTH_SHORT ).show();
-	}*/
-
 	@Override
 	public void saveProjectDescription(){
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mProjectNameEditText, mProjectDescriptionEditText ){
@@ -220,6 +275,11 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				mEditProjectButton.setVisibility( View.VISIBLE );
 			}
 		} );
+	}
+
+	@Override
+	public void addColumnName(){
+		presenter.loadColumns();
 	}
 
 	@Override
@@ -316,5 +376,10 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 			return view;
 		}
+
+//		@Override
+//		public boolean hasStableIds(){
+//			return true;
+//		}
 	}
 }

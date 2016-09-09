@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:layout_marginTop="20dp"
 	android:orientation="vertical">
 
 	<ScrollView
@@ -14,14 +15,6 @@
 			android:layout_height="match_parent"
 			android:layout_margin="20dp"
 			android:orientation="vertical">
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_alignParentTop="true"
-				android:layout_marginBottom="20dp"
-				android:text="@string/textView_projectInfoInstruction"
-				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 			<android.support.design.widget.TextInputLayout
 				android:layout_width="match_parent"
@@ -75,39 +68,43 @@
 				android:orientation="horizontal">
 
 				<LinearLayout
-					android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_gravity="start"
-				android:layout_weight="1"
-				android:orientation="vertical">
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_gravity="start"
+					android:layout_weight="1"
+					android:orientation="vertical">
 
-				<!--<Button-->
-				<!--android:layout_width="wrap_content"-->
-				<!--android:layout_height="wrap_content"-->
-				<!--android:minWidth="160dp"-->
-				<!--android:text="@string/button_addColumn"/>-->
-
-					<!--<TextView-->
-					<!--android:id="@+id/textView"-->
-					<!--android:layout_width="wrap_content"-->
-					<!--android:layout_height="wrap_content"-->
-					<!--android:text="Column Names:"-->
-					<!--android:textAppearance="?android:attr/textAppearanceMedium"/>-->
+					<TextView
+						android:id="@+id/projectInfoActivity_columnNameTitle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Column Names:"/>
 
 					<ListView
 						android:id="@+id/projectInfoActivity_columnNamesList"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_gravity="start"
+						android:background="@color/colorAccent"
 						tools:listheader="@layout/list_header_columns"
 						tools:listitem="@layout/list_item_columns"/>
+
+					<!--<com.woxthebox.draglistview.DragListView-->
+					<!--android:id="@+id/projectInfoActivity_columnNamesList"-->
+					<!--android:layout_width="wrap_content"-->
+					<!--android:layout_height="wrap_content"-->
+					<!--android:layout_gravity="start"-->
+					<!--android:background="@color/colorAccent"-->
+					<!--tools:listheader="@layout/list_header_columns"-->
+					<!--tools:listitem="@layout/list_item_columns"/>-->
 
 				</LinearLayout>
 
 				<LinearLayout
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_gravity="end"
+					android:layout_weight="1"
 					android:orientation="vertical">
 
 					<Button
@@ -115,7 +112,8 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_gravity="end"
-						android:minWidth="160dp"
+						android:layout_marginBottom="5dp"
+						android:minWidth="150dp"
 						android:text="@string/button_addColumn"/>
 
 					<Button
@@ -124,15 +122,16 @@
 						android:layout_height="wrap_content"
 						android:layout_gravity="end"
 						android:layout_marginBottom="40dp"
-						android:minWidth="160dp"
+						android:minWidth="150dp"
 						android:text="@string/button_removeColumn"/>
 
 					<Button
 						android:id="@+id/projectInfoActivity_editProjectButton"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_gravity="start"
-						android:minWidth="160dp"
+						android:layout_gravity="end"
+						android:layout_marginBottom="5dp"
+						android:minWidth="150dp"
 						android:text="@string/button_editProject"/>
 
 					<Button
@@ -140,7 +139,8 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_gravity="end"
-						android:minWidth="160dp"
+						android:layout_marginBottom="5dp"
+						android:minWidth="150dp"
 						android:text="@string/button_saveProject"
 						android:visibility="gone"/>
 
@@ -149,19 +149,12 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_gravity="end"
-						android:minWidth="160dp"
+						android:minWidth="150dp"
 						android:text="@string/button_deleteProject"/>
 
 				</LinearLayout>
 
 			</LinearLayout>
-
-			<!--<LinearLayout-->
-			<!--android:layout_width="wrap_content"-->
-			<!--android:layout_height="wrap_content"-->
-			<!--android:layout_gravity="bottom"-->
-			<!--android:orientation="horizontal">-->
-			<!--</LinearLayout>-->
 
 		</LinearLayout>
 

@@ -9,11 +9,11 @@ public interface ProjectInfoContract{
 
 	interface View{
 
-//		void displayUserAdded();
-
 		void editProjectDescription();
 
 		void saveProjectDescription();
+
+		void addColumnName();
 
 		void projectUpdatingInProgress();
 
@@ -39,15 +39,15 @@ public interface ProjectInfoContract{
 	interface Presenter{
 		void userSelectBack();
 
-//		void userSelectAddUser();
-//
-//		void userSelectRemoveMe();
-
 		void userSelectDeleteProject();
 
 		void userSelectEditProject();
 
 		void userSelectSaveProject();
+
+		void userSelectAddColumn( String columnName );
+
+		void userSelectDeleteColumn();
 
 		void userEnterProjectName( String projectName );
 
