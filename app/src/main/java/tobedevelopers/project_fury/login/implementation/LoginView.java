@@ -6,9 +6,8 @@ import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.github.ybq.android.spinkit.SpinKitView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,8 +32,8 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	protected Button mLoginButton;
 	@Bind( R.id.loginActivity_registerButton )
 	protected Button mRegisterButton;
-	@Bind( R.id.loadingProgressBar )
-	protected SpinKitView mLoading;
+	@Bind( R.id.loginActivity_loadingProgressBar )
+	protected ProgressBar mLoadingProgressbar;
 
 	private LoginContract.Presenter presenter;
 
@@ -84,7 +83,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoading.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 				startActivity( new Intent( getParam1(), RegisterView.class ) );
 			}
 		} );
@@ -95,7 +94,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoading.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 				finish();
 				startActivity( new Intent( getParam1(), DashboardView.class ) );
 			}
@@ -127,8 +126,8 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoading.setVisibility( View.VISIBLE );
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG );
+				mLoadingProgressbar.setVisibility( View.VISIBLE );
+				ToastLog.makeDebug( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}

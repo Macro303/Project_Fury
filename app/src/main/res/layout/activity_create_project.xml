@@ -69,5 +69,7 @@
 				android:text="@string/button_createProject"/>
 
 		</LinearLayout>
+
 	</LinearLayout>
+
 </LinearLayout>

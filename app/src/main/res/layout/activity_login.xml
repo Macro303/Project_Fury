@@ -2,7 +2,8 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
 	android:layout_margin="20dp"
 	android:gravity="center"
 	android:orientation="vertical">
@@ -70,27 +71,16 @@
 			android:id="@+id/loginActivity_loginButton"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
+			android:layout_centerInParent="true"
 			android:enabled="false"
-			android:gravity="end|center"
 			android:text="@string/button_login"/>
 
-		<!--<ProgressBar-->
-		<!--android:id="@+id/loadingProgressBar"-->
-		<!--android:indeterminate="true"-->
-		<!--android:layout_width="wrap_content"-->
-		<!--android:layout_height="wrap_content"-->
-		<!--android:layout_centerInParent="true"-->
-		<!--android:visibility="gone"/>-->
-
 		<com.github.ybq.android.spinkit.SpinKitView
-			android:id="@+id/loadingProgressBar"
-			style="@style/SpinKitView.Wave"
+			android:id="@+id/loginActivity_loadingProgressBar"
+			style="@style/SpinKitView.Large.WanderingCubes"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentStart="true"
-			android:layout_centerVertical="true"
-			android:layout_marginStart="10dp"
+			android:layout_centerInParent="true"
 			android:visibility="gone"
 			app:SpinKit_Color="@color/colorAccent"/>
 
