@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.all_boards;
+package tobedevelopers.project_fury.all_boards.implementation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,7 +17,9 @@ public class AllBoardsHolder extends RecyclerView.ViewHolder{
 
 	public AllBoardsHolder( View view ){
 		super( view );
+
 		mProjectBoardButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectBoardButton );
+
 		mProjectInfoButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectInfoButton );
 	}
 }

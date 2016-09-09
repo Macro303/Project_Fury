@@ -6,12 +6,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
+import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.project_board.ProjectBoardContract;
-import tobedevelopers.project_fury.project_board.ProjectBoardFragmentPagerAdapter;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
@@ -28,10 +32,11 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( R.string.title_activity_projectBoard );
+		setTitle( Model.getSelectedProject().getName() + " Board" );
 		setContentView( R.layout.activity_project_board );
 		super.onCreate( savedInstanceState );
 		presenter = new ProjectBoardPresenter( this, this );
+		presenter.userOpensBoard();
 
 		//UI References
 		mTabLayout = ( TabLayout ) findViewById( R.id.projectBoardActivity_tabLayout );
@@ -39,8 +44,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mCreateTaskButton = ( FloatingActionButton ) findViewById( R.id.projectBoardActivity_createTaskButton );
 
 		//Tab Config
-		mViewPager.setAdapter( new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() ) );
-		mTabLayout.setupWithViewPager( mViewPager );
+
 
 		//Button Config
 		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
@@ -52,6 +56,11 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 	}
 
 	@Override
+	public void navigateToTaskInfo(){
+
+	}
+
+	@Override
 	public void navigateToCreateTask(){
 		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
 			@Override
@@ -60,4 +69,36 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 			}
 		} );
 	}
+
+	@Override
+	public void updatingBoardInProgress(){
+		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
+			@Override
+			public void run(){
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Updating Project board" ), Toast.LENGTH_LONG );
+			}
+		} );
+	}
+
+	@Override
+	public void noInternetAccessValidation(){
+		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
+	}
+
+	@Override
+	public void displayDefaultErrorMessage(){
+		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
+	}
+
+	@Override
+	public void setRecyclerItems( Task[] tasks ){
+
+	}
+
+	@Override
+	public void setTabTitles( Column[] columns ){
+		mViewPager.setAdapter( new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager(), columns ) );
+		mTabLayout.setupWithViewPager( mViewPager );
+	}
+
 }

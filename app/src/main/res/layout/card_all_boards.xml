@@ -13,11 +13,13 @@
 		android:layout_height="wrap_content">
 
 		<Button
-			android:id="@+id/allBoardsActivity_projectBoardButton"
-			android:layout_width="0dp"
+			android:id="@+id/allBoardsActivity_projectInfoButton"
+			style="?android:attr/borderlessButtonStyle"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@string/button_projectBoard"/>
+			android:maxLines="1"
+			android:text="@string/button_projectInfo"/>
 
 		<Space
 			android:layout_width="0dp"
@@ -25,12 +27,13 @@
 			android:layout_weight="2"/>
 
 		<Button
-			android:id="@+id/allBoardsActivity_projectInfoButton"
+			android:id="@+id/allBoardsActivity_projectBoardButton"
 			style="?android:attr/borderlessButtonStyle"
-			android:layout_width="0dp"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@string/button_projectInfo"/>
+			android:maxLines="1"
+			android:text="@string/button_projectBoard"/>
 
 	</LinearLayout>
 

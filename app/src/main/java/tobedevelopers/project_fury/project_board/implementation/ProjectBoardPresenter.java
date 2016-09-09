@@ -1,7 +1,12 @@
 package tobedevelopers.project_fury.project_board.implementation;
 
+import android.os.AsyncTask;
+
 import java.lang.ref.WeakReference;
 
+import tobedevelopers.project_fury.model.ColumnResponse;
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.project_board.ProjectBoardContract;
 
 /**
@@ -11,10 +16,12 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 
 	private WeakReference< ProjectBoardContract.View > viewWeakReference;
 	private WeakReference< ProjectBoardContract.Navigation > navigationWeakReference;
+	private ModelContract model;
 
 	public ProjectBoardPresenter( ProjectBoardContract.View view, ProjectBoardContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
+		this.model = new Model();
 	}
 
 	@Override
@@ -24,5 +31,54 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 
 		if( view != null && navigation != null )
 			navigation.navigateToCreateTask();
+	}
+
+	@Override
+	public void userOpensBoard(){
+		ProjectBoardContract.View view = viewWeakReference.get();
+
+		String[] tabs;
+		if( view != null ){
+			new AsyncTask< String, Void, ColumnResponse >(){
+
+				@Override
+				protected void onPreExecute(){
+					ProjectBoardContract.View view = viewWeakReference.get();
+
+					if( view != null )
+						view.updatingBoardInProgress();
+				}
+
+				@Override
+				protected ColumnResponse doInBackground( String... strings ){
+					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( ColumnResponse response ){
+					ProjectBoardContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Success":
+								view.setTabTitles( response.getColumns() );
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.displayDefaultErrorMessage();
+								break;
+						}
+					}
+				}
+
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userOpensTab(){
+
 	}
 }

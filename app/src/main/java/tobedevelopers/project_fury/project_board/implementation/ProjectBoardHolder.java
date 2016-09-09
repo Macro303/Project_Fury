@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.project_board;
+package tobedevelopers.project_fury.project_board.implementation;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

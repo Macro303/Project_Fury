@@ -1,6 +1,5 @@
-package tobedevelopers.project_fury.project_board;
+package tobedevelopers.project_fury.project_board.implementation;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
+import tobedevelopers.project_fury.model.Task;
 
 /**
  * Created by Macro303 on 13/08/2016.
@@ -16,9 +15,12 @@ import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBoardHolder >{
 
 	private FragmentActivity activity;
+	private Task[] tasks;
 
 	public ProjectBoardRecyclerAdapter( FragmentActivity activity ){
+
 		this.activity = activity;
+//		this.tasks = tasks;
 	}
 
 	@Override
@@ -26,20 +28,21 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 		holder.mCardView.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
-				activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+//				activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+
 			}
 		} );
 		holder.mTaskInfoButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
-				activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+//				activity.startActivity( new Intent( activity, TaskInfoView.class ) );
 			}
 		} );
 	}
 
 	@Override
 	public int getItemCount(){
-		return 5;
+		return tasks.length;
 	}
 
 	@Override

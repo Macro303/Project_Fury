@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.project_board;
+package tobedevelopers.project_fury.project_board.implementation;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -42,16 +42,23 @@ public class ProjectBoardFragment extends Fragment{
 		mRecyclerView.setHasFixedSize( true );
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
 		ProjectBoardRecyclerAdapter recyclerAdapter = null;
-		if( mPage == 0 )
-			recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 1 )
-			recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 2 )
-			recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 3 )
-			recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 4 )
-			recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
+		switch( mPage ){
+			case 0:
+				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
+				break;
+			case 1:
+				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
+				break;
+			case 2:
+				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
+				break;
+			case 3:
+				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
+				break;
+			case 4:
+				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
+				break;
+		}
 		mRecyclerView.setAdapter( recyclerAdapter );
 		mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener(){
 			@Override
