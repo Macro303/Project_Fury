@@ -2,9 +2,10 @@ package tobedevelopers.project_fury.dashboard.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,6 +19,8 @@ import tobedevelopers.project_fury.create_project.implementation.CreateProjectVi
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.dashboard.Holder;
 import tobedevelopers.project_fury.dashboard.ProjectAdapter;
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
@@ -98,11 +101,27 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	@Override
 	public void loadProjectsIntoList( Holder holder ){
 		mProjectsList.setAdapter( new ProjectAdapter( this, holder ) );
-		LayoutInflater inflater = LayoutInflater.from( this );
-		View mTop = inflater.inflate( R.layout.list_header_dashboard_project, null );
-		mProjectsList.addHeaderView( mTop );
+		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_project, mProjectsList, false );
+		mProjectsList.addHeaderView( mTop, null, false );
+		Button mCreateButton = ( Button ) mTop.findViewById( R.id.listHeader_projectCreateButton );
+		mCreateButton.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick( View view ){
+				ToastLog.makeDebug( getApplicationContext(), "Create Project", Toast.LENGTH_SHORT );
+				presenter.userSelectCreateProject();
+			}
+		} );
+		mProjectsList.setOnItemClickListener( new AdapterView.OnItemClickListener(){
+			@Override
+			public void onItemClick( AdapterView< ? > adapterView, View view, int position, long id ){
+				if( !view.getTag().equals( "No Projects" ) ){
+					Model.setSelectedProject( ( Project ) mProjectsList.getItemAtPosition( position ) );
+					ToastLog.makeInfo( getApplicationContext(), Model.getSelectedProject().getName(), Toast.LENGTH_SHORT );
+					presenter.userSelectProjectInfo();
+				}
+			}
+		} );
 		setListViewHeightBasedOnChildren( mProjectsList );
-		setListViewHeightBasedOnChildren( mTasksList );
 	}
 
 	private void setListViewHeightBasedOnChildren( ListView listView ){
@@ -116,7 +135,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 			totalHeight += listItem.getMeasuredHeight();
 		}
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight + ( listView.getDividerHeight() * ( listAdapter.getCount() - 1 ) );
+		params.height = totalHeight + ( listView.getDividerHeight() * ( listAdapter.getCount() - 1 ) ) + 50;
 		listView.setLayoutParams( params );
 		listView.requestFocus();
 	}

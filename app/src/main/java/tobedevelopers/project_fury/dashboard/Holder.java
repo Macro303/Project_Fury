@@ -16,6 +16,7 @@ public class Holder{
 	private HashMap< String, Column[] > columns;
 
 	public Holder( Project[] projects ){
+		this.projects = projects;
 		tasks = new HashMap<>();
 		columns = new HashMap<>();
 	}

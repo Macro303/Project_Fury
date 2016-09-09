@@ -42,38 +42,8 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, ProjectResponse >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().loadingInProgress();
-				}
-
-				@Override
-				protected ProjectResponse doInBackground( String... strings ){
-					return model.getAllProjects();
-				}
-
-				@Override
-				protected void onPostExecute( ProjectResponse response ){
-					DashboardContract.View view = viewWeakReference.get();
-					DashboardContract.Navigation navigation = navigationWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Success":
-							Model.setSelectedProject( response.getProjects()[ 0 ] );
-							navigation.navigateToProjectInfo();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			navigation.navigateToProjectInfo();
 	}
 
 	@Override
@@ -134,13 +104,11 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 				holder = new Holder( projectResponse.getProjects() );
 				for( Project project : projectResponse.getProjects() ){
 					TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
-					if( taskResponse.getMessage().equals( "Success" ) ){
+					if( taskResponse.getMessage().equals( "Success" ) )
 						holder.addTasks( project.getName(), taskResponse.getTasks() );
-					}
 					ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
-					if( columnResponse.getMessage().equals( "Success" ) ){
+					if( columnResponse.getMessage().equals( "Success" ) )
 						holder.addColumns( project.getName(), columnResponse.getColumns() );
-					}
 				}
 			}
 			return holder;

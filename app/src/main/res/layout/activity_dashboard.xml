@@ -62,7 +62,7 @@
 					android:id="@+id/dashboardActivity_projectsList"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:background="@color/colorPrimaryDark"
+					android:background="#DDD"
 					android:padding="10dp"
 					tools:listheader="@layout/list_header_dashboard_project"
 					tools:listitem="@layout/list_item_dashboard_project"/>
@@ -81,6 +81,7 @@
 					android:background="#DDD"/>
 
 			</LinearLayout>
+
 		</ScrollView>
 
 	</LinearLayout>

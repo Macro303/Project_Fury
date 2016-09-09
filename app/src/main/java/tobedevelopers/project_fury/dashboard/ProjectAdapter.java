@@ -32,7 +32,9 @@ public class ProjectAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount(){
-		return holder.getProjects().length;
+		if( holder.getProjects().length > 0 )
+			return holder.getProjects().length;
+		return 1;
 	}
 
 	@Override
@@ -52,10 +54,17 @@ public class ProjectAdapter extends BaseAdapter{
 			view = inflater.inflate( R.layout.list_item_dashboard_project, null );
 		TextView mProjectName = ( TextView ) view.findViewById( R.id.listItem_projectName );
 		NumberProgressBar mProgressbar = ( NumberProgressBar ) view.findViewById( R.id.listItem_projectProgress );
-		Project current = ( Project ) getItem( position );
-		mProjectName.setText( current.getName() );
-		mProgressbar.setMax( holder.getTasks().get( current.getName() ).length );
-		mProgressbar.setProgress( calculateProgress( current.getName() ) );
+		if( holder.getProjects().length > 0 ){
+			Project current = ( Project ) getItem( position );
+			mProjectName.setText( current.getName() );
+			mProgressbar.setMax( holder.getTasks().get( current.getName() ).length );
+			mProgressbar.setProgress( calculateProgress( current.getName() ) );
+			view.setTag( "Projects" );
+		}else{
+			mProjectName.setText( context.getString( R.string.error_noCurrentProjects ) );
+			mProgressbar.setVisibility( View.GONE );
+			view.setTag( "No Projects" );
+		}
 		return view;
 	}
 
