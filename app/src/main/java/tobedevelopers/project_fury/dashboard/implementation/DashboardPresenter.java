@@ -5,8 +5,11 @@ import android.os.AsyncTask;
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.dashboard.DashboardContract;
+import tobedevelopers.project_fury.dashboard.Holder;
+import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.ProjectResponse;
 import tobedevelopers.project_fury.model.TaskResponse;
 
@@ -39,38 +42,8 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, ProjectResponse >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().loadingInProgress();
-				}
-
-				@Override
-				protected ProjectResponse doInBackground( String... strings ){
-					return model.getAllProjects();
-				}
-
-				@Override
-				protected void onPostExecute( ProjectResponse response ){
-					DashboardContract.View view = viewWeakReference.get();
-					DashboardContract.Navigation navigation = navigationWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Success":
-							Model.setSelectedProject( response.getProjects()[ 0 ] );
-							navigation.navigateToProjectInfo();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			navigation.navigateToProjectInfo();
 	}
 
 	@Override
@@ -110,6 +83,49 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 					}
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void loadProjects(){
+		DashboardContract.View view = viewWeakReference.get();
+		DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+	}
+
+	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, Holder >{
+		@Override
+		protected Holder doInBackground( Void... voids ){
+			Holder holder = null;
+			ProjectResponse projectResponse = model.getAllProjects();
+			if( projectResponse.getMessage().equals( "Success" ) ){
+				holder = new Holder( projectResponse.getProjects() );
+				for( Project project : projectResponse.getProjects() ){
+					TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
+					if( taskResponse.getMessage().equals( "Success" ) )
+						holder.addTasks( project.getName(), taskResponse.getTasks() );
+					ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
+					if( columnResponse.getMessage().equals( "Success" ) )
+						holder.addColumns( project.getName(), columnResponse.getColumns() );
+				}
+			}
+			return holder;
+		}
+
+		@Override
+		protected void onPostExecute( Holder response ){
+			super.onPostExecute( response );
+			DashboardContract.View view = viewWeakReference.get();
+			DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+			view.loadProjectsIntoList( response );
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
 		}
 	}
 }
