@@ -55,6 +55,7 @@
 	<string name="textView_userInstruction_register">Already a User?</string>
 	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
 	<string name="textView_taskInfoInstruction">Below is information about this task:</string>
+	<string name="textView_addColumnHeader">Column Name:</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
