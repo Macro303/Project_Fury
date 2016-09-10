@@ -209,7 +209,9 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 		} );
 
-		builder.show();
+//		builder.show();
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	private void alertDeleteColumn(){
