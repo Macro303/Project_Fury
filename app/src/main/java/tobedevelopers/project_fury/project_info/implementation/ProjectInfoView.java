@@ -3,19 +3,20 @@ package tobedevelopers.project_fury.project_info.implementation;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -28,6 +29,7 @@ import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
+import tobedevelopers.project_fury.project_info.ColumnRecyclerAdapter;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.runnable_param.Runnable2Param;
@@ -51,10 +53,14 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	Button mAddColumnButton;
 	@Bind( R.id.projectInfoActivity_deleteColumnButton )
 	Button mDeleteColumnButton;
-	@Bind( R.id.projectInfoActivity_columnNamesList )
-	ListView mColumnNamesList;
+//	@Bind( R.id.projectInfoActivity_columnNamesList )
+//	ListView mColumnNamesList;
 
 	private ProjectInfoContract.Presenter presenter;
+
+	private RecyclerView mRecyclerView;
+	private RecyclerView.Adapter mAdapter;
+	private RecyclerView.ItemDecoration itemDecoration;
 
 	private String columnName;
 
@@ -76,6 +82,17 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 		//List Config
 		presenter.loadColumns();
+
+		//UI References
+		mRecyclerView = ( RecyclerView ) findViewById( R.id.projectInfoActivity_columnNamesList );
+
+		//Recycler Config
+		mRecyclerView.setHasFixedSize( true );
+		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+		mRecyclerView.setAdapter( mAdapter );
+
+		itemDecoration = new DividerItemDecoration( this, DividerItemDecoration.VERTICAL_LIST );
+		mRecyclerView.addItemDecoration( itemDecoration );
 	}
 
 	private void addItemsToFields(){
@@ -89,8 +106,11 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void fillColumnList( Column[] columns ){
-		CustomArrayAdapter adapter = new CustomArrayAdapter( this, R.layout.list_item_columns, columns );
-		mColumnNamesList.setAdapter( adapter );
+		mAdapter = new ColumnRecyclerAdapter( this, columns );
+		mRecyclerView.setAdapter( mAdapter );
+
+//		CustomArrayAdapter adapter = new CustomArrayAdapter( this, R.layout.list_item_columns, columns );
+//		mColumnNamesList.setAdapter( adapter );
 //		mColumnNamesList.addHeaderView( getLayoutInflater().inflate( R.layout.list_header_columns, mColumnNamesList, false ), null, false );
 	}
 
@@ -362,44 +382,118 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		} );
 	}
 
-	private class CustomArrayAdapter extends ArrayAdapter< Column >{
-		private LayoutInflater inflater = null;
-		private Column[] columns;
+	public class DividerItemDecoration extends RecyclerView.ItemDecoration{
 
-		public CustomArrayAdapter( Context context, int id, Column[] columns ){
-			super( context, id );
-			this.columns = columns;
+		public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
+		public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
+		private final int[] ATTRS = new int[]{
+			android.R.attr.listDivider
+		};
+		private Drawable mDivider;
+
+		private int mOrientation;
+
+		public DividerItemDecoration( Context context, int orientation ){
+			final TypedArray a = context.obtainStyledAttributes( ATTRS );
+			mDivider = a.getDrawable( 0 );
+			a.recycle();
+			setOrientation( orientation );
 		}
 
-		@Override
-		public int getCount(){
-			return columns.length;
-		}
-
-		@Override
-		public Column getItem( int position ){
-			return columns[ position ];
-		}
-
-		@Override
-		public View getView( int position, View convertView, ViewGroup parent ){
-			View view = convertView;
-			if( view == null ){
-				inflater = LayoutInflater.from( getApplicationContext() );
-				view = inflater.inflate( R.layout.list_item_columns, null );
+		public void setOrientation( int orientation ){
+			if( orientation != HORIZONTAL_LIST && orientation != VERTICAL_LIST ){
+				throw new IllegalArgumentException( "invalid orientation" );
 			}
-			Column column = getItem( position );
-			if( column != null ){
-				TextView mTextView = ( TextView ) view.findViewById( R.id.listItem_columnName );
-				mTextView.setText( column.getName() );
-			}
-
-			return view;
+			mOrientation = orientation;
 		}
 
 		@Override
-		public boolean hasStableIds(){
-			return true;
+		public void onDraw( Canvas c, RecyclerView parent ){
+			if( mOrientation == VERTICAL_LIST ){
+				drawVertical( c, parent );
+			}else{
+				drawHorizontal( c, parent );
+			}
+		}
+
+		public void drawVertical( Canvas c, RecyclerView parent ){
+			final int left = parent.getPaddingLeft();
+			final int right = parent.getWidth() - parent.getPaddingRight();
+
+			final int childCount = parent.getChildCount();
+			for( int i = 0; i < childCount; i++ ){
+				final View child = parent.getChildAt( i );
+				final RecyclerView.LayoutParams params = ( RecyclerView.LayoutParams ) child.getLayoutParams();
+				final int top = child.getBottom() + params.bottomMargin;
+				final int bottom = top + mDivider.getIntrinsicHeight();
+				mDivider.setBounds( left, top, right, bottom );
+				mDivider.draw( c );
+			}
+		}
+
+		public void drawHorizontal( Canvas c, RecyclerView parent ){
+			final int top = parent.getPaddingTop();
+			final int bottom = parent.getHeight() - parent.getPaddingBottom();
+
+			final int childCount = parent.getChildCount();
+			for( int i = 0; i < childCount; i++ ){
+				final View child = parent.getChildAt( i );
+				final RecyclerView.LayoutParams params = ( RecyclerView.LayoutParams ) child.getLayoutParams();
+				final int left = child.getRight() + params.rightMargin;
+				final int right = left + mDivider.getIntrinsicHeight();
+				mDivider.setBounds( left, top, right, bottom );
+				mDivider.draw( c );
+			}
+		}
+
+		@Override
+		public void getItemOffsets( Rect outRect, int itemPosition, RecyclerView parent ){
+			if( mOrientation == VERTICAL_LIST ){
+				outRect.set( 0, 0, 0, mDivider.getIntrinsicHeight() );
+			}else{
+				outRect.set( 0, 0, mDivider.getIntrinsicWidth(), 0 );
+			}
 		}
 	}
+//
+//	private class CustomArrayAdapter extends ArrayAdapter< Column >{
+//		private LayoutInflater inflater = null;
+//		private Column[] columns;
+//
+//		public CustomArrayAdapter( Context context, int id, Column[] columns ){
+//			super( context, id );
+//			this.columns = columns;
+//		}
+//
+//		@Override
+//		public int getCount(){
+//			return columns.length;
+//		}
+//
+//		@Override
+//		public Column getItem( int position ){
+//			return columns[ position ];
+//		}
+//
+//		@Override
+//		public View getView( int position, View convertView, ViewGroup parent ){
+//			View view = convertView;
+//			if( view == null ){
+//				inflater = LayoutInflater.from( getApplicationContext() );
+//				view = inflater.inflate( R.layout.list_item_columns, null );
+//			}
+//			Column column = getItem( position );
+//			if( column != null ){
+//				TextView mTextView = ( TextView ) view.findViewById( R.id.listItem_columnName );
+//				mTextView.setText( column.getName() );
+//			}
+//
+//			return view;
+//		}
+//
+//		@Override
+//		public boolean hasStableIds(){
+//			return true;
+//		}
+//	}
 }
