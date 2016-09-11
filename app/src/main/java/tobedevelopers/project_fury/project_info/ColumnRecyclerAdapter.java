@@ -1,6 +1,5 @@
 package tobedevelopers.project_fury.project_info;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,35 +16,35 @@ import tobedevelopers.project_fury.model.Column;
 /**
  * Created by A on 9/10/2016.
  */
-public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ViewHolder > implements ItemTouchHelperAdapter{
+public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolder > implements ItemTouchHelperAdapter{
 
-	List< Column > columnList;
-	private Context context;
-	private Column[] columns;
+	List< Column > columnList = null;
 
-
-	public ColumnRecyclerAdapter( Context context, Column[] columns ){
-		this.context = context;
-//		this.columns = columns;
+	public void setData( Column[] columns ){
 		columnList = new ArrayList<>();
 		columnList.addAll( Arrays.asList( columns ) );
+		notifyDataSetChanged();
 	}
 
 	@Override
-	public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
+	public ColumnViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
 		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.list_item_columns, parent, false );
-		return new ViewHolder( view );
+		return new ColumnViewHolder( view );
 	}
 
 	@Override
-	public void onBindViewHolder( ViewHolder holder, int position ){
-		holder.columnName.setText( columnList.get( position ).getName() );
+	public void onBindViewHolder( ColumnViewHolder holder, int position ){
+		Column column = getItem( position );
+		holder.bindView( column );
+	}
+
+	public Column getItem( int position ){
+		return columnList != null && position < getItemCount() ? columnList.get( position ) : null;
 	}
 
 	@Override
 	public int getItemCount(){
 		return columnList != null ? columnList.size() : 0;
-//		return columnList.size();
 	}
 
 	@Override

@@ -33,13 +33,16 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback{
 		return true;
 	}
 
+	//for deleting a column
 	@Override
 	public boolean isItemViewSwipeEnabled(){
-		return true;
+		return false;
+//		return true;
 	}
 
+	//for deleting a column
 	@Override
 	public void onSwiped( RecyclerView.ViewHolder viewHolder, int direction ){
-		mAdapter.onItemDismiss( viewHolder.getAdapterPosition() );
+//		mAdapter.onItemDismiss( viewHolder.getAdapterPosition() );
 	}
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -31,6 +32,7 @@ import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.ColumnRecyclerAdapter;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
+import tobedevelopers.project_fury.project_info.SimpleItemTouchHelperCallback;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.runnable_param.Runnable2Param;
 
@@ -53,13 +55,10 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	Button mAddColumnButton;
 	@Bind( R.id.projectInfoActivity_deleteColumnButton )
 	Button mDeleteColumnButton;
-//	@Bind( R.id.projectInfoActivity_columnNamesList )
-//	ListView mColumnNamesList;
 
 	private ProjectInfoContract.Presenter presenter;
 
 	private RecyclerView mRecyclerView;
-	private RecyclerView.Adapter mAdapter;
 	private RecyclerView.ItemDecoration itemDecoration;
 	private ColumnRecyclerAdapter columnRecyclerAdapter;
 
@@ -90,14 +89,15 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		//Recycler Config
 		mRecyclerView.setHasFixedSize( true );
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
-		mRecyclerView.setAdapter( mAdapter );
+		columnRecyclerAdapter = new ColumnRecyclerAdapter();
+		mRecyclerView.setAdapter( columnRecyclerAdapter );
+		ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback( columnRecyclerAdapter );
+		ItemTouchHelper touchHelper = new ItemTouchHelper( callback );
+		touchHelper.attachToRecyclerView( mRecyclerView );
 
+		//Recycler divider
 		itemDecoration = new DividerItemDecoration( this, DividerItemDecoration.VERTICAL_LIST );
 		mRecyclerView.addItemDecoration( itemDecoration );
-
-//		ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback( columnRecyclerAdapter );
-//		ItemTouchHelper touchHelper = new ItemTouchHelper( callback );
-//		touchHelper.attachToRecyclerView( mRecyclerView );
 	}
 
 	private void addItemsToFields(){
@@ -111,14 +111,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void fillColumnList( Column[] columns ){
-		mAdapter = new ColumnRecyclerAdapter( this, columns );
-		mRecyclerView.setAdapter( mAdapter );
-
-//		columnRecyclerAdapter = new ColumnRecyclerAdapter( ProjectInfoView.this, columns );
-
-//		CustomArrayAdapter adapter = new CustomArrayAdapter( this, R.layout.list_item_columns, columns );
-//		mColumnNamesList.setAdapter( adapter );
-//		mColumnNamesList.addHeaderView( getLayoutInflater().inflate( R.layout.list_header_columns, mColumnNamesList, false ), null, false );
+		columnRecyclerAdapter.setData( columns );
 	}
 
 	//Button Listener
@@ -494,45 +487,4 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 		}
 	}
-//
-//	private class CustomArrayAdapter extends ArrayAdapter< Column >{
-//		private LayoutInflater inflater = null;
-//		private Column[] columns;
-//
-//		public CustomArrayAdapter( Context context, int id, Column[] columns ){
-//			super( context, id );
-//			this.columns = columns;
-//		}
-//
-//		@Override
-//		public int getCount(){
-//			return columns.length;
-//		}
-//
-//		@Override
-//		public Column getItem( int position ){
-//			return columns[ position ];
-//		}
-//
-//		@Override
-//		public View getView( int position, View convertView, ViewGroup parent ){
-//			View view = convertView;
-//			if( view == null ){
-//				inflater = LayoutInflater.from( getApplicationContext() );
-//				view = inflater.inflate( R.layout.list_item_columns, null );
-//			}
-//			Column column = getItem( position );
-//			if( column != null ){
-//				TextView mTextView = ( TextView ) view.findViewById( R.id.listItem_columnName );
-//				mTextView.setText( column.getName() );
-//			}
-//
-//			return view;
-//		}
-//
-//		@Override
-//		public boolean hasStableIds(){
-//			return true;
-//		}
-//	}
 }
