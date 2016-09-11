@@ -13,6 +13,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
 
 	public TextView columnName;
 
+
 	public ViewHolder( View view ){
 		super( view );
 		columnName = ( TextView ) view.findViewById( R.id.listItem_columnName );
