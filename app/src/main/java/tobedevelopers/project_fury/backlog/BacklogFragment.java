@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.model.Project;
 
 /**
  * Created by Macro303 on 12/08/2016.
@@ -20,10 +21,12 @@ public class BacklogFragment extends Fragment{
 	private RecyclerView mRecyclerView;
 
 	private int mPage;
+	private Project project;
 
-	public static BacklogFragment newInstance( int page ){
+	public static BacklogFragment newInstance( int page, Project project ){
 		Bundle args = new Bundle();
 		args.putInt( "Page", page );
+		args.putParcelable( "Current", project );
 		BacklogFragment fragment = new BacklogFragment();
 		fragment.setArguments( args );
 		return fragment;
@@ -33,6 +36,7 @@ public class BacklogFragment extends Fragment{
 	public void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
 		mPage = getArguments().getInt( "Page" );
+		project = getArguments().getParcelable( "Current" );
 	}
 
 	@Override
@@ -41,18 +45,7 @@ public class BacklogFragment extends Fragment{
 		mRecyclerView = ( RecyclerView ) view.findViewById( R.id.backlogFragment_recyclerView );
 		mRecyclerView.setHasFixedSize( true );
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
-		BacklogRecyclerAdapter recyclerAdapter = null;
-		if( mPage == 0 )
-			recyclerAdapter = new BacklogRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 1 )
-			recyclerAdapter = new BacklogRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 2 )
-			recyclerAdapter = new BacklogRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 3 )
-			recyclerAdapter = new BacklogRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		else if( mPage == 4 )
-			recyclerAdapter = new BacklogRecyclerAdapter( getActivity()/*Fragment Information*/ );
-		mRecyclerView.setAdapter( recyclerAdapter );
+		mRecyclerView.setAdapter( new BacklogRecyclerAdapter( getActivity(), project ) );
 		mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener(){
 			@Override
 			public void onScrolled( RecyclerView recyclerView, int dx, int dy ){

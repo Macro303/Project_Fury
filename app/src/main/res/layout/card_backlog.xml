@@ -8,11 +8,48 @@
 	card_view:cardCornerRadius="15dp"
 	card_view:cardElevation="5dp">
 
-	<Button
-		android:id="@+id/backlogFragment_taskInfoButton"
-		style="?android:attr/borderlessButtonStyle"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/button_taskInfo"/>
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<TextView
+			android:id="@+id/backlogFragment_taskName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentTop="true"/>
+
+		<TextView
+			android:id="@+id/backlogFragment_taskAssignee"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentStart="true"
+			android:layout_below="@id/backlogFragment_taskName"/>
+
+		<TextView
+			android:id="@+id/backlogFragment_taskPriority"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentTop="true"
+			android:layout_toEndOf="@id/backlogFragment_taskName"/>
+
+		<TextView
+			android:id="@+id/backlogFragment_taskColumn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentEnd="true"
+			android:layout_below="@id/backlogFragment_taskPriority"
+			android:layout_toEndOf="@id/backlogFragment_taskAssignee"/>
+
+		<!--<Button-->
+		<!--android:id="@+id/backlogFragment_taskInfoButton"-->
+		<!--style="?android:attr/borderlessButtonStyle"-->
+		<!--android:layout_width="wrap_content"-->
+		<!--android:layout_height="wrap_content"-->
+		<!--android:text="@string/button_taskInfo"/>-->
+	</RelativeLayout>
 
 </android.support.v7.widget.CardView>

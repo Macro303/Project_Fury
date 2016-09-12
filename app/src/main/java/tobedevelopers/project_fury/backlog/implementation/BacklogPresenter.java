@@ -63,4 +63,46 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 //			navigation.navigateToCreateTask();
 		}
 	}
+
+	@Override
+	public void loadProjects(){
+		BacklogContract.View view = viewWeakReference.get();
+		BacklogContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+	}
+
+	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
+		@Override
+		protected ProjectResponse doInBackground( Void... voids ){
+			return model.getAllProjects();
+		}
+
+		@Override
+		protected void onPostExecute( ProjectResponse projectResponse ){
+			super.onPostExecute( projectResponse );
+			BacklogContract.View view = viewWeakReference.get();
+			BacklogContract.Navigation navigation = navigationWeakReference.get();
+
+			if( view != null && navigation != null ){
+				switch( projectResponse.getMessage() ){
+					case "Success":
+						view.fillProjects( projectResponse.getProjects() );
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
+						break;
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
+	}
 }
