@@ -45,28 +45,9 @@ public class ProjectBoardFragment extends Fragment{
 		mRecyclerView = ( RecyclerView ) view.findViewById( R.id.projectBoardFragment_recyclerView );
 		mRecyclerView.setHasFixedSize( true );
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
-//		ProjectBoardRecyclerAdapter recyclerAdapter = null;
 		mRecyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity() );
 		mRecyclerView.setAdapter( mRecyclerAdapter );
 		mRecyclerAdapter.getData( Model.getSelectedColumns()[ mPage ] );
-//		switch( mPage ){
-//			case 0:
-////				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-//				break;
-//			case 1:
-////				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-//				break;
-//			case 2:
-////				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-//				break;
-//			case 3:
-////				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-//				break;
-//			case 4:
-////				recyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity()/*Fragment Information*/ );
-//				break;
-//		}
-//		mRecyclerView.setAdapter( recyclerAdapter );
 		mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener(){
 			@Override
 			public void onScrolled( RecyclerView recyclerView, int dx, int dy ){

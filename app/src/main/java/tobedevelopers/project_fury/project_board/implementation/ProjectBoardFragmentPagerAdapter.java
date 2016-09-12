@@ -20,6 +20,7 @@ public class ProjectBoardFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
 	public void setData( Column[] tabs ){
 		this.columns = tabs;
+		Model.setSelectedColumns( columns );
 		notifyDataSetChanged();
 	}
 
@@ -35,7 +36,6 @@ public class ProjectBoardFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
 	@Override
 	public Fragment getItem( int position ){
-		Model.setSelectedColumns( columns );
 		return ProjectBoardFragment.newInstance( position );
 	}
 }

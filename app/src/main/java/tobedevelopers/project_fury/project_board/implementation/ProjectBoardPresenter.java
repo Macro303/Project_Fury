@@ -7,7 +7,6 @@ import java.lang.ref.WeakReference;
 import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
-import tobedevelopers.project_fury.model.TaskResponse;
 import tobedevelopers.project_fury.project_board.ProjectBoardContract;
 
 /**
@@ -79,46 +78,4 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 		}
 	}
 
-	@Override
-	public void userOpensTab(){
-		ProjectBoardContract.View view = viewWeakReference.get();
-
-		if( view != null ){
-			new AsyncTask< String, Void, TaskResponse >(){
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectBoardContract.View view = viewWeakReference.get();
-
-					if( view != null )
-						view.updatingBoardInProgress();
-				}
-
-				@Override
-				protected TaskResponse doInBackground( String... strings ){
-					return model.getAllProjectTasks( Model.getSelectedProject().getProjectID() );
-				}
-
-				@Override
-				protected void onPostExecute( TaskResponse response ){
-					super.onPostExecute( response );
-					ProjectBoardContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Success":
-								view.setRecyclerItems( response.getTasks() );
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.displayDefaultErrorMessage();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
-	}
 }

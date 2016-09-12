@@ -35,7 +35,7 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 
 			@Override
 			protected TaskResponse doInBackground( String... strings ){
-				return model.getAllColumnTasks( Model.getSelectedProject().getProjectID(), column.getColumnID() );
+				return model.getAllColumnTasks( column.getProjectID(), column.getColumnID() );
 			}
 
 			@Override

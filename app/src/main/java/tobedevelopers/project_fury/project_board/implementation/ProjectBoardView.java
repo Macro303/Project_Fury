@@ -14,7 +14,6 @@ import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
 import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
-import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.project_board.ProjectBoardContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
@@ -59,11 +58,6 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 	}
 
 	@Override
-	public void navigateToTaskInfo(){
-
-	}
-
-	@Override
 	public void navigateToCreateTask(){
 		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
 			@Override
@@ -94,14 +88,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 	}
 
 	@Override
-	public void setRecyclerItems( Task[] tasks ){
-
-	}
-
-	@Override
 	public void setTabTitles( Column[] columns ){
-//		mViewPager.setAdapter( new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager(), columns ) );
-//		mTabLayout.setupWithViewPager( mViewPager );
 		mProjectBoardFragmentPagerAdapter.setData( columns );
 	}
 
