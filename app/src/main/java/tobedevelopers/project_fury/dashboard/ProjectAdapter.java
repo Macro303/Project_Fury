@@ -21,25 +21,31 @@ import tobedevelopers.project_fury.model.Task;
 public class ProjectAdapter extends BaseAdapter{
 
 	private static LayoutInflater inflater = null;
-	private Holder holder;
+	private ProjectHolder projectHolder;
 	private Context context;
 
-	public ProjectAdapter( Context context, Holder holder ){
+	public ProjectAdapter( Context context ){
 		this.context = context;
-		this.holder = holder;
+		this.projectHolder = new ProjectHolder( new Project[]{} );
+//		this.projectHolder = projectHolder;
 		inflater = ( LayoutInflater ) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+	}
+
+	public void setData( ProjectHolder projectHolder ){
+		this.projectHolder = projectHolder;
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public int getCount(){
-		if( holder.getProjects().length > 0 )
-			return holder.getProjects().length;
+		if( projectHolder.getProjects().length > 0 )
+			return projectHolder.getProjects().length;
 		return 1;
 	}
 
 	@Override
 	public Object getItem( int position ){
-		return holder.getProjects()[ position ];
+		return projectHolder.getProjects()[ position ];
 	}
 
 	@Override
@@ -54,10 +60,12 @@ public class ProjectAdapter extends BaseAdapter{
 			view = inflater.inflate( R.layout.list_item_dashboard_project, null );
 		TextView mProjectName = ( TextView ) view.findViewById( R.id.listItem_projectName );
 		NumberProgressBar mProgressbar = ( NumberProgressBar ) view.findViewById( R.id.listItem_projectProgress );
-		if( holder.getProjects().length > 0 ){
+		if( projectHolder.getProjects().length > 0 ){
 			Project current = ( Project ) getItem( position );
+			mProjectName.setVisibility( View.VISIBLE );
+			mProgressbar.setVisibility( View.VISIBLE );
 			mProjectName.setText( current.getName() );
-			mProgressbar.setMax( holder.getTasks().get( current.getName() ).length );
+			mProgressbar.setMax( projectHolder.getTasks().get( current.getName() ).length );
 			mProgressbar.setProgress( calculateProgress( current.getName() ) );
 			view.setTag( "Projects" );
 		}else{
@@ -70,7 +78,7 @@ public class ProjectAdapter extends BaseAdapter{
 
 	private int calculateProgress( String currentName ){
 		int count = 0;
-		for( Task task : holder.getTasks().get( currentName ) )
+		for( Task task : projectHolder.getTasks().get( currentName ) )
 			if( task.getColumnID().equals( findColumn( currentName, "Archived" ).getColumnID() ) )
 				count++;
 		return count;
@@ -78,7 +86,7 @@ public class ProjectAdapter extends BaseAdapter{
 
 	@NonNull
 	private Column findColumn( String currentName, String columnName ){
-		for( Column column : holder.getColumns().get( currentName ) )
+		for( Column column : projectHolder.getColumns().get( currentName ) )
 			if( column.getName().equals( columnName ) )
 				return column;
 		return null;

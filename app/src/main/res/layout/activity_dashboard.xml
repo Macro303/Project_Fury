@@ -35,50 +35,24 @@
 				android:layout_margin="20dp"
 				android:orientation="vertical">
 
-				<!--<LinearLayout-->
-				<!--android:layout_width="match_parent"-->
-				<!--android:layout_height="wrap_content">-->
-
-				<!--<TextView-->
-				<!--android:layout_width="0dp"-->
-				<!--android:layout_height="wrap_content"-->
-				<!--android:layout_weight="1"-->
-				<!--android:text="@string/textView_projectListTitle"-->
-				<!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-				<!--android:textStyle="bold"/>-->
-
-				<!--<Button-->
-				<!--android:id="@+id/dashboardActivity_createProjectButton"-->
-				<!--style="@style/Widget.AppCompat.Button.Borderless"-->
-				<!--android:layout_width="wrap_content"-->
-				<!--android:layout_height="wrap_content"-->
-				<!--android:text="@string/button_createProject"-->
-				<!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-				<!--android:textStyle="bold"/>-->
-
-				<!--</LinearLayout>-->
-
 				<ListView
 					android:id="@+id/dashboardActivity_projectsList"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
 					android:background="#DDD"
-					android:padding="10dp"
+					android:padding="5dp"
 					tools:listheader="@layout/list_header_dashboard_project"
 					tools:listitem="@layout/list_item_dashboard_project"/>
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:text="@string/textView_taskListTitle"
-					android:textAppearance="?android:attr/textAppearanceLarge"
-					android:textStyle="bold"/>
 
 				<ListView
 					android:id="@+id/dashboardActivity_tasksList"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:background="#DDD"/>
+					android:background="#DDD"
+					android:padding="5dp"
+					tools:listheader="@layout/list_header_dashboard_task"
+					tools:listitem="@layout/list_item_dashboard_task"/>
 
 			</LinearLayout>
 

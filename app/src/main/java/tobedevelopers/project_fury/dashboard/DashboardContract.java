@@ -10,7 +10,9 @@ public interface DashboardContract{
 
 		void loadingInProgress();
 
-		void loadProjectsIntoList( Holder holder );
+		void loadProjectsIntoList( ProjectHolder holder );
+
+		void loadTasksIntoList( TaskHolder holder );
 
 		void defaultErrorMessage();
 	}
@@ -31,5 +33,7 @@ public interface DashboardContract{
 		void userSelectTaskInfo();
 
 		void loadProjects();
+
+		void loadTasks();
 	}
 }
