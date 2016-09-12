@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.model.Model;
-import tobedevelopers.project_fury.model.Task;
 
 /**
  * Created by Macro303 on 13/08/2016.
@@ -22,7 +21,6 @@ public class ProjectBoardFragment extends Fragment{
 	//UI References
 	private RecyclerView mRecyclerView;
 	private ProjectBoardRecyclerAdapter mRecyclerAdapter;
-	private Task[] tasks;
 	private int mPage;
 
 	public static ProjectBoardFragment newInstance( int page ){
@@ -47,7 +45,6 @@ public class ProjectBoardFragment extends Fragment{
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
 		mRecyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity() );
 		mRecyclerView.setAdapter( mRecyclerAdapter );
-		mRecyclerAdapter.getData( Model.getSelectedColumns()[ mPage ] );
 		mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener(){
 			@Override
 			public void onScrolled( RecyclerView recyclerView, int dx, int dy ){
@@ -58,6 +55,7 @@ public class ProjectBoardFragment extends Fragment{
 					mCreateTaskButton.show();
 			}
 		} );
+		mRecyclerAdapter.getData( Model.getSelectedColumns()[ mPage ] );
 		return view;
 	}
 }

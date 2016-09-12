@@ -92,4 +92,5 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mProjectBoardFragmentPagerAdapter.setData( columns );
 	}
 
+
 }
