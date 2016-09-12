@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
+import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.Response;
@@ -35,25 +36,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		if( view != null && navigation != null )
 			navigation.navigateToPrevious();
 	}
-
-
-//	@Override
-//	public void userSelectAddUser(){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			view.displayUserAdded();
-//	}
-//
-//	@Override
-//	public void userSelectRemoveMe(){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			navigation.navigateToPrevious();
-//	}
 
 	@Override
 	public void userSelectEditProject(){
@@ -109,15 +91,71 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	}
 
 	@Override
+	public void userSelectAddColumn( final String columnName ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null )
+						view.projectUpdatingInProgress();
+				}
+
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.createColumn( Model.getSelectedProject().getProjectID(), columnName );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Column creation successful.":
+								view.addColumnName();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.setInvalidUserValidation();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userSelectDeleteColumn(){
+
+	}
+
+	@Override
 	public void userEnterProjectName( String projectName ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
 		if( view != null ){
 			mProjectName = projectName;
+			boolean error = false;
 			if( projectName.length() < 3 ){
 				view.setProjectNameUnderValidation();
+				error = true;
 			}else if( projectName.length() >= 20 ){
 				view.setProjectNameOverValidation();
+				error = false;
+			}
+			if( error ){
+				view.disableSave();
+			}else{
+				view.enableSave();
 			}
 		}
 	}
@@ -175,6 +213,46 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			if( projectDescription.length() >= 128 ){
 				view.setProjectDescriptionOverValidation();
 			}
+		}
+	}
+
+	@Override
+	public void loadColumns(){
+		ProjectInfoContract.View view = viewWeakReference.get();
+		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, ColumnResponse >(){
+				@Override
+				protected void onPreExecute(){
+
+				}
+
+				@Override
+				protected ColumnResponse doInBackground( String... strings ){
+					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( ColumnResponse response ){
+					ProjectInfoContract.View view = viewWeakReference.get();
+					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Success":
+								view.fillColumnList( response.getColumns() );
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.defaultErrorMessage();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
 }
