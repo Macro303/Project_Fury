@@ -9,13 +9,13 @@ import tobedevelopers.project_fury.model.Task;
 /**
  * Created by Macro303 on 7/09/2016.
  */
-public class Holder{
+public class ProjectHolder{
 
 	private Project[] projects;
 	private HashMap< String, Task[] > tasks;
 	private HashMap< String, Column[] > columns;
 
-	public Holder( Project[] projects ){
+	public ProjectHolder( Project[] projects ){
 		this.projects = projects;
 		tasks = new HashMap<>();
 		columns = new HashMap<>();

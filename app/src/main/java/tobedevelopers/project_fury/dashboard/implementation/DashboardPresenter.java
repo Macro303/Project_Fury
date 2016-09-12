@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.dashboard.DashboardContract;
-import tobedevelopers.project_fury.dashboard.Holder;
+import tobedevelopers.project_fury.dashboard.ProjectHolder;
+import tobedevelopers.project_fury.dashboard.TaskHolder;
 import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.ProjectResponse;
+import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.model.TaskResponse;
 
 /**
@@ -51,39 +53,8 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, TaskResponse >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().loadingInProgress();
-				}
-
-				@Override
-				protected TaskResponse doInBackground( String... strings ){
-					Model.setSelectedProject( model.getAllProjects().getProjects()[ 0 ] );
-					return model.getAllProjectTasks( Model.getSelectedProject().getProjectID() );
-				}
-
-				@Override
-				protected void onPostExecute( TaskResponse response ){
-					DashboardContract.View view = viewWeakReference.get();
-					DashboardContract.Navigation navigation = navigationWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Success":
-							Model.setSelectedTask( response.getTasks()[ 0 ] );
-							navigation.navigateToTaskInfo();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			new SetProjectAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 	}
 
 	@Override
@@ -95,32 +66,100 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 	}
 
-	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, Holder >{
+	@Override
+	public void loadTasks(){
+		DashboardContract.View view = viewWeakReference.get();
+		DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			new LoadTasksAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+	}
+
+	private class SetProjectAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
 		@Override
-		protected Holder doInBackground( Void... voids ){
-			Holder holder = null;
-			ProjectResponse projectResponse = model.getAllProjects();
-			if( projectResponse.getMessage().equals( "Success" ) ){
-				holder = new Holder( projectResponse.getProjects() );
-				for( Project project : projectResponse.getProjects() ){
-					TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
-					if( taskResponse.getMessage().equals( "Success" ) )
-						holder.addTasks( project.getName(), taskResponse.getTasks() );
-					ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
-					if( columnResponse.getMessage().equals( "Success" ) )
-						holder.addColumns( project.getName(), columnResponse.getColumns() );
-				}
-			}
-			return holder;
+		protected ProjectResponse doInBackground( Void... voids ){
+			return model.getProject( Model.getSelectedTask().getProjectID() );
 		}
 
 		@Override
-		protected void onPostExecute( Holder response ){
+		protected void onPostExecute( ProjectResponse result ){
+			super.onPostExecute( result );
+			DashboardContract.View view = viewWeakReference.get();
+			DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+			switch( result.getMessage() ){
+				case "Success":
+					Model.setSelectedProject( result.getProjects()[ 0 ] );
+					navigation.navigateToTaskInfo();
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.defaultErrorMessage();
+					break;
+			}
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
+	}
+
+	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, ProjectHolder >{
+		@Override
+		protected ProjectHolder doInBackground( Void... voids ){
+			ProjectHolder projectHolder = null;
+			ProjectResponse projectResponse = model.getAllProjects();
+			if( projectResponse.getMessage().equals( "Success" ) ){
+				projectHolder = new ProjectHolder( projectResponse.getProjects() );
+				for( Project project : projectResponse.getProjects() ){
+					TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
+					if( taskResponse.getMessage().equals( "Success" ) )
+						projectHolder.addTasks( project.getName(), taskResponse.getTasks() );
+					ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
+					if( columnResponse.getMessage().equals( "Success" ) )
+						projectHolder.addColumns( project.getName(), columnResponse.getColumns() );
+				}
+			}
+			return projectHolder;
+		}
+
+		@Override
+		protected void onPostExecute( ProjectHolder response ){
 			super.onPostExecute( response );
 			DashboardContract.View view = viewWeakReference.get();
 			DashboardContract.Navigation navigation = navigationWeakReference.get();
 
 			view.loadProjectsIntoList( response );
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
+	}
+
+	private class LoadTasksAsyncTask extends AsyncTask< Void, Void, TaskHolder >{
+		@Override
+		protected TaskHolder doInBackground( Void... voids ){
+			TaskHolder taskHolder = new TaskHolder();
+			TaskResponse taskResponse = model.getAllUserTasks();
+			for( Task task : taskResponse.getTasks() ){
+				ColumnResponse columnResponse = model.getColumn( task.getProjectID(), task.getColumnID() );
+				taskHolder.addPair( task, columnResponse.getColumns()[ 0 ] );
+			}
+			return taskHolder;
+		}
+
+		@Override
+		protected void onPostExecute( TaskHolder response ){
+			super.onPostExecute( response );
+			DashboardContract.View view = viewWeakReference.get();
+			DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+			view.loadTasksIntoList( response );
 		}
 
 		@Override
