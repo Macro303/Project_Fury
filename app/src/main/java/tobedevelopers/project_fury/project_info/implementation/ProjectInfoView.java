@@ -8,12 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -100,7 +104,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void fillColumnList( Column[] columns ){
-		columnRecyclerAdapter.setData( columns );
+		columnRecyclerAdapter.setData( columns, this );
 	}
 
 	//Button Listener
@@ -123,10 +127,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 //				ToastLog.makeDebug( this, "Add Column", Toast.LENGTH_SHORT );
 				alertAddColumn();
 				break;
-//			case R.id.projectInfoActivity_deleteColumnButton:
-//				ToastLog.makeDebug( this, "Delete Column", Toast.LENGTH_SHORT );
-//				alertDeleteColumn();
-//				break;
 			default:
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
@@ -167,6 +167,28 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		dialog.show();
 	}
 
+	public void alertDeleteColumn( final List< Column > columnList ){
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+
+		builder.setMessage( R.string.dialog_deleteAlertInstructions_column ).setTitle( R.string.dialog_deleteAlertTitle_column );
+		builder.setPositiveButton( R.string.button_dialogDelete, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				presenter.saveColumnsBeforeDeleting( columnList );
+			}
+		} );
+
+		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick( DialogInterface dialogInterface, int i ){
+				dialogInterface.cancel();
+			}
+		} );
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+
 	private void alertAddColumn(){
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
 		builder.setTitle( R.string.dialog_addAlertTitle_column );
@@ -174,6 +196,20 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		final TextInputEditText addColumnNameEditText = new TextInputEditText( this );
 		addColumnNameEditText.setHint( R.string.hint_columnName );
 		addColumnNameEditText.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS );
+
+		InputFilter filter = new InputFilter(){
+			public CharSequence filter( CharSequence source, int start, int end,
+			                            Spanned dest, int dstart, int dend ){
+				for( int i = start; i < end; i++ ){
+					if( !Character.isLetterOrDigit( source.charAt( i ) ) ){
+						return "";
+					}
+				}
+				return null;
+			}
+		};
+
+		addColumnNameEditText.setFilters( new InputFilter[]{ filter } );
 
 		builder.setView( addColumnNameEditText );
 
@@ -221,10 +257,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 //		builder.show();
 		AlertDialog dialog = builder.create();
 		dialog.show();
-	}
-
-	private void alertDeleteColumn(){
-
 	}
 
 	@Override

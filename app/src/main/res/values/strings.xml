@@ -44,6 +44,8 @@
 	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this project and all of the attached tasks </string>
 	<string name="dialog_deleteAlertTitle_task">Delete Task?</string>
 	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this task and all of the attached sub-tasks</string>
+	<string name="dialog_deleteAlertTitle_column">Delete Column?</string>
+	<string name="dialog_deleteAlertInstructions_column">This will permanently delete this column, and move all the attached tasks to the New column</string>
 	<string name="dialog_addAlertTitle_column">New Column</string>
 
 	<!-- TextView Strings -->
