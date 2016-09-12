@@ -17,9 +17,7 @@ public class AllBoardsHolder extends RecyclerView.ViewHolder{
 
 	public AllBoardsHolder( View view ){
 		super( view );
-
 		mProjectBoardButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectBoardButton );
-
 		mProjectInfoButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectInfoButton );
 	}
 }

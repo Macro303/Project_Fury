@@ -26,6 +26,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 	//UI References
 	private TabLayout mTabLayout;
 	private ViewPager mViewPager;
+	private ProjectBoardFragmentPagerAdapter mProjectBoardFragmentPagerAdapter;
 	private FloatingActionButton mCreateTaskButton;
 
 	private ProjectBoardContract.Presenter presenter;
@@ -36,7 +37,6 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		setContentView( R.layout.activity_project_board );
 		super.onCreate( savedInstanceState );
 		presenter = new ProjectBoardPresenter( this, this );
-		presenter.userOpensBoard();
 
 		//UI References
 		mTabLayout = ( TabLayout ) findViewById( R.id.projectBoardActivity_tabLayout );
@@ -44,7 +44,10 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mCreateTaskButton = ( FloatingActionButton ) findViewById( R.id.projectBoardActivity_createTaskButton );
 
 		//Tab Config
-
+		mProjectBoardFragmentPagerAdapter = new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() );
+		mViewPager.setAdapter( mProjectBoardFragmentPagerAdapter );
+		mTabLayout.setupWithViewPager( mViewPager );
+		presenter.userOpensBoard();
 
 		//Button Config
 		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
@@ -97,8 +100,9 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	public void setTabTitles( Column[] columns ){
-		mViewPager.setAdapter( new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager(), columns ) );
-		mTabLayout.setupWithViewPager( mViewPager );
+//		mViewPager.setAdapter( new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager(), columns ) );
+//		mTabLayout.setupWithViewPager( mViewPager );
+		mProjectBoardFragmentPagerAdapter.setData( columns );
 	}
 
 }

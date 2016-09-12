@@ -37,6 +37,7 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 
 				@Override
 				protected void onPreExecute(){
+					super.onPreExecute();
 					AllBoardsContract.View view = viewWeakReference.get();
 
 					if( view != null )
@@ -50,6 +51,7 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 
 				@Override
 				protected void onPostExecute( ProjectResponse response ){
+					super.onPostExecute( response );
 					AllBoardsContract.View view = viewWeakReference.get();
 
 					if( view != null ){

@@ -25,7 +25,7 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 	//UI References
 	private RecyclerView mRecyclerView;
-	private RecyclerView.Adapter mAdapter;
+	private AllBoardsRecyclerAdapter mAdapter;
 
 	private FloatingActionButton mCreateProjectButton;
 
@@ -37,8 +37,6 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		setContentView( R.layout.activity_all_boards );
 		super.onCreate( savedInstanceState );
 		presenter = new AllBoardsPresenter( this, this );
-		presenter.userOpensBoard();
-
 
 		//UI References
 		mRecyclerView = ( RecyclerView ) findViewById( R.id.allBoardsActivity_recyclerView );
@@ -47,6 +45,9 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		//Recycler Config
 		mRecyclerView.setHasFixedSize( true );
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+		mAdapter = new AllBoardsRecyclerAdapter( this );
+		mRecyclerView.setAdapter( mAdapter );
+		presenter.userOpensBoard();
 
 		//Button config
 		mCreateProjectButton.setOnClickListener( new View.OnClickListener(){
@@ -79,8 +80,7 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 	@Override
 	public void setRecyclerItems( Project[] projects ){
-		mAdapter = new AllBoardsRecyclerAdapter( this, this, projects/*Fragment Information*/ );
-		mRecyclerView.setAdapter( mAdapter );
+		mAdapter.setData( projects );
 	}
 
 	@Override

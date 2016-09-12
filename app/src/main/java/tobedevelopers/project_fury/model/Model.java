@@ -19,6 +19,7 @@ public class Model implements ModelContract{
 	private static Project selectedProject;
 	private static Task selectedTask;
 	private static Column selectedColumn;
+	private static Column[] selectedColumns;
 
 	public Model(){
 	}
@@ -43,8 +44,16 @@ public class Model implements ModelContract{
 		return selectedColumn;
 	}
 
-	public static void setSelectedColumn( Column _selectedColumn ){
-		selectedColumn = _selectedColumn;
+	public static void setSelectedColumn( Column[] _selectedColumns ){
+		selectedColumns = _selectedColumns;
+	}
+
+	public static Column[] getSelectedColumns(){
+		return selectedColumns;
+	}
+
+	public static void setSelectedColumns( Column[] _selectedColumns ){
+		selectedColumns = _selectedColumns;
 	}
 
 	public String getToken(){
@@ -214,6 +223,18 @@ public class Model implements ModelContract{
 	}
 
 	@Override
+	public TaskResponse getAllColumnTasks( String projectID, String columnID ){
+		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID + "/tasks" );
+		String[] headers = new String[]{ "Bearer " + token };
+		String response = urlReader.get( headers );
+		if( urlReader.getResponseCode() == -1 )
+			return new TaskResponse( "No Internet Access" );
+		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
+			return new TaskResponse( "Success", new Gson().fromJson( response, Task[].class ) );
+		return new TaskResponse( urlReader.getResponseCode() + " Error" );
+	}
+
+	@Override
 	public Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String taskPriority ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
 		String[] headers = new String[]{ "Bearer " + token };
@@ -283,8 +304,8 @@ public class Model implements ModelContract{
 	public Response updateColumn( String projectID, String columnID, String columnName ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String paramters = "name=" + columnName;
-		String response = urlReader.put( headers, paramters );
+		String parameters = "name=" + columnName;
+		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )

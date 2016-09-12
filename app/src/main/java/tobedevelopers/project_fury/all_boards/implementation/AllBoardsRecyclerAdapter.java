@@ -1,6 +1,5 @@
 package tobedevelopers.project_fury.all_boards.implementation;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +19,15 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 
 	private WeakReference< AllBoardsContract.Navigation > navigationWeakReference;
 
-	private Activity activity;
 	private Project[] projects;
 
-	public AllBoardsRecyclerAdapter( Activity activity, AllBoardsContract.Navigation navigation, Project[] projects ){
-		this.activity = activity;
-		this.projects = projects;
+	public AllBoardsRecyclerAdapter( AllBoardsContract.Navigation navigation ){
 		this.navigationWeakReference = new WeakReference< AllBoardsContract.Navigation >( navigation );
+	}
+
+	public void setData( Project[] projects ){
+		this.projects = projects;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -46,7 +47,6 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 			public void onClick( View view ){
 				Model.setSelectedProject( projects[ position ] );
 				navigation.navigateToProjectBoard();
-//				activity.startActivity( new Intent( activity.getApplicationContext(), ProjectBoardView.class ) );
 			}
 		} );
 		holder.mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
@@ -54,14 +54,13 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 			public void onClick( View view ){
 				Model.setSelectedProject( projects[ position ] );
 				navigation.navigateToProjectInfo();
-//				activity.startActivity( new Intent( activity.getApplicationContext(), ProjectInfoView.class ) );
 			}
 		} );
 	}
 
 	@Override
 	public int getItemCount(){
-		return projects.length;
+		return projects != null ? projects.length : 0;
 	}
 
 
