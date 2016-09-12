@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import tobedevelopers.project_fury.model.Column;
 public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolder > implements ItemTouchHelperAdapter{
 
 	List< Column > columnList = null;
+	private WeakReference< ProjectInfoContract.Presenter > presenterWeakReference;
 
 	public void setData( Column[] columns ){
 		columnList = new ArrayList<>();
@@ -49,6 +51,8 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 
 	@Override
 	public void onItemDismiss( int position ){
+//		ProjectInfoContract.Presenter presenter = presenterWeakReference.get();
+//		presenter.userSelectDeleteColumn();
 		columnList.remove( columnList.get( position ) );
 		notifyItemRemoved( position );
 	}
