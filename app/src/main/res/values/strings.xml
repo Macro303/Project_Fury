@@ -101,8 +101,8 @@
 	<string name="error_noInternetAccess">No Internet Access</string>
 	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
 	<string name="error_defaultError">Your request cannot be processed at this time</string>
-	<string name="error_noCurrentProjects">No current projects select \'+\' to create a new project</string>
-	<string name="error_noCurrentTasks">No Current Tasks Have Been Assigned To You Yet</string>
+	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
+	<string name="error_noCurrentTasks">No Tasks Currently Assigned To You</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
