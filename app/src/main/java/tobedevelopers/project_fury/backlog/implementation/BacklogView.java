@@ -55,6 +55,12 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 			}
 		} );
 
+//		presenter.loadProjects();
+	}
+
+	@Override
+	protected void onResume(){
+		super.onResume();
 		presenter.loadProjects();
 	}
 
