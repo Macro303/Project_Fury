@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -15,8 +14,8 @@ import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.backlog.BacklogFragmentPagerAdapter;
+import tobedevelopers.project_fury.backlog.Holder;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
-import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
@@ -32,6 +31,7 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	protected FloatingActionButton mCreateTaskButton;
 
 	private BacklogContract.Presenter presenter;
+	private Holder holder;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -47,26 +47,29 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 		mViewPager.setAdapter( new BacklogFragmentPagerAdapter( getSupportFragmentManager() ) );
 		mTabLayout.setupWithViewPager( mViewPager );
 
-		//Button Config
-		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				presenter.userSelectCreateTask();
-			}
-		} );
+//		Button Config
+//		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
+//			@Override
+//			public void onClick( View view ){
+//				Model.setSelectedProject( holder.getProjects()[ mTabLayout.getSelectedTabPosition() ] );
+//				presenter.userSelectCreateTask();
+//			}
+//		} );
 
-//		presenter.loadProjects();
-	}
-
-	@Override
-	protected void onResume(){
-		super.onResume();
 		presenter.loadProjects();
 	}
 
 	@Override
-	public void fillProjects( Project[] projects ){
-		( ( BacklogFragmentPagerAdapter ) mViewPager.getAdapter() ).setData( projects );
+	protected void onRestart(){
+		super.onRestart();
+		finish();
+		startActivity( getIntent() );
+	}
+
+	@Override
+	public void fillProjects( Holder holder ){
+		this.holder = holder;
+		( ( BacklogFragmentPagerAdapter ) mViewPager.getAdapter() ).setData( this.holder );
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package tobedevelopers.project_fury.backlog;
 
-import tobedevelopers.project_fury.model.Project;
-
 /**
  * Created by Macro303 on 12/08/2016.
  */
@@ -12,7 +10,7 @@ public interface BacklogContract{
 
 		void loadingInProgress();
 
-		void fillProjects( Project[] projects );
+		void fillProjects( Holder holder );
 
 		void defaultErrorMessage();
 	}

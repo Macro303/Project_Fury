@@ -2,6 +2,7 @@ package tobedevelopers.project_fury.backlog;
 
 import java.util.HashMap;
 
+import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.Task;
 
@@ -12,10 +13,12 @@ public class Holder{
 
 	private Project[] projects;
 	private HashMap< String, Task[] > tasks;
+	private HashMap< String, Column[] > columns;
 
 	public Holder( Project[] projects ){
 		this.projects = projects;
 		tasks = new HashMap<>();
+		columns = new HashMap<>();
 	}
 
 	public void addTasks( String projectName, Task[] tasks ){
@@ -26,7 +29,15 @@ public class Holder{
 		return projects;
 	}
 
-	public HashMap< String, Task[] > getTasks(){
-		return tasks;
+	public Task[] getTasks( String projectName ){
+		return tasks.get( projectName );
+	}
+
+	public void addColumns( String projectName, Column[] columns ){
+		this.columns.put( projectName, columns );
+	}
+
+	public Column[] getColumns( String projectName ){
+		return columns.get( projectName );
 	}
 }
