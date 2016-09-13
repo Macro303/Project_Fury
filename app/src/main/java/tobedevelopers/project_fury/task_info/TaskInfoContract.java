@@ -10,6 +10,8 @@ public interface TaskInfoContract{
 
 		void setTaskSaved();
 
+		void setColumnSpinner( String[] columnNames );
+
 		void taskUpdatingInProgress();
 
 		void taskDeletionInProgress();
@@ -45,5 +47,7 @@ public interface TaskInfoContract{
 		void userEnterTaskName( String taskName );
 
 		void userEnterTaskDescription( String taskDescription );
+
+		void getColumnsOnProject();
 	}
 }

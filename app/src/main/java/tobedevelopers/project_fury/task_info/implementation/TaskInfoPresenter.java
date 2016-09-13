@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
+import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.Response;
@@ -87,6 +89,50 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	@Override
+	public void getColumnsOnProject(){
+		TaskInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			new AsyncTask< String, Void, ColumnResponse >(){
+				TaskInfoContract.View view = viewWeakReference.get();
+
+				@Override
+				public void onPreExecute(){
+					super.onPreExecute();
+
+					view.taskUpdatingInProgress();
+				}
+
+				@Override
+				protected ColumnResponse doInBackground( String... strings ){
+					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				public void onPostExecute( ColumnResponse response ){
+					super.onPostExecute( response );
+
+					switch( response.getMessage() ){
+						case "Success":
+							Column[] columns = response.getColumns();
+							String[] columnNames = new String[ columns.length ];
+							for( int i = 0; i < columns.length; i++ )
+								columnNames[ i ] = columns[ i ].getName();
+							view.setColumnSpinner( columnNames );
+							break;
+						case "No Internet Access":
+							view.noInternetAccessValidation();
+							break;
+						default:
+							view.defaultErrorMessage();
+							break;
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
 	public void userSelectSaveTask( String mAssignee, String mPriority ){
 		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
@@ -98,6 +144,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	private class UpdateAsyncTask extends AsyncTask< String, Void, Response >{
 		@Override
 		protected void onPreExecute(){
+			super.onPreExecute();
 			viewWeakReference.get().taskUpdatingInProgress();
 		}
 
@@ -110,6 +157,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 
 		@Override
 		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
 			TaskInfoContract.View view = viewWeakReference.get();
 			TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 

@@ -43,6 +43,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	AppCompatSpinner mAssignee;
 	@Bind( R.id.taskInfoActivity_prioritySpinner )
 	AppCompatSpinner mPriority;
+	@Bind( R.id.taskInfoActivity_columnSpinner )
+	AppCompatSpinner mColumnSpinner;
 	@Bind( R.id.taskInfoActivity_deleteTaskButton )
 	Button mDeleteTask;
 	@Bind( R.id.taskInfoActivity_updateTaskButton )
@@ -52,6 +54,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	private TaskInfoContract.Presenter presenter;
 	private String[] initialValues;
+	private String[] columnNames;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -72,6 +75,9 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		//InitialValues Config
 		setInitialValues();
 		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString() };
+
+		//Column Spinner Config
+		presenter.getColumnsOnProject();
 	}
 
 	private void setInitialValues(){
@@ -95,6 +101,17 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		mAssignee.setEnabled( false );
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 		mPriority.setEnabled( false );
+	}
+
+	@Override
+	public void setColumnSpinner( String[] columnNames ){
+		this.columnNames = columnNames;
+		List< String > list = new LinkedList<>( Arrays.asList( this.columnNames ) );
+		this.columnNames = list.toArray( new String[ list.size() ] );
+		ArrayAdapter< String > dataAdapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, this.columnNames );
+		mColumnSpinner.setAdapter( dataAdapter );
+//		mColumnSpinner.setEnabled( false );
+		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 	}
 
 	private void setSpinnerValue( Spinner spinner, String assignee ){

@@ -72,6 +72,7 @@
 	<string name="hint_assigneeSpinner">Assignee</string>
 	<string name="hint_prioritySpinner">Priority</string>
 	<string name="hint_columnName">Column Name</string>
+	<string name="hint_columnSpinner">Column</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
