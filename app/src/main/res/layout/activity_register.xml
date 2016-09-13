@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:layout_margin="20dp"
 	android:orientation="vertical">
 
-	<LinearLayout
+	<TextView
+		style="@style/AppTheme"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="20dp"
-		android:orientation="vertical">
-
-		<TextView
-			style="@style/AppTheme"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
-			android:text="@string/textView_registerInstructions"/>
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="20dp"
+		android:text="@string/textView_registerInstructions"/>
 
 	<android.support.design.widget.TextInputLayout
 		android:layout_width="match_parent"
@@ -121,23 +116,23 @@
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal">
 
-			<TextView
-				style="@style/AppTheme"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/textView_userInstruction_register"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:textColor="@color/colorTextPrimary"
-				android:textStyle="italic"/>
+		<TextView
+			style="@style/AppTheme"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/textView_userInstruction_register"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/colorTextPrimary"
+			android:textStyle="italic"/>
 
-			<Button
-				android:id="@+id/registerActivity_returnToLoginButton"
-				style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:fontFamily="sans-serif"
-				android:text="@string/button_login"
-				android:textAppearance="?android:attr/textAppearanceMedium"/>
+		<Button
+			android:id="@+id/registerActivity_returnToLoginButton"
+			style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:fontFamily="sans-serif"
+			android:text="@string/button_login"
+			android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 	</LinearLayout>
 
