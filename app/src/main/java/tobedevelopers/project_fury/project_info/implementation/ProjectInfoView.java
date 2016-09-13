@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -44,6 +45,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	TextInputEditText mProjectNameEditText;
 	@Bind( R.id.projectInfoActivity_projectDescriptionEditText )
 	TextInputEditText mProjectDescriptionEditText;
+	@Bind( R.id.projectInfoActivity_deleteText )
+	TextView mDeleteText;
 	@Bind( R.id.projectInfoActivity_editProjectButton )
 	Button mEditProjectButton;
 	@Bind( R.id.projectInfoActivity_saveProjectButton )
@@ -289,6 +292,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				getParam2().setFocusableInTouchMode( true );
 				getParam2().setClickable( true );
 				getParam2().setCursorVisible( true );
+				mDeleteText.setVisibility( View.VISIBLE );
 				touchHelper.attachToRecyclerView( mRecyclerView );
 				mSaveProjectButton.setVisibility( View.VISIBLE );
 				mAddColumnButton.setEnabled( true );
@@ -310,6 +314,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				getParam2().setFocusableInTouchMode( false );
 				getParam2().setClickable( false );
 				getParam2().setCursorVisible( false );
+				mDeleteText.setVisibility( View.INVISIBLE );
 				touchHelper.attachToRecyclerView( null );
 				mEditProjectButton.setVisibility( View.VISIBLE );
 				mAddColumnButton.setEnabled( false );
