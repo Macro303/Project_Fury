@@ -19,92 +19,107 @@
 			android:layout_marginBottom="20dp"
 			android:text="@string/textView_registerInstructions"/>
 
-		<android.support.design.widget.TextInputLayout
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/registerActivity_usernameEditText"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/registerActivity_instructionsTextView"
+			android:digits="@string/alphaNumericCharacters"
+			android:hint="@string/hint_username"
+			android:inputType="textNoSuggestions"
+			android:maxLength="20"
+			android:singleLine="true"/>
 
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/registerActivity_usernameEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/registerActivity_instructionsTextView"
-				android:digits="@string/alphaNumericCharacters"
-				android:hint="@string/hint_username"
-				android:inputType="textNoSuggestions"
-				android:maxLength="20"
-				android:singleLine="true"/>
+	</android.support.design.widget.TextInputLayout>
 
-		</android.support.design.widget.TextInputLayout>
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-		<android.support.design.widget.TextInputLayout
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/registerActivity_emailEditText"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/registerActivity_usernameEditText"
+			android:layout_marginTop="10dp"
+			android:hint="@string/hint_email"
+			android:inputType="textEmailAddress|textNoSuggestions"
+			android:singleLine="true"/>
 
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/registerActivity_emailEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/registerActivity_usernameEditText"
-				android:layout_marginTop="10dp"
-				android:hint="@string/hint_email"
-				android:inputType="textEmailAddress|textNoSuggestions"
-				android:singleLine="true"/>
+	</android.support.design.widget.TextInputLayout>
 
-		</android.support.design.widget.TextInputLayout>
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-		<android.support.design.widget.TextInputLayout
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/registerActivity_passwordEditText"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/registerActivity_emailEditText"
+			android:layout_marginTop="10dp"
+			android:digits="@string/alphaNumericCharacters"
+			android:fontFamily="sans-serif"
+			android:hint="@string/hint_password"
+			android:inputType="textPassword|textNoSuggestions"
+			android:maxLength="20"
+			android:singleLine="true"/>
 
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/registerActivity_passwordEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/registerActivity_emailEditText"
-				android:layout_marginTop="10dp"
-				android:digits="@string/alphaNumericCharacters"
-				android:fontFamily="sans-serif"
-				android:hint="@string/hint_password"
-				android:inputType="textPassword|textNoSuggestions"
-				android:maxLength="20"
-				android:singleLine="true"/>
+	</android.support.design.widget.TextInputLayout>
 
-		</android.support.design.widget.TextInputLayout>
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-		<android.support.design.widget.TextInputLayout
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/registerActivity_confirmPasswordEditText"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/registerActivity_passwordEditText"
+			android:layout_marginTop="10dp"
+			android:digits="@string/alphaNumericCharacters"
+			android:fontFamily="sans-serif"
+			android:hint="@string/hint_confirmPassword"
+			android:inputType="textPassword|textNoSuggestions"
+			android:maxLength="20"
+			android:singleLine="true"/>
 
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/registerActivity_confirmPasswordEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/registerActivity_passwordEditText"
-				android:layout_marginTop="10dp"
-				android:digits="@string/alphaNumericCharacters"
-				android:fontFamily="sans-serif"
-				android:hint="@string/hint_confirmPassword"
-				android:inputType="textPassword|textNoSuggestions"
-				android:maxLength="20"
-				android:singleLine="true"/>
+	</android.support.design.widget.TextInputLayout>
 
-		</android.support.design.widget.TextInputLayout>
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="35dp"
+		android:layout_marginTop="20dp">
 
 		<Button
 			android:id="@+id/registerActivity_createAccountButton"
 			style="@style/buttonApperance"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginBottom="25dp"
-			android:layout_marginTop="35dp"
+			android:layout_centerInParent="true"
 			android:enabled="false"
 			android:text="@string/button_createAccount"/>
 
-		<LinearLayout
-			android:layout_width="match_parent"
+		<com.github.ybq.android.spinkit.SpinKitView
+			android:id="@+id/registerActivity_loadingProgressBar"
+			style="@style/SpinKitView.Large.WanderingCubes"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:gravity="center_horizontal">
+			android:layout_centerInParent="true"
+			android:visibility="gone"
+			app:SpinKit_Color="@color/colorAccent"/>
+
+	</RelativeLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
 
 			<TextView
 				style="@style/AppTheme"
@@ -123,8 +138,6 @@
 				android:fontFamily="sans-serif"
 				android:text="@string/button_login"
 				android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-		</LinearLayout>
 
 	</LinearLayout>
 

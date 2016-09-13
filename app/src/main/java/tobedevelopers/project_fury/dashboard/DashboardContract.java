@@ -9,6 +9,12 @@ public interface DashboardContract{
 		void noInternetAccessValidation();
 
 		void loadingInProgress();
+
+		void loadProjectsIntoList( ProjectHolder holder );
+
+		void loadTasksIntoList( TaskHolder holder );
+
+		void defaultErrorMessage();
 	}
 
 	interface Navigation{
@@ -25,5 +31,9 @@ public interface DashboardContract{
 		void userSelectProjectInfo();
 
 		void userSelectTaskInfo();
+
+		void loadProjects();
+
+		void loadTasks();
 	}
 }

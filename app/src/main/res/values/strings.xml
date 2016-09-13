@@ -21,6 +21,7 @@
 	<string name="button_register">Register Here</string>
 	<string name="button_createAccount">Create Account</string>
 	<string name="button_createProject">Create Project</string>
+	<string name="button_createProjectDashboard">+</string>
 	<string name="button_projectInfo">Project</string>
 	<string name="button_taskInfo">Task</string>
 	<string name="button_addUser">Add User</string>
@@ -37,12 +38,16 @@
 	<string name="button_saveTask">Save Task</string>
 	<string name="button_dialogDelete"> Delete </string>
 	<string name="button_dialogCancel"> Cancel </string>
+	<string name="button_createColumn">Create</string>
 
 	<!-- Dialogue Messages  -->
 	<string name="dialog_deleteAlertTitle_project"> Delete Project? </string>
 	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this project and all of the attached tasks </string>
 	<string name="dialog_deleteAlertTitle_task">Delete Task?</string>
 	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this task and all of the attached sub-tasks</string>
+	<string name="dialog_deleteAlertTitle_column">Delete Column?</string>
+	<string name="dialog_deleteAlertInstructions_column">This will permanently delete this column, and move all the attached tasks to the New column</string>
+	<string name="dialog_addAlertTitle_column">New Column</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
@@ -53,6 +58,7 @@
 	<string name="textView_userInstruction_register">Already a User?</string>
 	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
 	<string name="textView_taskInfoInstruction">Below is information about this task:</string>
+	<string name="textView_addColumnHeader">Column Name:</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -65,6 +71,7 @@
 	<string name="hint_taskDescription">Task Description</string>
 	<string name="hint_assigneeSpinner">Assignee</string>
 	<string name="hint_prioritySpinner">Priority</string>
+	<string name="hint_columnName">Column Name</string>
 
 	<!-- Navigation Strings -->
 	<string name="navigation_logOut">Log Out</string>
@@ -97,8 +104,12 @@
 	<string name="error_noInternetAccess">No Internet Access</string>
 	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
 	<string name="error_defaultError">Your request cannot be processed at this time</string>
+	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
+	<string name="error_noCurrentTasks">No Tasks Currently Assigned To You</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
+	<string name="editText_dialogColumnName">Column Name</string>
+	<string name="textView_dialogAddColumn">Please enter a column name</string>
 
 </resources>

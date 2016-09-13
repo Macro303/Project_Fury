@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -20,6 +21,8 @@ import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 public class RegisterView extends BaseView implements RegisterContract.View, RegisterContract.Navigation{
 
+	@Bind( R.id.registerActivity_loadingProgressBar )
+	protected ProgressBar mLoadingProgressbar;
 	@Bind( R.id.registerActivity_createAccountButton )
 	Button mCreateAccountButton;
 	@Bind( R.id.registerActivity_usernameEditText )
@@ -30,7 +33,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	TextInputEditText mPasswordEditText;
 	@Bind( R.id.registerActivity_confirmPasswordEditText )
 	TextInputEditText mConfirmPasswordEditText;
-
 	private RegisterContract.Presenter presenter;
 	private String mPassword;
 
@@ -99,6 +101,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void navigateToLogin(){
+		mLoadingProgressbar.setVisibility( View.GONE );
 		finish();
 	}
 
@@ -128,7 +131,8 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
+				mLoadingProgressbar.setVisibility( View.VISIBLE );
+				ToastLog.makeDebug( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
