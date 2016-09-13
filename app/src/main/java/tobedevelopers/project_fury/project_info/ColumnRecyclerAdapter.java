@@ -13,6 +13,8 @@ import java.util.List;
 
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
 
 /**
  * Created by A on 9/10/2016.
@@ -20,11 +22,12 @@ import tobedevelopers.project_fury.model.Column;
 public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolder > implements ItemTouchHelperAdapter{
 
 	List< Column > columnList = null;
-	private WeakReference< ProjectInfoContract.Presenter > presenterWeakReference;
+	private WeakReference< ProjectInfoView > viewWeakReference;
 
-	public void setData( Column[] columns ){
+	public void setData( Column[] columns, ProjectInfoView view ){
 		columnList = new ArrayList<>();
 		columnList.addAll( Arrays.asList( columns ) );
+		viewWeakReference = new WeakReference<>( view );
 		notifyDataSetChanged();
 	}
 
@@ -51,10 +54,15 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 
 	@Override
 	public void onItemDismiss( int position ){
-//		ProjectInfoContract.Presenter presenter = presenterWeakReference.get();
-//		presenter.userSelectDeleteColumn();
-		columnList.remove( columnList.get( position ) );
-		notifyItemRemoved( position );
+		ProjectInfoView view = viewWeakReference.get();
+		if( view != null ){
+			if( !columnList.get( position ).getName().equals( "New" ) && !columnList.get( position ).getName().equals( "Archived" ) ){
+				view.alertDeleteColumn( columnList );
+				Model.setSelectedColumn( columnList.get( position ) );
+				notifyItemRemoved( position );
+			}
+			notifyDataSetChanged();
+		}
 	}
 
 	@Override
