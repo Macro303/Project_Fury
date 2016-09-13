@@ -8,8 +8,6 @@ import tobedevelopers.project_fury.model.Project;
 public interface AllBoardsContract{
 
 	interface View{
-		void updatingBoardInProgress();
-
 		void noInternetAccessValidation();
 
 		void displayDefaultErrorMessage();

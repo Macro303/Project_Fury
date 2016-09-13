@@ -44,9 +44,10 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 		//Recycler Config
 		mRecyclerView.setHasFixedSize( true );
-		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
 		mAdapter = new AllBoardsRecyclerAdapter( this );
 		mRecyclerView.setAdapter( mAdapter );
+		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+
 		presenter.userOpensBoard();
 
 		//Button config
@@ -54,16 +55,6 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 			@Override
 			public void onClick( View view ){
 				presenter.userSelectCreateProject();
-			}
-		} );
-	}
-
-	@Override
-	public void updatingBoardInProgress(){
-		runOnUiThread( new Runnable1Param< AllBoardsView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Updating Project boards" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -113,4 +104,10 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		} );
 	}
 
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		finish();
+		startActivity( getIntent() );
+	}
 }

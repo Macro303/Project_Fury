@@ -1,6 +1,8 @@
 package tobedevelopers.project_fury.project_board.implementation;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.TaskResponse;
 
 /**
  * Created by Macro303 on 13/08/2016.
@@ -22,6 +25,7 @@ public class ProjectBoardFragment extends Fragment{
 	private RecyclerView mRecyclerView;
 	private ProjectBoardRecyclerAdapter mRecyclerAdapter;
 	private int mPage;
+	private Model model;
 
 	public static ProjectBoardFragment newInstance( int page ){
 		Bundle args = new Bundle();
@@ -35,16 +39,26 @@ public class ProjectBoardFragment extends Fragment{
 	public void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
 		mPage = getArguments().getInt( PAGE_KEY );
+		this.model = new Model();
 	}
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
-		View view = inflater.inflate( R.layout.fragment_project_board_recycler, container, false );
+		return inflater.inflate( R.layout.fragment_project_board_recycler, container, false );
+	}
+
+	@Override
+	public void onViewCreated( View view, @Nullable Bundle savedInstanceState ){
+		super.onViewCreated( view, savedInstanceState );
 		mRecyclerView = ( RecyclerView ) view.findViewById( R.id.projectBoardFragment_recyclerView );
 		mRecyclerView.setHasFixedSize( true );
-		mRecyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
+
 		mRecyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity() );
 		mRecyclerView.setAdapter( mRecyclerAdapter );
+		mRecyclerView.invalidate();
+
+		mRecyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
+
 		mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener(){
 			@Override
 			public void onScrolled( RecyclerView recyclerView, int dx, int dy ){
@@ -55,7 +69,34 @@ public class ProjectBoardFragment extends Fragment{
 					mCreateTaskButton.show();
 			}
 		} );
-		mRecyclerAdapter.getData( Model.getSelectedColumns()[ mPage ] );
-		return view;
 	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
+		new TaskSeeker().execute( Model.getSelectedColumns()[ mPage ].getProjectID(), Model.getSelectedColumns()[ mPage ].getColumnID() );
+
+	}
+
+	private class TaskSeeker extends AsyncTask< String, Void, TaskResponse >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
+
+		@Override
+		protected TaskResponse doInBackground( String... strings ){
+			return model.getAllColumnTasks( strings[ 0 ], strings[ 1 ] );
+		}
+
+		@Override
+		protected void onPostExecute( TaskResponse response ){
+			super.onPostExecute( response );
+			mRecyclerAdapter.setData( response.getTasks() );
+			mRecyclerAdapter.notifyDataSetChanged();
+		}
+	}
+
+
 }

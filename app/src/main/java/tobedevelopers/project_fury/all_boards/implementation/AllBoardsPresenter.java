@@ -36,15 +36,6 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 			new AsyncTask< String, Void, ProjectResponse >(){
 
 				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					AllBoardsContract.View view = viewWeakReference.get();
-
-					if( view != null )
-						view.updatingBoardInProgress();
-				}
-
-				@Override
 				protected ProjectResponse doInBackground( String... strings ){
 					return model.getAllProjects();
 				}

@@ -44,9 +44,9 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 		//Tab Config
 		mProjectBoardFragmentPagerAdapter = new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() );
+		presenter.userLoadsBoard();
 		mViewPager.setAdapter( mProjectBoardFragmentPagerAdapter );
 		mTabLayout.setupWithViewPager( mViewPager );
-		presenter.userOpensBoard();
 
 		//Button Config
 		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
@@ -68,16 +68,6 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 	}
 
 	@Override
-	public void updatingBoardInProgress(){
-		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Updating Project board" ), Toast.LENGTH_LONG );
-			}
-		} );
-	}
-
-	@Override
 	public void noInternetAccessValidation(){
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
@@ -92,5 +82,11 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mProjectBoardFragmentPagerAdapter.setData( columns );
 	}
 
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		finish();
+		startActivity( getIntent() );
+	}
 
 }

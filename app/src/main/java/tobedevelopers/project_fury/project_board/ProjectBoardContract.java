@@ -8,7 +8,6 @@ import tobedevelopers.project_fury.model.Column;
 public interface ProjectBoardContract{
 
 	interface View{
-		void updatingBoardInProgress();
 
 		void noInternetAccessValidation();
 
@@ -23,9 +22,10 @@ public interface ProjectBoardContract{
 	}
 
 	interface Presenter{
+
 		void userSelectCreateTask();
 
-		void userOpensBoard();
+		void userLoadsBoard();
 
 	}
 }

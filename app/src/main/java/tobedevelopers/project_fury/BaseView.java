@@ -44,4 +44,10 @@ public class BaseView extends AppCompatActivity{
 		super.onResume();
 		Log.i( getString( R.string.app_name ), getTitle() + " Resumed" );
 	}
+
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		Log.i( getString( R.string.app_name ), getTitle() + " Restarted" );
+	}
 }

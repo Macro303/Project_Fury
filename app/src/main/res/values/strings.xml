@@ -53,6 +53,9 @@
 	<string name="textView_userInstruction_register">Already a User?</string>
 	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
 	<string name="textView_taskInfoInstruction">Below is information about this task:</string>
+	<string name="textView_priority">Priority</string>
+	<string name="textView_task">Task</string>
+	<string name="textView_assignee">Assignee</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -100,5 +103,6 @@
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
+
 
 </resources>

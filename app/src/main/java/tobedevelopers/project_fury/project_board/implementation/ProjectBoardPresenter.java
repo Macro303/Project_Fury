@@ -34,20 +34,11 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 	}
 
 	@Override
-	public void userOpensBoard(){
+	public void userLoadsBoard(){
 		ProjectBoardContract.View view = viewWeakReference.get();
 
 		if( view != null ){
 			new AsyncTask< String, Void, ColumnResponse >(){
-
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectBoardContract.View view = viewWeakReference.get();
-
-					if( view != null )
-						view.updatingBoardInProgress();
-				}
 
 				@Override
 				protected ColumnResponse doInBackground( String... strings ){
@@ -73,7 +64,6 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 						}
 					}
 				}
-
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
