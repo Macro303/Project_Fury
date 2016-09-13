@@ -67,5 +67,4 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
-
 }

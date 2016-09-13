@@ -14,8 +14,8 @@ public class ProjectBoardFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
 	private Column[] columns;
 
-	public ProjectBoardFragmentPagerAdapter( FragmentManager fragmentManager ){
-		super( fragmentManager );
+	public ProjectBoardFragmentPagerAdapter( FragmentManager fm ){
+		super( fm );
 	}
 
 	public void setData( Column[] tabs ){

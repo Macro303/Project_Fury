@@ -8,7 +8,6 @@ import tobedevelopers.project_fury.model.Column;
 public interface ProjectBoardContract{
 
 	interface View{
-
 		void noInternetAccessValidation();
 
 		void displayDefaultErrorMessage();
@@ -17,15 +16,12 @@ public interface ProjectBoardContract{
 	}
 
 	interface Navigation{
-
 		void navigateToCreateTask();
 	}
 
 	interface Presenter{
-
 		void userSelectCreateTask();
 
 		void userLoadsBoard();
-
 	}
 }

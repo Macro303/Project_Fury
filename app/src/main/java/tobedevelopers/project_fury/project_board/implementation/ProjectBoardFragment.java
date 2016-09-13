@@ -21,10 +21,13 @@ import tobedevelopers.project_fury.model.TaskResponse;
 public class ProjectBoardFragment extends Fragment{
 
 	private static final String PAGE_KEY = "Page";
+
 	//UI References
 	private RecyclerView mRecyclerView;
 	private ProjectBoardRecyclerAdapter mRecyclerAdapter;
 	private int mPage;
+
+	// Model references
 	private Model model;
 
 	public static ProjectBoardFragment newInstance( int page ){
@@ -75,7 +78,6 @@ public class ProjectBoardFragment extends Fragment{
 	public void onResume(){
 		super.onResume();
 		new TaskSeeker().execute( Model.getSelectedColumns()[ mPage ].getProjectID(), Model.getSelectedColumns()[ mPage ].getColumnID() );
-
 	}
 
 	private class TaskSeeker extends AsyncTask< String, Void, TaskResponse >{
@@ -97,6 +99,4 @@ public class ProjectBoardFragment extends Fragment{
 			mRecyclerAdapter.notifyDataSetChanged();
 		}
 	}
-
-
 }
