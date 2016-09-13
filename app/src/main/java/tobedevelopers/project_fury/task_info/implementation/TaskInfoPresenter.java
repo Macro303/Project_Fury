@@ -133,12 +133,12 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectSaveTask( String mAssignee, String mPriority ){
+	public void userSelectSaveTask( String mAssignee, String mPriority, String mColumn ){
 		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new UpdateAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, mAssignee, mPriority );
+			new UpdateAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, mAssignee, mPriority, mColumn );
 	}
 
 	private class UpdateAsyncTask extends AsyncTask< String, Void, Response >{
@@ -152,7 +152,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		protected Response doInBackground( String... strings ){
 			if( mTaskDescription.equals( "null" ) )
 				mTaskDescription = "";
-			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, strings[ 0 ], strings[ 1 ].toUpperCase() );
+			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, strings[ 0 ], strings[ 1 ].toUpperCase(), strings[ 2 ] );
 		}
 
 		@Override

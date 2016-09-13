@@ -27,7 +27,7 @@ import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
-import tobedevelopers.project_fury.runnable_param.Runnable6Param;
+import tobedevelopers.project_fury.runnable_param.Runnable7Param;
 import tobedevelopers.project_fury.task_info.TaskInfoContract;
 
 /**
@@ -44,7 +44,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	@Bind( R.id.taskInfoActivity_prioritySpinner )
 	AppCompatSpinner mPriority;
 	@Bind( R.id.taskInfoActivity_columnSpinner )
-	AppCompatSpinner mColumnSpinner;
+	AppCompatSpinner mColumn;
 	@Bind( R.id.taskInfoActivity_deleteTaskButton )
 	Button mDeleteTask;
 	@Bind( R.id.taskInfoActivity_updateTaskButton )
@@ -74,7 +74,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 		//InitialValues Config
 		setInitialValues();
-		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString() };
+		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString(), mColumn.getSelectedItem().toString() };
 
 		//Column Spinner Config
 		presenter.getColumnsOnProject();
@@ -89,6 +89,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		mTaskDescription.setText( description );
 		setSpinnerValue( mAssignee, selectedTask.getAssignee() );
 		setSpinnerValue( mPriority, selectedTask.getPriority().getNameValue() );
+		setSpinnerValue( mColumn, selectedTask.getColumnID() );
 	}
 
 	private void setAssigneeSpinner(){
@@ -109,8 +110,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		List< String > list = new LinkedList<>( Arrays.asList( this.columnNames ) );
 		this.columnNames = list.toArray( new String[ list.size() ] );
 		ArrayAdapter< String > dataAdapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, this.columnNames );
-		mColumnSpinner.setAdapter( dataAdapter );
-//		mColumnSpinner.setEnabled( false );
+		mColumn.setAdapter( dataAdapter );
+		mColumn.setEnabled( false );
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 	}
 
@@ -132,7 +133,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				break;
 			case R.id.taskInfoActivity_saveTaskButton:
 				ToastLog.makeDebug( this, "Save Task", Toast.LENGTH_SHORT );
-				presenter.userSelectSaveTask( mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString() );
+				presenter.userSelectSaveTask( mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString(), mColumn.getSelectedItem().toString() );
 				break;
 			case R.id.taskInfoActivity_deleteTaskButton:
 				ToastLog.makeDebug( this, "Remove Task", Toast.LENGTH_SHORT );
@@ -199,6 +200,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		mTaskDescription.setText( initialValues[ 1 ] );
 		setSpinnerValue( mAssignee, initialValues[ 2 ] );
 		setSpinnerValue( mPriority, initialValues[ 3 ] );
+		setSpinnerValue( mColumn, initialValues[ 4 ] );
 	}
 
 	public void setSpinnerEnabled( Spinner spinner, boolean enabled ){
@@ -208,7 +210,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	@Override
 	public void setTaskEdited(){
-		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -224,14 +226,15 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam3().setFocusableInTouchMode( true );
 				setSpinnerEnabled( getParam4(), true );
 				setSpinnerEnabled( getParam5(), true );
-				getParam6().setVisibility( View.VISIBLE );
+				setSpinnerEnabled( getParam6(), true );
+				getParam7().setVisibility( View.VISIBLE );
 			}
 		} );
 	}
 
 	@Override
 	public void setTaskSaved(){
-		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.VISIBLE );
@@ -247,7 +250,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam3().setFocusableInTouchMode( false );
 				setSpinnerEnabled( getParam4(), false );
 				setSpinnerEnabled( getParam5(), false );
-				getParam6().setVisibility( View.GONE );
+				setSpinnerEnabled( getParam6(), false );
+				getParam7().setVisibility( View.GONE );
 			}
 		} );
 	}

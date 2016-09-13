@@ -29,7 +29,7 @@ public interface ModelContract{
 
 	TaskResponse getAllProjectTasks( String projectID );
 
-	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String priority );
+	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String priority, String column );
 
 	Response deleteTask( String projectID, String taskID );
 
