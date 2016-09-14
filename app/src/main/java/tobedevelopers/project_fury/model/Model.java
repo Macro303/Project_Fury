@@ -44,8 +44,8 @@ public class Model implements ModelContract{
 		return selectedColumn;
 	}
 
-	public static void setSelectedColumn( Column[] _selectedColumns ){
-		selectedColumns = _selectedColumns;
+	public static void setSelectedColumn( Column _selectedColumn ){
+		selectedColumn = _selectedColumn;
 	}
 
 	public static Column[] getSelectedColumns(){
@@ -304,8 +304,8 @@ public class Model implements ModelContract{
 	public Response updateColumn( String projectID, String columnID, String columnName, int columnPosition ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String paramters = "name=" + columnName + "&position=" + columnPosition;
-		String response = urlReader.put( headers, paramters );
+		String parameters = "name=" + columnName + "&position=" + columnPosition;
+		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
 		if( urlReader.getResponseCode() == 200 || urlReader.getResponseCode() == 201 )
