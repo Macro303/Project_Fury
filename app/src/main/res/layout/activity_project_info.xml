@@ -3,120 +3,158 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:layout_marginTop="30dp"
 	android:orientation="vertical">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="20dp"
-		android:orientation="vertical">
-
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
-			android:layout_marginBottom="20dp"
-			android:text="@string/textView_projectInfoInstruction"
-			android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-		<android.support.design.widget.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/projectInfoActivity_projectNameEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:clickable="false"
-				android:cursorVisible="false"
-				android:digits="@string/alphaNumericCharacters"
-				android:editable="false"
-				android:focusable="false"
-				android:focusableInTouchMode="false"
-				android:hint="@string/hint_projectName"
-				android:inputType="textNoSuggestions"
-				android:maxLength="20"
-				android:singleLine="true"/>
-
-		</android.support.design.widget.TextInputLayout>
-
-		<android.support.design.widget.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp">
-
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/projectInfoActivity_projectDescriptionEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/projectInfoActivity_projectNameEditText"
-				android:layout_marginBottom="40dp"
-				android:clickable="false"
-				android:cursorVisible="false"
-				android:digits="@string/alphaNumericCharacters"
-				android:focusable="false"
-				android:focusableInTouchMode="false"
-				android:gravity="top|left"
-				android:hint="@string/hint_projectDescription"
-				android:inputType="textNoSuggestions"
-				android:maxLength="128"
-				android:maxLines="6"
-				android:scrollbars="vertical"/>
-
-		</android.support.design.widget.TextInputLayout>
+	<ScrollView
+		android:layout_width="match_parent" android:layout_height="match_parent">
 
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/projectInfoActivity_projectDescriptionEditText"
-			android:layout_marginTop="30dp"
+			android:layout_height="match_parent"
+			android:layout_margin="20dp"
 			android:orientation="vertical">
 
-			<!--
-				<Button
-					android:id="@+id/projectInfoActivity_addUserButton"
+			<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<android.support.design.widget.TextInputEditText
+					android:id="@+id/projectInfoActivity_projectNameEditText"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:clickable="false"
+					android:cursorVisible="false"
+					android:digits="@string/alphaNumericCharacters"
+					android:editable="false"
+					android:focusable="false"
+					android:focusableInTouchMode="false"
+					android:hint="@string/hint_projectName"
+					android:inputType="textNoSuggestions"
+					android:maxLength="20"
+					android:singleLine="true"/>
+
+			</android.support.design.widget.TextInputLayout>
+
+			<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="15dp">
+
+				<android.support.design.widget.TextInputEditText
+					android:id="@+id/projectInfoActivity_projectDescriptionEditText"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/projectInfoActivity_projectNameEditText"
+					android:layout_marginBottom="20dp"
+					android:clickable="false"
+					android:cursorVisible="false"
+					android:digits="@string/alphaNumericCharacters"
+					android:focusable="false"
+					android:focusableInTouchMode="false"
+					android:gravity="top|left"
+					android:hint="@string/hint_projectDescription"
+					android:inputType="textNoSuggestions"
+					android:maxLength="128"
+					android:maxLines="6"
+					android:scrollbars="vertical"/>
+
+			</android.support.design.widget.TextInputLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="horizontal">
+
+					<Button
+						android:id="@+id/projectInfoActivity_addColumnButton"
+						style="@style/Widget.AppCompat.Button.Borderless"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentEnd="true"
+						android:enabled="false"
+						android:text="+"/>
+
+					<TextView
+						android:id="@+id/projectInfoActivity_columnNameTitle"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentStart="true"
+						android:layout_centerVertical="true"
+						android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
+						android:text="@string/textView_addColumnHeader"
+						android:textAppearance="?android:attr/textAppearanceMedium"
+						android:textStyle="bold"/>
+
+				</RelativeLayout>
+
+				<android.support.v7.widget.RecyclerView
+					android:id="@+id/projectInfoActivity_columnNamesList"
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:layout_gravity="start"
+					android:background="@color/colorAccent"
+					android:padding="3dp"
+					android:scrollbars="vertical">
+
+				</android.support.v7.widget.RecyclerView>
+
+				<TextView
+					android:id="@+id/projectInfoActivity_deleteText"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/button_addUser"/>
+					android:layout_gravity="end"
+					android:text="swipe to delete column"
+					android:textAppearance="?android:textAppearanceSmall"
+					android:visibility="invisible"/>
+
+			</LinearLayout>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:gravity="end"
+				android:orientation="horizontal">
 
 				<Button
-					android:id="@+id/projectInfoActivity_removeMeButton"
+					android:id="@+id/projectInfoActivity_deleteProjectButton"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/button_removeMe"/>
-					-->
+					android:layout_alignParentStart="true"
+					android:layout_gravity="start"
+					android:layout_marginEnd="10dp"
+					android:minWidth="150dp"
+					android:text="@string/button_deleteProject"/>
 
-			<Button
-				android:id="@+id/projectInfoActivity_editProjectButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="right"
-				android:layout_marginBottom="20dp"
-				android:minWidth="160dp"
-				android:text="@string/button_editProject"/>
+				<Button
+					android:id="@+id/projectInfoActivity_editProjectButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:layout_gravity="end"
+					android:minWidth="160dp"
+					android:text="@string/button_editProject"/>
 
-			<Button
-				android:id="@+id/projectInfoActivity_saveProjectButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="right"
-				android:layout_marginBottom="20dp"
-				android:minWidth="160dp"
-				android:text="@string/button_saveProject"
-				android:visibility="gone"/>
+				<Button
+					android:id="@+id/projectInfoActivity_saveProjectButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:layout_gravity="end"
+					android:minWidth="160dp"
+					android:text="@string/button_saveProject"
+					android:visibility="gone"/>
 
-			<Button
-				android:id="@+id/projectInfoActivity_deleteProjectButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/projectInfoActivity_saveProjectButton"
-				android:layout_gravity="right"
-				android:layout_marginBottom="20dp"
-				android:minWidth="160dp"
-				android:text="@string/button_deleteProject"/>
+			</RelativeLayout>
 
 		</LinearLayout>
 
-	</LinearLayout>
+	</ScrollView>
 
 </LinearLayout>
