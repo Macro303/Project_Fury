@@ -161,7 +161,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 				@Override
 				protected Response doInBackground( String... strings ){
 					for( Column column : columnList ){
-						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName() );
+						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
 					}
 					return null;
 				}
@@ -209,7 +209,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 				@Override
 				protected Response doInBackground( String... strings ){
 					for( Column column : columnList ){
-						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName() );
+						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
 					}
 					return null;
 				}
