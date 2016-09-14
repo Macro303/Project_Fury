@@ -66,7 +66,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 				error = true;
 			}else if( taskName.length() >= 20 ){
 				view.setTaskNameOverValidation();
-				error = true;
+				error = false;
 			}
 			if( error )
 				view.disableSaveTask();

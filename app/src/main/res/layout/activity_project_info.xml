@@ -104,6 +104,15 @@
 
 				</android.support.v7.widget.RecyclerView>
 
+				<TextView
+					android:id="@+id/projectInfoActivity_deleteText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="end"
+					android:text="swipe to delete column"
+					android:textAppearance="?android:textAppearanceSmall"
+					android:visibility="invisible"/>
+
 			</LinearLayout>
 
 			<RelativeLayout
@@ -121,7 +130,7 @@
 					android:layout_gravity="start"
 					android:layout_marginEnd="10dp"
 					android:minWidth="150dp"
-					android:text="@string/button_removeTask"/>
+					android:text="@string/button_deleteProject"/>
 
 				<Button
 					android:id="@+id/projectInfoActivity_editProjectButton"
@@ -130,7 +139,7 @@
 					android:layout_alignParentEnd="true"
 					android:layout_gravity="end"
 					android:minWidth="160dp"
-					android:text="@string/button_updateTask"/>
+					android:text="@string/button_editProject"/>
 
 				<Button
 					android:id="@+id/projectInfoActivity_saveProjectButton"
@@ -139,7 +148,7 @@
 					android:layout_alignParentEnd="true"
 					android:layout_gravity="end"
 					android:minWidth="160dp"
-					android:text="@string/button_saveTask"
+					android:text="@string/button_saveProject"
 					android:visibility="gone"/>
 
 			</RelativeLayout>

@@ -80,14 +80,16 @@
 					android:layout_marginEnd="5dp"
 					android:text="@string/hint_assigneeSpinner"/>
 
-				<Spinner
+				<android.support.v7.widget.AppCompatSpinner
 					android:id="@+id/taskInfoActivity_assigneeSpinner"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_column="1"
 					android:layout_marginStart="5dp"
 					android:clickable="false"
-					android:focusable="false"/>
+					android:focusable="false"
+					android:focusableInTouchMode="false"
+					android:longClickable="false"/>
 
 			</TableRow>
 
@@ -102,7 +104,7 @@
 					android:layout_marginEnd="5dp"
 					android:text="@string/hint_prioritySpinner"/>
 
-				<Spinner
+				<android.support.v7.widget.AppCompatSpinner
 					android:id="@+id/taskInfoActivity_prioritySpinner"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -110,38 +112,24 @@
 					android:layout_marginStart="5dp"
 					android:clickable="false"
 					android:entries="@array/spinner_priority"
-					android:focusable="false"/>
+					android:focusable="false"
+					android:focusableInTouchMode="false"
+					android:longClickable="false"/>
+
 			</TableRow>
 
 		</TableLayout>
 
-		<LinearLayout
+		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="5dp"
-			android:layout_marginTop="5dp">
-
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="5dp">
-
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="30dp"
-			android:gravity="end"
-			android:orientation="horizontal">
+			android:layout_marginTop="30dp">
 
 			<Button
 				android:id="@+id/taskInfoActivity_deleteTaskButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="10dp"
+				android:layout_alignParentStart="true"
 				android:minWidth="150dp"
 				android:text="@string/button_removeTask"/>
 
@@ -149,22 +137,20 @@
 				android:id="@+id/taskInfoActivity_updateTaskButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="end"
-				android:layout_marginEnd="10dp"
-				android:minWidth="160dp"
+				android:layout_alignParentEnd="true"
+				android:minWidth="150dp"
 				android:text="@string/button_updateTask"/>
 
 			<Button
 				android:id="@+id/taskInfoActivity_saveTaskButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="end"
-				android:layout_marginEnd="10dp"
-				android:minWidth="160dp"
+				android:layout_alignParentEnd="true"
+				android:minWidth="150dp"
 				android:text="@string/button_saveTask"
 				android:visibility="gone"/>
 
-		</LinearLayout>
+		</RelativeLayout>
 
 	</LinearLayout>
 

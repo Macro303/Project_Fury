@@ -12,7 +12,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
 		android:layout_centerVertical="true"
-		android:text="@string/button_createProject"
+		android:text="@string/button_createProjectDashboard"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textStyle="bold"/>
 

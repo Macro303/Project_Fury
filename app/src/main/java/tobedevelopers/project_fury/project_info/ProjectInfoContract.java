@@ -1,5 +1,7 @@
 package tobedevelopers.project_fury.project_info;
 
+import java.util.List;
+
 import tobedevelopers.project_fury.model.Column;
 
 /**
@@ -50,6 +52,10 @@ public interface ProjectInfoContract{
 		void userSelectSaveProject();
 
 		void userSelectAddColumn( String columnName );
+
+		void userSelectSaveColumns( List< Column > columnList );
+
+		void saveColumnsBeforeDeleting( List< Column > columnList );
 
 		void userSelectDeleteColumn();
 
