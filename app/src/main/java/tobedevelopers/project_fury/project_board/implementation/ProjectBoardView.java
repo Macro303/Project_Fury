@@ -8,6 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
@@ -79,7 +84,11 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	public void setTabTitles( Column[] columns ){
-		mProjectBoardFragmentPagerAdapter.setData( columns );
+
+		List <Column> columnList = new ArrayList<>();
+		columnList.addAll( Arrays.asList( columns ) );
+		Collections.sort( columnList, Column.comparator );
+		mProjectBoardFragmentPagerAdapter.setData( columnList );
 	}
 
 	@Override

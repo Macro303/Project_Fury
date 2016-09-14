@@ -77,7 +77,7 @@ public class ProjectBoardFragment extends Fragment{
 	@Override
 	public void onResume(){
 		super.onResume();
-		new TaskSeeker().execute( Model.getSelectedColumns()[ mPage ].getProjectID(), Model.getSelectedColumns()[ mPage ].getColumnID() );
+		new TaskSeeker().execute( Model.getSelectedColumns().get( mPage ).getProjectID(), Model.getSelectedColumns().get( mPage ).getColumnID() );
 	}
 
 	private class TaskSeeker extends AsyncTask< String, Void, TaskResponse >{

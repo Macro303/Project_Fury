@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.List;
+
 import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
 
@@ -12,26 +14,26 @@ import tobedevelopers.project_fury.model.Model;
  */
 public class ProjectBoardFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
-	private Column[] columns;
+	private List<Column> columns;
 
 	public ProjectBoardFragmentPagerAdapter( FragmentManager fm ){
 		super( fm );
 	}
 
-	public void setData( Column[] tabs ){
-		this.columns = tabs;
+	public void setData( List<Column> columns ){
+		this.columns = columns;
 		Model.setSelectedColumns( columns );
 		notifyDataSetChanged();
 	}
 
 	@Override
 	public int getCount(){
-		return columns != null ? columns.length : 0;
+		return columns != null ? columns.size() : 0;
 	}
 
 	@Override
 	public String getPageTitle( int position ){
-		return columns != null ? columns[ position ].getName() : "";
+		return columns != null ? columns.get( position ).getName() : "";
 	}
 
 	@Override
