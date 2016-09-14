@@ -3,7 +3,10 @@ package tobedevelopers.project_fury.project_info.implementation;
 import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
+import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.Response;
@@ -20,6 +23,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 	private String mProjectDescription;
 	private String mProjectName;
+	private String mColumnName;
 
 	public ProjectInfoPresenter( ProjectInfoContract.View view, ProjectInfoContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -35,25 +39,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		if( view != null && navigation != null )
 			navigation.navigateToPrevious();
 	}
-
-
-//	@Override
-//	public void userSelectAddUser(){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			view.displayUserAdded();
-//	}
-//
-//	@Override
-//	public void userSelectRemoveMe(){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			navigation.navigateToPrevious();
-//	}
 
 	@Override
 	public void userSelectEditProject(){
@@ -72,6 +57,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected void onPreExecute(){
+					super.onPreExecute();
 					ProjectInfoContract.View view = viewWeakReference.get();
 
 					if( view != null )
@@ -87,6 +73,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected void onPostExecute( Response response ){
+					super.onPostExecute( response );
 					ProjectInfoContract.View view = viewWeakReference.get();
 
 					if( view != null ){
@@ -109,15 +96,212 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	}
 
 	@Override
+	public void userSelectAddColumn( String columnName ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+		mColumnName = columnName;
+
+		if( view != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					super.onPreExecute();
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null )
+						view.projectUpdatingInProgress();
+				}
+
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.createColumn( Model.getSelectedProject().getProjectID(), mColumnName );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					super.onPostExecute( response );
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Column creation successful.":
+								view.addColumnName();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.setInvalidUserValidation();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userSelectSaveColumns( final List< Column > columnList ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					super.onPreExecute();
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						view.projectUpdatingInProgress();
+					}
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					for( Column column : columnList ){
+						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+					}
+					return null;
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					super.onPostExecute( response );
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Update successful.":
+								userSelectSaveProject();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.setInvalidUserValidation();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void saveColumnsBeforeDeleting( final List< Column > columnList ){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					super.onPreExecute();
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						view.projectUpdatingInProgress();
+					}
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					for( Column column : columnList ){
+						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+					}
+					return null;
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					super.onPostExecute( response );
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Update successful.":
+								userSelectDeleteColumn();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.setInvalidUserValidation();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
+	public void userSelectDeleteColumn(){
+		ProjectInfoContract.View view = viewWeakReference.get();
+
+		if( view != null ){
+			new AsyncTask< String, Void, Response >(){
+
+				@Override
+				protected void onPreExecute(){
+					super.onPreExecute();
+
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						view.projectUpdatingInProgress();
+					}
+				}
+
+				@Override
+				protected Response doInBackground( String... strings ){
+					return model.deleteColumn( Model.getSelectedProject().getProjectID(), Model.getSelectedColumn().getColumnID() );
+				}
+
+				@Override
+				protected void onPostExecute( Response response ){
+					super.onPostExecute( response );
+					ProjectInfoContract.View view = viewWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Delete successful.":
+								loadColumns();
+								view.saveProjectDescription();
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.defaultErrorMessage();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	@Override
 	public void userEnterProjectName( String projectName ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
 		if( view != null ){
 			mProjectName = projectName;
+			boolean error = false;
 			if( projectName.length() < 3 ){
 				view.setProjectNameUnderValidation();
+				error = true;
 			}else if( projectName.length() >= 20 ){
 				view.setProjectNameOverValidation();
+				error = false;
+			}
+			if( error ){
+				view.disableSave();
+			}else{
+				view.enableSave();
 			}
 		}
 	}
@@ -132,6 +316,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected void onPreExecute(){
+					super.onPreExecute();
 					ProjectInfoContract.View view = viewWeakReference.get();
 
 					if( view != null )
@@ -145,6 +330,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 
 				@Override
 				protected void onPostExecute( Response response ){
+					super.onPostExecute( response );
 					ProjectInfoContract.View view = viewWeakReference.get();
 					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
@@ -175,6 +361,47 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			if( projectDescription.length() >= 128 ){
 				view.setProjectDescriptionOverValidation();
 			}
+		}
+	}
+
+	@Override
+	public void loadColumns(){
+		ProjectInfoContract.View view = viewWeakReference.get();
+		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null ){
+			new AsyncTask< String, Void, ColumnResponse >(){
+				@Override
+				protected void onPreExecute(){
+					super.onPreExecute();
+				}
+
+				@Override
+				protected ColumnResponse doInBackground( String... strings ){
+					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+				}
+
+				@Override
+				protected void onPostExecute( ColumnResponse response ){
+					super.onPostExecute( response );
+					ProjectInfoContract.View view = viewWeakReference.get();
+					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+					if( view != null ){
+						switch( response.getMessage() ){
+							case "Success":
+								view.fillColumnList( response.getColumns() );
+								break;
+							case "No Internet Access":
+								view.noInternetAccessValidation();
+								break;
+							default:
+								view.defaultErrorMessage();
+								break;
+						}
+					}
+				}
+			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 		}
 	}
 }

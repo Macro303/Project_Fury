@@ -302,10 +302,10 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response updateColumn( String projectID, String columnID, String columnName ){
+	public Response updateColumn( String projectID, String columnID, String columnName, int columnPosition ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + columnName;
+		String parameters = "name=" + columnName + "&position=" + columnPosition;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );

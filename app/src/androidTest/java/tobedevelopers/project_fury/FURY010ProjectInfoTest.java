@@ -23,7 +23,9 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isFocusable;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.IsNot.not;
@@ -138,6 +140,26 @@ public class FURY010ProjectInfoTest{
 
 		onView( withText( "Delete" ) ).check( matches( isDisplayed() ) );
 		onView( withText( "Delete" ) ).check( matches( isClickable() ) );
+
+		onView( withText( "Cancel" ) ).check( matches( isDisplayed() ) );
+		onView( withText( "Cancel" ) ).check( matches( isClickable() ) );
+	}
+
+	//FURY009 - Add a Column
+	@Test
+	public void testAddColumnProject(){
+		onView( withText( "Column Names:" ) ).check( matches( isDisplayed() ) );
+
+		onView( withId( R.id.projectInfoActivity_addColumnButton ) ).check( matches( not( isEnabled() ) ) );
+		onView( withId( R.id.projectInfoActivity_editProjectButton ) ).perform( click() );
+
+		onView( withId( R.id.projectInfoActivity_addColumnButton ) ).perform( click() );
+
+		onView( withText( "New Column" ) ).check( matches( isDisplayed() ) );
+		onView( withHint( "Column Name" ) ).check( matches( isDisplayed() ) );
+
+		onView( withText( "Create" ) ).check( matches( isDisplayed() ) );
+		onView( withText( "Create" ) ).check( matches( isClickable() ) );
 
 		onView( withText( "Cancel" ) ).check( matches( isDisplayed() ) );
 		onView( withText( "Cancel" ) ).check( matches( isClickable() ) );

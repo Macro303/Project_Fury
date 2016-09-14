@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,9 +40,9 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	@Bind( R.id.taskInfoActivity_taskDescriptionEditText )
 	TextInputEditText mTaskDescription;
 	@Bind( R.id.taskInfoActivity_assigneeSpinner )
-	Spinner mAssignee;
+	AppCompatSpinner mAssignee;
 	@Bind( R.id.taskInfoActivity_prioritySpinner )
-	Spinner mPriority;
+	AppCompatSpinner mPriority;
 	@Bind( R.id.taskInfoActivity_deleteTaskButton )
 	Button mDeleteTask;
 	@Bind( R.id.taskInfoActivity_updateTaskButton )
@@ -91,7 +92,9 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		users = list.toArray( new String[ list.size() ] );
 		ArrayAdapter< String > dataAdapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, users );
 		mAssignee.setAdapter( dataAdapter );
+		mAssignee.setEnabled( false );
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+		mPriority.setEnabled( false );
 	}
 
 	private void setSpinnerValue( Spinner spinner, String assignee ){
@@ -181,9 +184,14 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		setSpinnerValue( mPriority, initialValues[ 3 ] );
 	}
 
+	public void setSpinnerEnabled( Spinner spinner, boolean enabled ){
+		spinner.setEnabled( enabled );
+		spinner.setAlpha( enabled ? 1.0f : 0.4f );
+	}
+
 	@Override
 	public void setTaskEdited(){
-		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, Spinner, Spinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
+		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -197,10 +205,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam3().setClickable( true );
 				getParam3().setCursorVisible( true );
 				getParam3().setFocusableInTouchMode( true );
-				getParam4().setClickable( true );
-				getParam4().setFocusable( true );
-				getParam5().setClickable( true );
-				getParam5().setFocusable( true );
+				setSpinnerEnabled( getParam4(), true );
+				setSpinnerEnabled( getParam5(), true );
 				getParam6().setVisibility( View.VISIBLE );
 			}
 		} );
@@ -208,7 +214,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	@Override
 	public void setTaskSaved(){
-		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, Spinner, Spinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
+		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.VISIBLE );
@@ -222,10 +228,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam3().setClickable( false );
 				getParam3().setCursorVisible( false );
 				getParam3().setFocusableInTouchMode( false );
-				getParam4().setClickable( false );
-				getParam4().setFocusable( false );
-				getParam5().setClickable( false );
-				getParam5().setFocusable( false );
+				setSpinnerEnabled( getParam4(), false );
+				setSpinnerEnabled( getParam5(), false );
 				getParam6().setVisibility( View.GONE );
 			}
 		} );
