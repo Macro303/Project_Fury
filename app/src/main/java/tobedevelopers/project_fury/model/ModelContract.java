@@ -29,6 +29,8 @@ public interface ModelContract{
 
 	TaskResponse getAllProjectTasks( String projectID );
 
+	TaskResponse getAllColumnTasks( String projectID, String columnID );
+
 	Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String priority );
 
 	Response deleteTask( String projectID, String taskID );
