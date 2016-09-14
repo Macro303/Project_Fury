@@ -183,7 +183,7 @@ public class ModelTest extends TestCase{
 		Model model = new Model();
 		Response loginResponse = model.login( "Username", "Password" );
 		assertTrue( "Success".equals( loginResponse.getMessage() ) );
-		Response response = model.updateColumn( "57cfbb36e04d040300a04ac5", "57cfc87ee04d040300a04ace", "Updated Column Name" );
+		Response response = model.updateColumn( "57cfbb36e04d040300a04ac5", "57cfc87ee04d040300a04ace", "Updated Column Name", 1 );
 		System.out.println( "Test Update Column: " + response.toString() );
 		assertTrue( "Update successful.".equals( response.getMessage() ) );
 	}
