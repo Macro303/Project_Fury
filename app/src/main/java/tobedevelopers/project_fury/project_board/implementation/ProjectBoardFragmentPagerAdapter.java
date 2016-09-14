@@ -14,13 +14,13 @@ import tobedevelopers.project_fury.model.Model;
  */
 public class ProjectBoardFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
-	private List<Column> columns;
+	private List< Column > columns;
 
 	public ProjectBoardFragmentPagerAdapter( FragmentManager fm ){
 		super( fm );
 	}
 
-	public void setData( List<Column> columns ){
+	public void setData( List< Column > columns ){
 		this.columns = columns;
 		Model.setSelectedColumns( columns );
 		notifyDataSetChanged();
