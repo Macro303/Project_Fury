@@ -38,7 +38,7 @@ public class ProjectAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount(){
-		if( projectHolder.getProjects().length > 0 )
+		if( projectHolder != null && projectHolder.getProjects() != null && projectHolder.getProjects().length > 0 )
 			return projectHolder.getProjects().length;
 		return 1;
 	}
@@ -60,13 +60,18 @@ public class ProjectAdapter extends BaseAdapter{
 			view = inflater.inflate( R.layout.list_item_dashboard_project, null );
 		TextView mProjectName = ( TextView ) view.findViewById( R.id.listItem_projectName );
 		NumberProgressBar mProgressbar = ( NumberProgressBar ) view.findViewById( R.id.listItem_projectProgress );
-		if( projectHolder.getProjects().length > 0 ){
+		if( projectHolder != null && projectHolder.getProjects() != null && projectHolder.getProjects().length > 0 ){
 			Project current = ( Project ) getItem( position );
 			mProjectName.setVisibility( View.VISIBLE );
 			mProgressbar.setVisibility( View.VISIBLE );
 			mProjectName.setText( current.getName() );
-			mProgressbar.setMax( projectHolder.getTasks().get( current.getName() ).length );
-			mProgressbar.setProgress( calculateProgress( current.getName() ) );
+			if( projectHolder.getTasks() != null && projectHolder.getTasks().size() > 0 ){
+				mProgressbar.setMax( projectHolder.getTasks().get( current.getName() ).length );
+				mProgressbar.setProgress( calculateProgress( current.getName() ) );
+			}else{
+				mProgressbar.setMax( 100 );
+				mProgressbar.setProgress( 1 );
+			}
 			view.setTag( "Projects" );
 		}else{
 			mProjectName.setText( context.getString( R.string.error_noCurrentProjects ) );

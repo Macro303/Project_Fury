@@ -48,10 +48,11 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 				@Override
 				protected void onPostExecute( Response response ){
 					CreateProjectContract.View view = viewWeakReference.get();
+					CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
 					switch( response.getMessage() ){
 						case "Project creation successful.":
-							navigationWeakReference.get().navigateToPrevious();
+							navigation.navigateToPrevious();
 							break;
 						case "No Internet Access":
 							view.noInternetAccessValidation();
@@ -62,7 +63,6 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 					}
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-			navigation.navigateToPrevious();
 		}
 	}
 
