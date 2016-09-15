@@ -1,6 +1,7 @@
 package tobedevelopers.project_fury.backlog;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
@@ -48,7 +49,7 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 				@Override
 				public void onClick( View view ){
 					Model.setSelectedTask( current );
-					activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+					new AsyncClass().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 				}
 			} );
 			if( current.getName().length() <= 16 )
@@ -72,5 +73,28 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 				return column.getName();
 		}
 		return null;
+	}
+
+	private void navigateAway(){
+		activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+	}
+
+	private class AsyncClass extends AsyncTask< Void, Void, Void >{
+		@Override
+		protected Void doInBackground( Void... voids ){
+			Model.setSelectedProject( new Model().getProject( Model.getSelectedTask().getProjectID() ).getProjects()[ 0 ] );
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute( Void aVoid ){
+			super.onPostExecute( aVoid );
+			navigateAway();
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
 	}
 }

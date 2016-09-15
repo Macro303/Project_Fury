@@ -2,7 +2,6 @@ package tobedevelopers.project_fury.backlog.implementation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
@@ -27,8 +26,8 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	protected TabLayout mTabLayout;
 	@Bind( R.id.backlogActivity_viewPager )
 	protected ViewPager mViewPager;
-	@Bind( R.id.backlogActivity_createTaskButton )
-	protected FloatingActionButton mCreateTaskButton;
+//	@Bind( R.id.backlogActivity_createTaskButton )
+//	protected FloatingActionButton mCreateTaskButton;
 
 	private BacklogContract.Presenter presenter;
 	private Holder holder;
