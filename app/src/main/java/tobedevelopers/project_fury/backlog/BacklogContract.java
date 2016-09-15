@@ -9,6 +9,10 @@ public interface BacklogContract{
 		void noInternetAccessValidation();
 
 		void loadingInProgress();
+
+		void fillProjects( Holder holder );
+
+		void defaultErrorMessage();
 	}
 
 	interface Navigation{
@@ -17,5 +21,7 @@ public interface BacklogContract{
 
 	interface Presenter{
 		void userSelectCreateTask();
+
+		void loadProjects();
 	}
 }

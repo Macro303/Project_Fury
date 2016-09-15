@@ -50,8 +50,6 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 
 		setupProjectsList();
 		setupTasksList();
-//		mProjectsList.setAdapter( new ProjectAdapter( this ) );
-//		mTasksList.setAdapter( new TaskAdapter( this ) );
 		presenter.loadProjects();
 	}
 
