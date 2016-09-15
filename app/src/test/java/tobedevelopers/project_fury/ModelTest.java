@@ -123,6 +123,16 @@ public class ModelTest extends TestCase{
 		System.out.println( "Test Get All Project Tasks: " + response.toString() );
 		assertTrue( "Success".equals( response.getMessage() ) );
 	}
+	//TODO Requires a ProjectID
+	//TODO Requires a ColumnID
+	public void testGetAllColumnTasks(){
+		Model model = new Model();
+		Response loginResponse = model.login( "Username", "Password" );
+		assertTrue( "Success".equals( loginResponse.getMessage() ) );
+		TaskResponse response = model.getAllColumnTasks( "57cfbb36e04d040300a04ac5","57cfc87ee04d040300a04ace" );
+		System.out.println( "Test Get All Column Tasks: " + response.toString() );
+		assertTrue( "Success".equals( response.getMessage() ) );
+	}
 
 	//TODO Requires a ProjectID
 	//TODO Requires a TaskID
