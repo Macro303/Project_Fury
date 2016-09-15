@@ -24,11 +24,29 @@
 
 		</android.support.design.widget.AppBarLayout>
 
-		<android.support.v7.widget.RecyclerView
-			android:id="@+id/allBoardsActivity_recyclerView"
+		<android.support.design.widget.CoordinatorLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+			android:layout_height="match_parent">
 
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/allBoardsActivity_recyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
+			<android.support.design.widget.FloatingActionButton
+				android:id="@+id/allBoards_createProjectButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom|right"
+				android:layout_margin="16dp"
+				android:scaleType="center"
+				android:src="@drawable/ic_add_white_36dp"
+				app:borderWidth="0dp"
+				app:layout_anchor="@id/allBoardsActivity_recyclerView"
+				app:layout_anchorGravity="end|bottom"/>
+
+
+		</android.support.design.widget.CoordinatorLayout>
 	</LinearLayout>
 
 	<android.support.design.widget.NavigationView

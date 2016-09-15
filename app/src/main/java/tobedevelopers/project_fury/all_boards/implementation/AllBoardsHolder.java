@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.all_boards;
+package tobedevelopers.project_fury.all_boards.implementation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

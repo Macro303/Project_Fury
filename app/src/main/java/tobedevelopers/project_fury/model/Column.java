@@ -7,8 +7,8 @@ import java.util.Comparator;
 /**
  * Created by Macro303 on 7/09/2016.
  */
-public class Column{
 
+public class Column{
 	public static final Comparator< Column > comparator = new Comparator< Column >(){
 		@Override
 		public int compare( Column c1, Column c2 ){

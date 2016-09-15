@@ -34,7 +34,7 @@
 	<string name="button_deleteProject">Delete Project</string>
 	<string name="button_removeTask">Remove Task</string>
 	<string name="button_createTask">Create Task</string>
-	<string name="button_projectBoard">Project Board</string>
+	<string name="button_projectBoard">To Board</string>
 	<string name="button_saveTask">Save Task</string>
 	<string name="button_dialogDelete"> Delete </string>
 	<string name="button_dialogCancel"> Cancel </string>
@@ -48,6 +48,8 @@
 	<string name="dialog_deleteAlertTitle_column">Delete Column?</string>
 	<string name="dialog_deleteAlertInstructions_column">This will permanently delete this column, and move all the attached tasks to the New column</string>
 	<string name="dialog_addAlertTitle_column">New Column</string>
+	<string name="editText_dialogColumnName">Column Name</string>
+	<string name="textView_dialogAddColumn">Please enter a column name</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
@@ -58,6 +60,9 @@
 	<string name="textView_userInstruction_register">Already a User?</string>
 	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
 	<string name="textView_taskInfoInstruction">Below is information about this task:</string>
+	<string name="textView_priority">Priority</string>
+	<string name="textView_task">Task</string>
+	<string name="textView_assignee">Assignee</string>
 	<string name="textView_addColumnHeader">Column Name:</string>
 
 	<!-- Hints -->
@@ -109,7 +114,6 @@
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
-	<string name="editText_dialogColumnName">Column Name</string>
-	<string name="textView_dialogAddColumn">Please enter a column name</string>
+
 
 </resources>
