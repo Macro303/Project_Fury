@@ -114,11 +114,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 
 					switch( response.getMessage() ){
 						case "Success":
-							Column[] columns = response.getColumns();
-							String[] columnNames = new String[ columns.length ];
-							for( int i = 0; i < columns.length; i++ )
-								columnNames[ i ] = columns[ i ].getName();
-							view.setColumnSpinner( columnNames );
+							view.setColumnSpinner( response.getColumns() );
 							break;
 						case "No Internet Access":
 							view.noInternetAccessValidation();
@@ -133,12 +129,12 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectSaveTask( String mAssignee, String mPriority, String mColumn ){
+	public void userSelectSaveTask( String mAssignee, String mPriority, Column mColumn ){
 		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new UpdateAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, mAssignee, mPriority, mColumn );
+			new UpdateAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, mAssignee, mPriority, mColumn.getColumnID() );
 	}
 
 	private class UpdateAsyncTask extends AsyncTask< String, Void, Response >{
@@ -152,7 +148,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		protected Response doInBackground( String... strings ){
 			if( mTaskDescription.equals( "null" ) )
 				mTaskDescription = "";
-			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), mTaskName, mTaskDescription, strings[ 0 ], strings[ 1 ].toUpperCase(), strings[ 2 ] );
+			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), strings[ 2 ], mTaskName, mTaskDescription, strings[ 0 ], strings[ 1 ].toUpperCase() );
 		}
 
 		@Override

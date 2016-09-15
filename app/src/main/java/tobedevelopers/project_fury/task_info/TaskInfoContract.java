@@ -1,5 +1,7 @@
 package tobedevelopers.project_fury.task_info;
 
+import tobedevelopers.project_fury.model.Column;
+
 /**
  * Created by Macro303 on 11/08/2016.
  */
@@ -10,7 +12,7 @@ public interface TaskInfoContract{
 
 		void setTaskSaved();
 
-		void setColumnSpinner( String[] columnNames );
+		void setColumnSpinner( Column[] columns );
 
 		void taskUpdatingInProgress();
 
@@ -40,7 +42,7 @@ public interface TaskInfoContract{
 
 		void userSelectEditTask();
 
-		void userSelectSaveTask( String assignee, String priority, String column );
+		void userSelectSaveTask( String assignee, String priority, Column column );
 
 		void userSelectRemoveTask();
 

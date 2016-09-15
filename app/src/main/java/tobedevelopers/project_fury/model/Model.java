@@ -236,10 +236,10 @@ public class Model implements ModelContract{
 	}
 
 	@Override
-	public Response updateTask( String projectID, String taskID, String taskName, String taskDescription, String taskAssignee, String taskPriority, String taskColumn ){
+	public Response updateTask( String projectID, String taskID, String columnID, String taskName, String taskDescription, String taskAssignee, String taskPriority ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee + "&priority=" + taskPriority + "&column=" + taskColumn;
+		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee + "&priority=" + taskPriority + "&columnIn=" + columnID;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
