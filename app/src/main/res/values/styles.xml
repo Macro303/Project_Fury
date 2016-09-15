@@ -15,8 +15,8 @@
 	<style name="buttonApperance" parent="Theme.AppCompat">
 		<item name="android:background">@color/colorPrimaryDark</item>
 		<item name="android:textColor">@color/colorTextIcon</item>
-		<item name="android:fontFamily">sans-serif</item>
-		<item name="android:textSize">16sp</item>
+		<item name="android:fontFamily">sans-serif-smallcaps</item>
+		<item name="android:textSize">18sp</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:paddingStart">@dimen/buttonPaddingStart</item>
 		<item name="android:paddingEnd">@dimen/buttonPaddingEnd</item>

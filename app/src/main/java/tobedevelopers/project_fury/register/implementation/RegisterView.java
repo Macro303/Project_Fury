@@ -39,7 +39,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		setTitle( getString( R.string.title_activity_register ) );
-		setContentView( R.layout.activity_register_test );
+		setContentView( R.layout.activity_register );
 		super.onCreate( savedInstanceState );
 
 		presenter = new RegisterPresenter( this, this );

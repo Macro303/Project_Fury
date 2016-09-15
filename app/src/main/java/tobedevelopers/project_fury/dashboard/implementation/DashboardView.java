@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -59,7 +59,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		mProjectsList.setAdapter( new ProjectAdapter( this ) );
 		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_project, mProjectsList, false );
 		mProjectsList.addHeaderView( mTop, null, false );
-		Button mCreateButton = ( Button ) mTop.findViewById( R.id.listHeader_projectCreateButton );
+		TextView mCreateButton = ( TextView ) mTop.findViewById( R.id.listHeader_projectCreateButton );
 		mCreateButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){

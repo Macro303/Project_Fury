@@ -9,16 +9,14 @@
 	android:orientation="vertical">
 
 	<TextView
+		style="@style/AppTheme"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:drawableEnd="@drawable/placeholder128x128"
-		android:drawablePadding="10dp"
-		android:gravity="center"
-		android:text="@string/app_name"
-		android:textAppearance="?android:attr/textAppearanceLarge"/>
+		android:drawableEnd="@drawable/placeholder128x128"/>
 
 	<TextView
+		style="@style/AppTheme"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
@@ -37,6 +35,8 @@
 			android:id="@+id/loginActivity_usernameEditText"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
 			android:digits="@string/alphaNumericCharacters"
 			android:hint="@string/hint_username"
 			android:inputType="textNoSuggestions"
@@ -53,6 +53,8 @@
 			android:id="@+id/loginActivity_passwordEditText"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
 			android:digits="@string/alphaNumericCharacters"
 			android:fontFamily="sans-serif"
 			android:hint="@string/hint_password"
@@ -69,7 +71,8 @@
 
 		<Button
 			android:id="@+id/loginActivity_loginButton"
-			android:layout_width="match_parent"
+			style="@style/buttonApperance"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_centerInParent="true"
 			android:enabled="false"
@@ -92,6 +95,7 @@
 		android:gravity="center_horizontal">
 
 		<TextView
+			style="@style/AppTheme"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/textView_userInstruction_login"

@@ -3,13 +3,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@color/colorAccent">
+	android:background="@color/colorPrimary">
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="5dp"
 		android:text="@string/textView_taskListTitle"
-		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textSize="18sp"
 		android:textStyle="bold"/>
 
 </LinearLayout>
