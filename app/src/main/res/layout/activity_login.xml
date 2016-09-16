@@ -71,7 +71,7 @@
 
 		<Button
 			android:id="@+id/loginActivity_loginButton"
-			style="@style/buttonApperance"
+			style="@style/ButtonStyle.Sized"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_centerInParent="true"

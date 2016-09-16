@@ -124,32 +124,30 @@
 
 				<Button
 					android:id="@+id/projectInfoActivity_deleteProjectButton"
-					style="@style/buttonApperance"
+					style="@style/ButtonStyle.Sized"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentStart="true"
 					android:layout_gravity="start"
 					android:layout_marginEnd="10dp"
-					android:minWidth="160dp"
 					android:text="@string/button_deleteProject"/>
 
 				<Button
 					android:id="@+id/projectInfoActivity_editProjectButton"
-					style="@style/buttonApperance"
+					style="@style/ButtonStyle.Sized"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentEnd="true"
 					android:layout_gravity="end"
-					android:minWidth="160dp"
 					android:text="@string/button_editProject"/>
 
 				<Button
 					android:id="@+id/projectInfoActivity_saveProjectButton"
+					style="@style/ButtonStyle.Sized"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentEnd="true"
 					android:layout_gravity="end"
-					android:minWidth="160dp"
 					android:text="@string/button_saveProject"
 					android:visibility="gone"/>
 

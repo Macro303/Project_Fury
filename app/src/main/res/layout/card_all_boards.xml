@@ -5,6 +5,7 @@
 	android:id="@+id/backlogFragment_cardView"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	card_view:cardBackgroundColor="@color/colorTextPrimary"
 	card_view:cardCornerRadius="15dp"
 	card_view:cardElevation="5dp"
 	card_view:cardUseCompatPadding="true">
@@ -20,7 +21,8 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:maxLines="1"
-			android:text="@string/button_projectInfo"/>
+			android:text="@string/button_projectInfo"
+			android:textColor="@color/windowBackground"/>
 
 		<Space
 			android:layout_width="0dp"
