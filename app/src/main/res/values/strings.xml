@@ -65,6 +65,7 @@
 	<string name="textView_assignee">Assignee</string>
 	<string name="textView_noTasksFound">No Tasks found</string>
 	<string name="textView_addColumnHeader">Column Name:</string>
+	<string name="textView_noProjectsFound">No Projects found</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>

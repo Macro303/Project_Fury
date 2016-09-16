@@ -41,26 +41,36 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 
 		final AllBoardsContract.Navigation navigation = navigationWeakReference.get();
 
-		holder.mProjectInfoButton.setText( projects[ position ].getName() );
-		holder.mProjectBoardButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				Model.setSelectedProject( projects[ position ] );
-				navigation.navigateToProjectBoard();
-			}
-		} );
-		holder.mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				Model.setSelectedProject( projects[ position ] );
-				navigation.navigateToProjectInfo();
-			}
-		} );
+		if( projects != null && projects.length != 0 ){
+			holder.mNoProjectTextView.setVisibility( View.GONE );
+			holder.mProjectBoardImageView.setVisibility( View.VISIBLE );
+			holder.mProjectInfoButton.setVisibility( View.VISIBLE );
+
+			holder.mProjectInfoButton.setText( projects[ position ].getName() );
+			holder.mCardView.setOnClickListener( new View.OnClickListener(){
+				@Override
+				public void onClick( View view ){
+					Model.setSelectedProject( projects[ position ] );
+					navigation.navigateToProjectBoard();
+				}
+			} );
+			holder.mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
+				@Override
+				public void onClick( View view ){
+					Model.setSelectedProject( projects[ position ] );
+					navigation.navigateToProjectInfo();
+				}
+			} );
+		}else{
+			holder.mNoProjectTextView.setVisibility( View.VISIBLE );
+			holder.mProjectInfoButton.setVisibility( View.INVISIBLE );
+			holder.mProjectBoardImageView.setVisibility( View.INVISIBLE );
+		}
 	}
 
 	@Override
 	public int getItemCount(){
-		return projects != null ? projects.length : 0;
+		return projects != null && projects.length != 0 ? projects.length : 1;
 	}
 
 
