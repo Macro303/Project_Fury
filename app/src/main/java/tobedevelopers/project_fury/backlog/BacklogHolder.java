@@ -18,6 +18,7 @@ public class BacklogHolder extends RecyclerView.ViewHolder{
 	public TextView mTaskAssignee;
 	public TextView mTaskPriority;
 	public TextView mTaskColumn;
+	public TextView mNoTaskViewTextView;
 
 	public BacklogHolder( View view ){
 		super( view );
@@ -26,5 +27,6 @@ public class BacklogHolder extends RecyclerView.ViewHolder{
 		mTaskAssignee = ( TextView ) view.findViewById( R.id.backlogFragment_taskAssignee );
 		mTaskPriority = ( TextView ) view.findViewById( R.id.backlogFragment_taskPriority );
 		mTaskColumn = ( TextView ) view.findViewById( R.id.backlogFragment_taskColumn );
+		mNoTaskViewTextView = ( TextView ) view.findViewById( R.id.backlogFragment_noTaskTextView );
 	}
 }

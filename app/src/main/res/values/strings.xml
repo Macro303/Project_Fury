@@ -63,7 +63,9 @@
 	<string name="textView_priority">Priority</string>
 	<string name="textView_task">Task</string>
 	<string name="textView_assignee">Assignee</string>
+	<string name="textView_noTasksFound">No Tasks found</string>
 	<string name="textView_addColumnHeader">Column Name:</string>
+	<string name="textView_noProjectsFound">No Projects found</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
@@ -111,9 +113,9 @@
 	<string name="error_defaultError">Your request cannot be processed at this time</string>
 	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
 	<string name="error_noCurrentTasks">No Tasks Currently Assigned To You</string>
+	<string name="error_refreshBoard">Please refresh board</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
-
 
 </resources>
