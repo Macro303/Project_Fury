@@ -48,7 +48,6 @@
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:maxLines">1</item>
-		<!--<item name="android:layout_marginTop">@dimen/editTextMarginDimen</item>-->
 	</style>
 
 	<style name="EditTextStyle.Restrictive">
@@ -56,12 +55,19 @@
 		<item name="android:digits">@string/alphaNumericCharacters</item>
 	</style>
 
-	<style name="EditTextStyle.Restrictive.Disabled" parent="EditTextStyle.Restrictive">
+	<style name="EditTextStyle.Restrictive.Disabled">
 		<item name="android:clickable">false</item>
 		<item name="android:cursorVisible">false</item>
 		<item name="android:enabled">false</item>
 		<item name="android:focusable">false</item>
 		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="SpinKit" parent="SpinKitView.Large.WanderingCubes">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_centerInParent">true</item>
+		<item name="android:visibility">gone</item>
 	</style>
 
 	<style name="ButtonStyle" parent="BaseStyle">
@@ -76,36 +82,29 @@
 		<item name="android:textSize">@dimen/buttonTextSize</item>
 	</style>
 
-	<style name="SpinKit" parent="SpinKitView.Large.WanderingCubes">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_centerInParent">true</item>
-		<item name="android:visibility">gone</item>
-	</style>
-
-	<style name="ButtonStyle.Sized" parent="ButtonStyle">
+	<style name="ButtonStyle.Sized">
 		<item name="android:minWidth">@dimen/minWidthDimen</item>
 		<item name="android:layout_marginBottom">@dimen/buttonMarginDimen</item>
 	</style>
 
-	<style name="ButtonStyle.Borderless" parent="ButtonStyle">
+	<style name="ButtonStyle.Borderless">
 		<item name="android:background">?attr/selectableItemBackgroundBorderless</item>
 		<item name="android:textColor">@color/colorAccent</item>
 		<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
 		<item name="android:textStyle">normal</item>
+		<item name="android:fontFamily">sans-serif</item>
 	</style>
 
 	<style name="TextStyle" parent="BaseStyle">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
-		<!--<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>-->
-		<!--<item name="android:textColor">@color/colorTextPrimary</item>-->
 	</style>
 
-	<style name="TextStyle.Question" parent="TextStyle">
+	<style name="TextStyle.Question">
 		<item name="android:layout_width">wrap_content</item>
-		<item name="android:textColor">@color/colorTextSecondary</item>
+		<item name="android:textColor">@color/colorTextPrimary</item>
 		<item name="android:textStyle">italic</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
 	</style>
 
 </resources>
