@@ -53,6 +53,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
+				disableLoginButton();
 				presenter.userSelectLogin();
 				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				break;
@@ -182,6 +183,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mUsernameEditText, mPasswordEditText ){
 			@Override
 			public void run(){
+				mLoadingProgressbar.setVisibility( View.GONE );
 				getParam1().setError( getString( R.string.error_invalidUsernamePassword ) );
 				getParam2().setError( getString( R.string.error_invalidUsernamePassword ) );
 			}

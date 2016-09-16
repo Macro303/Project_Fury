@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.dashboard;
+package tobedevelopers.project_fury.backlog.implementation;
 
 import java.util.HashMap;
 
@@ -7,15 +7,15 @@ import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.Task;
 
 /**
- * Created by Macro303 on 7/09/2016.
+ * Created by Macro303 on 12/09/2016.
  */
-public class ProjectHolder{
+public class Holder{
 
 	private Project[] projects;
 	private HashMap< String, Task[] > tasks;
 	private HashMap< String, Column[] > columns;
 
-	public ProjectHolder( Project[] projects ){
+	public Holder( Project[] projects ){
 		this.projects = projects;
 		tasks = new HashMap<>();
 		columns = new HashMap<>();
@@ -25,19 +25,19 @@ public class ProjectHolder{
 		this.tasks.put( projectName, tasks );
 	}
 
-	public void addColumns( String projectName, Column[] columns ){
-		this.columns.put( projectName, columns );
-	}
-
-	public HashMap< String, Column[] > getColumns(){
-		return columns;
-	}
-
 	public Project[] getProjects(){
 		return projects;
 	}
 
-	public HashMap< String, Task[] > getTasks(){
-		return tasks;
+	public Task[] getTasks( String projectName ){
+		return tasks.get( projectName );
+	}
+
+	public void addColumns( String projectName, Column[] columns ){
+		this.columns.put( projectName, columns );
+	}
+
+	public Column[] getColumns( String projectName ){
+		return columns.get( projectName );
 	}
 }

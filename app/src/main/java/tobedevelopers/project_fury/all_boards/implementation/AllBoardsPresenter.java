@@ -7,7 +7,6 @@ import java.lang.ref.WeakReference;
 import tobedevelopers.project_fury.all_boards.AllBoardsContract;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
-import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.ProjectResponse;
 
 /**
@@ -29,8 +28,6 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 	@Override
 	public void userOpensBoard(){
 		AllBoardsContract.View view = viewWeakReference.get();
-
-		Project[] projects;
 
 		if( view != null ){
 			new AsyncTask< String, Void, ProjectResponse >(){

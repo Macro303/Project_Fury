@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.backlog;
+package tobedevelopers.project_fury.backlog.implementation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

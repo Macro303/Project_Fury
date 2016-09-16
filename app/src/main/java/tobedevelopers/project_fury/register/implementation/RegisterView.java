@@ -53,6 +53,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
 				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT );
+				disableCreateAccountButton();
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
@@ -162,6 +163,8 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
+				mLoadingProgressbar.setVisibility( View.GONE );
+				mUserNameEditText.requestFocus();
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
 				mPasswordEditText.getEditableText().clear();
 				mConfirmPasswordEditText.getEditableText().clear();

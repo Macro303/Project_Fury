@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.backlog;
+package tobedevelopers.project_fury.backlog.implementation;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -42,7 +42,7 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 	}
 
 	@Override
-	public void onBindViewHolder( BacklogHolder holder, int position ){
+	public void onBindViewHolder( final BacklogHolder holder, int position ){
 		if( tasks != null && tasks.length != 0 ){
 			holder.mTaskName.setVisibility( View.VISIBLE );
 			holder.mTaskAssignee.setVisibility( View.VISIBLE );
@@ -50,10 +50,13 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 			holder.mTaskColumn.setVisibility( View.VISIBLE );
 			holder.mNoTaskViewTextView.setVisibility( View.INVISIBLE );
 
+			holder.mCardView.setEnabled( true );
+
 			final Task current = tasks[ position ];
 			holder.mCardView.setOnClickListener( new View.OnClickListener(){
 				@Override
 				public void onClick( View view ){
+					holder.mCardView.setEnabled( false );
 					Model.setSelectedTask( current );
 					new AsyncClass().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
 				}
