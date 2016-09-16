@@ -7,9 +7,9 @@
 	<dimen name="buttonPaddingEnd">16dp</dimen>
 
 	<!-- Jonah's Attempt at Styles -->
-	<dimen name="baseTextSize">16dp</dimen>
+	<dimen name="baseTextSize">16sp</dimen>
 	<dimen name="editTextMargin">20dp</dimen>
-	<dimen name="buttonTextSize">18dp</dimen>
+	<dimen name="buttonTextSize">18sp</dimen>
 	<dimen name="buttonPadding">16dp</dimen>
 
 	<dimen name="buttonPaddingDimen">16dp</dimen>
