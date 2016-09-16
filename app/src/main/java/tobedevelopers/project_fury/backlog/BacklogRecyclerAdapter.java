@@ -44,6 +44,12 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 	@Override
 	public void onBindViewHolder( BacklogHolder holder, int position ){
 		if( tasks != null && tasks.length != 0 ){
+			holder.mTaskName.setVisibility( View.VISIBLE );
+			holder.mTaskAssignee.setVisibility( View.VISIBLE );
+			holder.mTaskPriority.setVisibility( View.VISIBLE );
+			holder.mTaskColumn.setVisibility( View.VISIBLE );
+			holder.mNoTaskViewTextView.setVisibility( View.INVISIBLE );
+
 			final Task current = tasks[ position ];
 			holder.mCardView.setOnClickListener( new View.OnClickListener(){
 				@Override
@@ -62,8 +68,14 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 				holder.mTaskAssignee.setText( current.getAssignee().substring( 0, 16 ) + "..." );
 			holder.mTaskPriority.setText( current.getPriority().getNameValue() );
 			holder.mTaskColumn.setText( getColumnName( current ) );
-		}else
-			holder.mTaskName.setText( "No Tasks" );
+		}else{
+			holder.mTaskName.setVisibility( View.INVISIBLE );
+			holder.mTaskAssignee.setVisibility( View.INVISIBLE );
+			holder.mTaskPriority.setVisibility( View.INVISIBLE );
+			holder.mTaskColumn.setVisibility( View.INVISIBLE );
+			holder.mNoTaskViewTextView.setVisibility( View.VISIBLE );
+		}
+
 	}
 
 	@NonNull
