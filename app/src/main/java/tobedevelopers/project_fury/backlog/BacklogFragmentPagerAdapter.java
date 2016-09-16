@@ -9,24 +9,29 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class BacklogFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
-	private String[] tabTitles = new String[]{ "One", "Two", "Three", "Four", "Five" };
+	private Holder holder;
 
 	public BacklogFragmentPagerAdapter( FragmentManager fragmentManager ){
 		super( fragmentManager );
 	}
 
+	public void setData( Holder holder ){
+		this.holder = holder;
+		notifyDataSetChanged();
+	}
+
 	@Override
 	public int getCount(){
-		return tabTitles.length;
+		return holder != null ? holder.getProjects() != null ? holder.getProjects().length : 0 : 0;
 	}
 
 	@Override
 	public CharSequence getPageTitle( int position ){
-		return tabTitles[ position ];
+		return holder != null ? holder.getProjects() != null ? holder.getProjects()[ position ].getName() : "No Projects" : "No Projects";
 	}
 
 	@Override
 	public Fragment getItem( int position ){
-		return BacklogFragment.newInstance( position );
+		return new BacklogFragment().setData( holder.getTasks( holder.getProjects()[ position ].getName() ), holder.getColumns( holder.getProjects()[ position ].getName() ), holder.getProjects()[ position ] );
 	}
 }

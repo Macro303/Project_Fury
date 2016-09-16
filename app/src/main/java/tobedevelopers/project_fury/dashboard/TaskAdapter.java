@@ -58,7 +58,6 @@ public class TaskAdapter extends BaseAdapter{
 		TextView mTaskColumn = ( TextView ) view.findViewById( R.id.listItem_taskColumnName );
 		if( taskHolder.getPairList().size() > 0 ){
 			Pair< Task, Column > current = taskHolder.getPairList().get( position );
-			System.out.println( current.toString() );
 			mTaskName.setVisibility( View.VISIBLE );
 			mTaskColumn.setVisibility( View.VISIBLE );
 			mTaskName.setText( current.first.getName() );
