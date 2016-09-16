@@ -112,9 +112,9 @@
 	<string name="error_defaultError">Your request cannot be processed at this time</string>
 	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
 	<string name="error_noCurrentTasks">No Tasks Currently Assigned To You</string>
+	<string name="error_refreshBoard">Please refresh board</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
-
 
 </resources>

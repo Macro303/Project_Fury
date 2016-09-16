@@ -79,7 +79,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	public void displayDefaultErrorMessage(){
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
+		ToastLog.makeWarn( this, getString( R.string.error_refreshBoard ), Toast.LENGTH_LONG );
 	}
 
 	@Override
