@@ -24,9 +24,8 @@
 			android:layout_marginStart="20dp"
 			android:maxLines="1"
 			android:text="@string/button_projectInfo"
+			android:textColor="@color/windowBackground"
 			android:textStyle="bold"/>
-			android:text="@string/button_projectInfo"
-			android:textColor="@color/windowBackground"/>
 
 		<TextView
 			android:id="@+id/allBoardsActivity_noTaskTextView"
