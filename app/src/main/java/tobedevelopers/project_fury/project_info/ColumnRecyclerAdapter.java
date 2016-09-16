@@ -34,7 +34,7 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 
 	@Override
 	public ColumnViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
-		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.list_item_columns, parent, false );
+		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_project_info_columns, parent, false );
 		return new ColumnViewHolder( view );
 	}
 

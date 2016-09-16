@@ -12,6 +12,11 @@
 		<item name="android:fontFamily">sans-serif</item>
 	</style>
 
+	<style name="AppTheme.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+
 	<style name="buttonApperance" parent="Theme.AppCompat">
 		<item name="android:background">@color/colorPrimaryDark</item>
 		<item name="android:textColor">@color/colorTextIcon</item>
@@ -22,33 +27,31 @@
 		<item name="android:paddingEnd">@dimen/buttonPaddingEnd</item>
 	</style>
 
-	<style name="AppTheme.NoActionBar">
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-	</style>
-
 	<!-- Jonah's Attempt at Styles -->
 	<style name="BaseStyle" parent="AppTheme">
+		<item name="android:colorBackground">@color/windowBackground</item>
 		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
 		<item name="android:textAppearanceButton">@color/colorLightPrimary</item>
 		<item name="android:textColorHighlight">@color/colorPrimary</item>
-		<item name="android:textSize">@dimen/textSizeDimen</item>
+		<item name="android:textSize">@dimen/baseTextSize</item>
 		<item name="android:fontFamily">sans-serif</item>
 	</style>
 
-	<style name="LayoutStyle" parent="BaseStyle">
+	<style name="EditTextLayoutStyle" parent="BaseStyle">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginEnd">@dimen/editTextMargin</item>
+		<item name="android:layout_marginStart">@dimen/editTextMargin</item>
 	</style>
 
 	<style name="EditTextStyle" parent="BaseStyle">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:maxLines">1</item>
-		<item name="android:layout_marginTop">@dimen/editTextMarginDimen</item>
+		<!--<item name="android:layout_marginTop">@dimen/editTextMarginDimen</item>-->
 	</style>
 
-	<style name="EditTextStyle.Restrictive" parent="EditTextStyle">
+	<style name="EditTextStyle.Restrictive">
 		<item name="android:maxLength">20</item>
 		<item name="android:digits">@string/alphaNumericCharacters</item>
 	</style>
@@ -64,12 +67,20 @@
 	<style name="ButtonStyle" parent="BaseStyle">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
-		<item name="android:paddingStart">@dimen/buttonPaddingDimen</item>
-		<item name="android:paddingEnd">@dimen/buttonPaddingDimen</item>
+		<item name="android:paddingStart">@dimen/buttonPadding</item>
+		<item name="android:paddingEnd">@dimen/buttonPadding</item>
 		<item name="android:background">@color/colorPrimaryDark</item>
 		<item name="android:textColor">@color/colorTextIcon</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:fontFamily">sans-serif-smallcaps</item>
+		<item name="android:textSize">@dimen/buttonTextSize</item>
+	</style>
+
+	<style name="SpinKit" parent="SpinKitView.Large.WanderingCubes">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_centerInParent">true</item>
+		<item name="android:visibility">gone</item>
 	</style>
 
 	<style name="ButtonStyle.Sized" parent="ButtonStyle">
@@ -87,8 +98,8 @@
 	<style name="TextStyle" parent="BaseStyle">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
-		<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-		<item name="android:textColor">@color/colorTextPrimary</item>
+		<!--<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>-->
+		<!--<item name="android:textColor">@color/colorTextPrimary</item>-->
 	</style>
 
 	<style name="TextStyle.Question" parent="TextStyle">

@@ -12,7 +12,7 @@
 		android:text="@string/textView_registerInstructions"/>
 
 	<android.support.design.widget.TextInputLayout
-		style="@style/LayoutStyle">
+		style="@style/EditTextLayoutStyle">
 
 		<android.support.design.widget.TextInputEditText
 			android:id="@+id/registerActivity_usernameEditText"
@@ -23,7 +23,7 @@
 	</android.support.design.widget.TextInputLayout>
 
 	<android.support.design.widget.TextInputLayout
-		style="@style/LayoutStyle">
+		style="@style/EditTextLayoutStyle">
 
 		<android.support.design.widget.TextInputEditText
 			android:id="@+id/registerActivity_emailEditText"
@@ -34,7 +34,7 @@
 	</android.support.design.widget.TextInputLayout>
 
 	<android.support.design.widget.TextInputLayout
-		style="@style/LayoutStyle">
+		style="@style/EditTextLayoutStyle">
 
 		<android.support.design.widget.TextInputEditText
 			android:id="@+id/registerActivity_passwordEditText"
@@ -45,7 +45,7 @@
 	</android.support.design.widget.TextInputLayout>
 
 	<android.support.design.widget.TextInputLayout
-		style="@style/LayoutStyle">
+		style="@style/EditTextLayoutStyle">
 
 		<android.support.design.widget.TextInputEditText
 			android:id="@+id/registerActivity_confirmPasswordEditText"
@@ -65,7 +65,7 @@
 		android:text="@string/button_createAccount"/>
 
 	<LinearLayout
-		style="@style/LayoutStyle"
+		style="@style/EditTextLayoutStyle"
 		android:gravity="center_horizontal">
 
 		<TextView
