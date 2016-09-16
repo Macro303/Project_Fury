@@ -17,6 +17,7 @@ public class ProjectBoardHolder extends RecyclerView.ViewHolder{
 	public TextView mTaskTextView;
 	public TextView mPriorityTextView;
 	public TextView mAssigneeTextView;
+	public TextView mNoTaskViewTextView;
 
 	public ProjectBoardHolder( View view ){
 		super( view );
@@ -24,6 +25,7 @@ public class ProjectBoardHolder extends RecyclerView.ViewHolder{
 		mTaskTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskTextView );
 		mPriorityTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_priorityTextView );
 		mAssigneeTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_userAssignedTextView );
+		mNoTaskViewTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_noTasksTextView );
 	}
 
 }
