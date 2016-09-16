@@ -63,6 +63,7 @@
 	<string name="textView_priority">Priority</string>
 	<string name="textView_task">Task</string>
 	<string name="textView_assignee">Assignee</string>
+	<string name="textView_noTasksFound">No Tasks found</string>
 	<string name="textView_addColumnHeader">Column Name:</string>
 
 	<!-- Hints -->
