@@ -38,7 +38,7 @@
 				<ListView
 					android:id="@+id/dashboardActivity_projectsList"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_height="150dp"
 					android:layout_marginBottom="10dp"
 					android:background="#DDD"
 					android:padding="5dp"
@@ -48,7 +48,7 @@
 				<ListView
 					android:id="@+id/dashboardActivity_tasksList"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_height="300dp"
 					android:background="#DDD"
 					android:padding="5dp"
 					tools:listheader="@layout/list_header_dashboard_task"
