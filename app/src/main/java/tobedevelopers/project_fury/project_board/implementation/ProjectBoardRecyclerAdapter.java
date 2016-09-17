@@ -37,21 +37,35 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 
 	@Override
 	public void onBindViewHolder( ProjectBoardHolder holder, final int position ){
-		holder.mCardView.setOnClickListener( new View.OnClickListener(){
-			@Override
-			public void onClick( View view ){
-				Model.setSelectedTask( tasks[ position ] );
-				activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+		if( tasks != null && tasks.length != 0 ){
+			holder.mNoTaskViewTextView.setVisibility( View.INVISIBLE );
+			holder.mAssigneeTextView.setVisibility( View.VISIBLE );
+			holder.mPriorityTextView.setVisibility( View.VISIBLE );
+			holder.mTaskTextView.setVisibility( View.VISIBLE );
 
-			}
-		} );
-		holder.mTaskTextView.setText( tasks[ position ].getName() );
-		holder.mPriorityTextView.setText( tasks[ position ].getPriority().getNameValue() );
-		holder.mAssigneeTextView.setText( tasks[ position ].getAssignee() );
+			holder.mTaskTextView.setText( tasks[ position ].getName() );
+			holder.mPriorityTextView.setText( tasks[ position ].getPriority().getNameValue() );
+			holder.mAssigneeTextView.setText( tasks[ position ].getAssignee() );
+			holder.mCardView.setOnClickListener( new View.OnClickListener(){
+				@Override
+				public void onClick( View view ){
+					Model.setSelectedTask( tasks[ position ] );
+					activity.startActivity( new Intent( activity, TaskInfoView.class ) );
+
+				}
+			} );
+		}else{
+			holder.mNoTaskViewTextView.setVisibility( View.VISIBLE );
+			holder.mAssigneeTextView.setVisibility( View.INVISIBLE );
+			holder.mPriorityTextView.setVisibility( View.INVISIBLE );
+			holder.mTaskTextView.setVisibility( View.INVISIBLE );
+		}
+
+
 	}
 
 	@Override
 	public int getItemCount(){
-		return tasks != null ? tasks.length : 0;
+		return tasks != null && tasks.length != 0 ? tasks.length : 1;
 	}
 }

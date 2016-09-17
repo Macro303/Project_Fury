@@ -13,6 +13,8 @@
 		android:theme="@style/AppTheme">
 		<activity
 			android:name=".login.implementation.LoginView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -21,38 +23,59 @@
 		</activity>
 		<activity
 			android:name=".register.implementation.RegisterView"
-			android:parentActivityName=".login.implementation.LoginView">
+			android:configChanges="orientation"
+			android:parentActivityName=".login.implementation.LoginView"
+			android:screenOrientation="portrait">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".login.implementation.LoginView"/>
 		</activity>
 		<activity
 			android:name=".dashboard.implementation.DashboardView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 			android:name=".create_project.implementation.CreateProjectView"
-			android:parentActivityName=".dashboard.implementation.DashboardView">
+			android:configChanges="orientation"
+			android:parentActivityName=".dashboard.implementation.DashboardView"
+			android:screenOrientation="portrait">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".dashboard.implementation.DashboardView"/>
 		</activity>
-		<activity android:name=".project_info.implementation.ProjectInfoView"/>
-		<activity android:name=".task_info.implementation.TaskInfoView">
-		</activity>
+		<activity
+			android:name=".project_info.implementation.ProjectInfoView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".task_info.implementation.TaskInfoView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".backlog.implementation.BacklogView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.NoActionBar"/>
-		<activity android:name=".create_task.implementation.CreateTaskView">
-		</activity>
+		<activity
+			android:name=".create_task.implementation.CreateTaskView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".settings.implementation.SettingsView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 			android:name=".all_boards.implementation.AllBoardsView"
+			android:configChanges="orientation"
+			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 			android:name=".project_board.implementation.ProjectBoardView"
-			android:parentActivityName=".all_boards.implementation.AllBoardsView">
+			android:configChanges="orientation"
+			android:parentActivityName=".all_boards.implementation.AllBoardsView"
+			android:screenOrientation="portrait">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".all_boards.implementation.AllBoardsView"/>
