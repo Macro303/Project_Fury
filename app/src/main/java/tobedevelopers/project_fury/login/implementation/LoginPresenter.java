@@ -67,7 +67,6 @@ public class LoginPresenter implements LoginContract.Presenter{
 							break;
 						default:
 							view.setInvalidUserValidation();
-							view.enableLoginButton();
 							break;
 					}
 				}
@@ -109,4 +108,5 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 		}
 	}
+
 }

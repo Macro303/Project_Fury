@@ -53,11 +53,14 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
-				disableLoginButton();
+				mRegisterButton.setEnabled( false );
+				mLoginButton.setEnabled( false );
 				presenter.userSelectLogin();
 				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				break;
 			case R.id.loginActivity_registerButton:
+				mRegisterButton.setEnabled( false );
+				mLoginButton.setEnabled( false );
 				presenter.userSelectRegister();
 				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT );
 				break;
@@ -175,11 +178,15 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 
 	@Override
 	public void noInternetAccessValidation(){
+		mLoginButton.setEnabled( true );
+		mRegisterButton.setEnabled( true );
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void setInvalidUserValidation(){
+		mRegisterButton.setEnabled( true );
+		mLoginButton.setEnabled( true );
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mUsernameEditText, mPasswordEditText ){
 			@Override
 			public void run(){
@@ -188,5 +195,12 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 				getParam2().setError( getString( R.string.error_invalidUsernamePassword ) );
 			}
 		} );
+	}
+
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		finish();
+		startActivity( getIntent() );
 	}
 }

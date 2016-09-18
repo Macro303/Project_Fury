@@ -25,6 +25,8 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	protected ProgressBar mLoadingProgressbar;
 	@Bind( R.id.registerActivity_createAccountButton )
 	Button mCreateAccountButton;
+	@Bind( R.id.registerActivity_returnToLoginButton )
+	Button mReturnToLoginButton;
 	@Bind( R.id.registerActivity_usernameEditText )
 	TextInputEditText mUserNameEditText;
 	@Bind( R.id.registerActivity_emailEditText )
@@ -53,11 +55,14 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
 				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT );
-				disableCreateAccountButton();
+				mCreateAccountButton.setEnabled( false );
+				mReturnToLoginButton.setEnabled( false );
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
 				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
+				mCreateAccountButton.setEnabled( false );
+				mReturnToLoginButton.setEnabled( false );
 				presenter.userSelectLogin();
 				break;
 			default:
@@ -160,12 +165,13 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void setUsernameAlreadyUsedValidation(){
+		mReturnToLoginButton.setEnabled( true );
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
 				mLoadingProgressbar.setVisibility( View.GONE );
-				mUserNameEditText.requestFocus();
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
+				mUserNameEditText.requestFocus();
 				mPasswordEditText.getEditableText().clear();
 				mConfirmPasswordEditText.getEditableText().clear();
 			}
@@ -215,5 +221,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	@Override
 	public void noInternetAccessValidation(){
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
+		mReturnToLoginButton.setEnabled( true );
 	}
 }
