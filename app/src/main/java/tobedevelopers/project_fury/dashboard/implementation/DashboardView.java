@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -33,7 +32,8 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	ListView mProjectsList;
 	@Bind( R.id.dashboardActivity_tasksList )
 	ListView mTasksList;
-	ImageButton mCreateButton;
+	ImageButton mCreateProjectButton;
+	ImageButton mCreateTaskButton;
 
 	private DashboardContract.Presenter presenter;
 
@@ -63,8 +63,8 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		mProjectsList.setAdapter( new ProjectAdapter( this ) );
 		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_project, mProjectsList, false );
 		mProjectsList.addHeaderView( mTop, null, false );
-		mCreateButton = ( ImageButton ) mTop.findViewById( R.id.listHeader_projectCreateButton );
-		mCreateButton.setOnClickListener( new View.OnClickListener(){
+		mCreateProjectButton = ( ImageButton ) mTop.findViewById( R.id.listHeader_projectCreateButton );
+		mCreateProjectButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
 				ToastLog.makeDebug( getApplicationContext(), "Create Project", Toast.LENGTH_SHORT );
@@ -90,11 +90,12 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		mTasksList.setAdapter( new TaskAdapter( this ) );
 		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_task, mTasksList, false );
 		mTasksList.addHeaderView( mTop, null, false );
-		ImageButton mCreateButton = ( ImageButton ) mTop.findViewById( R.id.listHeader_taskCreateButton );
-		mCreateButton.setOnClickListener( new View.OnClickListener(){
+		mCreateTaskButton = ( ImageButton ) mTop.findViewById( R.id.listHeader_taskCreateButton );
+		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
 				Model.setSelectedProject( null );
+				setEnabledAllButtons( false );
 				presenter.userSelectCreateTask();
 			}
 		} );
@@ -113,9 +114,10 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	}
 
 	private void setEnabledAllButtons( Boolean condition ){
-		mCreateButton.setEnabled( condition );
+		mCreateProjectButton.setEnabled( condition );
 		mProjectsList.setEnabled( condition );
 		mTasksList.setEnabled( condition );
+		mCreateTaskButton.setEnabled( condition );
 	}
 
 	@Override
