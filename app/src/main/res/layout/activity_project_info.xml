@@ -69,16 +69,19 @@
 				<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
+					android:background="#FFFFFF"
 					android:orientation="horizontal">
 
 					<Button
 						android:id="@+id/projectInfoActivity_addColumnButton"
-						style="@style/Widget.AppCompat.Button.Borderless"
+						style="@style/buttonApperance"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentEnd="true"
+						android:backgroundTint="#FFFFFF"
 						android:enabled="false"
-						android:text="+"/>
+						android:text="+"
+						android:textColor="#000"/>
 
 					<TextView
 						android:id="@+id/projectInfoActivity_columnNameTitle"
@@ -86,9 +89,11 @@
 						android:layout_height="wrap_content"
 						android:layout_alignParentStart="true"
 						android:layout_centerVertical="true"
+						android:layout_marginLeft="10dp"
 						android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
 						android:text="@string/textView_addColumnHeader"
 						android:textAppearance="?android:attr/textAppearanceMedium"
+						android:textColor="#000"
 						android:textStyle="bold"/>
 
 				</RelativeLayout>
@@ -98,8 +103,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="200dp"
 					android:layout_gravity="start"
-					android:background="@color/colorAccent"
-					android:padding="3dp"
+					android:background="#FFF"
+					android:padding="5dp"
 					android:scrollbars="vertical">
 
 				</android.support.v7.widget.RecyclerView>
@@ -124,30 +129,30 @@
 
 				<Button
 					android:id="@+id/projectInfoActivity_deleteProjectButton"
+					style="@style/ButtonStyle.Sized"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentStart="true"
 					android:layout_gravity="start"
 					android:layout_marginEnd="10dp"
-					android:minWidth="150dp"
 					android:text="@string/button_deleteProject"/>
 
 				<Button
 					android:id="@+id/projectInfoActivity_editProjectButton"
+					style="@style/ButtonStyle.Sized"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentEnd="true"
 					android:layout_gravity="end"
-					android:minWidth="160dp"
 					android:text="@string/button_editProject"/>
 
 				<Button
 					android:id="@+id/projectInfoActivity_saveProjectButton"
+					style="@style/ButtonStyle.Sized"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentEnd="true"
 					android:layout_gravity="end"
-					android:minWidth="160dp"
 					android:text="@string/button_saveProject"
 					android:visibility="gone"/>
 

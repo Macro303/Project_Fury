@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_margin="@dimen/layoutMarginDimen"
+	android:orientation="vertical">
+
+	<TextView
+		style="@style/TextStyle"
+		android:layout_marginBottom="@dimen/layoutMarginDimen"
+		android:text="@string/textView_projectInfoInstruction"/>
+
+	<android.support.design.widget.TextInputLayout
+		style="@style/EditTextLayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/projectInfoActivity_projectNameEditText"
+			style="@style/EditTextStyle.Restrictive.Disabled"
+			android:editable="false"
+			android:hint="@string/hint_projectName"
+			android:inputType="textNoSuggestions"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		style="@style/EditTextLayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/projectInfoActivity_projectDescriptionEditText"
+			style="@style/EditTextStyle.Restrictive.Disabled"
+			android:hint="@string/hint_projectDescription"
+			android:inputType="textMultiLine"
+			android:maxLength="128"
+			android:maxLines="6"
+			android:scrollbars="vertical"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<LinearLayout
+		style="@style/EditTextLayoutStyle"
+		android:layout_marginTop="@dimen/buttonMarginDimen"
+		android:gravity="end"
+		android:orientation="vertical">
+
+		<Button
+			android:id="@+id/projectInfoActivity_editProjectButton"
+			style="@style/ButtonStyle.Sized"
+			android:text="@string/button_editProject"/>
+
+		<Button
+			android:id="@+id/projectInfoActivity_saveProjectButton"
+			style="@style/ButtonStyle.Sized"
+			android:text="@string/button_saveProject"
+			android:visibility="gone"/>
+
+		<Button
+			android:id="@+id/projectInfoActivity_deleteProjectButton"
+			style="@style/ButtonStyle.Sized"
+			android:text="@string/button_deleteProject"/>
+
+	</LinearLayout>
+
+</LinearLayout>

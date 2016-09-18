@@ -19,11 +19,13 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="5dp"
 		android:layout_alignParentStart="true"
 		android:layout_centerVertical="true"
 		android:layout_toStartOf="@id/listHeader_taskCreateButton"
 		android:text="@string/textView_taskListTitle"
-		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/colorTextPrimary"
+		android:textSize="18sp"
 		android:textStyle="bold"/>
 
 </RelativeLayout>

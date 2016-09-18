@@ -34,7 +34,8 @@
 		android:layout_centerVertical="true"
 		android:layout_toStartOf="@id/listHeader_projectCreateButton"
 		android:text="@string/textView_projectListTitle"
-		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/colorTextPrimary"
+		android:textSize="18sp"
 		android:textStyle="bold"/>
 
 </RelativeLayout>

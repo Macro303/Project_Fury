@@ -1,20 +1,110 @@
 <resources>
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
+		<item name="android:textAppearanceButton">@color/colorLightPrimary</item>
+		<item name="android:textColorHighlight">@color/colorPrimary</item>
+		<item name="colorControlNormal">@color/colorTextPrimary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:fontFamily">sans-serif</item>
+	</style>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+	<style name="AppTheme.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+	<style name="buttonApperance" parent="Theme.AppCompat">
+		<item name="android:background">@color/colorPrimaryDark</item>
+		<item name="android:textColor">@color/colorTextIcon</item>
+		<item name="android:fontFamily">sans-serif-smallcaps</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:paddingStart">@dimen/buttonPaddingStart</item>
+		<item name="android:paddingEnd">@dimen/buttonPaddingEnd</item>
+	</style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+	<!-- Jonah's Attempt at Styles -->
+	<style name="BaseStyle" parent="AppTheme">
+		<item name="android:colorBackground">@color/windowBackground</item>
+		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
+		<item name="android:textAppearanceButton">@color/colorLightPrimary</item>
+		<item name="android:textColorHighlight">@color/colorPrimary</item>
+		<item name="android:textSize">@dimen/baseTextSize</item>
+		<item name="android:fontFamily">sans-serif</item>
+	</style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+	<style name="EditTextLayoutStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginEnd">@dimen/editTextMargin</item>
+		<item name="android:layout_marginStart">@dimen/editTextMargin</item>
+	</style>
+
+	<style name="EditTextStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:maxLines">1</item>
+	</style>
+
+	<style name="EditTextStyle.Restrictive">
+		<item name="android:maxLength">20</item>
+		<item name="android:digits">@string/alphaNumericCharacters</item>
+	</style>
+
+	<style name="EditTextStyle.Restrictive.Disabled">
+		<item name="android:clickable">false</item>
+		<item name="android:cursorVisible">false</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="SpinKit" parent="SpinKitView.Large.WanderingCubes">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_centerInParent">true</item>
+		<item name="android:visibility">gone</item>
+		<item name="SpinKit_Color">@color/colorDivider</item>
+	</style>
+
+	<style name="ButtonStyle" parent="BaseStyle">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:paddingStart">@dimen/buttonPadding</item>
+		<item name="android:paddingEnd">@dimen/buttonPadding</item>
+		<item name="android:background">@color/colorPrimaryDark</item>
+		<item name="android:textColor">@color/colorTextIcon</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:fontFamily">sans-serif-smallcaps</item>
+		<item name="android:textSize">@dimen/buttonTextSize</item>
+	</style>
+
+	<style name="ButtonStyle.Sized">
+		<item name="android:minWidth">@dimen/minWidthDimen</item>
+	</style>
+
+	<style name="ButtonStyle.Borderless">
+		<item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+		<item name="android:textColor">@color/colorAccent</item>
+		<item name="android:textStyle">normal</item>
+		<item name="android:fontFamily">sans-serif</item>
+		<item name="android:textSize">@dimen/baseTextSize</item>
+	</style>
+
+	<style name="TextStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<style name="TextStyle.Question">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textColor">@color/colorTextPrimary</item>
+		<item name="android:textStyle">italic</item>
+	</style>
 
 </resources>

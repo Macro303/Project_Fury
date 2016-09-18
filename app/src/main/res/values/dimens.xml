@@ -3,4 +3,19 @@
 	<dimen name="activity_horizontal_margin">16dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="fab_margin">16dp</dimen>
+	<dimen name="buttonPaddingStart">16dp</dimen>
+	<dimen name="buttonPaddingEnd">16dp</dimen>
+
+	<!-- Jonah's Attempt at Styles -->
+	<dimen name="baseTextSize">16sp</dimen>
+	<dimen name="editTextMargin">20dp</dimen>
+	<dimen name="buttonTextSize">18sp</dimen>
+	<dimen name="buttonPadding">16dp</dimen>
+
+	<dimen name="buttonPaddingDimen">16dp</dimen>
+	<dimen name="buttonMarginDimen">30dp</dimen>
+	<dimen name="editTextMarginDimen">10dp</dimen>
+	<dimen name="layoutMarginDimen">20dp</dimen>
+	<dimen name="minWidthDimen">150dp</dimen>
+	<dimen name="textSizeDimen">16sp</dimen>
 </resources>
