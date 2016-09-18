@@ -3,14 +3,10 @@ package tobedevelopers.project_fury.dashboard.implementation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -85,7 +81,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 				}
 			}
 		} );
-		setListViewHeightBasedOnChildren( mProjectsList );
+//		setListViewHeightBasedOnChildren( mProjectsList );
 	}
 
 	private void setupTasksList(){
@@ -110,7 +106,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 				}
 			}
 		} );
-		setListViewHeightBasedOnChildren( mTasksList );
+//		setListViewHeightBasedOnChildren( mTasksList );
 	}
 
 	@Override
@@ -156,31 +152,31 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	@Override
 	public void loadProjectsIntoList( ProjectHolder projectHolder ){
 		( ( ProjectAdapter ) ( ( HeaderViewListAdapter ) mProjectsList.getAdapter() ).getWrappedAdapter() ).setData( projectHolder );
-		setListViewHeightBasedOnChildren( mProjectsList );
+//		setListViewHeightBasedOnChildren( mProjectsList );
 		presenter.loadTasks();
 	}
 
 	@Override
 	public void loadTasksIntoList( TaskHolder taskHolder ){
 		( ( TaskAdapter ) ( ( HeaderViewListAdapter ) mTasksList.getAdapter() ).getWrappedAdapter() ).setData( taskHolder );
-		setListViewHeightBasedOnChildren( mTasksList );
+//		setListViewHeightBasedOnChildren( mTasksList );
 	}
 
-	private void setListViewHeightBasedOnChildren( ListView listView ){
-		ListAdapter listAdapter = listView.getAdapter();
-		if( listAdapter == null )
-			return;
-		int totalHeight = 0;
-		for( int i = 0; i < listAdapter.getCount(); i++ ){
-			View listItem = listAdapter.getView( i, null, listView );
-			listItem.measure( 0, 0 );
-			totalHeight += listItem.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight + ( listView.getDividerHeight() * ( listAdapter.getCount() - 1 ) ) + 50;
-		listView.setLayoutParams( params );
-		listView.requestFocus();
-	}
+//	private void setListViewHeightBasedOnChildren( ListView listView ){
+//		ListAdapter listAdapter = listView.getAdapter();
+//		if( listAdapter == null )
+//			return;
+//		int totalHeight = 0;
+//		for( int i = 0; i < listAdapter.getCount(); i++ ){
+//			View listItem = listAdapter.getView( i, null, listView );
+//			listItem.measure( 0, 0 );
+//			totalHeight += listItem.getMeasuredHeight();
+//		}
+//		ViewGroup.LayoutParams params = listView.getLayoutParams();
+//		params.height = totalHeight + ( listView.getDividerHeight() * ( listAdapter.getCount() - 1 ) ) + 50;
+//		listView.setLayoutParams( params );
+//		listView.requestFocus();
+//	}
 
 	@Override
 	public void noInternetAccessValidation(){
