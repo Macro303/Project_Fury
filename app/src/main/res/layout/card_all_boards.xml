@@ -33,6 +33,7 @@
 			android:layout_height="wrap_content"
 			android:layout_centerInParent="true"
 			android:text="@string/textView_noProjectsFound"
+			android:textColor="@color/windowBackground"
 			android:visibility="gone"/>
 
 		<ImageView

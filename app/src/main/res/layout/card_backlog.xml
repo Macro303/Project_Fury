@@ -5,6 +5,7 @@
 	android:id="@+id/backlogFragment_cardView"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	card_view:cardBackgroundColor="@color/colorTextPrimary"
 	card_view:cardCornerRadius="15dp"
 	card_view:cardElevation="5dp"
 	card_view:cardUseCompatPadding="true">
@@ -26,6 +27,7 @@
 				android:layout_height="wrap_content"
 				android:layout_column="0"
 				android:gravity="start"
+				android:textColor="@color/windowBackground"
 				android:textStyle="bold"/>
 
 			<TextView
@@ -34,14 +36,16 @@
 				android:layout_height="wrap_content"
 				android:layout_column="1"
 				android:gravity="center_horizontal"
-				android:text="@string/textView_noTasksFound"/>
+				android:text="@string/textView_noTasksFound"
+				android:textColor="@color/windowBackground"/>
 
 			<TextView
 				android:id="@+id/backlogFragment_taskPriority"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_column="2"
-				android:gravity="end"/>
+				android:gravity="end"
+				android:textColor="@color/windowBackground"/>
 
 
 		</TableRow>
@@ -55,14 +59,16 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_column="0"
-				android:gravity="start"/>
+				android:gravity="start"
+				android:textColor="@color/windowBackground"/>
 
 			<TextView
 				android:id="@+id/backlogFragment_taskColumn"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_column="2"
-				android:gravity="end"/>
+				android:gravity="end"
+				android:textColor="@color/windowBackground"/>
 
 		</TableRow>
 

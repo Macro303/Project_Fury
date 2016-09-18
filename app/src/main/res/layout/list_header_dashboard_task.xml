@@ -10,6 +10,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="5dp"
 		android:text="@string/textView_taskListTitle"
+		android:textColor="@color/colorTextPrimary"
 		android:textSize="18sp"
 		android:textStyle="bold"/>
 

@@ -69,6 +69,7 @@
 				<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
+					android:background="#FFFFFF"
 					android:orientation="horizontal">
 
 					<Button
@@ -77,8 +78,10 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentEnd="true"
+						android:backgroundTint="#FFFFFF"
 						android:enabled="false"
-						android:text="+"/>
+						android:text="+"
+						android:textColor="#000"/>
 
 					<TextView
 						android:id="@+id/projectInfoActivity_columnNameTitle"
@@ -86,9 +89,11 @@
 						android:layout_height="wrap_content"
 						android:layout_alignParentStart="true"
 						android:layout_centerVertical="true"
+						android:layout_marginLeft="10dp"
 						android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
 						android:text="@string/textView_addColumnHeader"
 						android:textAppearance="?android:attr/textAppearanceMedium"
+						android:textColor="#000"
 						android:textStyle="bold"/>
 
 				</RelativeLayout>
