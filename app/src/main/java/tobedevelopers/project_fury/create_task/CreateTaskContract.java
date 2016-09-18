@@ -1,5 +1,7 @@
 package tobedevelopers.project_fury.create_task;
 
+import tobedevelopers.project_fury.model.Project;
+
 /**
  * Created by Macro303 on 12/08/2016.
  */
@@ -21,6 +23,8 @@ public interface CreateTaskContract{
 		void noInternetAccessValidation();
 
 		void errorValidation();
+
+		void setProjectSpinner( Project[] projects );
 	}
 
 	interface Navigation{
@@ -35,5 +39,7 @@ public interface CreateTaskContract{
 		void userEnterTaskName( String taskName );
 
 		void userEnterTaskDescription( String taskDescription );
+
+		void getProjects();
 	}
 }

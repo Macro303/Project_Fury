@@ -38,6 +38,15 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 	}
 
 	@Override
+	public void userSelectCreateTask(){
+		DashboardContract.View view = viewWeakReference.get();
+		DashboardContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			navigation.navigateToCreateTask();
+	}
+
+	@Override
 	public void userSelectProjectInfo(){
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();

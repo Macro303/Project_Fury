@@ -7,6 +7,7 @@ import java.lang.ref.WeakReference;
 import tobedevelopers.project_fury.create_task.CreateTaskContract;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
+import tobedevelopers.project_fury.model.ProjectResponse;
 import tobedevelopers.project_fury.model.Response;
 
 /**
@@ -68,6 +69,15 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 	}
 
 	@Override
+	public void getProjects(){
+		CreateTaskContract.View view = viewWeakReference.get();
+		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
+
+		if( view != null && navigation != null )
+			new GetProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+	}
+
+	@Override
 	public void userSelectCreateTask( final String mAssignee ){
 		CreateTaskContract.View view = viewWeakReference.get();
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
@@ -102,6 +112,28 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 					}
 				}
 			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		}
+	}
+
+	private class GetProjectsAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
+		@Override
+		protected ProjectResponse doInBackground( Void... voids ){
+			return model.getAllProjects();
+		}
+
+		@Override
+		protected void onPostExecute( ProjectResponse projectResponse ){
+			super.onPostExecute( projectResponse );
+			CreateTaskContract.View view = viewWeakReference.get();
+			CreateTaskContract.Navigation navigation = navigationWeakReference.get();
+
+			if( view != null && navigation != null && projectResponse.getMessage().equals( "Success" ) )
+				view.setProjectSpinner( projectResponse.getProjects() );
+		}
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
 		}
 	}
 }

@@ -3,18 +3,29 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@color/colorAccent">
+	android:background="@color/colorAccent"
+	android:padding="5dp">
 
-	<Button
+	<!--<Button-->
+	<!--android:id="@+id/listHeader_projectCreateButton"-->
+	<!--style="@style/Widget.AppCompat.Button.Borderless"-->
+	<!--android:layout_width="wrap_content"-->
+	<!--android:layout_height="wrap_content"-->
+	<!--android:layout_alignParentEnd="true"-->
+	<!--android:layout_centerVertical="true"-->
+	<!--android:text="@string/button_createProjectDashboard"-->
+	<!--android:textSize="32sp"-->
+	<!--android:textStyle="bold"/>-->
+
+	<ImageButton
 		android:id="@+id/listHeader_projectCreateButton"
-		style="@style/Widget.AppCompat.Button.Borderless"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
 		android:layout_centerVertical="true"
-		android:text="@string/button_createProjectDashboard"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textStyle="bold"/>
+		android:background="@null"
+		android:contentDescription="@string/button_createProject"
+		android:src="@drawable/ic_add_white_36dp"/>
 
 	<TextView
 		android:layout_width="wrap_content"

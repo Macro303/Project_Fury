@@ -5,8 +5,10 @@ import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_task.CreateTaskContract;
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
@@ -30,6 +33,10 @@ import tobedevelopers.project_fury.runnable_param.Runnable1Param;
  */
 public class CreateTaskView extends BaseView implements CreateTaskContract.View, CreateTaskContract.Navigation{
 
+	@Bind( R.id.createTaskActivity_projectSpinner )
+	protected Spinner mProjectsSpinner;
+	@Bind( R.id.createTaskActivity_spinnerLayout )
+	protected LinearLayout mSpinnerLayout;
 	@Bind( R.id.createTaskActivity_taskNameEditText )
 	TextInputEditText mTaskNameEditText;
 	@Bind( R.id.createTaskActivity_taskDescriptionEditText )
@@ -38,7 +45,6 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	Button mCreateTaskButton;
 	@Bind( R.id.createTaskActivity_assigneeSpinner )
 	Spinner mAssigneeSpinner;
-
 	private CreateTaskContract.Presenter presenter;
 
 	@Override
@@ -54,7 +60,34 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		getSupportActionBar().setDisplayHomeAsUpEnabled( true );
 
 		//Spinner Config
-		addItemsToSpinner();
+		try{
+			addItemsToSpinner();
+		}catch( NullPointerException npe ){
+			presenter.getProjects();
+		}
+	}
+
+	@Override
+	public void setProjectSpinner( final Project[] projects ){
+		mSpinnerLayout.setVisibility( View.VISIBLE );
+		String[] projectNames = new String[ projects.length ];
+		for( int i = 0; i < projects.length; i++ )
+			projectNames[ i ] = projects[ i ].getName();
+		ArrayAdapter< String > dataAdapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, projectNames );
+		mProjectsSpinner.setAdapter( dataAdapter );
+		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+		mProjectsSpinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener(){
+			@Override
+			public void onItemSelected( AdapterView< ? > adapterView, View view, int i, long l ){
+				Model.setSelectedProject( projects[ mProjectsSpinner.getSelectedItemPosition() ] );
+				addItemsToSpinner();
+			}
+
+			@Override
+			public void onNothingSelected( AdapterView< ? > adapterView ){
+
+			}
+		} );
 	}
 
 	private void addItemsToSpinner(){

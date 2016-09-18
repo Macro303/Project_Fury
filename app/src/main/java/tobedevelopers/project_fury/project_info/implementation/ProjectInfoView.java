@@ -205,7 +205,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 		final TextInputEditText addColumnNameEditText = new TextInputEditText( this );
 		addColumnNameEditText.setHint( R.string.hint_columnName );
-		addColumnNameEditText.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS );
+		addColumnNameEditText.setInputType( InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS );
 
 		InputFilter filter = new InputFilter(){
 			public CharSequence filter( CharSequence source, int start, int end,

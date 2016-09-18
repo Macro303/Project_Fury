@@ -23,6 +23,8 @@ public interface DashboardContract{
 	interface Navigation{
 		void navigateToCreateProject();
 
+		void navigateToCreateTask();
+
 		void navigateToProjectInfo();
 
 		void navigateToTaskInfo();
@@ -30,6 +32,8 @@ public interface DashboardContract{
 
 	interface Presenter{
 		void userSelectCreateProject();
+
+		void userSelectCreateTask();
 
 		void userSelectProjectInfo();
 
