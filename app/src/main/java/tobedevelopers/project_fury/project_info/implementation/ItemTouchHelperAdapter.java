@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.project_info;
+package tobedevelopers.project_fury.project_info.implementation;
 
 /**
  * Created by A on 9/10/2016.

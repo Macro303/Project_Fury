@@ -30,9 +30,7 @@ import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
-import tobedevelopers.project_fury.project_info.ColumnRecyclerAdapter;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
-import tobedevelopers.project_fury.project_info.SimpleItemTouchHelperCallback;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 import tobedevelopers.project_fury.runnable_param.Runnable2Param;
 
@@ -116,18 +114,24 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		switch( view.getId() ){
 			case R.id.projectInfoActivity_editProjectButton:
 //				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT );
+				mEditProjectButton.setEnabled( false );
 				presenter.userSelectEditProject();
 				break;
 			case R.id.projectInfoActivity_saveProjectButton:
 //				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
+				setEnabledAllButtons( false );
+				mAddColumnButton.setEnabled( false );
 				presenter.userSelectSaveProject();
 				break;
 			case R.id.projectInfoActivity_deleteProjectButton:
 //				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
+				setEnabledAllButtons( false );
+				mAddColumnButton.setEnabled( false );
 				alertDeleteProject();
 				break;
 			case R.id.projectInfoActivity_addColumnButton:
 //				ToastLog.makeDebug( this, "Add Column", Toast.LENGTH_SHORT );
+				setEnabledAllButtons( false );
 				alertAddColumn();
 				break;
 			default:
@@ -162,6 +166,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
+				setEnabledAllButtons( true );
 				dialogInterface.cancel();
 			}
 		} );
@@ -177,6 +182,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		builder.setPositiveButton( R.string.button_dialogDelete, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
+				setEnabledAllButtons( true );
 				presenter.saveColumnsBeforeDeleting( columnList );
 			}
 		} );
@@ -184,6 +190,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
+				setEnabledAllButtons( true );
 				dialogInterface.cancel();
 			}
 		} );
@@ -244,6 +251,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		builder.setPositiveButton( "Create", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
+				setEnabledAllButtons( true );
 				presenter.userSelectAddColumn( columnName );
 				saveProjectDescription();
 			}
@@ -252,6 +260,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
+				setEnabledAllButtons( true );
 				dialogInterface.cancel();
 				saveProjectDescription();
 			}
@@ -318,8 +327,15 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				touchHelper.attachToRecyclerView( null );
 				mEditProjectButton.setVisibility( View.VISIBLE );
 				mAddColumnButton.setEnabled( false );
+				setEnabledAllButtons( true );
 			}
 		} );
+	}
+
+	private void setEnabledAllButtons( Boolean condition ){
+		mEditProjectButton.setEnabled( condition );
+		mSaveProjectButton.setEnabled( condition );
+		mDeleteProjectButton.setEnabled( condition );
 	}
 
 	@Override
@@ -389,6 +405,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void noInternetAccessValidation(){
+		setEnabledAllButtons( true );
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
@@ -400,10 +417,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void setInvalidUserValidation(){
+		setEnabledAllButtons( true );
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
 			public void run(){
 				getParam1().setError( getString( R.string.error_alreadyExists, "Project name" ) );
+				getParam1().requestFocus();
 			}
 		} );
 	}

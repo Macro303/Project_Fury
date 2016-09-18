@@ -31,6 +31,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	ListView mProjectsList;
 	@Bind( R.id.dashboardActivity_tasksList )
 	ListView mTasksList;
+	Button mCreateButton;
 
 	private DashboardContract.Presenter presenter;
 
@@ -53,11 +54,12 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		mProjectsList.setAdapter( new ProjectAdapter( this ) );
 		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_project, mProjectsList, false );
 		mProjectsList.addHeaderView( mTop, null, false );
-		Button mCreateButton = ( Button ) mTop.findViewById( R.id.listHeader_projectCreateButton );
+		mCreateButton = ( Button ) mTop.findViewById( R.id.listHeader_projectCreateButton );
 		mCreateButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
 				ToastLog.makeDebug( getApplicationContext(), "Create Project", Toast.LENGTH_SHORT );
+				setEnabledAllButtons( false );
 				presenter.userSelectCreateProject();
 			}
 		} );
@@ -67,6 +69,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 				if( !view.getTag().equals( "No Projects" ) ){
 					Model.setSelectedProject( ( Project ) mProjectsList.getItemAtPosition( position ) );
 					ToastLog.makeInfo( getApplicationContext(), Model.getSelectedProject().getName(), Toast.LENGTH_SHORT );
+					setEnabledAllButtons( false );
 					presenter.userSelectProjectInfo();
 				}
 			}
@@ -84,11 +87,18 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 				if( !view.getTag().equals( "No Tasks" ) ){
 					Model.setSelectedTask( ( Task ) mTasksList.getItemAtPosition( position ) );
 					ToastLog.makeInfo( getApplicationContext(), Model.getSelectedTask().getName(), Toast.LENGTH_SHORT );
+					setEnabledAllButtons( false );
 					presenter.userSelectTaskInfo();
 				}
 			}
 		} );
 		setListViewHeightBasedOnChildren( mTasksList );
+	}
+
+	private void setEnabledAllButtons( Boolean condition ){
+		mCreateButton.setEnabled( condition );
+		mProjectsList.setEnabled( condition );
+		mTasksList.setEnabled( condition );
 	}
 
 	@Override
@@ -152,6 +162,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 
 	@Override
 	public void noInternetAccessValidation(){
+		setEnabledAllButtons( true );
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
@@ -167,6 +178,13 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 
 	@Override
 	public void defaultErrorMessage(){
+		setEnabledAllButtons( true );
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
+	}
+
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		setEnabledAllButtons( true );
 	}
 }
