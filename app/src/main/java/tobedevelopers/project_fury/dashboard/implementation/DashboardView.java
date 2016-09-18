@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.HeaderViewListAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,6 +17,7 @@ import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
+import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.dashboard.ProjectAdapter;
 import tobedevelopers.project_fury.dashboard.ProjectHolder;
@@ -53,11 +54,18 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		presenter.loadProjects();
 	}
 
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		finish();
+		startActivity( getIntent() );
+	}
+
 	private void setupProjectsList(){
 		mProjectsList.setAdapter( new ProjectAdapter( this ) );
 		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_project, mProjectsList, false );
 		mProjectsList.addHeaderView( mTop, null, false );
-		Button mCreateButton = ( Button ) mTop.findViewById( R.id.listHeader_projectCreateButton );
+		ImageButton mCreateButton = ( ImageButton ) mTop.findViewById( R.id.listHeader_projectCreateButton );
 		mCreateButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
@@ -82,6 +90,14 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		mTasksList.setAdapter( new TaskAdapter( this ) );
 		View mTop = getLayoutInflater().inflate( R.layout.list_header_dashboard_task, mTasksList, false );
 		mTasksList.addHeaderView( mTop, null, false );
+		ImageButton mCreateButton = ( ImageButton ) mTop.findViewById( R.id.listHeader_taskCreateButton );
+		mCreateButton.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick( View view ){
+				Model.setSelectedProject( null );
+				presenter.userSelectCreateTask();
+			}
+		} );
 		mTasksList.setOnItemClickListener( new AdapterView.OnItemClickListener(){
 			@Override
 			public void onItemClick( AdapterView< ? > adapterView, View view, int position, long id ){
@@ -101,6 +117,16 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 			@Override
 			public void run(){
 				startActivity( new Intent( getParam1(), CreateProjectView.class ) );
+			}
+		} );
+	}
+
+	@Override
+	public void navigateToCreateTask(){
+		runOnUiThread( new Runnable1Param< DashboardView >( this ){
+			@Override
+			public void run(){
+				startActivity( new Intent( getParam1(), CreateTaskView.class ) );
 			}
 		} );
 	}
