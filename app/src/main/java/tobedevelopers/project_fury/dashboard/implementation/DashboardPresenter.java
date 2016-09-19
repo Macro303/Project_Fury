@@ -36,10 +36,8 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-
+		if( view != null && navigation != null )
 			navigation.navigateToCreateProject();
-		}
 	}
 
 	@Override

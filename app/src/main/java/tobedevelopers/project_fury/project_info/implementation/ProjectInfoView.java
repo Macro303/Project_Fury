@@ -171,6 +171,13 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 		} );
 
+		builder.setOnDismissListener( new DialogInterface.OnDismissListener(){
+			@Override
+			public void onDismiss( DialogInterface dialogInterface ){
+				setEnabledAllButtons( true );
+			}
+		} );
+
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
@@ -192,6 +199,13 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			public void onClick( DialogInterface dialogInterface, int i ){
 				setEnabledAllButtons( true );
 				dialogInterface.cancel();
+			}
+		} );
+
+		builder.setOnDismissListener( new DialogInterface.OnDismissListener(){
+			@Override
+			public void onDismiss( DialogInterface dialogInterface ){
+				setEnabledAllButtons( true );
 			}
 		} );
 
@@ -263,6 +277,13 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				setEnabledAllButtons( true );
 				dialogInterface.cancel();
 				saveProjectDescription();
+			}
+		} );
+
+		builder.setOnDismissListener( new DialogInterface.OnDismissListener(){
+			@Override
+			public void onDismiss( DialogInterface dialogInterface ){
+				setEnabledAllButtons( true );
 			}
 		} );
 

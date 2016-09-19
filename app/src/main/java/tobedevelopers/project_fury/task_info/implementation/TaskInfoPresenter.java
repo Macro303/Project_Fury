@@ -53,7 +53,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new RemoveAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			new RemoveAsyncTask().execute();
 	}
 
 	@Override
@@ -92,40 +92,8 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	public void getColumnsOnProject(){
 		TaskInfoContract.View view = viewWeakReference.get();
 
-		if( view != null ){
-			new AsyncTask< String, Void, ColumnResponse >(){
-				TaskInfoContract.View view = viewWeakReference.get();
-
-				@Override
-				public void onPreExecute(){
-					super.onPreExecute();
-
-					view.taskUpdatingInProgress();
-				}
-
-				@Override
-				protected ColumnResponse doInBackground( String... strings ){
-					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
-				}
-
-				@Override
-				public void onPostExecute( ColumnResponse response ){
-					super.onPostExecute( response );
-
-					switch( response.getMessage() ){
-						case "Success":
-							view.setColumnSpinner( response.getColumns() );
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							view.defaultErrorMessage();
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null )
+			new LoadColumnsTask().execute();
 	}
 
 	@Override
@@ -134,7 +102,40 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new UpdateAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, mAssignee, mPriority, mColumn.getColumnID() );
+			new UpdateAsyncTask().execute( mAssignee, mPriority, mColumn.getColumnID() );
+	}
+
+	private class LoadColumnsTask extends AsyncTask< String, Void, ColumnResponse >{
+		TaskInfoContract.View view = viewWeakReference.get();
+
+		@Override
+		public void onPreExecute(){
+			super.onPreExecute();
+
+			view.taskUpdatingInProgress();
+		}
+
+		@Override
+		protected ColumnResponse doInBackground( String... strings ){
+			return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+		}
+
+		@Override
+		public void onPostExecute( ColumnResponse response ){
+			super.onPostExecute( response );
+
+			switch( response.getMessage() ){
+				case "Success":
+					view.setColumnSpinner( response.getColumns() );
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.defaultErrorMessage();
+					break;
+			}
+		}
 	}
 
 	private class UpdateAsyncTask extends AsyncTask< String, Void, Response >{

@@ -18,7 +18,7 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 	private WeakReference< BacklogContract.View > viewWeakReference;
 	private WeakReference< BacklogContract.Navigation > navigationWeakReference;
 	private ModelContract model;
-	private LoadProjectsAsyncTask loadProjectsAsyncTask;
+	private LoadProjectsTask loadProjectsTask;
 
 	public BacklogPresenter( BacklogContract.View view, BacklogContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -31,39 +31,8 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		BacklogContract.View view = viewWeakReference.get();
 		BacklogContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, ProjectResponse >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().loadingInProgress();
-				}
-
-				@Override
-				protected ProjectResponse doInBackground( String... strings ){
-					return model.getAllProjects();
-				}
-
-				@Override
-				protected void onPostExecute( ProjectResponse response ){
-					BacklogContract.View view = viewWeakReference.get();
-					BacklogContract.Navigation navigation = navigationWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Success":
-							Model.setSelectedProject( response.getProjects()[ 0 ] );
-							navigation.navigateToCreateTask();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-//			navigation.navigateToCreateTask();
-		}
+		if( view != null && navigation != null )
+			new CreateTask().execute();
 	}
 
 	@Override
@@ -72,17 +41,48 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		BacklogContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-			loadProjectsAsyncTask = new LoadProjectsAsyncTask();
-			loadProjectsAsyncTask.execute();
+			loadProjectsTask = new LoadProjectsTask();
+			loadProjectsTask.execute();
 		}
 	}
 
 	@Override
 	public void cancelAllAsyncTasks( Boolean condition ){
-		loadProjectsAsyncTask.cancel( condition );
+		loadProjectsTask.cancel( condition );
 	}
 
-	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, Holder >{
+	private class CreateTask extends AsyncTask< String, Void, ProjectResponse >{
+
+		@Override
+		protected void onPreExecute(){
+			viewWeakReference.get().loadingInProgress();
+		}
+
+		@Override
+		protected ProjectResponse doInBackground( String... strings ){
+			return model.getAllProjects();
+		}
+
+		@Override
+		protected void onPostExecute( ProjectResponse response ){
+			BacklogContract.View view = viewWeakReference.get();
+			BacklogContract.Navigation navigation = navigationWeakReference.get();
+
+			switch( response.getMessage() ){
+				case "Success":
+					Model.setSelectedProject( response.getProjects()[ 0 ] );
+					navigation.navigateToCreateTask();
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+	private class LoadProjectsTask extends AsyncTask< Void, Void, Holder >{
 		@Override
 		protected Holder doInBackground( Void... voids ){
 //			return model.getAllProjects();

@@ -198,6 +198,15 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 			}
 		} );
 
+		builder.setOnDismissListener( new DialogInterface.OnDismissListener(){
+			@Override
+			public void onDismiss( DialogInterface dialogInterface ){
+				mDeleteTask.setEnabled( true );
+				mUpdateTask.setEnabled( true );
+				mSaveTask.setEnabled( true );
+			}
+		} );
+
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}

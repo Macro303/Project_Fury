@@ -58,7 +58,7 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 				public void onClick( View view ){
 					holder.mCardView.setEnabled( false );
 					Model.setSelectedTask( current );
-					new AsyncClass().execute();
+					new LoadTaskInfoTask().execute();
 				}
 			} );
 			if( current.getName().length() <= 16 )
@@ -94,7 +94,7 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 		activity.startActivity( new Intent( activity, TaskInfoView.class ) );
 	}
 
-	private class AsyncClass extends AsyncTask< Void, Void, Void >{
+	private class LoadTaskInfoTask extends AsyncTask< Void, Void, Void >{
 		@Override
 		protected Void doInBackground( Void... voids ){
 			Model.setSelectedProject( new Model().getProject( Model.getSelectedTask().getProjectID() ).getProjects()[ 0 ] );

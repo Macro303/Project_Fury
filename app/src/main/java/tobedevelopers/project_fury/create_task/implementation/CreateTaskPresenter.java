@@ -74,7 +74,7 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new GetProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			new GetProjectsTask().execute();
 	}
 
 	@Override
@@ -83,39 +83,11 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().taskCreationInProgress();
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return model.createTask( Model.getSelectedProject().getProjectID(), mTaskName, mTaskDescription, mAssignee );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					CreateTaskContract.View view = viewWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Task creation successful.":
-							navigationWeakReference.get().navigateToPrevious();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							view.errorValidation();
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			new CreateTask().execute( mAssignee );
 		}
 	}
 
-	private class GetProjectsAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
+	private class GetProjectsTask extends AsyncTask< Void, Void, ProjectResponse >{
 		@Override
 		protected ProjectResponse doInBackground( Void... voids ){
 			return model.getAllProjects();
@@ -134,6 +106,36 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
+		}
+	}
+
+	private class CreateTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			viewWeakReference.get().taskCreationInProgress();
+		}
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return model.createTask( Model.getSelectedProject().getProjectID(), mTaskName, mTaskDescription, strings[ 0 ] );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			CreateTaskContract.View view = viewWeakReference.get();
+
+			switch( response.getMessage() ){
+				case "Task creation successful.":
+					navigationWeakReference.get().navigateToPrevious();
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.errorValidation();
+					break;
+			}
 		}
 	}
 }
