@@ -117,6 +117,7 @@
 	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
 	<string name="error_noCurrentTasks">No Tasks Currently Assigned To You</string>
 	<string name="error_refreshBoard">Please refresh board</string>
+	<string name="error_underConstruction">This page is under construction, this will be filled in future updates</string>
 
 	<!-- Misc -->
 	<string name="alphaNumericCharacters">"1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "</string>
