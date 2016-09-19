@@ -146,7 +146,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		ProjectInfoContract.View view = viewWeakReference.get();
 
 		if( view != null ){
-			new AsyncTask< String, Void, Response >(){
+			new AsyncTask< String, Void, String >(){
 
 				@Override
 				protected void onPreExecute(){
@@ -159,20 +159,23 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 				}
 
 				@Override
-				protected Response doInBackground( String... strings ){
+				protected String doInBackground( String... strings ){
+					String value = "Update successful.";
 					for( Column column : columnList ){
-						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+						Response response = model.updateColumn( column.getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+						if( !response.getMessage().equals( "Update successful." ) )
+							value = response.getMessage();
 					}
-					return null;
+					return value;
 				}
 
 				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
+				protected void onPostExecute( String result ){
+					super.onPostExecute( result );
 					ProjectInfoContract.View view = viewWeakReference.get();
 
 					if( view != null ){
-						switch( response.getMessage() ){
+						switch( result ){
 							case "Update successful.":
 								userSelectSaveProject();
 								break;

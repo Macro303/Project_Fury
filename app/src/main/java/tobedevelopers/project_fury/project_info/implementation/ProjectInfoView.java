@@ -113,24 +113,25 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.projectInfoActivity_editProjectButton:
-//				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT );
+				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT );
 				mEditProjectButton.setEnabled( false );
 				presenter.userSelectEditProject();
 				break;
 			case R.id.projectInfoActivity_saveProjectButton:
-//				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
+				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
 				presenter.userSelectSaveProject();
+				presenter.userSelectSaveColumns( columnRecyclerAdapter.columnList );
 				break;
 			case R.id.projectInfoActivity_deleteProjectButton:
-//				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
+				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
 				alertDeleteProject();
 				break;
 			case R.id.projectInfoActivity_addColumnButton:
-//				ToastLog.makeDebug( this, "Add Column", Toast.LENGTH_SHORT );
+				ToastLog.makeDebug( this, "Add Column", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				alertAddColumn();
 				break;
