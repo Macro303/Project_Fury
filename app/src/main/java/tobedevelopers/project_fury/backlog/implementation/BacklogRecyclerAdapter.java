@@ -58,7 +58,7 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 				public void onClick( View view ){
 					holder.mCardView.setEnabled( false );
 					Model.setSelectedTask( current );
-					new AsyncClass().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+					new AsyncClass().execute();
 				}
 			} );
 			if( current.getName().length() <= 16 )

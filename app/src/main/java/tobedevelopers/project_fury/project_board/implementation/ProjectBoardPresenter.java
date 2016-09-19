@@ -37,34 +37,34 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 	public void userLoadsBoard(){
 		ProjectBoardContract.View view = viewWeakReference.get();
 
-		if( view != null ){
-			new AsyncTask< String, Void, ColumnResponse >(){
+		if( view != null )
+			new LoadProjectColumnsTask().execute();
+	}
 
-				@Override
-				protected ColumnResponse doInBackground( String... strings ){
-					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+	private class LoadProjectColumnsTask extends AsyncTask< String, Void, ColumnResponse >{
+		@Override
+		protected ColumnResponse doInBackground( String... strings ){
+			return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+		}
+
+		@Override
+		protected void onPostExecute( ColumnResponse response ){
+			super.onPostExecute( response );
+			ProjectBoardContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				switch( response.getMessage() ){
+					case "Success":
+						view.setTabTitles( response.getColumns() );
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.displayDefaultErrorMessage();
+						break;
 				}
-
-				@Override
-				protected void onPostExecute( ColumnResponse response ){
-					super.onPostExecute( response );
-					ProjectBoardContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Success":
-								view.setTabTitles( response.getColumns() );
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.displayDefaultErrorMessage();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			}
 		}
 	}
 }

@@ -57,6 +57,12 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	}
 
 	@Override
+	protected void onPause(){
+		super.onPause();
+		presenter.cancelAllAsyncTasks( true );
+	}
+
+	@Override
 	protected void onRestart(){
 		super.onRestart();
 		finish();

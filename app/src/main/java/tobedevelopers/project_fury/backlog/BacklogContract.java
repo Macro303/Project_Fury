@@ -25,5 +25,7 @@ public interface BacklogContract{
 		void userSelectCreateTask();
 
 		void loadProjects();
+
+		void cancelAllAsyncTasks( Boolean condition );
 	}
 }

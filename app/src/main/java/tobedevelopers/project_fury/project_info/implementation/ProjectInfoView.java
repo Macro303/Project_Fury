@@ -348,7 +348,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable1Param< ProjectInfoView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project description saving" ), Toast.LENGTH_LONG );
+				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project updating" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}

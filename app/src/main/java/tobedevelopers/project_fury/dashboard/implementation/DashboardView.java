@@ -208,4 +208,10 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		setEnabledAllButtons( true );
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
+
+	@Override
+	protected void onPause(){
+		super.onPause();
+		presenter.cancelAllAsyncTasks( true );
+	}
 }

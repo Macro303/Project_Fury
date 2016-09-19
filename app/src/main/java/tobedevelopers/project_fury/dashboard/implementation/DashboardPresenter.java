@@ -21,6 +21,9 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 	private WeakReference< DashboardContract.View > viewWeakReference;
 	private WeakReference< DashboardContract.Navigation > navigationWeakReference;
 	private ModelContract model;
+	private LoadTasksAsyncTask loadTasksAsyncTask;
+	private LoadProjectsAsyncTask loadProjectsAsyncTask;
+	private SetProjectAsyncTask setProjectAsyncTask;
 
 	public DashboardPresenter( DashboardContract.View view, DashboardContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -33,8 +36,10 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( view != null && navigation != null ){
+
 			navigation.navigateToCreateProject();
+		}
 	}
 
 	@Override
@@ -60,8 +65,10 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			new SetProjectAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		if( view != null && navigation != null ){
+			setProjectAsyncTask = new SetProjectAsyncTask();
+			setProjectAsyncTask.execute();
+		}
 	}
 
 	@Override
@@ -69,8 +76,10 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		if( view != null && navigation != null ){
+			loadProjectsAsyncTask = new LoadProjectsAsyncTask();
+			loadProjectsAsyncTask.execute();
+		}
 	}
 
 	@Override
@@ -78,9 +87,22 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			new LoadTasksAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		if( view != null && navigation != null ){
+			loadTasksAsyncTask = new LoadTasksAsyncTask();
+			loadTasksAsyncTask.execute();
+		}
 	}
+
+	@Override
+	public void cancelAllAsyncTasks( Boolean condition ){
+		if( loadTasksAsyncTask != null && loadTasksAsyncTask.getStatus() != AsyncTask.Status.FINISHED )
+			loadTasksAsyncTask.cancel( condition );
+		if( loadProjectsAsyncTask != null && loadProjectsAsyncTask.getStatus() != AsyncTask.Status.FINISHED )
+			loadProjectsAsyncTask.cancel( condition );
+		if( setProjectAsyncTask != null && setProjectAsyncTask.getStatus() != AsyncTask.Status.FINISHED )
+			setProjectAsyncTask.cancel( condition );
+	}
+
 
 	private class SetProjectAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
 		@Override
@@ -109,6 +131,11 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		}
 
 		@Override
+		protected void onCancelled( ProjectResponse projectResponse ){
+			super.onCancelled( projectResponse );
+		}
+
+		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
 		}
@@ -122,12 +149,16 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			if( projectResponse.getMessage().equals( "Success" ) ){
 				projectHolder = new ProjectHolder( projectResponse.getProjects() );
 				for( Project project : projectResponse.getProjects() ){
-					TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
-					if( taskResponse.getMessage().equals( "Success" ) )
-						projectHolder.addTasks( project.getName(), taskResponse.getTasks() );
-					ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
-					if( columnResponse.getMessage().equals( "Success" ) )
-						projectHolder.addColumns( project.getName(), columnResponse.getColumns() );
+					if( isCancelled() ){
+						break;
+					}else{
+						TaskResponse taskResponse = model.getAllProjectTasks( project.getProjectID() );
+						if( taskResponse.getMessage().equals( "Success" ) )
+							projectHolder.addTasks( project.getName(), taskResponse.getTasks() );
+						ColumnResponse columnResponse = model.getAllProjectColumns( project.getProjectID() );
+						if( columnResponse.getMessage().equals( "Success" ) )
+							projectHolder.addColumns( project.getName(), columnResponse.getColumns() );
+					}
 				}
 			}
 			return projectHolder;
@@ -137,9 +168,14 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		protected void onPostExecute( ProjectHolder response ){
 			super.onPostExecute( response );
 			DashboardContract.View view = viewWeakReference.get();
-			DashboardContract.Navigation navigation = navigationWeakReference.get();
+//			DashboardContract.Navigation navigation = navigationWeakReference.get();
 
 			view.loadProjectsIntoList( response );
+		}
+
+		@Override
+		protected void onCancelled( ProjectHolder response ){
+			super.onCancelled( response );
 		}
 
 		@Override
@@ -154,8 +190,12 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			TaskHolder taskHolder = new TaskHolder();
 			TaskResponse taskResponse = model.getAllUserTasks();
 			for( Task task : taskResponse.getTasks() ){
-				ColumnResponse columnResponse = model.getColumn( task.getProjectID(), task.getColumnID() );
-				taskHolder.addPair( task, columnResponse.getColumns()[ 0 ] );
+				if( isCancelled() ){
+					break;
+				}else{
+					ColumnResponse columnResponse = model.getColumn( task.getProjectID(), task.getColumnID() );
+					taskHolder.addPair( task, columnResponse.getColumns()[ 0 ] );
+				}
 			}
 			return taskHolder;
 		}
@@ -163,10 +203,16 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		@Override
 		protected void onPostExecute( TaskHolder response ){
 			super.onPostExecute( response );
+
 			DashboardContract.View view = viewWeakReference.get();
-			DashboardContract.Navigation navigation = navigationWeakReference.get();
+//			DashboardContract.Navigation navigation = navigationWeakReference.get();
 
 			view.loadTasksIntoList( response );
+		}
+
+		@Override
+		protected void onCancelled( TaskHolder response ){
+			super.onCancelled( response );
 		}
 
 		@Override

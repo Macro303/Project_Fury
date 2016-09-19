@@ -34,37 +34,8 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		RegisterContract.View view = viewWeakReference.get();
 		RegisterContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().registrationInProgress();
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return modelContract.registerUser( mUsername, mPassword, mEmail, false );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					RegisterContract.View view = viewWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Registration Successful.":
-							navigationWeakReference.get().navigateToLogin();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							view.setUsernameAlreadyUsedValidation();
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			new CreateAccountTask().execute();
 	}
 
 	@Override
@@ -130,6 +101,37 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 					view.enableCreateAccountButton();
 			}else
 				view.disableCreateAccountButton();
+		}
+	}
+
+	private class CreateAccountTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			viewWeakReference.get().registrationInProgress();
+		}
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return modelContract.registerUser( mUsername, mPassword, mEmail, false );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			RegisterContract.View view = viewWeakReference.get();
+			RegisterContract.Navigation navigation = navigationWeakReference.get();
+
+			switch( response.getMessage() ){
+				case "Registration Successful.":
+					navigation.navigateToLogin();
+					break;
+				case "No Internet Access":
+					view.noInternetAccessValidation();
+					break;
+				default:
+					view.setUsernameAlreadyUsedValidation();
+					break;
+			}
 		}
 	}
 }

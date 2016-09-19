@@ -18,6 +18,7 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 	private WeakReference< BacklogContract.View > viewWeakReference;
 	private WeakReference< BacklogContract.Navigation > navigationWeakReference;
 	private ModelContract model;
+	private LoadProjectsAsyncTask loadProjectsAsyncTask;
 
 	public BacklogPresenter( BacklogContract.View view, BacklogContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -70,8 +71,15 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		BacklogContract.View view = viewWeakReference.get();
 		BacklogContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
-			new LoadProjectsAsyncTask().executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+		if( view != null && navigation != null ){
+			loadProjectsAsyncTask = new LoadProjectsAsyncTask();
+			loadProjectsAsyncTask.execute();
+		}
+	}
+
+	@Override
+	public void cancelAllAsyncTasks( Boolean condition ){
+		loadProjectsAsyncTask.cancel( condition );
 	}
 
 	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, Holder >{
@@ -81,8 +89,12 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 			Holder holder = null;
 			holder = new Holder( model.getAllProjects().getProjects() );
 			for( Project project : holder.getProjects() ){
-				holder.addTasks( project.getName(), model.getAllProjectTasks( project.getProjectID() ).getTasks() );
-				holder.addColumns( project.getName(), model.getAllProjectColumns( project.getProjectID() ).getColumns() );
+				if( isCancelled() ){
+					break;
+				}else{
+					holder.addTasks( project.getName(), model.getAllProjectTasks( project.getProjectID() ).getTasks() );
+					holder.addColumns( project.getName(), model.getAllProjectColumns( project.getProjectID() ).getColumns() );
+				}
 			}
 			return holder;
 		}
@@ -95,6 +107,11 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 
 			if( view != null && navigation != null )
 				view.fillProjects( result );
+		}
+
+		@Override
+		protected void onCancelled( Holder result ){
+			super.onCancelled( result );
 		}
 
 		@Override
