@@ -136,11 +136,12 @@ public class ModelTest extends TestCase{
 
 	//TODO Requires a ProjectID
 	//TODO Requires a TaskID
+	//TODO Requires a ColumnID
 	public void testUpdateTask(){
 		Model model = new Model();
 		Response loginResponse = model.login( "Username", "Password" );
 		assertTrue( "Success".equals( loginResponse.getMessage() ) );
-		Response response = model.updateTask( "57cfbb36e04d040300a04ac5", "57cfc75be04d040300a04acd", "Updated Task Name", "Updated Task Description", "Unassigned", "NORMAL" );
+		Response response = model.updateTask( "57cfbb36e04d040300a04ac5", "57cfc75be04d040300a04acd", "", "Updated Task Name", "Updated Task Description", "Unassigned", "NORMAL" );
 		System.out.println( "Test Update Task: " + response.toString() );
 		assertTrue( "Update successful.".equals( response.getMessage() ) );
 	}
