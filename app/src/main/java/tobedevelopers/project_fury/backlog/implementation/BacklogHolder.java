@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.backlog;
+package tobedevelopers.project_fury.backlog.implementation;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

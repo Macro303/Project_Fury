@@ -105,6 +105,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createTaskActivity_createTaskButton:
+				mCreateTaskButton.setEnabled( false );
 				ToastLog.makeDebug( this, "Create Task", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateTask( mAssigneeSpinner.getSelectedItem().toString() );
 				break;
@@ -208,11 +209,13 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void noInternetAccessValidation(){
+		mCreateTaskButton.setEnabled( true );
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void errorValidation(){
+		mCreateTaskButton.setEnabled( true );
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
 }

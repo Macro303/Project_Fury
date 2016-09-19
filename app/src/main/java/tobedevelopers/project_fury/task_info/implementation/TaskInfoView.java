@@ -111,14 +111,20 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		switch( view.getId() ){
 			case R.id.taskInfoActivity_updateTaskButton:
 				ToastLog.makeDebug( this, "Update Task", Toast.LENGTH_SHORT );
+				mUpdateTask.setEnabled( false );
 				presenter.userSelectEditTask();
 				break;
 			case R.id.taskInfoActivity_saveTaskButton:
 				ToastLog.makeDebug( this, "Save Task", Toast.LENGTH_SHORT );
+				mSaveTask.setEnabled( false );
+				mDeleteTask.setEnabled( false );
 				presenter.userSelectSaveTask( mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString() );
 				break;
 			case R.id.taskInfoActivity_deleteTaskButton:
 				ToastLog.makeDebug( this, "Remove Task", Toast.LENGTH_SHORT );
+				mUpdateTask.setEnabled( false );
+				mSaveTask.setEnabled( false );
+				mDeleteTask.setEnabled( false );
 				alertDeleteProject();
 				break;
 			default:
@@ -152,6 +158,9 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		builder.setNegativeButton( R.string.button_dialogCancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ){
+				mDeleteTask.setEnabled( true );
+				mUpdateTask.setEnabled( true );
+				mSaveTask.setEnabled( true );
 			}
 		} );
 

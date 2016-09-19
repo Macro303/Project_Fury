@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.project_info;
+package tobedevelopers.project_fury.project_info.implementation;
 
 import android.support.v7.appcompat.BuildConfig;
 import android.support.v7.widget.RecyclerView;

@@ -36,12 +36,14 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 	}
 
 	@Override
-	public void onBindViewHolder( ProjectBoardHolder holder, final int position ){
+	public void onBindViewHolder( final ProjectBoardHolder holder, final int position ){
 		if( tasks != null && tasks.length != 0 ){
 			holder.mNoTaskViewTextView.setVisibility( View.INVISIBLE );
 			holder.mAssigneeTextView.setVisibility( View.VISIBLE );
 			holder.mPriorityTextView.setVisibility( View.VISIBLE );
 			holder.mTaskTextView.setVisibility( View.VISIBLE );
+
+			holder.mCardView.setEnabled( true );
 
 			holder.mTaskTextView.setText( tasks[ position ].getName() );
 			holder.mPriorityTextView.setText( tasks[ position ].getPriority().getNameValue() );
@@ -49,9 +51,9 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 			holder.mCardView.setOnClickListener( new View.OnClickListener(){
 				@Override
 				public void onClick( View view ){
+					holder.mCardView.setEnabled( false );
 					Model.setSelectedTask( tasks[ position ] );
 					activity.startActivity( new Intent( activity, TaskInfoView.class ) );
-
 				}
 			} );
 		}else{

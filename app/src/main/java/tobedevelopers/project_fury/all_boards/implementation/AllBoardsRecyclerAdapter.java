@@ -37,19 +37,25 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 	}
 
 	@Override
-	public void onBindViewHolder( AllBoardsHolder holder, final int position ){
+	public void onBindViewHolder( final AllBoardsHolder holder, final int position ){
 
 		final AllBoardsContract.Navigation navigation = navigationWeakReference.get();
 
 		if( projects != null && projects.length != 0 ){
+
 			holder.mNoProjectTextView.setVisibility( View.GONE );
 			holder.mProjectBoardImageView.setVisibility( View.VISIBLE );
 			holder.mProjectInfoButton.setVisibility( View.VISIBLE );
+
+			holder.mProjectInfoButton.setEnabled( true );
+			holder.mCardView.setEnabled( true );
 
 			holder.mProjectInfoButton.setText( projects[ position ].getName() );
 			holder.mCardView.setOnClickListener( new View.OnClickListener(){
 				@Override
 				public void onClick( View view ){
+					holder.mProjectInfoButton.setEnabled( false );
+					holder.mCardView.setEnabled( false );
 					Model.setSelectedProject( projects[ position ] );
 					navigation.navigateToProjectBoard();
 				}
@@ -57,6 +63,8 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 			holder.mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
 				@Override
 				public void onClick( View view ){
+					holder.mProjectInfoButton.setEnabled( false );
+					holder.mCardView.setEnabled( false );
 					Model.setSelectedProject( projects[ position ] );
 					navigation.navigateToProjectInfo();
 				}

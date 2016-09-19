@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.dashboard.DashboardContract;
-import tobedevelopers.project_fury.dashboard.ProjectHolder;
-import tobedevelopers.project_fury.dashboard.TaskHolder;
 import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;

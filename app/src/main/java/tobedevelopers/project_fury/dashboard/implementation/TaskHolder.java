@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.dashboard;
+package tobedevelopers.project_fury.dashboard.implementation;
 
 import android.util.Pair;
 

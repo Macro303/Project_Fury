@@ -54,6 +54,7 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		mCreateProjectButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
+				mCreateProjectButton.setEnabled( false );
 				presenter.userSelectCreateProject();
 			}
 		} );

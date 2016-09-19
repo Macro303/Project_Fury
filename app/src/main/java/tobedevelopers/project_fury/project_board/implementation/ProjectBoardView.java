@@ -57,6 +57,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
+				mCreateTaskButton.setEnabled( false );
 				presenter.userSelectCreateTask();
 			}
 		} );
@@ -74,11 +75,13 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	public void noInternetAccessValidation(){
+		mCreateTaskButton.setEnabled( true );
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void displayDefaultErrorMessage(){
+		mCreateTaskButton.setEnabled( true );
 		ToastLog.makeWarn( this, getString( R.string.error_refreshBoard ), Toast.LENGTH_LONG );
 	}
 

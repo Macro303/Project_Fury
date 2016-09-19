@@ -1,4 +1,4 @@
-package tobedevelopers.project_fury.project_info;
+package tobedevelopers.project_fury.project_info.implementation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import java.util.List;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
-import tobedevelopers.project_fury.project_info.implementation.ProjectInfoView;
 
 /**
  * Created by A on 9/10/2016.

@@ -47,6 +47,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createProjectActivity_createProjectButton:
+				mCreateProjectButton.setEnabled( false );
 				ToastLog.makeDebug( this, "Create Project", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateProject();
 				break;
@@ -139,14 +140,17 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 
 	@Override
 	public void noInternetAccessValidation(){
+		mCreateProjectButton.setEnabled( true );
 		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void setProjectAlreadyUsedValidation(){
+		mCreateProjectButton.setEnabled( true );
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
 			public void run(){
+				mProjectNameEditText.requestFocus();
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Project Name" ) );
 			}
 		} );

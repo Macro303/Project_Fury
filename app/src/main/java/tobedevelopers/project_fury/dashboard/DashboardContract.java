@@ -1,5 +1,8 @@
 package tobedevelopers.project_fury.dashboard;
 
+import tobedevelopers.project_fury.dashboard.implementation.ProjectHolder;
+import tobedevelopers.project_fury.dashboard.implementation.TaskHolder;
+
 /**
  * Created by Macro303 on 10/08/2016.
  */

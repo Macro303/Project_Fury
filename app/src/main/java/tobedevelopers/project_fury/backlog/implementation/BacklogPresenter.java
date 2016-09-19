@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import java.lang.ref.WeakReference;
 
 import tobedevelopers.project_fury.backlog.BacklogContract;
-import tobedevelopers.project_fury.backlog.Holder;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.Project;
