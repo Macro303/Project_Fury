@@ -69,10 +69,14 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 	public boolean onItemMove( int fromPosition, int toPosition ){
 		if( fromPosition < toPosition ){
 			for( int i = fromPosition; i < toPosition; i++ ){
+				columnList.get( i ).setPosition( i + 1 );
+				columnList.get( i + 1 ).setPosition( i );
 				Collections.swap( columnList, i, i + 1 );
 			}
 		}else{
 			for( int i = fromPosition; i > toPosition; i-- ){
+				columnList.get( i ).setPosition( i - 1 );
+				columnList.get( i - 1 ).setPosition( i );
 				Collections.swap( columnList, i, i - 1 );
 			}
 		}

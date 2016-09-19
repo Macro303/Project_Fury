@@ -24,6 +24,14 @@
 
 		</android.support.design.widget.AppBarLayout>
 
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="20dp"
+			android:gravity="center_horizontal"
+			android:text="@string/error_underConstruction"
+			android:textSize="18sp"/>
+
 	</LinearLayout>
 
 	<android.support.design.widget.NavigationView

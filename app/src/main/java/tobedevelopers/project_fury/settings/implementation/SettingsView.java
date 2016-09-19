@@ -11,8 +11,6 @@ import tobedevelopers.project_fury.settings.SettingsContract;
  */
 public class SettingsView extends BaseNavigationView implements SettingsContract.View, SettingsContract.Navigation{
 
-	//UI References
-
 	private SettingsContract.Presenter presenter;
 
 	@Override
@@ -21,7 +19,5 @@ public class SettingsView extends BaseNavigationView implements SettingsContract
 		setContentView( R.layout.activity_settings );
 		super.onCreate( savedInstanceState );
 		presenter = new SettingsPresenter( this, this );
-
-		//UI References
 	}
 }
