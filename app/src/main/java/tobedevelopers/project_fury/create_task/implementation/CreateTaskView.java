@@ -2,14 +2,14 @@ package tobedevelopers.project_fury.create_task.implementation;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -34,17 +34,17 @@ import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 public class CreateTaskView extends BaseView implements CreateTaskContract.View, CreateTaskContract.Navigation{
 
 	@Bind( R.id.createTaskActivity_projectSpinner )
-	protected Spinner mProjectsSpinner;
-	@Bind( R.id.createTaskActivity_spinnerLayout )
-	protected LinearLayout mSpinnerLayout;
+	protected AppCompatSpinner mProjectsSpinner;
+	@Bind( R.id.createTaskActivity_projectSpinnerRow )
+	protected TableRow mProjectsSpinnerRow;
+	@Bind( R.id.createTaskActivity_assigneeSpinner )
+	protected AppCompatSpinner mAssigneeSpinner;
 	@Bind( R.id.createTaskActivity_taskNameEditText )
 	TextInputEditText mTaskNameEditText;
 	@Bind( R.id.createTaskActivity_taskDescriptionEditText )
 	TextInputEditText mTaskDescriptionEditText;
 	@Bind( R.id.createTaskActivity_createTaskButton )
 	Button mCreateTaskButton;
-	@Bind( R.id.createTaskActivity_assigneeSpinner )
-	Spinner mAssigneeSpinner;
 	private CreateTaskContract.Presenter presenter;
 
 	@Override
@@ -69,7 +69,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void setProjectSpinner( final Project[] projects ){
-		mSpinnerLayout.setVisibility( View.VISIBLE );
+		mProjectsSpinnerRow.setVisibility( View.VISIBLE );
 		String[] projectNames = new String[ projects.length ];
 		for( int i = 0; i < projects.length; i++ )
 			projectNames[ i ] = projects[ i ].getName();

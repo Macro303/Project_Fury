@@ -6,105 +6,95 @@
 	android:layout_margin="20dp"
 	android:orientation="vertical">
 
-	<LinearLayout
+	<android.support.design.widget.TextInputLayout
+		style="@style/EditTextLayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/createTaskActivity_taskNameEditText"
+			style="@style/EditTextStyle.Restrictive"
+			android:hint="@string/hint_taskName"
+			android:inputType="textNoSuggestions"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		style="@style/EditTextLayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/createTaskActivity_taskDescriptionEditText"
+			style="@style/EditTextStyle.Restrictive.Description"
+			android:hint="@string/hint_taskDescription"
+			android:inputType="textNoSuggestions"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<TableLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="20dp"
-		android:orientation="vertical">
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:stretchColumns="1">
 
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="30dp"/>
-
-		<android.support.design.widget.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/createTaskActivity_taskNameEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:digits="@string/alphaNumericCharacters"
-				android:hint="@string/hint_taskName"
-				android:inputType="textNoSuggestions"
-				android:maxLength="20"
-				android:singleLine="true"/>
-
-		</android.support.design.widget.TextInputLayout>
-
-		<android.support.design.widget.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp">
-
-			<android.support.design.widget.TextInputEditText
-				android:id="@+id/createTaskActivity_taskDescriptionEditText"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/createTaskActivity_taskNameEditText"
-				android:layout_marginBottom="40dp"
-				android:digits="@string/alphaNumericCharacters"
-				android:gravity="top|start"
-				android:hint="@string/hint_taskDescription"
-				android:inputType="textNoSuggestions"
-				android:maxLength="128"
-				android:maxLines="6"
-				android:scrollbars="vertical"/>
-
-		</android.support.design.widget.TextInputLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
-			android:gravity="center_vertical">
+		<TableRow
+			android:layout_margin="@dimen/editTextMargin">
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="5dp"
+				android:layout_column="0"
+				android:layout_gravity="start|center"
 				android:text="@string/hint_assigneeSpinner"/>
 
-			<Spinner
+			<android.support.v7.widget.AppCompatSpinner
 				android:id="@+id/createTaskActivity_assigneeSpinner"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="5dp"
+				android:layout_column="1"
+				android:layout_gravity="start|center"
+				android:paddingEnd="0dp"
+				android:paddingStart="10dp"
 				android:prompt="@string/spinner_taskAssignee"/>
 
-		</LinearLayout>
+		</TableRow>
 
-		<LinearLayout
-			android:id="@+id/createTaskActivity_spinnerLayout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center_vertical"
+		<TableRow
+			android:id="@+id/createTaskActivity_projectSpinnerRow"
+			android:layout_margin="@dimen/editTextMargin"
 			android:visibility="invisible">
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="5dp"
+				android:layout_column="0"
+				android:layout_gravity="start|center"
 				android:text="@string/hint_projectSpinner"/>
 
-			<Spinner
+			<android.support.v7.widget.AppCompatSpinner
 				android:id="@+id/createTaskActivity_projectSpinner"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="5dp"
+				android:layout_column="1"
+				android:layout_gravity="start|center"
+				android:paddingEnd="0dp"
+				android:paddingStart="10dp"
 				android:prompt="@string/spinner_taskProject"/>
 
-		</LinearLayout>
+		</TableRow>
 
-			<Button
-				android:id="@+id/createTaskActivity_createTaskButton"
-				style="@style/ButtonStyle.Sized"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal|bottom|center_vertical"
-				android:layout_marginBottom="20dp"
-				android:enabled="false"
-				android:text="@string/button_createTask"/>
+	</TableLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="bottom|center"
+		android:orientation="vertical">
+
+		<Button
+			android:id="@+id/createTaskActivity_createTaskButton"
+			style="@style/ButtonStyle.Sized"
+			android:enabled="false"
+			android:text="@string/button_createTask"/>
+
+
 	</LinearLayout>
+
 </LinearLayout>
