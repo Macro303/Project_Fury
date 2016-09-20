@@ -6,27 +6,8 @@
 		<shape>
 			<gradient
 				android:angle="270"
-				android:endColor="#D00"
-				android:startColor="#F00"/>
-			<stroke
-				android:width="3dp"
-				android:color="#555"/>
-			<corners
-				android:radius="3dp"/>
-			<padding
-				android:bottom="10dp"
-				android:left="10dp"
-				android:right="10dp"
-				android:top="10dp"/>
-		</shape>
-	</item>
-
-	<item android:state_focused="true">
-		<shape>
-			<gradient
-				android:angle="270"
-				android:endColor="#0F0"
-				android:startColor="#0D0"/>
+				android:endColor="@color/colorAccent"
+				android:startColor="@color/colorAccent"/>
 			<stroke
 				android:width="3dp"
 				android:color="#555"/>
