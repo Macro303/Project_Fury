@@ -11,7 +11,13 @@ public interface DashboardContract{
 	interface View{
 		void noInternetAccessValidation();
 
-		void loadingInProgress();
+		void loadingProjectsInProgress();
+
+		void loadingProjectsFinished();
+
+		void loadingTasksInProgress();
+
+		void loadingTasksFinished();
 
 		void loadProjectsIntoList( ProjectHolder holder );
 

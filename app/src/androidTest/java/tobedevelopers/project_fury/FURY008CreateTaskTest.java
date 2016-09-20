@@ -46,7 +46,7 @@ public class FURY008CreateTaskTest{
 //
 //			@Override
 //			protected void onPreExecute(){
-//				viewWeakReference.get().loadingInProgress();
+//				viewWeakReference.get().loadingProjectsInProgress();
 //			}
 //
 //			@Override

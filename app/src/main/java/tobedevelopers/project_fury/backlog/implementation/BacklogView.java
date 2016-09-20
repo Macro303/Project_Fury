@@ -91,7 +91,7 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	}
 
 //	@Override
-//	public void loadingInProgress(){
+//	public void loadingProjectsInProgress(){
 //		runOnUiThread( new Runnable1Param< BacklogView >( this ){
 //			@Override
 //			public void run(){

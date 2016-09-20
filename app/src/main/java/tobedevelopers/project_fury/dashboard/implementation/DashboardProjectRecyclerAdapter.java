@@ -12,6 +12,7 @@ import java.lang.ref.WeakReference;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.Task;
 
@@ -20,16 +21,14 @@ import tobedevelopers.project_fury.model.Task;
  */
 public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< DashboardProjectViewHolder >{
 
-	//	private static LayoutInflater inflater = null;
 	private ProjectHolder projectHolder;
 	private Context context;
-	private WeakReference< DashboardContract.Navigation > navigationWeakReference;
+	private WeakReference< DashboardContract.Presenter > presenterWeakReference;
 
-	public DashboardProjectRecyclerAdapter( Context context, DashboardContract.Navigation navigation ){
+	public DashboardProjectRecyclerAdapter( Context context, DashboardContract.Presenter presenter ){
 		this.context = context;
-		this.navigationWeakReference = new WeakReference<>( navigation );
+		this.presenterWeakReference = new WeakReference<>( presenter );
 		this.projectHolder = new ProjectHolder( new Project[]{} );
-//		inflater = ( LayoutInflater ) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 	}
 
 	public void setData( ProjectHolder projectHolder ){
@@ -37,14 +36,6 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 		notifyDataSetChanged();
 	}
 
-//	@Override
-//	public int getCount(){
-//		if( projectHolder != null && projectHolder.getProjects() != null && projectHolder.getProjects().length > 0 )
-//			return projectHolder.getProjects().length;
-//		return 1;
-//	}
-
-	//	@Override
 	public Object getItem( int position ){
 		return projectHolder != null &&
 			       projectHolder.getProjects() != null &&
@@ -59,10 +50,11 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 
 	@Override
 	public void onBindViewHolder( final DashboardProjectViewHolder holder, int position ){
-		final DashboardContract.Navigation navigation = navigationWeakReference.get();
+		final DashboardContract.Presenter presenter = presenterWeakReference.get();
 
 		if( projectHolder != null && projectHolder.getProjects() != null && projectHolder.getProjects().length > 0 ){
-			Project current = ( Project ) getItem( position );
+			final Project current = ( Project ) getItem( position );
+			holder.mCardView.setEnabled( true );
 			holder.mProjectName.setVisibility( View.VISIBLE );
 			holder.mNumberProgressBar.setVisibility( View.VISIBLE );
 			holder.mProjectName.setText( current.getName() );
@@ -77,14 +69,13 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 				@Override
 				public void onClick( View view ){
 					holder.mCardView.setEnabled( false );
-					navigation.navigateToProjectInfo();
+					Model.setSelectedProject( current );
+					presenter.userSelectProjectInfo();
 				}
 			} );
-//			view.setTag( "Projects" );
 		}else{
 			holder.mProjectName.setText( context.getString( R.string.error_noCurrentProjects ) );
 			holder.mNumberProgressBar.setVisibility( View.GONE );
-//			view.setTag( "No Projects" );
 		}
 	}
 
@@ -100,34 +91,6 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 			return projectHolder.getProjects().length;
 		return 1;
 	}
-
-//	@Override
-//	public View getView( int position, View convertView, ViewGroup parent ){
-//		View view = convertView;
-//		if( view == null )
-//			view = inflater.inflate( R.layout.list_item_dashboard_project, null );
-//		TextView mProjectName = ( TextView ) view.findViewById( R.id.listItem_projectName );
-//		NumberProgressBar mProgressbar = ( NumberProgressBar ) view.findViewById( R.id.listItem_projectProgress );
-//		if( projectHolder != null && projectHolder.getProjects() != null && projectHolder.getProjects().length > 0 ){
-//			Project current = ( Project ) getItem( position );
-//			mProjectName.setVisibility( View.VISIBLE );
-//			mProgressbar.setVisibility( View.VISIBLE );
-//			mProjectName.setText( current.getName() );
-//			if( projectHolder.getTasks() != null && projectHolder.getTasks().size() > 0 ){
-//				mProgressbar.setMax( projectHolder.getTasks().get( current.getName() ).length );
-//				mProgressbar.setProgress( calculateProgress( current.getName() ) );
-//			}else{
-//				mProgressbar.setMax( 100 );
-//				mProgressbar.setProgress( 1 );
-//			}
-//			view.setTag( "Projects" );
-//		}else{
-//			mProjectName.setText( context.getString( R.string.error_noCurrentProjects ) );
-//			mProgressbar.setVisibility( View.GONE );
-//			view.setTag( "No Projects" );
-//		}
-//		return view;
-//	}
 
 	private int calculateProgress( String currentName ){
 		int count = 0;

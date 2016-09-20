@@ -12,6 +12,7 @@ import java.lang.ref.WeakReference;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
 import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Task;
 
 /**
@@ -19,16 +20,14 @@ import tobedevelopers.project_fury.model.Task;
  */
 public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< DashboardTaskViewHolder >{
 
-	//	private static LayoutInflater inflater = null;
 	private TaskHolder taskHolder;
 	private Context context;
-	private WeakReference< DashboardContract.Navigation > navigationWeakReference;
+	private WeakReference< DashboardContract.Presenter > presenterWeakReference;
 
-	public DashboardTaskRecyclerAdapter( Context context, DashboardContract.Navigation navigation ){
+	public DashboardTaskRecyclerAdapter( Context context, DashboardContract.Presenter presenter ){
 		this.context = context;
 		this.taskHolder = new TaskHolder();
-		this.navigationWeakReference = new WeakReference<>( navigation );
-//		inflater = ( LayoutInflater ) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+		this.presenterWeakReference = new WeakReference<>( presenter );
 	}
 
 	public void setData( TaskHolder taskHolder ){
@@ -36,14 +35,6 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 		notifyDataSetChanged();
 	}
 
-//	@Override
-//	public int getCount(){
-//		if( taskHolder.getPairList().size() > 0 )
-//			return taskHolder.getPairList().size();
-//		return 1;
-//	}
-
-	//	@Override
 	public Object getItem( int position ){
 		return taskHolder.getPairList().get( position ).first;
 	}
@@ -56,10 +47,11 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 
 	@Override
 	public void onBindViewHolder( final DashboardTaskViewHolder holder, int position ){
-		final DashboardContract.Navigation navigation = navigationWeakReference.get();
+		final DashboardContract.Presenter presenter = presenterWeakReference.get();
 
 		if( taskHolder.getPairList().size() > 0 ){
-			Pair< Task, Column > current = taskHolder.getPairList().get( position );
+			final Pair< Task, Column > current = taskHolder.getPairList().get( position );
+			holder.mCardView.setEnabled( true );
 			holder.mTaskName.setVisibility( View.VISIBLE );
 			holder.mColumnName.setVisibility( View.VISIBLE );
 			holder.mTaskName.setText( current.first.getName() );
@@ -68,14 +60,13 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 				@Override
 				public void onClick( View view ){
 					holder.mCardView.setEnabled( false );
-//					navigation.navigateToTaskInfo();
+					Model.setSelectedTask( current.first );
+					presenter.userSelectTaskInfo();
 				}
 			} );
-//			view.setTag( "Tasks" );
 		}else{
 			holder.mTaskName.setText( context.getString( R.string.error_noCurrentTasks ) );
 			holder.mColumnName.setVisibility( View.GONE );
-//			view.setTag( "No Tasks" );
 		}
 	}
 
@@ -90,26 +81,4 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 			return taskHolder.getPairList().size();
 		return 1;
 	}
-
-//	@Override
-//	public View getView( int position, View convertView, ViewGroup parent ){
-//		View view = convertView;
-//		if( view == null )
-//			view = inflater.inflate( R.layout.list_item_dashboard_task, null );
-//		TextView mTaskName = ( TextView ) view.findViewById( R.id.listItem_taskName );
-//		TextView mTaskColumn = ( TextView ) view.findViewById( R.id.listItem_columnName );
-//		if( taskHolder.getPairList().size() > 0 ){
-//			Pair< Task, Column > current = taskHolder.getPairList().get( position );
-//			mTaskName.setVisibility( View.VISIBLE );
-//			mTaskColumn.setVisibility( View.VISIBLE );
-//			mTaskName.setText( current.first.getName() );
-//			mTaskColumn.setText( current.second.getName() );
-//			view.setTag( "Tasks" );
-//		}else{
-//			mTaskName.setText( context.getString( R.string.error_noCurrentTasks ) );
-//			mTaskColumn.setVisibility( View.GONE );
-//			view.setTag( "No Tasks" );
-//		}
-//		return view;
-//	}
 }
