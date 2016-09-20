@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.create_project.implementation;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
@@ -31,6 +32,8 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 
 	private CreateProjectContract.Presenter presenter;
 
+	private ProgressDialog mProgressDialog;
+
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		setTitle( getString( R.string.title_activity_createProject ) );
@@ -38,6 +41,8 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 		super.onCreate( savedInstanceState );
 
 		presenter = new CreateProjectPresenter( this, this );
+
+		mProgressDialog = new ProgressDialog( this );
 
 		ButterKnife.bind( this );
 	}
@@ -152,6 +157,30 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 			public void run(){
 				mProjectNameEditText.requestFocus();
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Project Name" ) );
+			}
+		} );
+	}
+
+	@Override
+	public void showProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< CreateProjectView >( this ){
+			@Override
+			public void run(){
+				mProgressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				mProgressDialog.setMessage( "Updating..." );
+				mProgressDialog.setIndeterminate( true );
+				mProgressDialog.setCancelable( false );
+				mProgressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< CreateProjectView >( this ){
+			@Override
+			public void run(){
+				mProgressDialog.dismiss();
 			}
 		} );
 	}

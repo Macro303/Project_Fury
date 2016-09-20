@@ -17,7 +17,9 @@ public interface ProjectInfoContract{
 
 		void addColumnName();
 
-		void projectUpdatingInProgress();
+		void showProjectUpdatingInProgress();
+
+		void hideProjectUpdatingInProgress();
 
 		void setProjectNameUnderValidation();
 
@@ -49,11 +51,11 @@ public interface ProjectInfoContract{
 
 		void userSelectEditProject();
 
-		void userSelectSaveProject();
+		void userSelectSaveProject( List< Column > columnList );
 
 		void userSelectAddColumn( String columnName );
 
-		void userSelectSaveColumns( List< Column > columnList );
+//		void userSelectSaveColumns( List< Column > columnList );
 
 		void saveColumnsBeforeDeleting( List< Column > columnList );
 

@@ -12,6 +12,8 @@ public interface RegisterContract{
 
 		void registrationInProgress();
 
+		void registrationFinished();
+
 		void setUsernameUnderValidation();
 
 		void setUsernameOverCharValidation();

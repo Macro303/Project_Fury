@@ -42,5 +42,7 @@ public interface DashboardContract{
 		void loadProjects();
 
 		void loadTasks();
+
+		void cancelAllAsyncTasks( Boolean condition );
 	}
 }

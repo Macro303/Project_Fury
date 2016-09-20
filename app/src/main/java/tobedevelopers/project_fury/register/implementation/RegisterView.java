@@ -144,6 +144,16 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	}
 
 	@Override
+	public void registrationFinished(){
+		runOnUiThread( new Runnable1Param< RegisterView >( this ){
+			@Override
+			public void run(){
+				mLoadingProgressbar.setVisibility( View.GONE );
+			}
+		} );
+	}
+
+	@Override
 	public void setUsernameUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override

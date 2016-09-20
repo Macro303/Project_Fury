@@ -41,37 +41,8 @@ public class LoginPresenter implements LoginContract.Presenter{
 		LoginContract.View view = viewWeakReference.get();
 		LoginContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().loginInProgress();
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return model.login( mUsername, mPassword );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					LoginContract.View view = viewWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Success":
-							navigationWeakReference.get().navigateToDashboard();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							view.setInvalidUserValidation();
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			new LoginTask().execute();
 	}
 
 	@Override
@@ -106,6 +77,45 @@ public class LoginPresenter implements LoginContract.Presenter{
 			if( password.length() >= 20 )
 				view.setPasswordOverValidation();
 
+		}
+	}
+
+	private class LoginTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			LoginContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.loginInProgress();
+		}
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return model.login( mUsername, mPassword );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			LoginContract.View view = viewWeakReference.get();
+			LoginContract.Navigation navigation = navigationWeakReference.get();
+
+			if( view != null && navigation != null ){
+				view.logInFinished();
+
+				switch( response.getMessage() ){
+					case "Success":
+						navigation.navigateToDashboard();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setInvalidUserValidation();
+						break;
+				}
+			}
 		}
 	}
 

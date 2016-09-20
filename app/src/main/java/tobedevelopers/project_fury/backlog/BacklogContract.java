@@ -10,11 +10,15 @@ public interface BacklogContract{
 	interface View{
 		void noInternetAccessValidation();
 
-		void loadingInProgress();
+//		void loadingInProgress();
 
 		void fillProjects( Holder holder );
 
 		void defaultErrorMessage();
+
+		void showProjectUpdatingInProgress();
+
+		void hideProjectUpdatingInProgress();
 	}
 
 	interface Navigation{
@@ -22,8 +26,10 @@ public interface BacklogContract{
 	}
 
 	interface Presenter{
-		void userSelectCreateTask();
+//		void userSelectCreateTask();
 
 		void loadProjects();
+
+		void cancelAllAsyncTasks( Boolean condition );
 	}
 }

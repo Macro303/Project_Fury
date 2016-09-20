@@ -49,50 +49,13 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectSaveProject(){
+	public void userSelectSaveProject( final List< Column > columnList ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
-		if( view != null ){
-			new AsyncTask< String, Void, Response >(){
+		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
 
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null )
-						view.projectUpdatingInProgress();
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					if( mProjectDescription.equals( "null" ) )
-						mProjectDescription = "";
-					return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectName, mProjectDescription );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Update successful.":
-								view.saveProjectDescription();
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.saveProjectDescription();
-								view.setInvalidUserValidation();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null )
+			new SaveProjectTask().execute( columns );
 	}
 
 	@Override
@@ -100,188 +63,36 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		ProjectInfoContract.View view = viewWeakReference.get();
 		mColumnName = columnName;
 
-		if( view != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null )
-						view.projectUpdatingInProgress();
-				}
-
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return model.createColumn( Model.getSelectedProject().getProjectID(), mColumnName );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Column creation successful.":
-								view.addColumnName();
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.setInvalidUserValidation();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null )
+			new AddColumnTask().execute();
 	}
 
-	@Override
-	public void userSelectSaveColumns( final List< Column > columnList ){
-		ProjectInfoContract.View view = viewWeakReference.get();
-
-		if( view != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						view.projectUpdatingInProgress();
-					}
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					for( Column column : columnList ){
-						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
-					}
-					return null;
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Update successful.":
-								userSelectSaveProject();
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.setInvalidUserValidation();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
-	}
+//	@Override
+//	public void userSelectSaveColumns( final List< Column > columnList ){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//
+//		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
+//
+//		if( view != null )
+//			new SaveColumnTask().execute( columns );
+//	}
 
 	@Override
 	public void saveColumnsBeforeDeleting( final List< Column > columnList ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
-		if( view != null ){
-			new AsyncTask< String, Void, Response >(){
+		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
 
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						view.projectUpdatingInProgress();
-					}
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					for( Column column : columnList ){
-						return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
-					}
-					return null;
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Update successful.":
-								userSelectDeleteColumn();
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.setInvalidUserValidation();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null )
+			new SaveColumnsBeforeDeletingTask().execute( columns );
 	}
 
 	@Override
 	public void userSelectDeleteColumn(){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
-		if( view != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						view.projectUpdatingInProgress();
-					}
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return model.deleteColumn( Model.getSelectedProject().getProjectID(), Model.getSelectedColumn().getColumnID() );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Delete successful.":
-								loadColumns();
-								view.saveProjectDescription();
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.defaultErrorMessage();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null )
+			new DeleteColumnTask().execute();
 	}
 
 	@Override
@@ -311,45 +122,8 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		ProjectInfoContract.View view = viewWeakReference.get();
 		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-					if( view != null )
-						view.projectUpdatingInProgress();
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return model.deleteProject( Model.getSelectedProject().getProjectID() );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Delete successful.":
-								navigation.navigateToPrevious();
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.defaultErrorMessage();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			new DeleteProjectTask().execute();
 	}
 
 	@Override
@@ -369,39 +143,258 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		ProjectInfoContract.View view = viewWeakReference.get();
 		ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, ColumnResponse >(){
-				@Override
-				protected void onPreExecute(){
-					super.onPreExecute();
-				}
+		if( view != null && navigation != null )
+			new LoadColumnsTask().execute();
+	}
 
-				@Override
-				protected ColumnResponse doInBackground( String... strings ){
-					return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
-				}
+	private class SaveProjectTask extends AsyncTask< Column, Void, Response >{
 
-				@Override
-				protected void onPostExecute( ColumnResponse response ){
-					super.onPostExecute( response );
-					ProjectInfoContract.View view = viewWeakReference.get();
-					ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			ProjectInfoContract.View view = viewWeakReference.get();
 
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Success":
-								view.fillColumnList( response.getColumns() );
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.defaultErrorMessage();
-								break;
-						}
-					}
+			if( view != null )
+				view.showProjectUpdatingInProgress();
+		}
+
+		@Override
+		protected Response doInBackground( Column... columns ){
+			for( Column column : columns ){
+				Response response = model.updateColumn( column.getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+				if( !response.getMessage().equals( "Update successful." ) )
+					return response;
+			}
+
+			if( mProjectDescription.equals( "null" ) )
+				mProjectDescription = "";
+			return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectName, mProjectDescription );
+
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Update successful.":
+						view.saveProjectDescription();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.saveProjectDescription();
+						view.setInvalidUserValidation();
+						break;
 				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
+			}
+		}
+	}
+
+	private class AddColumnTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
+		}
+
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return model.createColumn( Model.getSelectedProject().getProjectID(), mColumnName );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Column creation successful.":
+						view.addColumnName();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setInvalidUserValidation();
+						break;
+				}
+			}
+		}
+	}
+
+	private class SaveColumnsBeforeDeletingTask extends AsyncTask< Column, Void, String >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.showProjectUpdatingInProgress();
+			}
+		}
+
+		@Override
+		protected String doInBackground( Column... columns ){
+
+			String value = "Update successful.";
+			for( Column column : columns ){
+				Response response = model.updateColumn( column.getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+				if( !response.getMessage().equals( "Update successful." ) )
+					value = response.getMessage();
+			}
+			return value;
+		}
+
+		@Override
+		protected void onPostExecute( String result ){
+			super.onPostExecute( result );
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( result ){
+					case "Update successful.":
+						userSelectDeleteColumn();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setInvalidUserValidation();
+						break;
+				}
+			}
+		}
+	}
+
+	private class DeleteColumnTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.showProjectUpdatingInProgress();
+			}
+		}
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return model.deleteColumn( Model.getSelectedProject().getProjectID(), Model.getSelectedColumn().getColumnID() );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Delete successful.":
+						loadColumns();
+						view.saveProjectDescription();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
+						break;
+				}
+			}
+		}
+	}
+
+	private class DeleteProjectTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
+		}
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return model.deleteProject( Model.getSelectedProject().getProjectID() );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
+
+			ProjectInfoContract.View view = viewWeakReference.get();
+			ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
+
+			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Delete successful.":
+						navigation.navigateToPrevious();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
+						break;
+				}
+			}
+		}
+	}
+
+	private class LoadColumnsTask extends AsyncTask< String, Void, ColumnResponse >{
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+		}
+
+		@Override
+		protected ColumnResponse doInBackground( String... strings ){
+			return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
+		}
+
+		@Override
+		protected void onPostExecute( ColumnResponse response ){
+			super.onPostExecute( response );
+			ProjectInfoContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				switch( response.getMessage() ){
+					case "Success":
+						view.fillColumnList( response.getColumns() );
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
+						break;
+				}
+			}
 		}
 	}
 }

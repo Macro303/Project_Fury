@@ -77,10 +77,10 @@ public class ProjectBoardFragment extends Fragment{
 	@Override
 	public void onResume(){
 		super.onResume();
-		new TaskSeeker().execute( Model.getSelectedColumns().get( mPage ).getProjectID(), Model.getSelectedColumns().get( mPage ).getColumnID() );
+		new LoadTasksTask().execute( Model.getSelectedColumns().get( mPage ).getProjectID(), Model.getSelectedColumns().get( mPage ).getColumnID() );
 	}
 
-	private class TaskSeeker extends AsyncTask< String, Void, TaskResponse >{
+	private class LoadTasksTask extends AsyncTask< String, Void, TaskResponse >{
 
 		@Override
 		protected void onPreExecute(){

@@ -29,35 +29,8 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 	public void userOpensBoard(){
 		AllBoardsContract.View view = viewWeakReference.get();
 
-		if( view != null ){
-			new AsyncTask< String, Void, ProjectResponse >(){
-
-				@Override
-				protected ProjectResponse doInBackground( String... strings ){
-					return model.getAllProjects();
-				}
-
-				@Override
-				protected void onPostExecute( ProjectResponse response ){
-					super.onPostExecute( response );
-					AllBoardsContract.View view = viewWeakReference.get();
-
-					if( view != null ){
-						switch( response.getMessage() ){
-							case "Success":
-								view.setRecyclerItems( response.getProjects() );
-								break;
-							case "No Internet Access":
-								view.noInternetAccessValidation();
-								break;
-							default:
-								view.displayDefaultErrorMessage();
-								break;
-						}
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null )
+			new LoadProjectsTask().execute();
 	}
 
 	@Override
@@ -67,5 +40,44 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 
 		if( view != null && navigation != null )
 			navigation.navigateToCreateProject();
+	}
+
+	private class LoadProjectsTask extends AsyncTask< String, Void, ProjectResponse >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			AllBoardsContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
+		}
+
+		@Override
+		protected ProjectResponse doInBackground( String... strings ){
+			return model.getAllProjects();
+		}
+
+		@Override
+		protected void onPostExecute( ProjectResponse response ){
+			super.onPostExecute( response );
+			AllBoardsContract.View view = viewWeakReference.get();
+
+			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Success":
+						view.setRecyclerItems( response.getProjects() );
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.displayDefaultErrorMessage();
+						break;
+				}
+			}
+		}
 	}
 }

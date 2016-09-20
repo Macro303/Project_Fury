@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.all_boards.implementation;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +32,8 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 	private AllBoardsContract.Presenter presenter;
 
+	private ProgressDialog mProgressDialog;
+
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		setTitle( getString( R.string.title_activity_allBoards ) );
@@ -41,6 +44,7 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		//UI References
 		mRecyclerView = ( RecyclerView ) findViewById( R.id.allBoardsActivity_recyclerView );
 		mCreateProjectButton = ( FloatingActionButton ) findViewById( R.id.allBoards_createProjectButton );
+		mProgressDialog = new ProgressDialog( this );
 
 		//Recycler Config
 		mRecyclerView.setHasFixedSize( true );
@@ -73,6 +77,30 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 	@Override
 	public void setRecyclerItems( Project[] projects ){
 		mAdapter.setData( projects );
+	}
+
+	@Override
+	public void showProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< AllBoardsView >( this ){
+			@Override
+			public void run(){
+				mProgressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				mProgressDialog.setMessage( "Updating..." );
+				mProgressDialog.setIndeterminate( true );
+				mProgressDialog.setCancelable( false );
+				mProgressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< AllBoardsView >( this ){
+			@Override
+			public void run(){
+				mProgressDialog.dismiss();
+			}
+		} );
 	}
 
 	@Override
