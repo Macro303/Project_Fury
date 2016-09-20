@@ -116,7 +116,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="end"
-					android:text="swipe to delete column"
+					android:text="Swipe to Delete Column"
 					android:textAppearance="?android:textAppearanceSmall"
 					android:visibility="invisible"/>
 
@@ -124,9 +124,9 @@
 
 			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:layout_marginTop="20dp"
-				android:gravity="end"
+				android:gravity="bottom|center"
 				android:orientation="horizontal">
 
 				<Button
