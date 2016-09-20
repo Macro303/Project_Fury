@@ -14,9 +14,9 @@ public class Column{
 		public int compare( Column c1, Column c2 ){
 			if( ( c1.position - c2.position ) != 0 )
 				return c1.position - c2.position;
-			else if( c1.name.compareTo( c2.name ) != 0 )
-				return c1.name.compareTo( c2.name );
-			return c1.columnID.compareTo( c2.columnID );
+			if( c1.name.compareToIgnoreCase( c2.name ) != 0 )
+				return c1.name.compareToIgnoreCase( c2.name );
+			return c1.columnID.compareToIgnoreCase( c2.columnID );
 		}
 	};
 	@SerializedName( "_id" )

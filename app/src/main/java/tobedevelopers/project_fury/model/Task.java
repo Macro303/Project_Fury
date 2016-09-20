@@ -2,10 +2,24 @@ package tobedevelopers.project_fury.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 /**
  * Created by Macro303 on 30/08/2016.
  */
 public class Task{
+
+	public static final Comparator< Task > comparator = new Comparator< Task >(){
+		@Override
+		public int compare( Task t1, Task t2 ){
+			if( t1.priority.compareTo( t2.priority ) != 0 )
+				return t1.priority.compareTo( t2.priority );
+			if( t1.name.compareToIgnoreCase( t2.name ) != 0 )
+				return t1.name.compareToIgnoreCase( t2.name );
+			return t1.taskID.compareToIgnoreCase( t2.taskID );
+
+		}
+	};
 
 	@SerializedName( "_id" )
 	private String taskID;
@@ -61,10 +75,10 @@ public class Task{
 	}
 
 	public enum Priority{
-		UNASSIGNED( 0, "Unassigned" ),
-		LOW( 1, "Low" ),
+		HIGH( 3, "High" ),
 		NORMAL( 2, "Normal" ),
-		HIGH( 3, "High" );
+		LOW( 1, "Low" ),
+		UNASSIGNED( 0, "Unassigned" );
 
 		private int value;
 		private String nameValue;

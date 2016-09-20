@@ -1,28 +1,24 @@
 package tobedevelopers.project_fury.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by Macro303 on 26/08/2016.
  */
-public class Project implements Parcelable{
+public class Project{
 
-	public static final Parcelable.Creator< Project > CREATOR = new Parcelable.Creator< Project >(){
+	public static final Comparator< Project > comparator = new Comparator< Project >(){
 		@Override
-		public Project createFromParcel( Parcel parcel ){
-			return new Project( parcel );
-		}
-
-		@Override
-		public Project[] newArray( int size ){
-			return new Project[ size ];
+		public int compare( Project p1, Project p2 ){
+			if( p1.name.compareToIgnoreCase( p2.name ) != 0 )
+				return p1.name.compareToIgnoreCase( p2.name );
+			return p1.projectID.compareToIgnoreCase( p2.projectID );
 		}
 	};
+
 	@SerializedName( "_id" )
 	private String projectID;
 	private String name;
@@ -33,13 +29,6 @@ public class Project implements Parcelable{
 		this.description = description;
 		this.name = name;
 		this.usersOnProject = usersOnProject;
-	}
-
-	private Project( Parcel parcel ){
-		projectID = parcel.readString();
-		name = parcel.readString();
-		description = parcel.readString();
-		usersOnProject = parcel.createStringArray();
 	}
 
 	public String getDescription(){
@@ -66,18 +55,5 @@ public class Project implements Parcelable{
 			       ", projectID='" + projectID + '\'' +
 			       ", usersOnProject=" + Arrays.toString( usersOnProject ) +
 			       '}';
-	}
-
-	@Override
-	public int describeContents(){
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel( Parcel parcel, int i ){
-		parcel.writeString( projectID );
-		parcel.writeString( name );
-		parcel.writeString( description );
-		parcel.writeStringArray( usersOnProject );
 	}
 }

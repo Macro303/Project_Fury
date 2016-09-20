@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Arrays;
+
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.model.TaskResponse;
 
 /**
@@ -95,7 +98,9 @@ public class ProjectBoardFragment extends Fragment{
 		@Override
 		protected void onPostExecute( TaskResponse response ){
 			super.onPostExecute( response );
-			mRecyclerAdapter.setData( response.getTasks() );
+			Task[] tasks = response.getTasks();
+			Arrays.sort( tasks, Task.comparator );
+			mRecyclerAdapter.setData( tasks );
 			mRecyclerAdapter.notifyDataSetChanged();
 		}
 	}

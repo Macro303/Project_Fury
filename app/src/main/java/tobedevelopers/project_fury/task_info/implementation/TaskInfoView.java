@@ -101,6 +101,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	private void setAssigneeSpinner(){
 		String[] users = Model.getSelectedProject().getUsersOnProject();
+		Arrays.sort( users );
 		List< String > list = new LinkedList<>( Arrays.asList( users ) );
 		list.add( 0, getString( R.string.spinner_taskAssignee ) );
 		users = list.toArray( new String[ list.size() ] );
@@ -114,6 +115,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	@Override
 	public void setColumnSpinner( Column[] columns ){
 		this.columns = columns;
+		Arrays.sort( this.columns, Column.comparator );
 		String[] columnNames = new String[ columns.length ];
 		for( int i = 0; i < columns.length; i++ )
 			columnNames[ i ] = columns[ i ].getName();

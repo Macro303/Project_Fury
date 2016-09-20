@@ -4,6 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.Arrays;
+
+import tobedevelopers.project_fury.model.Column;
+import tobedevelopers.project_fury.model.Project;
+import tobedevelopers.project_fury.model.Task;
+
 /**
  * Created by Macro303 on 12/08/2016.
  */
@@ -27,11 +33,19 @@ public class BacklogFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
 	@Override
 	public CharSequence getPageTitle( int position ){
-		return holder != null ? holder.getProjects() != null ? holder.getProjects()[ position ].getName() : "No Projects" : "No Projects";
+		Project[] projects = holder.getProjects();
+		Arrays.sort( projects, Project.comparator );
+		return projects[ position ].getName();
 	}
 
 	@Override
 	public Fragment getItem( int position ){
-		return new BacklogFragment().setData( holder.getTasks( holder.getProjects()[ position ].getName() ), holder.getColumns( holder.getProjects()[ position ].getName() ), holder.getProjects()[ position ] );
+		Project[] projects = holder.getProjects();
+		Arrays.sort( projects, Project.comparator );
+		Task[] tasks = holder.getTasks( projects[ position ].getName() );
+		Arrays.sort( tasks, Task.comparator );
+		Column[] columns = holder.getColumns( projects[ position ].getName() );
+		Arrays.sort( columns, Column.comparator );
+		return new BacklogFragment().setData( tasks, columns, projects[ position ] );
 	}
 }
