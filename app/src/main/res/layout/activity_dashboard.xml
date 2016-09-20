@@ -2,17 +2,18 @@
 <android.support.v4.widget.DrawerLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/navigation_drawerLayout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:clickable="true"
 	android:focusableInTouchMode="true">
 
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:weightSum="5">
 
 		<android.support.design.widget.AppBarLayout
 			android:layout_width="match_parent"
@@ -25,38 +26,88 @@
 
 		</android.support.design.widget.AppBarLayout>
 
-		<ScrollView
+		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+			android:layout_weight="3"
+			android:orientation="vertical">
 
-			<LinearLayout
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="20dp"
-				android:orientation="vertical">
+				android:layout_height="wrap_content">
 
-				<ListView
-					android:id="@+id/dashboardActivity_projectsList"
-					android:layout_width="match_parent"
-					android:layout_height="150dp"
-					android:layout_marginBottom="10dp"
-					android:background="#DDD"
-					android:padding="5dp"
-					tools:listheader="@layout/list_header_dashboard_project"
-					tools:listitem="@layout/list_item_dashboard_project"/>
+				<ImageButton
+					android:id="@+id/listHeader_projectCreateButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:background="@null"
+					android:contentDescription="@string/button_createProject"
+					android:src="@drawable/ic_add_white_36dp"/>
 
-				<ListView
-					android:id="@+id/dashboardActivity_tasksList"
-					android:layout_width="match_parent"
-					android:layout_height="300dp"
-					android:background="#DDD"
-					android:padding="5dp"
-					tools:listheader="@layout/list_header_dashboard_task"
-					tools:listitem="@layout/list_item_dashboard_task"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentStart="true"
+					android:layout_toStartOf="@id/listHeader_projectCreateButton"
+					android:text="@string/textView_projectListTitle"
+					android:textColor="@color/colorTextPrimary"
+					android:textSize="18sp"
+					android:textStyle="bold"/>
 
-			</LinearLayout>
+			</RelativeLayout>
 
-		</ScrollView>
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/dashboard_Project_RecyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_gravity="start">
+
+			</android.support.v7.widget.RecyclerView>
+
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="2"
+			android:orientation="vertical">
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<ImageButton
+					android:id="@+id/listHeader_taskCreateButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:background="@null"
+					android:contentDescription="@string/button_createTask"
+					android:src="@drawable/ic_add_white_36dp"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentStart="true"
+					android:layout_marginStart="5dp"
+					android:layout_toStartOf="@id/listHeader_taskCreateButton"
+					android:text="@string/textView_taskListTitle"
+					android:textColor="@color/colorTextPrimary"
+					android:textSize="18sp"
+					android:textStyle="bold"/>
+
+			</RelativeLayout>
+
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/dashboard_Task_RecyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+			</android.support.v7.widget.RecyclerView>
+
+		</LinearLayout>
 
 	</LinearLayout>
 

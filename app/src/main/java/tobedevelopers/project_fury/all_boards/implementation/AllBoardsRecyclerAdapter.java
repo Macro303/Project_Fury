@@ -22,7 +22,7 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 	private Project[] projects;
 
 	public AllBoardsRecyclerAdapter( AllBoardsContract.Navigation navigation ){
-		this.navigationWeakReference = new WeakReference< AllBoardsContract.Navigation >( navigation );
+		this.navigationWeakReference = new WeakReference<>( navigation );
 	}
 
 	public void setData( Project[] projects ){
