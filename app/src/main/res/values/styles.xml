@@ -65,6 +65,13 @@
 		<item name="android:focusableInTouchMode">false</item>
 	</style>
 
+	<style name="EditTextStyle.Restrictive.Description">
+		<item name="android:maxLength">128</item>
+		<item name="android:maxLines">6</item>
+		<item name="android:singleLine">false</item>
+		<item name="android:scrollbars">vertical</item>
+	</style>
+
 	<style name="SpinKit" parent="SpinKitView.Large.WanderingCubes">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
