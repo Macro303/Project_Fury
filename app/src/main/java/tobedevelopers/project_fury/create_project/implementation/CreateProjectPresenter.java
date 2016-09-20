@@ -32,38 +32,8 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.View view = viewWeakReference.get();
 		CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null ){
-			new AsyncTask< String, Void, Response >(){
-
-				@Override
-				protected void onPreExecute(){
-					viewWeakReference.get().projectCreationInProgress();
-				}
-
-				@Override
-				protected Response doInBackground( String... strings ){
-					return modelContract.createProject( mProjectName, mProjectDescription );
-				}
-
-				@Override
-				protected void onPostExecute( Response response ){
-					CreateProjectContract.View view = viewWeakReference.get();
-					CreateProjectContract.Navigation navigation = navigationWeakReference.get();
-
-					switch( response.getMessage() ){
-						case "Project creation successful.":
-							navigation.navigateToPrevious();
-							break;
-						case "No Internet Access":
-							view.noInternetAccessValidation();
-							break;
-						default:
-							view.setProjectAlreadyUsedValidation();
-							break;
-					}
-				}
-			}.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR );
-		}
+		if( view != null && navigation != null )
+			new CreateProjectTask().execute();
 	}
 
 	@Override
@@ -94,6 +64,45 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 				view.disableCreateProjectButton();
 			if( projectDescription.length() >= 128 )
 				view.setProjectDescriptionOverValidation();
+		}
+	}
+
+	private class CreateProjectTask extends AsyncTask< String, Void, Response >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			CreateProjectContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
+		}
+
+		@Override
+		protected Response doInBackground( String... strings ){
+			return modelContract.createProject( mProjectName, mProjectDescription );
+		}
+
+		@Override
+		protected void onPostExecute( Response response ){
+			CreateProjectContract.View view = viewWeakReference.get();
+			CreateProjectContract.Navigation navigation = navigationWeakReference.get();
+
+			if( view != null && navigation != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Project creation successful.":
+						navigation.navigateToPrevious();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setProjectAlreadyUsedValidation();
+						break;
+				}
+			}
 		}
 	}
 }

@@ -14,6 +14,10 @@ public interface AllBoardsContract{
 
 		void setRecyclerItems( Project[] projects );
 
+		void showProjectUpdatingInProgress();
+
+		void hideProjectUpdatingInProgress();
+
 	}
 
 	interface Navigation{

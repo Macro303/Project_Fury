@@ -62,8 +62,6 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 			holder.mPriorityTextView.setVisibility( View.INVISIBLE );
 			holder.mTaskTextView.setVisibility( View.INVISIBLE );
 		}
-
-
 	}
 
 	@Override

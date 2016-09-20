@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.project_board.implementation;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +36,8 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	private ProjectBoardContract.Presenter presenter;
 
+	private ProgressDialog mProgressDialog;
+
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		setTitle( Model.getSelectedProject().getName() + " Board" );
@@ -46,6 +49,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mTabLayout = ( TabLayout ) findViewById( R.id.projectBoardActivity_tabLayout );
 		mViewPager = ( ViewPager ) findViewById( R.id.projectBoardActivity_viewPager );
 		mCreateTaskButton = ( FloatingActionButton ) findViewById( R.id.projectBoardActivity_createTaskButton );
+		mProgressDialog = new ProgressDialog( this );
 
 		//Tab Config
 		mProjectBoardFragmentPagerAdapter = new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() );
@@ -91,6 +95,30 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		columnList.addAll( Arrays.asList( columns ) );
 		Collections.sort( columnList, Column.comparator );
 		mProjectBoardFragmentPagerAdapter.setData( columnList );
+	}
+
+	@Override
+	public void showProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
+			@Override
+			public void run(){
+				mProgressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				mProgressDialog.setMessage( "Updating..." );
+				mProgressDialog.setIndeterminate( true );
+				mProgressDialog.setCancelable( false );
+				mProgressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< ProjectBoardView >( this ){
+			@Override
+			public void run(){
+				mProgressDialog.dismiss();
+			}
+		} );
 	}
 
 	@Override

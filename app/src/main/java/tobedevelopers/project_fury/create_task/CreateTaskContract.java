@@ -12,8 +12,6 @@ public interface CreateTaskContract{
 
 		void disableCreateTaskButton();
 
-		void taskCreationInProgress();
-
 		void setTaskNameUnderValidation();
 
 		void setTaskNameOverValidation();
@@ -25,6 +23,10 @@ public interface CreateTaskContract{
 		void errorValidation();
 
 		void setProjectSpinner( Project[] projects );
+
+		void showTaskUpdatingInProgress();
+
+		void hideTaskUpdatingInProgress();
 	}
 
 	interface Navigation{

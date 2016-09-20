@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.backlog.implementation;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -28,7 +29,9 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 //	protected FloatingActionButton mCreateTaskButton;
 
 	private BacklogContract.Presenter presenter;
+
 	private Holder holder;
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -37,6 +40,8 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 		super.onCreate( savedInstanceState );
 
 		presenter = new BacklogPresenter( this, this );
+
+		progressDialog = new ProgressDialog( this );
 
 		ButterKnife.bind( this );
 
@@ -54,6 +59,12 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 //		} );
 
 		presenter.loadProjects();
+	}
+
+	@Override
+	protected void onPause(){
+		super.onPause();
+		presenter.cancelAllAsyncTasks( true );
 	}
 
 	@Override
@@ -79,15 +90,15 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 		} );
 	}
 
-	@Override
-	public void loadingInProgress(){
-		runOnUiThread( new Runnable1Param< BacklogView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Loading" ), Toast.LENGTH_LONG );
-			}
-		} );
-	}
+//	@Override
+//	public void loadingInProgress(){
+//		runOnUiThread( new Runnable1Param< BacklogView >( this ){
+//			@Override
+//			public void run(){
+//				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Loading" ), Toast.LENGTH_LONG );
+//			}
+//		} );
+//	}
 
 	@Override
 	public void noInternetAccessValidation(){
@@ -97,5 +108,29 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	@Override
 	public void defaultErrorMessage(){
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
+	}
+
+	@Override
+	public void showProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< BacklogView >( this ){
+			@Override
+			public void run(){
+				progressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				progressDialog.setMessage( "Updating..." );
+				progressDialog.setIndeterminate( true );
+				progressDialog.setCancelable( false );
+				progressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< BacklogView >( this ){
+			@Override
+			public void run(){
+				progressDialog.dismiss();
+			}
+		} );
 	}
 }

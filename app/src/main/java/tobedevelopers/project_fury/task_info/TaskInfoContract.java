@@ -14,9 +14,9 @@ public interface TaskInfoContract{
 
 		void setColumnSpinner( Column[] columns );
 
-		void taskUpdatingInProgress();
+		void showTaskUpdatingInProgress();
 
-		void taskDeletionInProgress();
+		void hideTaskUpdatingInProgress();
 
 		void setTaskNameUnderValidation();
 
