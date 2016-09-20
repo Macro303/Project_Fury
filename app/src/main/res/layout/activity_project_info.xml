@@ -73,16 +73,16 @@
 					android:background="#FFFFFF"
 					android:orientation="horizontal">
 
-					<Button
+					<ImageButton
 						android:id="@+id/projectInfoActivity_addColumnButton"
-						style="@style/buttonApperance"
+						style="@style/buttonAppearance"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentEnd="true"
 						android:backgroundTint="#FFFFFF"
 						android:enabled="false"
-						android:text="+"
-						android:textColor="#000"/>
+						android:src="@drawable/ic_add_box_white_36dp"
+						android:tint="#000"/>
 
 					<TextView
 						android:id="@+id/projectInfoActivity_columnNameTitle"

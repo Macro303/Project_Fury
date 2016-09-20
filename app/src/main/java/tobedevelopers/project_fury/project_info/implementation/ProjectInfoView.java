@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +54,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	@Bind( R.id.projectInfoActivity_deleteProjectButton )
 	Button mDeleteProjectButton;
 	@Bind( R.id.projectInfoActivity_addColumnButton )
-	Button mAddColumnButton;
+	ImageButton mAddColumnButton;
 
 	private ProjectInfoContract.Presenter presenter;
 

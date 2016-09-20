@@ -18,7 +18,7 @@
 		<item name="windowNoTitle">true</item>
 	</style>
 
-	<style name="buttonApperance" parent="Theme.AppCompat">
+	<style name="buttonAppearance" parent="Theme.AppCompat">
 		<item name="android:background">@color/colorPrimaryDark</item>
 		<item name="android:textColor">@color/colorTextIcon</item>
 		<item name="android:fontFamily">sans-serif-smallcaps</item>
