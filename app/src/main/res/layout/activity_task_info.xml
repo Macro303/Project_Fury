@@ -8,7 +8,7 @@
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="wrap_content"
 		android:layout_marginEnd="@dimen/editTextMargin"
 		android:layout_marginStart="@dimen/editTextMargin"
 		android:orientation="vertical">
@@ -130,39 +130,33 @@
 
 		</TableLayout>
 
+	</LinearLayout>
+
 		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="30dp">
+			android:layout_height="match_parent"
+			android:layout_marginTop="30dp"
+			android:gravity="bottom|center">
 
 			<Button
 				android:id="@+id/taskInfoActivity_deleteTaskButton"
 				style="@style/ButtonStyle.Sized"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
 				android:layout_alignParentStart="true"
-				android:minWidth="150dp"
 				android:text="@string/button_removeTask"/>
 
 			<Button
 				android:id="@+id/taskInfoActivity_updateTaskButton"
 				style="@style/ButtonStyle.Sized"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
 				android:layout_alignParentEnd="true"
 				android:text="@string/button_updateTask"/>
 
 			<Button
 				android:id="@+id/taskInfoActivity_saveTaskButton"
 				style="@style/ButtonStyle.Sized"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
 				android:layout_alignParentEnd="true"
 				android:text="@string/button_saveTask"
 				android:visibility="gone"/>
 
 		</RelativeLayout>
-
-	</LinearLayout>
 
 </LinearLayout>
