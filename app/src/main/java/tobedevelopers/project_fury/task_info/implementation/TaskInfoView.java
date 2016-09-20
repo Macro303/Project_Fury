@@ -276,16 +276,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
-				getParam2().setFocusable( true );
-				getParam2().setEnabled( true );
-				getParam2().setClickable( true );
-				getParam2().setFocusableInTouchMode( true );
-				getParam2().setCursorVisible( true );
-				getParam3().setFocusable( true );
-				getParam3().setEnabled( true );
-				getParam3().setClickable( true );
-				getParam3().setCursorVisible( true );
-				getParam3().setFocusableInTouchMode( true );
+				setEditTextEnabled( getParam2(), true );
+				setEditTextEnabled( getParam3(), true );
 				setSpinnerEnabled( getParam4(), true );
 				setSpinnerEnabled( getParam5(), true );
 				setSpinnerEnabled( getParam6(), true );
@@ -294,22 +286,22 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		} );
 	}
 
+	private void setEditTextEnabled( TextInputEditText item, boolean value ){
+		item.setClickable( value );
+		item.setCursorVisible( value );
+		item.setEnabled( value );
+		item.setFocusable( value );
+		item.setFocusableInTouchMode( value );
+	}
+
 	@Override
 	public void setTaskSaved(){
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.VISIBLE );
-				getParam2().setFocusable( false );
-				getParam2().setEnabled( false );
-				getParam2().setClickable( false );
-				getParam2().setFocusableInTouchMode( false );
-				getParam2().setCursorVisible( false );
-				getParam3().setFocusable( false );
-				getParam3().setEnabled( false );
-				getParam3().setClickable( false );
-				getParam3().setCursorVisible( false );
-				getParam3().setFocusableInTouchMode( false );
+				setEditTextEnabled( getParam2(), false );
+				setEditTextEnabled( getParam3(), false );
 				setSpinnerEnabled( getParam4(), false );
 				setSpinnerEnabled( getParam5(), false );
 				setSpinnerEnabled( getParam6(), false );
