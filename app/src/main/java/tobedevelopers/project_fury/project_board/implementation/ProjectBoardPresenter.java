@@ -42,6 +42,16 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 	}
 
 	private class LoadProjectColumnsTask extends AsyncTask< String, Void, ColumnResponse >{
+
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			ProjectBoardContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
+		}
+
 		@Override
 		protected ColumnResponse doInBackground( String... strings ){
 			return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
@@ -53,6 +63,8 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 			ProjectBoardContract.View view = viewWeakReference.get();
 
 			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
 				switch( response.getMessage() ){
 					case "Success":
 						view.setTabTitles( response.getColumns() );

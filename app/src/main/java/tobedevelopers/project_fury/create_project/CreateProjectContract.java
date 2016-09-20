@@ -21,6 +21,10 @@ public interface CreateProjectContract{
 		void noInternetAccessValidation();
 
 		void setProjectAlreadyUsedValidation();
+
+		void showProjectUpdatingInProgress();
+
+		void hideProjectUpdatingInProgress();
 	}
 
 	interface Navigation{

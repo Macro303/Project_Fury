@@ -49,11 +49,13 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 	}
 
 	@Override
-	public void userSelectSaveProject(){
+	public void userSelectSaveProject( final List< Column > columnList ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 
+		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
+
 		if( view != null )
-			new SaveProjectTask().execute();
+			new SaveProjectTask().execute( columns );
 	}
 
 	@Override
@@ -65,15 +67,15 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			new AddColumnTask().execute();
 	}
 
-	@Override
-	public void userSelectSaveColumns( final List< Column > columnList ){
-		ProjectInfoContract.View view = viewWeakReference.get();
-
-		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
-
-		if( view != null )
-			new SaveColumnTask().execute( columns );
-	}
+//	@Override
+//	public void userSelectSaveColumns( final List< Column > columnList ){
+//		ProjectInfoContract.View view = viewWeakReference.get();
+//
+//		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
+//
+//		if( view != null )
+//			new SaveColumnTask().execute( columns );
+//	}
 
 	@Override
 	public void saveColumnsBeforeDeleting( final List< Column > columnList ){
@@ -145,7 +147,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			new LoadColumnsTask().execute();
 	}
 
-	private class SaveProjectTask extends AsyncTask< String, Void, Response >{
+	private class SaveProjectTask extends AsyncTask< Column, Void, Response >{
 
 		@Override
 		protected void onPreExecute(){
@@ -153,14 +155,21 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null )
-				view.projectUpdatingInProgress();
+				view.showProjectUpdatingInProgress();
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
+		protected Response doInBackground( Column... columns ){
+			for( Column column : columns ){
+				Response response = model.updateColumn( column.getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+				if( !response.getMessage().equals( "Update successful." ) )
+					return response;
+			}
+
 			if( mProjectDescription.equals( "null" ) )
 				mProjectDescription = "";
 			return model.updateProject( Model.getSelectedProject().getProjectID(), mProjectName, mProjectDescription );
+
 		}
 
 		@Override
@@ -169,6 +178,8 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
 				switch( response.getMessage() ){
 					case "Update successful.":
 						view.saveProjectDescription();
@@ -193,7 +204,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null )
-				view.projectUpdatingInProgress();
+				view.showProjectUpdatingInProgress();
 		}
 
 
@@ -208,6 +219,8 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
 				switch( response.getMessage() ){
 					case "Column creation successful.":
 						view.addColumnName();
@@ -223,7 +236,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		}
 	}
 
-	private class SaveColumnTask extends AsyncTask< Column, Void, String >{
+	private class SaveColumnsBeforeDeletingTask extends AsyncTask< Column, Void, String >{
 
 		@Override
 		protected void onPreExecute(){
@@ -231,69 +244,31 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null ){
-				view.projectUpdatingInProgress();
-			}
-		}
-
-				@Override
-				protected String doInBackground( Column... columns ){
-					String value = "Update successful.";
-					for( Column column : columns ){
-						Response response = model.updateColumn( column.getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
-						if( !response.getMessage().equals( "Update successful." ) )
-							value = response.getMessage();
-					}
-					return value;
-				}
-
-				@Override
-				protected void onPostExecute( String result ){
-					super.onPostExecute( result );
-					ProjectInfoContract.View view = viewWeakReference.get();
-
-			if( view != null ){
-				switch( result ){
-					case "Update successful.":
-						userSelectSaveProject();
-						break;
-					case "No Internet Access":
-						view.noInternetAccessValidation();
-						break;
-					default:
-						view.setInvalidUserValidation();
-						break;
-				}
-			}
-		}
-	}
-
-	private class SaveColumnsBeforeDeletingTask extends AsyncTask< Column, Void, Response >{
-
-		@Override
-		protected void onPreExecute(){
-			super.onPreExecute();
-			ProjectInfoContract.View view = viewWeakReference.get();
-
-			if( view != null ){
-				view.projectUpdatingInProgress();
+				view.showProjectUpdatingInProgress();
 			}
 		}
 
 		@Override
-		protected Response doInBackground( Column... columns ){
+		protected String doInBackground( Column... columns ){
+
+			String value = "Update successful.";
 			for( Column column : columns ){
-				return model.updateColumn( Model.getSelectedProject().getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+				Response response = model.updateColumn( column.getProjectID(), column.getColumnID(), column.getName(), column.getPosition() );
+				if( !response.getMessage().equals( "Update successful." ) )
+					value = response.getMessage();
 			}
-			return null;
+			return value;
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( String result ){
+			super.onPostExecute( result );
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null ){
-				switch( response.getMessage() ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( result ){
 					case "Update successful.":
 						userSelectDeleteColumn();
 						break;
@@ -317,7 +292,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null ){
-				view.projectUpdatingInProgress();
+				view.showProjectUpdatingInProgress();
 			}
 		}
 
@@ -332,6 +307,8 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
 				switch( response.getMessage() ){
 					case "Delete successful.":
 						loadColumns();
@@ -356,7 +333,7 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			ProjectInfoContract.View view = viewWeakReference.get();
 
 			if( view != null )
-				view.projectUpdatingInProgress();
+				view.showProjectUpdatingInProgress();
 		}
 
 		@Override
@@ -367,10 +344,13 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		@Override
 		protected void onPostExecute( Response response ){
 			super.onPostExecute( response );
+
 			ProjectInfoContract.View view = viewWeakReference.get();
 			ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
 				switch( response.getMessage() ){
 					case "Delete successful.":
 						navigation.navigateToPrevious();
@@ -401,7 +381,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 		protected void onPostExecute( ColumnResponse response ){
 			super.onPostExecute( response );
 			ProjectInfoContract.View view = viewWeakReference.get();
-//			ProjectInfoContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null ){
 				switch( response.getMessage() ){

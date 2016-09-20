@@ -84,7 +84,11 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 		@Override
 		protected void onPreExecute(){
-			viewWeakReference.get().loginInProgress();
+			super.onPreExecute();
+			LoginContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.loginInProgress();
 		}
 
 		@Override
@@ -95,17 +99,22 @@ public class LoginPresenter implements LoginContract.Presenter{
 		@Override
 		protected void onPostExecute( Response response ){
 			LoginContract.View view = viewWeakReference.get();
+			LoginContract.Navigation navigation = navigationWeakReference.get();
 
-			switch( response.getMessage() ){
-				case "Success":
-					navigationWeakReference.get().navigateToDashboard();
-					break;
-				case "No Internet Access":
-					view.noInternetAccessValidation();
-					break;
-				default:
-					view.setInvalidUserValidation();
-					break;
+			if( view != null && navigation != null ){
+				view.logInFinished();
+
+				switch( response.getMessage() ){
+					case "Success":
+						navigation.navigateToDashboard();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setInvalidUserValidation();
+						break;
+				}
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package tobedevelopers.project_fury.project_info.implementation;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -60,6 +61,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	private ColumnRecyclerAdapter columnRecyclerAdapter;
 	private ItemTouchHelper.Callback callback;
 	private ItemTouchHelper touchHelper;
+	private ProgressDialog progressDialog;
 
 	private String columnName;
 
@@ -70,6 +72,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		super.onCreate( savedInstanceState );
 
 		presenter = new ProjectInfoPresenter( this, this );
+
+		progressDialog = new ProgressDialog( this );
 
 		ButterKnife.bind( this );
 
@@ -121,8 +125,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
-				presenter.userSelectSaveProject();
-				presenter.userSelectSaveColumns( columnRecyclerAdapter.columnList );
+				presenter.userSelectSaveProject( columnRecyclerAdapter.columnList );
+//				presenter.userSelectSaveColumns( columnRecyclerAdapter.columnList );
 				break;
 			case R.id.projectInfoActivity_deleteProjectButton:
 				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
@@ -288,7 +292,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			}
 		} );
 
-//		builder.show();
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
@@ -366,11 +369,25 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	}
 
 	@Override
-	public void projectUpdatingInProgress(){
+	public void showProjectUpdatingInProgress(){
 		runOnUiThread( new Runnable1Param< ProjectInfoView >( this ){
 			@Override
 			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project updating" ), Toast.LENGTH_LONG );
+				progressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				progressDialog.setMessage( "Updating..." );
+				progressDialog.setIndeterminate( true );
+				progressDialog.setCancelable( false );
+				progressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideProjectUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< ProjectInfoView >( this ){
+			@Override
+			public void run(){
+				progressDialog.dismiss();
 			}
 		} );
 	}

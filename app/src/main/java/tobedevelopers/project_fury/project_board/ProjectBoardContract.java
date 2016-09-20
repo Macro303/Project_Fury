@@ -13,6 +13,10 @@ public interface ProjectBoardContract{
 		void displayDefaultErrorMessage();
 
 		void setTabTitles( Column[] columns );
+
+		void showProjectUpdatingInProgress();
+
+		void hideProjectUpdatingInProgress();
 	}
 
 	interface Navigation{

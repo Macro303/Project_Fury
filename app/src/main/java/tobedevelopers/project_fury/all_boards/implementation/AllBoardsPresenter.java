@@ -47,6 +47,10 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
+			AllBoardsContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
 		}
 
 		@Override
@@ -60,6 +64,8 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 			AllBoardsContract.View view = viewWeakReference.get();
 
 			if( view != null ){
+				view.hideProjectUpdatingInProgress();
+
 				switch( response.getMessage() ){
 					case "Success":
 						view.setRecyclerItems( response.getProjects() );

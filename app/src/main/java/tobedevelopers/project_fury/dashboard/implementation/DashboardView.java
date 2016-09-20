@@ -75,7 +75,6 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 			public void onItemClick( AdapterView< ? > adapterView, View view, int position, long id ){
 				if( !view.getTag().equals( "No Projects" ) ){
 					Model.setSelectedProject( ( Project ) mProjectsList.getItemAtPosition( position ) );
-					ToastLog.makeInfo( getApplicationContext(), Model.getSelectedProject().getName(), Toast.LENGTH_SHORT );
 					setEnabledAllButtons( false );
 					presenter.userSelectProjectInfo();
 				}
@@ -102,7 +101,6 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 			public void onItemClick( AdapterView< ? > adapterView, View view, int position, long id ){
 				if( !view.getTag().equals( "No Tasks" ) ){
 					Model.setSelectedTask( ( Task ) mTasksList.getItemAtPosition( position ) );
-					ToastLog.makeInfo( getApplicationContext(), Model.getSelectedTask().getName(), Toast.LENGTH_SHORT );
 					setEnabledAllButtons( false );
 					presenter.userSelectTaskInfo();
 				}

@@ -113,18 +113,19 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			super.onPostExecute( result );
 			DashboardContract.View view = viewWeakReference.get();
 			DashboardContract.Navigation navigation = navigationWeakReference.get();
-
-			switch( result.getMessage() ){
-				case "Success":
-					Model.setSelectedProject( result.getProjects()[ 0 ] );
-					navigation.navigateToTaskInfo();
-					break;
-				case "No Internet Access":
-					view.noInternetAccessValidation();
-					break;
-				default:
-					view.defaultErrorMessage();
-					break;
+			if( view != null && navigation != null ){
+				switch( result.getMessage() ){
+					case "Success":
+						Model.setSelectedProject( result.getProjects()[ 0 ] );
+						navigation.navigateToTaskInfo();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
+						break;
+				}
 			}
 		}
 
@@ -166,9 +167,9 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		protected void onPostExecute( ProjectHolder response ){
 			super.onPostExecute( response );
 			DashboardContract.View view = viewWeakReference.get();
-//			DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-			view.loadProjectsIntoList( response );
+			if( view != null )
+				view.loadProjectsIntoList( response );
 		}
 
 		@Override
@@ -201,11 +202,10 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		@Override
 		protected void onPostExecute( TaskHolder response ){
 			super.onPostExecute( response );
-
 			DashboardContract.View view = viewWeakReference.get();
-//			DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-			view.loadTasksIntoList( response );
+			if( view != null )
+				view.loadTasksIntoList( response );
 		}
 
 		@Override

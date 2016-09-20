@@ -113,7 +113,11 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 
 		@Override
 		protected void onPreExecute(){
-			viewWeakReference.get().taskCreationInProgress();
+			super.onPreExecute();
+			CreateTaskContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showTaskUpdatingInProgress();
 		}
 
 		@Override
@@ -125,16 +129,19 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		protected void onPostExecute( Response response ){
 			CreateTaskContract.View view = viewWeakReference.get();
 
-			switch( response.getMessage() ){
-				case "Task creation successful.":
-					navigationWeakReference.get().navigateToPrevious();
-					break;
-				case "No Internet Access":
-					view.noInternetAccessValidation();
-					break;
-				default:
-					view.errorValidation();
-					break;
+			if( view != null ){
+				view.hideTaskUpdatingInProgress();
+				switch( response.getMessage() ){
+					case "Task creation successful.":
+						navigationWeakReference.get().navigateToPrevious();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.errorValidation();
+						break;
+				}
 			}
 		}
 	}

@@ -12,6 +12,8 @@ public interface LoginContract{
 
 		void loginInProgress();
 
+		void logInFinished();
+
 		void setUsernameUnderValidation();
 
 		void setUsernameOverValidation();

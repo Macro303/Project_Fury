@@ -71,7 +71,11 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 
 		@Override
 		protected void onPreExecute(){
-			viewWeakReference.get().projectCreationInProgress();
+			super.onPreExecute();
+			CreateProjectContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.showProjectUpdatingInProgress();
 		}
 
 		@Override
@@ -84,16 +88,20 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 			CreateProjectContract.View view = viewWeakReference.get();
 			CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
-			switch( response.getMessage() ){
-				case "Project creation successful.":
-					navigation.navigateToPrevious();
-					break;
-				case "No Internet Access":
-					view.noInternetAccessValidation();
-					break;
-				default:
-					view.setProjectAlreadyUsedValidation();
-					break;
+			if( view != null && navigation != null ){
+				view.hideProjectUpdatingInProgress();
+
+				switch( response.getMessage() ){
+					case "Project creation successful.":
+						navigation.navigateToPrevious();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setProjectAlreadyUsedValidation();
+						break;
+				}
 			}
 		}
 	}

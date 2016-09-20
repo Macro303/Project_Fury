@@ -137,6 +137,16 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 	}
 
 	@Override
+	public void logInFinished(){
+		runOnUiThread( new Runnable1Param< LoginView >( this ){
+			@Override
+			public void run(){
+				mLoadingProgressbar.setVisibility( View.GONE );
+			}
+		} );
+	}
+
+	@Override
 	public void setUsernameUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
@@ -190,7 +200,6 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mUsernameEditText, mPasswordEditText ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.GONE );
 				getParam1().setError( getString( R.string.error_invalidUsernamePassword ) );
 				getParam2().setError( getString( R.string.error_invalidUsernamePassword ) );
 			}

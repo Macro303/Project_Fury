@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.task_info.implementation;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -59,6 +60,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	private TaskInfoContract.Presenter presenter;
 	private String[] initialValues = new String[ 5 ];
 	private Column[] columns;
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -67,6 +69,8 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		super.onCreate( savedInstanceState );
 
 		presenter = new TaskInfoPresenter( this, this );
+
+		progressDialog = new ProgressDialog( this );
 
 		ButterKnife.bind( this );
 
@@ -228,6 +232,30 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	}
 
 	@Override
+	public void showTaskUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< TaskInfoView >( this ){
+			@Override
+			public void run(){
+				progressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				progressDialog.setMessage( "Updating..." );
+				progressDialog.setIndeterminate( true );
+				progressDialog.setCancelable( false );
+				progressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideTaskUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< TaskInfoView >( this ){
+			@Override
+			public void run(){
+				progressDialog.dismiss();
+			}
+		} );
+	}
+
+	@Override
 	public void defaultErrorMessage(){
 		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 		mTaskName.setText( initialValues[ 0 ] );
@@ -286,26 +314,6 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				setSpinnerEnabled( getParam5(), false );
 				setSpinnerEnabled( getParam6(), false );
 				getParam7().setVisibility( View.GONE );
-			}
-		} );
-	}
-
-	@Override
-	public void taskUpdatingInProgress(){
-		runOnUiThread( new Runnable1Param< TaskInfoView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Update" ), Toast.LENGTH_LONG );
-			}
-		} );
-	}
-
-	@Override
-	public void taskDeletionInProgress(){
-		runOnUiThread( new Runnable1Param< TaskInfoView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Deletion" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}

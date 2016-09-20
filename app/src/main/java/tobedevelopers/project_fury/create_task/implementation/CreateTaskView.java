@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.create_task.implementation;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
@@ -45,7 +46,10 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	Button mCreateTaskButton;
 	@Bind( R.id.createTaskActivity_assigneeSpinner )
 	Spinner mAssigneeSpinner;
+
 	private CreateTaskContract.Presenter presenter;
+
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -53,6 +57,8 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		setContentView( R.layout.activity_create_task );
 		super.onCreate( savedInstanceState );
 		presenter = new CreateTaskPresenter( this, this );
+
+		progressDialog = new ProgressDialog( this );
 
 		ButterKnife.bind( this );
 
@@ -86,6 +92,30 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 			@Override
 			public void onNothingSelected( AdapterView< ? > adapterView ){
 
+			}
+		} );
+	}
+
+	@Override
+	public void showTaskUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
+			@Override
+			public void run(){
+				progressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+				progressDialog.setMessage( "Updating..." );
+				progressDialog.setIndeterminate( true );
+				progressDialog.setCancelable( false );
+				progressDialog.show();
+			}
+		} );
+	}
+
+	@Override
+	public void hideTaskUpdatingInProgress(){
+		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
+			@Override
+			public void run(){
+				progressDialog.dismiss();
 			}
 		} );
 	}
@@ -163,16 +193,6 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 			@Override
 			public void run(){
 				getParam1().mCreateTaskButton.setEnabled( false );
-			}
-		} );
-	}
-
-	@Override
-	public void taskCreationInProgress(){
-		runOnUiThread( new Runnable1Param< CreateTaskView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Task Creation" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}

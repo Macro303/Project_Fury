@@ -108,7 +108,11 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 		@Override
 		protected void onPreExecute(){
-			viewWeakReference.get().registrationInProgress();
+			super.onPreExecute();
+			RegisterContract.View view = viewWeakReference.get();
+
+			if( view != null )
+				view.registrationInProgress();
 		}
 
 		@Override
@@ -118,19 +122,24 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 		@Override
 		protected void onPostExecute( Response response ){
+			super.onPostExecute( response );
 			RegisterContract.View view = viewWeakReference.get();
 			RegisterContract.Navigation navigation = navigationWeakReference.get();
 
-			switch( response.getMessage() ){
-				case "Registration Successful.":
-					navigation.navigateToLogin();
-					break;
-				case "No Internet Access":
-					view.noInternetAccessValidation();
-					break;
-				default:
-					view.setUsernameAlreadyUsedValidation();
-					break;
+			if( view != null && navigation != null ){
+				view.registrationFinished();
+
+				switch( response.getMessage() ){
+					case "Registration Successful.":
+						navigation.navigateToLogin();
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.setUsernameAlreadyUsedValidation();
+						break;
+				}
 			}
 		}
 	}
