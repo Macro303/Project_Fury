@@ -34,7 +34,7 @@ import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
-import tobedevelopers.project_fury.runnable_param.Runnable2Param;
+import tobedevelopers.project_fury.runnable_param.Runnable7Param;
 
 /**
  * Created by Macro303 on 11/08/2016.
@@ -315,44 +315,40 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void editProjectDescription(){
-		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mProjectNameEditText, mProjectDescriptionEditText ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, Button >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mSaveProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
-				mEditProjectButton.setVisibility( View.GONE );
-				getParam1().setFocusable( true );
-				getParam1().setFocusableInTouchMode( true );
-				getParam1().setClickable( true );
-				getParam1().setCursorVisible( true );
-				getParam2().setFocusable( true );
-				getParam2().setFocusableInTouchMode( true );
-				getParam2().setClickable( true );
-				getParam2().setCursorVisible( true );
-				mDeleteText.setVisibility( View.VISIBLE );
-				touchHelper.attachToRecyclerView( mRecyclerView );
-				mSaveProjectButton.setVisibility( View.VISIBLE );
-				mAddColumnButton.setEnabled( true );
+				getParam1().setVisibility( View.GONE );
+				setEditTextEnabled( getParam2(), true );
+				setEditTextEnabled( getParam3(), true );
+				getParam4().setVisibility( View.VISIBLE );
+				getParam5().attachToRecyclerView( mRecyclerView );
+				getParam6().setVisibility( View.VISIBLE );
+				getParam7().setEnabled( true );
 			}
 		} );
 	}
 
+	private void setEditTextEnabled( TextInputEditText item, boolean value ){
+		item.setClickable( value );
+		item.setCursorVisible( value );
+		item.setEnabled( value );
+		item.setFocusable( value );
+		item.setFocusableInTouchMode( value );
+	}
+
 	@Override
 	public void saveProjectDescription(){
-		runOnUiThread( new Runnable2Param< TextInputEditText, TextInputEditText >( mProjectNameEditText, mProjectDescriptionEditText ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, Button >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mEditProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
-				mSaveProjectButton.setVisibility( View.GONE );
-				getParam1().setFocusable( false );
-				getParam1().setFocusableInTouchMode( false );
-				getParam1().setClickable( false );
-				getParam1().setCursorVisible( false );
-				getParam2().setFocusable( false );
-				getParam2().setFocusableInTouchMode( false );
-				getParam2().setClickable( false );
-				getParam2().setCursorVisible( false );
-				mDeleteText.setVisibility( View.INVISIBLE );
-				touchHelper.attachToRecyclerView( null );
-				mEditProjectButton.setVisibility( View.VISIBLE );
-				mAddColumnButton.setEnabled( false );
+				getParam1().setVisibility( View.GONE );
+				setEditTextEnabled( getParam2(), false );
+				setEditTextEnabled( getParam3(), false );
+				getParam4().setVisibility( View.INVISIBLE );
+				getParam5().attachToRecyclerView( null );
+				getParam6().setVisibility( View.VISIBLE );
+				getParam7().setEnabled( false );
 				setEnabledAllButtons( true );
 			}
 		} );

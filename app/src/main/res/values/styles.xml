@@ -65,6 +65,21 @@
 		<item name="android:focusableInTouchMode">false</item>
 	</style>
 
+	<style name="EditTextStyle.Restrictive.Description">
+		<item name="android:maxLength">128</item>
+		<item name="android:maxLines">6</item>
+		<item name="android:singleLine">false</item>
+		<item name="android:scrollbars">vertical</item>
+	</style>
+
+	<style name="EditTextStyle.Restrictive.Description.Disabled">
+		<item name="android:clickable">false</item>
+		<item name="android:cursorVisible">false</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
 	<style name="SpinKit" parent="SpinKitView.Large.FadingCircle">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
@@ -74,11 +89,11 @@
 	</style>
 
 	<style name="ButtonStyle" parent="BaseStyle">
+		<item name="android:background">@drawable/custom_button</item>
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:paddingStart">@dimen/buttonPadding</item>
 		<item name="android:paddingEnd">@dimen/buttonPadding</item>
-		<item name="android:background">@color/colorPrimaryDark</item>
 		<item name="android:textColor">@color/colorTextIcon</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:fontFamily">sans-serif-smallcaps</item>
@@ -106,6 +121,24 @@
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:textColor">@color/colorTextPrimary</item>
 		<item name="android:textStyle">italic</item>
+	</style>
+
+	<style name="SpinnerStyle" parent="BaseStyle">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">start|center</item>
+		<item name="android:paddingEnd">@dimen/spinnerPaddingEnd</item>
+		<item name="android:paddingStart">@dimen/spinnerPaddingStart</item>
+		<item name="android:layout_column">1</item>
+	</style>
+
+	<style name="TableStyle" parent="BaseStyle">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">match_parent</item>
+	</style>
+
+	<style name="TableStyle.Row">
+		<item name="android:layout_margin">@dimen/editTextMargin</item>
 	</style>
 
 </resources>
