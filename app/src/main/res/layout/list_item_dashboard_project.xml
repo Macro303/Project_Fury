@@ -11,7 +11,7 @@
 		android:layout_alignParentStart="true"
 		android:layout_centerVertical="true"
 		android:minWidth="150dp"
-		android:textColor="@color/windowBackground"
+		android:textColor="#000"
 		android:textSize="16sp"/>
 
 	<com.daimajia.numberprogressbar.NumberProgressBar

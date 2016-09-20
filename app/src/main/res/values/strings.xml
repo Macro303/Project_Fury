@@ -32,7 +32,7 @@
 	<string name="button_editProject">Edit Project</string>
 	<string name="button_saveProject">Save Project</string>
 	<string name="button_deleteProject">Delete Project</string>
-	<string name="button_removeTask">Remove Task</string>
+	<string name="button_removeTask">Delete Task</string>
 	<string name="button_createTask">Create Task</string>
 	<string name="button_projectBoard">To Board</string>
 	<string name="button_saveTask">Save Task</string>
@@ -42,14 +42,14 @@
 
 	<!-- Dialogue Messages  -->
 	<string name="dialog_deleteAlertTitle_project"> Delete Project? </string>
-	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this project and all of the attached tasks </string>
+	<string name="dialog_deleteAlertInstructions_project"> This will permanently delete this Project and all of the attached Tasks </string>
 	<string name="dialog_deleteAlertTitle_task">Delete Task?</string>
-	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this task and all of the attached sub-tasks</string>
+	<string name="dialog_deleteAlertInstructions_task">This will permanently delete this Task and all of the attached Sub-Tasks</string>
 	<string name="dialog_deleteAlertTitle_column">Delete Column?</string>
-	<string name="dialog_deleteAlertInstructions_column">This will permanently delete this column, and move all the attached tasks to the New column</string>
+	<string name="dialog_deleteAlertInstructions_column">This will permanently delete this Column, and move all the attached Tasks to the \'New\' Column</string>
 	<string name="dialog_addAlertTitle_column">New Column</string>
 	<string name="editText_dialogColumnName">Column Name</string>
-	<string name="textView_dialogAddColumn">Please enter a column name</string>
+	<string name="textView_dialogAddColumn">Please enter a Column name</string>
 
 	<!-- TextView Strings -->
 	<string name="textView_projectListTitle">Projects</string>
@@ -58,13 +58,13 @@
 	<string name="textView_registerInstructions">Please fill in all the below fields:</string>
 	<string name="textView_userInstruction_login">Not a User?</string>
 	<string name="textView_userInstruction_register">Already a User?</string>
-	<string name="textView_projectInfoInstruction">Below is information about this project:</string>
-	<string name="textView_taskInfoInstruction">Below is information about this task:</string>
+	<string name="textView_projectInfoInstruction">Below is information about this Project:</string>
+	<string name="textView_taskInfoInstruction">Below is information about this Task:</string>
 	<string name="textView_priority">Priority</string>
 	<string name="textView_task">Task</string>
 	<string name="textView_assignee">Assignee</string>
 	<string name="textView_noTasksFound">No Tasks found</string>
-	<string name="textView_addColumnHeader">Column Name:</string>
+	<string name="textView_addColumnHeader">Columns</string>
 	<string name="textView_noProjectsFound">No Projects found</string>
 
 	<!-- Hints -->
@@ -110,12 +110,12 @@
 	</plurals>
 	<string name="error_alreadyExists">%1s already exists</string>
 	<string name="error_emailValidation">Please enter a valid email</string>
-	<string name="error_confirmPasswordValidation">Password does not currently match</string>
+	<string name="error_confirmPasswordValidation">Passwords do not currently match</string>
 	<string name="error_noInternetAccess">No Internet Access</string>
 	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
 	<string name="error_defaultError">Your request cannot be processed at this time</string>
 	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
-	<string name="error_noCurrentTasks">No Tasks Currently Assigned To You</string>
+	<string name="error_noCurrentTasks">No Current Tasks Select \'+\' To Create A Task</string>
 	<string name="error_refreshBoard">Please refresh board</string>
 	<string name="error_underConstruction">This page is under construction, this will be filled in future updates</string>
 

@@ -23,6 +23,7 @@
 
 			<android.support.design.widget.TextInputEditText
 				android:id="@+id/createTaskActivity_taskNameEditText"
+				style="@style/EditTextStyle.Restrictive"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:digits="@string/alphaNumericCharacters"
@@ -40,6 +41,7 @@
 
 			<android.support.design.widget.TextInputEditText
 				android:id="@+id/createTaskActivity_taskDescriptionEditText"
+				style="@style/EditTextStyle.Restrictive"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/createTaskActivity_taskNameEditText"
