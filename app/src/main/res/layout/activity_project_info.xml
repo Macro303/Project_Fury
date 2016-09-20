@@ -3,165 +3,112 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_marginTop="10dp"
+	android:layout_margin="20dp"
 	android:orientation="vertical">
 
-	<ScrollView
+	<android.support.design.widget.TextInputLayout
+		style="@style/EditTextLayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/projectInfoActivity_projectNameEditText"
+			style="@style/EditTextStyle.Restrictive.Disabled"
+			android:hint="@string/hint_projectName"
+			android:inputType="textNoSuggestions"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		style="@style/EditTextLayoutStyle">
+
+		<android.support.design.widget.TextInputEditText
+			android:id="@+id/projectInfoActivity_projectDescriptionEditText"
+			style="@style/EditTextStyle.Restrictive.Description.Disabled"
+			android:hint="@string/hint_projectDescription"
+			android:inputType="textNoSuggestions"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="@dimen/editTextMargin"
+		android:layout_marginStart="@dimen/editTextMargin"
+		android:layout_marginTop="@dimen/editTextMargin"
+		android:orientation="vertical">
 
-		<LinearLayout
+		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_margin="20dp"
-			android:orientation="vertical">
+			android:layout_height="wrap_content"
+			android:background="#FFFFFF">
 
-			<android.support.design.widget.TextInputLayout
-				style="@style/EditTextLayoutStyle">
+			<Button
+				android:id="@+id/projectInfoActivity_addColumnButton"
+				style="@style/ButtonStyle.Borderless"
+				android:layout_alignParentEnd="true"
+				android:backgroundTint="#FFFFFF"
+				android:enabled="false"
+				android:text="+"
+				android:textColor="#000"/>
 
-				<android.support.design.widget.TextInputEditText
-					android:id="@+id/projectInfoActivity_projectNameEditText"
-					style="@style/EditTextStyle.Restrictive"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:clickable="false"
-					android:cursorVisible="false"
-					android:digits="@string/alphaNumericCharacters"
-					android:editable="false"
-					android:focusable="false"
-					android:focusableInTouchMode="false"
-					android:hint="@string/hint_projectName"
-					android:inputType="textNoSuggestions"
-					android:maxLength="20"
-					android:singleLine="true"/>
+			<TextView
+				android:id="@+id/projectInfoActivity_columnNameTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="10dp"
+				android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
+				android:text="@string/textView_addColumnHeader"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textColor="#000"
+				android:textStyle="bold"/>
 
-			</android.support.design.widget.TextInputLayout>
+		</RelativeLayout>
 
-			<android.support.design.widget.TextInputLayout
-				style="@style/EditTextLayoutStyle"
-				android:layout_marginTop="15dp">
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/projectInfoActivity_columnNamesList"
+			android:layout_width="wrap_content"
+			android:layout_height="200dp"
+			android:layout_gravity="start"
+			android:background="#FFF"
+			android:padding="5dp"
+			android:scrollbars="vertical">
 
-				<android.support.design.widget.TextInputEditText
-					android:id="@+id/projectInfoActivity_projectDescriptionEditText"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_below="@id/projectInfoActivity_projectNameEditText"
-					android:layout_marginBottom="20dp"
-					android:clickable="false"
-					android:cursorVisible="false"
-					android:digits="@string/alphaNumericCharacters"
-					android:focusable="false"
-					android:focusableInTouchMode="false"
-					android:gravity="top|left"
-					android:hint="@string/hint_projectDescription"
-					android:inputType="textNoSuggestions"
-					android:maxLength="128"
-					android:maxLines="6"
-					android:scrollbars="vertical"/>
+		</android.support.v7.widget.RecyclerView>
 
-			</android.support.design.widget.TextInputLayout>
+		<TextView
+			android:id="@+id/projectInfoActivity_deleteText"
+			style="@style/TextStyle.Question"
+			android:layout_gravity="end"
+			android:text="@string/textView_deleteColumnInstruction"
+			android:visibility="invisible"/>
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_marginEnd="@dimen/editTextMargin"
-				android:layout_marginStart="@dimen/editTextMargin"
-				android:orientation="vertical">
+	</LinearLayout>
 
-				<RelativeLayout
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="#FFFFFF"
-					android:orientation="horizontal">
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="bottom|center">
 
-					<Button
-						android:id="@+id/projectInfoActivity_addColumnButton"
-						style="@style/buttonApperance"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_alignParentEnd="true"
-						android:backgroundTint="#FFFFFF"
-						android:enabled="false"
-						android:text="+"
-						android:textColor="#000"/>
+		<Button
+			android:id="@+id/projectInfoActivity_deleteProjectButton"
+			style="@style/ButtonStyle.Sized"
+			android:layout_alignParentStart="true"
+			android:text="@string/button_deleteProject"/>
 
-					<TextView
-						android:id="@+id/projectInfoActivity_columnNameTitle"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_alignParentStart="true"
-						android:layout_centerVertical="true"
-						android:layout_marginLeft="10dp"
-						android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
-						android:text="@string/textView_addColumnHeader"
-						android:textAppearance="?android:attr/textAppearanceMedium"
-						android:textColor="#000"
-						android:textStyle="bold"/>
+		<Button
+			android:id="@+id/projectInfoActivity_editProjectButton"
+			style="@style/ButtonStyle.Sized"
+			android:layout_alignParentEnd="true"
+			android:text="@string/button_editProject"/>
 
-				</RelativeLayout>
+		<Button
+			android:id="@+id/projectInfoActivity_saveProjectButton"
+			style="@style/ButtonStyle.Sized"
+			android:layout_alignParentEnd="true"
+			android:text="@string/button_saveProject"
+			android:visibility="gone"/>
 
-				<android.support.v7.widget.RecyclerView
-					android:id="@+id/projectInfoActivity_columnNamesList"
-					android:layout_width="wrap_content"
-					android:layout_height="200dp"
-					android:layout_gravity="start"
-					android:background="#FFF"
-					android:padding="5dp"
-					android:scrollbars="vertical">
-
-				</android.support.v7.widget.RecyclerView>
-
-				<TextView
-					android:id="@+id/projectInfoActivity_deleteText"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="end"
-					android:text="Swipe to Delete Column"
-					android:textAppearance="?android:textAppearanceSmall"
-					android:visibility="invisible"/>
-
-			</LinearLayout>
-
-			<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_marginTop="20dp"
-				android:gravity="bottom|center"
-				android:orientation="horizontal">
-
-				<Button
-					android:id="@+id/projectInfoActivity_deleteProjectButton"
-					style="@style/ButtonStyle.Sized"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentStart="true"
-					android:layout_gravity="start"
-					android:layout_marginEnd="10dp"
-					android:text="@string/button_deleteProject"/>
-
-				<Button
-					android:id="@+id/projectInfoActivity_editProjectButton"
-					style="@style/ButtonStyle.Sized"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentEnd="true"
-					android:layout_gravity="end"
-					android:text="@string/button_editProject"/>
-
-				<Button
-					android:id="@+id/projectInfoActivity_saveProjectButton"
-					style="@style/ButtonStyle.Sized"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentEnd="true"
-					android:layout_gravity="end"
-					android:text="@string/button_saveProject"
-					android:visibility="gone"/>
-
-			</RelativeLayout>
-
-		</LinearLayout>
-
-	</ScrollView>
+	</RelativeLayout>
 
 </LinearLayout>

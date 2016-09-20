@@ -16,13 +16,11 @@
 
 		<Button
 			android:id="@+id/allBoardsActivity_projectInfoButton"
-			style="?android:attr/borderlessButtonStyle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/ButtonStyle.Borderless"
 			android:layout_alignParentStart="true"
 			android:layout_centerVertical="true"
 			android:layout_marginStart="20dp"
-			android:gravity="start"
+			android:gravity="start|center"
 			android:maxLines="1"
 			android:text="@string/button_projectInfo"
 			android:textColor="@color/windowBackground"
