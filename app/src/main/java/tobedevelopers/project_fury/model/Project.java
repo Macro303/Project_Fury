@@ -8,7 +8,7 @@ import java.util.Comparator;
 /**
  * Created by Macro303 on 26/08/2016.
  */
-public class Project{
+public class Project implements Comparable< Project >{
 
 	public static final Comparator< Project > comparator = new Comparator< Project >(){
 		@Override
@@ -29,6 +29,13 @@ public class Project{
 		this.description = description;
 		this.name = name;
 		this.usersOnProject = usersOnProject;
+	}
+
+	@Override
+	public int compareTo( Project other ){
+		if( name.compareToIgnoreCase( other.name ) != 0 )
+			return name.compareToIgnoreCase( other.name );
+		return projectID.compareToIgnoreCase( other.projectID );
 	}
 
 	public String getDescription(){

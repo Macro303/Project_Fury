@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.backlog.implementation;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import tobedevelopers.project_fury.model.Column;
@@ -26,11 +27,14 @@ public class Holder{
 	}
 
 	public Project[] getProjects(){
+		Arrays.sort( projects );
 		return projects;
 	}
 
 	public Task[] getTasks( String projectName ){
-		return tasks.get( projectName );
+		Task[] tasks = this.tasks.get( projectName );
+		Arrays.sort( tasks );
+		return tasks;
 	}
 
 	public void addColumns( String projectName, Column[] columns ){
@@ -38,6 +42,8 @@ public class Holder{
 	}
 
 	public Column[] getColumns( String projectName ){
-		return columns.get( projectName );
+		Column[] columns = this.columns.get( projectName );
+		Arrays.sort( columns );
+		return columns;
 	}
 }

@@ -93,7 +93,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 	public void setTabTitles( Column[] columns ){
 		List< Column > columnList = new ArrayList<>();
 		columnList.addAll( Arrays.asList( columns ) );
-		Collections.sort( columnList, Column.comparator );
+		Collections.sort( columnList );
 		mProjectBoardFragmentPagerAdapter.setData( columnList );
 	}
 

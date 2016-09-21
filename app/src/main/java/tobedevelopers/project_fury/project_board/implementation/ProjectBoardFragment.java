@@ -99,7 +99,7 @@ public class ProjectBoardFragment extends Fragment{
 		protected void onPostExecute( TaskResponse response ){
 			super.onPostExecute( response );
 			Task[] tasks = response.getTasks();
-			Arrays.sort( tasks, Task.comparator );
+			Arrays.sort( tasks );
 			mRecyclerAdapter.setData( tasks );
 			mRecyclerAdapter.notifyDataSetChanged();
 		}

@@ -2,29 +2,27 @@ package tobedevelopers.project_fury.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Comparator;
-
 /**
  * Created by Macro303 on 7/09/2016.
  */
 
-public class Column{
-	public static final Comparator< Column > comparator = new Comparator< Column >(){
-		@Override
-		public int compare( Column c1, Column c2 ){
-			if( ( c1.position - c2.position ) != 0 )
-				return c1.position - c2.position;
-			if( c1.name.compareToIgnoreCase( c2.name ) != 0 )
-				return c1.name.compareToIgnoreCase( c2.name );
-			return c1.columnID.compareToIgnoreCase( c2.columnID );
-		}
-	};
+public class Column implements Comparable< Column >{
+
 	@SerializedName( "_id" )
 	private String columnID;
 	private String name;
 	@SerializedName( "projectParent" )
 	private String projectID;
 	private int position;
+
+	@Override
+	public int compareTo( Column other ){
+		if( position - other.position != 0 )
+			return position - other.position;
+		if( name.compareToIgnoreCase( other.name ) != 0 )
+			return name.compareToIgnoreCase( other.name );
+		return columnID.compareToIgnoreCase( other.columnID );
+	}
 
 	public String getColumnID(){
 		return columnID;

@@ -26,7 +26,7 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 	public void setData( Column[] columns, ProjectInfoView view ){
 		columnList = new ArrayList<>();
 		columnList.addAll( Arrays.asList( columns ) );
-		Collections.sort( columnList, Column.comparator );
+		Collections.sort( columnList );
 		viewWeakReference = new WeakReference<>( view );
 		notifyDataSetChanged();
 	}

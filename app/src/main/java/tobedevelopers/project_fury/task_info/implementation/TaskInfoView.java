@@ -115,7 +115,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 	@Override
 	public void setColumnSpinner( Column[] columns ){
 		this.columns = columns;
-		Arrays.sort( this.columns, Column.comparator );
+		Arrays.sort( this.columns );
 		String[] columnNames = new String[ columns.length ];
 		for( int i = 0; i < columns.length; i++ )
 			columnNames[ i ] = columns[ i ].getName();
