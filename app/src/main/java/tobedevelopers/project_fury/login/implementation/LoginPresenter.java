@@ -18,9 +18,6 @@ public class LoginPresenter implements LoginContract.Presenter{
 	private WeakReference< LoginContract.Navigation > navigationWeakReference;
 	private ModelContract model;
 
-	private String mUsername;
-	private String mPassword;
-
 	public LoginPresenter( LoginContract.View view, LoginContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
@@ -37,47 +34,12 @@ public class LoginPresenter implements LoginContract.Presenter{
 	}
 
 	@Override
-	public void userSelectLogin(){
+	public void userSelectLogin( String mUsername, String mPassword ){
 		LoginContract.View view = viewWeakReference.get();
 		LoginContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new LoginTask().execute();
-	}
-
-	@Override
-	public void userEnterUsername( String username ){
-		LoginContract.View view = viewWeakReference.get();
-
-		if( view != null ){
-			mUsername = username;
-			if( username.length() < 6 )
-				view.setUsernameUnderValidation();
-			else if( username.length() >= 20 )
-				view.setUsernameOverValidation();
-			view.disableLoginButton();
-		}
-	}
-
-	@Override
-	public void userEnterPassword( String password ){
-		LoginContract.View view = viewWeakReference.get();
-
-		if( view != null ){
-			mPassword = password;
-			if( password.length() < 6 ){
-				view.setPasswordUnderValidation();
-				view.disableLoginButton();
-			}else if( password.length() > 20 )
-				view.disableLoginButton();
-			else if( mUsername.length() >= 6 && mUsername.length() <= 20 )
-				view.enableLoginButton();
-			else
-				view.disableLoginButton();
-			if( password.length() >= 20 )
-				view.setPasswordOverValidation();
-
-		}
+			new LoginTask().execute( mUsername, mPassword );
 	}
 
 	private class LoginTask extends AsyncTask< String, Void, Response >{
@@ -93,7 +55,7 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 		@Override
 		protected Response doInBackground( String... strings ){
-			return model.login( mUsername, mPassword );
+			return model.login( strings[ 0 ], strings[ 1 ] );
 		}
 
 		@Override

@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.login.implementation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
@@ -55,7 +53,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 			case R.id.loginActivity_loginButton:
 				mRegisterButton.setEnabled( false );
 				mLoginButton.setEnabled( false );
-				presenter.userSelectLogin();
+				presenter.userSelectLogin( mUsernameEditText.getEditableText().toString(), mPasswordEditText.getEditableText().toString() );
 				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				break;
 			case R.id.loginActivity_registerButton:
@@ -68,18 +66,6 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
-	}
-
-	//Text Change Listeners
-	@OnTextChanged( value = { R.id.loginActivity_usernameEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
-	public void onUserChangedUsernameEditText( Editable editable ){
-		mPasswordEditText.getEditableText().clear();
-		presenter.userEnterUsername( editable.toString() );
-	}
-
-	@OnTextChanged( value = R.id.loginActivity_passwordEditText, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
-	public void onUserChangedPasswordEditText( Editable editable ){
-		presenter.userEnterPassword( editable.toString() );
 	}
 
 	@Override
@@ -142,46 +128,6 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 			@Override
 			public void run(){
 				mLoadingProgressbar.setVisibility( View.GONE );
-			}
-		} );
-	}
-
-	@Override
-	public void setUsernameUnderValidation(){
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
-			@Override
-			public void run(){
-				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
-			}
-		} );
-	}
-
-	@Override
-	public void setUsernameOverValidation(){
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
-			@Override
-			public void run(){
-				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
-			}
-		} );
-	}
-
-	@Override
-	public void setPasswordUnderValidation(){
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
-			@Override
-			public void run(){
-				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
-			}
-		} );
-	}
-
-	@Override
-	public void setPasswordOverValidation(){
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mPasswordEditText ){
-			@Override
-			public void run(){
-				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
 			}
 		} );
 	}

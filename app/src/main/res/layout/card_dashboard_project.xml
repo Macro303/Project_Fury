@@ -24,7 +24,7 @@
 			android:layout_alignParentStart="true"
 			android:layout_centerVertical="true"
 			android:minWidth="150dp"
-			android:textColor="#000"/>
+			android:textColor="@color/colorTextPrimary"/>
 
 		<com.daimajia.numberprogressbar.NumberProgressBar
 			android:id="@+id/listItem_projectProgress"
@@ -34,8 +34,9 @@
 			android:layout_centerVertical="true"
 			android:layout_marginStart="10dp"
 			android:layout_toEndOf="@id/listItem_projectName"
-			app:progress_reached_color="#555"
-			app:progress_text_color="#333"
+			app:progress_reached_color="#787878"
+			app:progress_text_color="#000"
+			app:progress_text_size="10sp"
 			app:progress_unreached_color="#FFF"/>
 
 	</RelativeLayout>

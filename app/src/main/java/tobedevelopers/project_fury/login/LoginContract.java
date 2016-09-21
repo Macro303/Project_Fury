@@ -14,14 +14,6 @@ public interface LoginContract{
 
 		void logInFinished();
 
-		void setUsernameUnderValidation();
-
-		void setUsernameOverValidation();
-
-		void setPasswordUnderValidation();
-
-		void setPasswordOverValidation();
-
 		void noInternetAccessValidation();
 
 		void setInvalidUserValidation();
@@ -36,10 +28,6 @@ public interface LoginContract{
 	interface Presenter{
 		void userSelectRegister();
 
-		void userSelectLogin();
-
-		void userEnterUsername( String username );
-
-		void userEnterPassword( String password );
+		void userSelectLogin( String Username, String password );
 	}
 }

@@ -64,7 +64,7 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 				holder.mNumberProgressBar.setProgress( calculateProgress( current.getName() ) );
 			}else{
 				holder.mNumberProgressBar.setMax( 100 );
-				holder.mNumberProgressBar.setProgress( 1 );
+				holder.mNumberProgressBar.setProgress( 0 );
 			}
 			holder.mCardView.setOnClickListener( new View.OnClickListener(){
 				@Override
