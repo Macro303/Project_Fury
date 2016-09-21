@@ -10,7 +10,7 @@ public interface BacklogContract{
 	interface View{
 		void noInternetAccessValidation();
 
-//		void loadingInProgress();
+//		void loadingProjectsInProgress();
 
 		void fillProjects( Holder holder );
 
