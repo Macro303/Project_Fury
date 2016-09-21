@@ -89,6 +89,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 		//UI References
 		mRecyclerView = ( RecyclerView ) findViewById( R.id.projectInfoActivity_columnNamesList );
+		mAddColumnButton.setEnabled( false );
 
 		//Recycler Config
 		mRecyclerView.setHasFixedSize( true );
@@ -127,7 +128,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
 				presenter.userSelectSaveProject( columnRecyclerAdapter.columnList );
-//				presenter.userSelectSaveColumns( columnRecyclerAdapter.columnList );
 				break;
 			case R.id.projectInfoActivity_deleteProjectButton:
 				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
@@ -315,7 +315,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void editProjectDescription(){
-		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, Button >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mSaveProjectButton, mAddColumnButton ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, ImageButton >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mSaveProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -339,7 +339,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void saveProjectDescription(){
-		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, Button >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mEditProjectButton, mAddColumnButton ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, ImageButton >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mEditProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -348,8 +348,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				getParam4().setVisibility( View.INVISIBLE );
 				getParam5().attachToRecyclerView( null );
 				getParam6().setVisibility( View.VISIBLE );
-				getParam7().setEnabled( false );
 				setEnabledAllButtons( true );
+				getParam7().setEnabled( false );
 			}
 		} );
 	}

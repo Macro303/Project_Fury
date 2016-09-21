@@ -67,16 +67,6 @@ public class ProjectInfoPresenter implements ProjectInfoContract.Presenter{
 			new AddColumnTask().execute();
 	}
 
-//	@Override
-//	public void userSelectSaveColumns( final List< Column > columnList ){
-//		ProjectInfoContract.View view = viewWeakReference.get();
-//
-//		Column[] columns = columnList.toArray( new Column[ columnList.size() ] );
-//
-//		if( view != null )
-//			new SaveColumnTask().execute( columns );
-//	}
-
 	@Override
 	public void saveColumnsBeforeDeleting( final List< Column > columnList ){
 		ProjectInfoContract.View view = viewWeakReference.get();
