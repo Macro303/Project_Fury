@@ -26,20 +26,31 @@ public class BacklogFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
 	@Override
 	public int getCount(){
-		return holder != null ? holder.getProjects() != null ? holder.getProjects().length : 0 : 0;
+		if( holder != null && holder.getProjects() != null && holder.getProjects().length > 0 )
+			return holder.getProjects().length;
+		else
+			return 1;
 	}
 
 	@Override
 	public CharSequence getPageTitle( int position ){
-		Project[] projects = holder.getProjects();
-		return projects[ position ].getName();
+		if( holder != null && holder.getProjects() != null && holder.getProjects().length > 0 ){
+			Project[] projects = holder.getProjects();
+			return projects[ position ].getName();
+		}else{
+			return "No Projects";
+		}
 	}
 
 	@Override
 	public Fragment getItem( int position ){
-		Project[] projects = holder.getProjects();
-		Task[] tasks = holder.getTasks( projects[ position ].getName() );
-		Column[] columns = holder.getColumns( projects[ position ].getName() );
-		return new BacklogFragment().setData( tasks, columns, projects[ position ] );
+		if( holder != null && holder.getProjects() != null && holder.getProjects().length > 0 ){
+			Project[] projects = holder.getProjects();
+			Task[] tasks = holder.getTasks( projects[ position ].getName() );
+			Column[] columns = holder.getColumns( projects[ position ].getName() );
+			return new BacklogFragment().setData( tasks, columns, projects[ position ] );
+		}else{
+			return new BacklogFragment();
+		}
 	}
 }
