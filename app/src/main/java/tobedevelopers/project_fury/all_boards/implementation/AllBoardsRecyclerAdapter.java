@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.all_boards.AllBoardsContract;
@@ -27,6 +28,7 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 
 	public void setData( Project[] projects ){
 		this.projects = projects;
+		Arrays.sort( this.projects, Project.comparator );
 		notifyDataSetChanged();
 	}
 

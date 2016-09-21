@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.dashboard.DashboardContract;
@@ -36,7 +37,8 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 	}
 
 	public Object getItem( int position ){
-		return taskHolder.getPairList().get( position ).first;
+		ArrayList< Pair< Task, Column > > pairs = taskHolder.getPairList();
+		return pairs.get( position ).first;
 	}
 
 	@Override
@@ -50,7 +52,8 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 		final DashboardContract.Presenter presenter = presenterWeakReference.get();
 
 		if( taskHolder.getPairList().size() > 0 ){
-			final Pair< Task, Column > current = taskHolder.getPairList().get( position );
+			ArrayList< Pair< Task, Column > > pairs = taskHolder.getPairList();
+			final Pair< Task, Column > current = pairs.get( position );
 			holder.mCardView.setEnabled( true );
 			holder.mTaskName.setVisibility( View.VISIBLE );
 			holder.mColumnName.setVisibility( View.VISIBLE );

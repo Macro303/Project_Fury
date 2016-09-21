@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Macro303 on 30/08/2016.
  */
-public class Task{
+public class Task implements Comparable< Task >{
 
 	@SerializedName( "_id" )
 	private String taskID;
@@ -18,6 +18,15 @@ public class Task{
 	private Priority priority = Priority.UNASSIGNED;
 	@SerializedName( "columnIn" )
 	private String columnID;
+
+	@Override
+	public int compareTo( Task other ){
+		if( priority.compareTo( other.priority ) != 0 )
+			return priority.compareTo( other.priority );
+		if( name.compareToIgnoreCase( other.name ) != 0 )
+			return name.compareToIgnoreCase( other.name );
+		return taskID.compareToIgnoreCase( other.taskID );
+	}
 
 	public String getAssignee(){
 		return assignee;
@@ -61,10 +70,10 @@ public class Task{
 	}
 
 	public enum Priority{
-		UNASSIGNED( 0, "Unassigned" ),
-		LOW( 1, "Low" ),
+		HIGH( 3, "High" ),
 		NORMAL( 2, "Normal" ),
-		HIGH( 3, "High" );
+		LOW( 1, "Low" ),
+		UNASSIGNED( 0, "Unassigned" );
 
 		private int value;
 		private String nameValue;

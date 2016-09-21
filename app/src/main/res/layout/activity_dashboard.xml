@@ -39,47 +39,32 @@
 
 				<ImageButton
 					android:id="@+id/listHeader_projectCreateButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentEnd="true"
-					android:background="@null"
-					android:contentDescription="@string/button_createProject"
-					android:src="@drawable/ic_add_white_36dp"/>
+					style="@style/ButtonStyle.Image"
+					android:contentDescription="@string/button_createProject"/>
 
 				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentStart="true"
-					android:layout_marginStart="10dp"
-					android:layout_marginTop="5dp"
+					style="@style/TextStyle.Title"
 					android:layout_toStartOf="@id/listHeader_projectCreateButton"
-					android:gravity="start"
-					android:paddingBottom="10dp"
-					android:text="@string/textView_projectListTitle"
-					android:textAppearance="?android:textAppearanceLarge"
-					android:textColor="@color/colorTextPrimary"
-					android:textSize="22sp"
-					android:textStyle="bold"/>
-
-				<com.github.ybq.android.spinkit.SpinKitView
-					android:id="@+id/dashboard_LoadingProjectsProgressBar"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_centerInParent="true"
-					android:visibility="gone"
-					app:SpinKit_Color="@color/colorDivider"
-					app:SpinKit_Style="FadingCircle"/>
+					android:text="@string/textView_projectListTitle"/>
 
 			</RelativeLayout>
 
-			<android.support.v7.widget.RecyclerView
-				android:id="@+id/dashboard_Project_RecyclerView"
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_gravity="start"
-				android:scrollbars="vertical">
+				android:layout_height="wrap_content">
 
-			</android.support.v7.widget.RecyclerView>
+				<android.support.v7.widget.RecyclerView
+					android:id="@+id/dashboard_Project_RecyclerView"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_gravity="start"
+					android:scrollbars="vertical"/>
+
+				<com.github.ybq.android.spinkit.SpinKitView
+					android:id="@+id/dashboard_LoadingProjectsProgressBar"
+					style="@style/SpinKit"/>
+
+			</RelativeLayout>
 
 
 		</LinearLayout>
@@ -97,47 +82,32 @@
 
 				<ImageButton
 					android:id="@+id/listHeader_taskCreateButton"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentEnd="true"
-					android:background="@null"
-					android:contentDescription="@string/button_createTask"
-					android:src="@drawable/ic_add_white_36dp"/>
+					style="@style/ButtonStyle.Image"
+					android:contentDescription="@string/button_createTask"/>
 
 				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentStart="true"
-					android:layout_marginStart="10dp"
-					android:layout_marginTop="5dp"
+					style="@style/TextStyle.Title"
 					android:layout_toStartOf="@id/listHeader_taskCreateButton"
-					android:gravity="start"
-					android:paddingBottom="10dp"
-					android:text="@string/textView_taskListTitle"
-					android:textAppearance="?android:textAppearanceLarge"
-					android:textColor="@color/colorTextPrimary"
-					android:textSize="22sp"
-					android:textStyle="bold"/>
-
-				<com.github.ybq.android.spinkit.SpinKitView
-					android:id="@+id/dashboard_LoadingTasksProgressBar"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_centerInParent="true"
-					android:visibility="gone"
-					app:SpinKit_Color="@color/colorDivider"
-					app:SpinKit_Style="FadingCircle"/>
+					android:text="@string/textView_taskListTitle"/>
 
 			</RelativeLayout>
 
-			<android.support.v7.widget.RecyclerView
-				android:id="@+id/dashboard_Task_RecyclerView"
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_gravity="start"
-				android:scrollbars="vertical">
+				android:layout_height="wrap_content">
 
-			</android.support.v7.widget.RecyclerView>
+				<android.support.v7.widget.RecyclerView
+					android:id="@+id/dashboard_Task_RecyclerView"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_gravity="start"
+					android:scrollbars="vertical"/>
+
+				<com.github.ybq.android.spinkit.SpinKitView
+					android:id="@+id/dashboard_LoadingTasksProgressBar"
+					style="@style/SpinKit"/>
+
+			</RelativeLayout>
 
 		</LinearLayout>
 

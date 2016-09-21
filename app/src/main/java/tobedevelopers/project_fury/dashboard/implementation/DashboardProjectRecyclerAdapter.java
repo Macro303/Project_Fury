@@ -1,7 +1,6 @@
 package tobedevelopers.project_fury.dashboard.implementation;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +36,11 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 	}
 
 	public Object getItem( int position ){
-		return projectHolder != null &&
-			       projectHolder.getProjects() != null &&
-			       projectHolder.getProjects().length > 0 ? projectHolder.getProjects()[ position ] : null;
+		if( projectHolder != null && projectHolder.getProjects() != null && projectHolder.getProjects().length > 0 ){
+			Project[] projects = projectHolder.getProjects();
+			return projects[ position ];
+		}else
+			return null;
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 			holder.mProjectName.setVisibility( View.VISIBLE );
 			holder.mNumberProgressBar.setVisibility( View.VISIBLE );
 			holder.mProjectName.setText( current.getName() );
-			if( projectHolder.getTasks() != null && projectHolder.getTasks().size() > 0 ){
-				holder.mNumberProgressBar.setMax( projectHolder.getTasks().get( current.getName() ).length );
+			if( projectHolder.getTasks( current.getName() ) != null && projectHolder.getTasks( current.getName() ).length > 0 ){
+				holder.mNumberProgressBar.setMax( projectHolder.getTasks( current.getName() ).length );
 				holder.mNumberProgressBar.setProgress( calculateProgress( current.getName() ) );
 			}else{
 				holder.mNumberProgressBar.setMax( 100 );
@@ -94,15 +95,14 @@ public class DashboardProjectRecyclerAdapter extends RecyclerView.Adapter< Dashb
 
 	private int calculateProgress( String currentName ){
 		int count = 0;
-		for( Task task : projectHolder.getTasks().get( currentName ) )
+		for( Task task : projectHolder.getTasks( currentName ) )
 			if( task.getColumnID().equals( findColumn( currentName, "Archived" ).getColumnID() ) )
 				count++;
 		return count;
 	}
 
-	@NonNull
 	private Column findColumn( String currentName, String columnName ){
-		for( Column column : projectHolder.getColumns().get( currentName ) )
+		for( Column column : projectHolder.getColumns( currentName ) )
 			if( column.getName().equals( columnName ) )
 				return column;
 		return null;

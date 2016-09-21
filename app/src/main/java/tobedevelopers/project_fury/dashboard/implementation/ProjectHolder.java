@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.dashboard.implementation;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import tobedevelopers.project_fury.model.Column;
@@ -29,15 +30,20 @@ public class ProjectHolder{
 		this.columns.put( projectName, columns );
 	}
 
-	public HashMap< String, Column[] > getColumns(){
+	public Column[] getColumns( String projectName ){
+		Column[] columns = this.columns.get( projectName );
+		Arrays.sort( columns );
 		return columns;
 	}
 
 	public Project[] getProjects(){
+		Arrays.sort( projects );
 		return projects;
 	}
 
-	public HashMap< String, Task[] > getTasks(){
+	public Task[] getTasks( String projectName ){
+		Task[] tasks = this.tasks.get( projectName );
+		Arrays.sort( tasks );
 		return tasks;
 	}
 }

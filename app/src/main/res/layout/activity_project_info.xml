@@ -39,31 +39,18 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="#FFFFFF">
+			android:background="#555">
 
 			<ImageButton
 				android:id="@+id/projectInfoActivity_addColumnButton"
-				style="@style/buttonAppearance"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentEnd="true"
-				android:backgroundTint="#FFFFFF"
-				android:enabled="false"
-				android:src="@drawable/ic_add_box_white_36dp"
-				android:tint="#000"/>
+				style="@style/ButtonStyle.Image"
+				android:enabled="false"/>
 
 			<TextView
 				android:id="@+id/projectInfoActivity_columnNameTitle"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentStart="true"
-				android:layout_centerVertical="true"
-				android:layout_marginStart="10dp"
+				style="@style/TextStyle.Title"
 				android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
-				android:text="@string/textView_addColumnHeader"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:textColor="#000"
-				android:textStyle="bold"/>
+				android:text="@string/textView_addColumnHeader"/>
 
 		</RelativeLayout>
 
@@ -72,11 +59,9 @@
 			android:layout_width="wrap_content"
 			android:layout_height="200dp"
 			android:layout_gravity="start"
-			android:background="#FFF"
+			android:background="#555"
 			android:padding="5dp"
-			android:scrollbars="vertical">
-
-		</android.support.v7.widget.RecyclerView>
+			android:scrollbars="vertical"/>
 
 		<TextView
 			android:id="@+id/projectInfoActivity_deleteText"

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:card_view="http://schemas.android.com/apk/res-auto"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/dashboard_Project_CardView"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	card_view:cardBackgroundColor="@color/colorPrimary"
-	card_view:cardCornerRadius="2dp"
-	card_view:cardElevation="0dp"
-	card_view:cardPreventCornerOverlap="false"
-	card_view:cardUseCompatPadding="true"
-	card_view:contentPadding="4dp">
+	app:cardBackgroundColor="@color/colorPrimary"
+	app:cardCornerRadius="2dp"
+	app:cardElevation="0dp"
+	app:cardPreventCornerOverlap="false"
+	app:cardUseCompatPadding="true"
+	app:contentPadding="4dp">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="25dp">
+		android:layout_height="wrap_content"
+		android:layout_margin="10dp">
 
 		<TextView
 			android:id="@+id/listItem_projectName"
@@ -23,8 +24,7 @@
 			android:layout_alignParentStart="true"
 			android:layout_centerVertical="true"
 			android:minWidth="150dp"
-			android:textColor="#000"
-			android:textSize="16sp"/>
+			android:textColor="#000"/>
 
 		<com.daimajia.numberprogressbar.NumberProgressBar
 			android:id="@+id/listItem_projectProgress"
@@ -33,7 +33,10 @@
 			android:layout_alignParentEnd="true"
 			android:layout_centerVertical="true"
 			android:layout_marginStart="10dp"
-			android:layout_toEndOf="@id/listItem_projectName"/>
+			android:layout_toEndOf="@id/listItem_projectName"
+			app:progress_reached_color="#555"
+			app:progress_text_color="#333"
+			app:progress_unreached_color="#FFF"/>
 
 	</RelativeLayout>
 
