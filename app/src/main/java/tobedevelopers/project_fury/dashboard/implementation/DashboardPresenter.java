@@ -142,6 +142,14 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 
 	private class LoadProjectsAsyncTask extends AsyncTask< Void, Void, ProjectHolder >{
 		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			DashboardContract.View view = viewWeakReference.get();
+			if( view != null )
+				view.loadingProjectsInProgress();
+		}
+
+		@Override
 		protected ProjectHolder doInBackground( Void... voids ){
 			ProjectHolder projectHolder = null;
 			ProjectResponse projectResponse = model.getAllProjects();
@@ -168,8 +176,10 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			super.onPostExecute( response );
 			DashboardContract.View view = viewWeakReference.get();
 
-			if( view != null )
+			if( view != null ){
+				view.loadingProjectsFinished();
 				view.loadProjectsIntoList( response );
+			}
 		}
 
 		@Override
@@ -177,13 +187,17 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			super.onCancelled( response );
 		}
 
-		@Override
-		protected void onPreExecute(){
-			super.onPreExecute();
-		}
 	}
 
 	private class LoadTasksAsyncTask extends AsyncTask< Void, Void, TaskHolder >{
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			DashboardContract.View view = viewWeakReference.get();
+			if( view != null )
+				view.loadingTasksInProgress();
+		}
+
 		@Override
 		protected TaskHolder doInBackground( Void... voids ){
 			TaskHolder taskHolder = new TaskHolder();
@@ -204,18 +218,15 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			super.onPostExecute( response );
 			DashboardContract.View view = viewWeakReference.get();
 
-			if( view != null )
+			if( view != null ){
+				view.loadingTasksFinished();
 				view.loadTasksIntoList( response );
+			}
 		}
 
 		@Override
 		protected void onCancelled( TaskHolder response ){
 			super.onCancelled( response );
-		}
-
-		@Override
-		protected void onPreExecute(){
-			super.onPreExecute();
 		}
 	}
 }
