@@ -83,7 +83,8 @@
 				<ImageButton
 					android:id="@+id/listHeader_taskCreateButton"
 					style="@style/ButtonStyle.Image"
-					android:contentDescription="@string/button_createTask"/>
+					android:contentDescription="@string/button_createTask"
+					android:visibility="gone"/>
 
 				<TextView
 					style="@style/TextStyle.Title"

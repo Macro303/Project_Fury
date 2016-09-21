@@ -140,7 +140,13 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 
 	@Override
 	public void loadProjectsIntoList( ProjectHolder projectHolder ){
-		mDashboardProjectRecyclerAdapter.setData( projectHolder );
+		if( projectHolder.getProjects().length != 0 ){
+			mCreateTaskButton.setVisibility( View.VISIBLE );
+			mDashboardProjectRecyclerAdapter.setData( projectHolder );
+		}else{
+			mCreateTaskButton.setVisibility( View.GONE );
+			mDashboardProjectRecyclerAdapter.setData( projectHolder );
+		}
 	}
 
 	@Override

@@ -115,8 +115,8 @@
 	<string name="error_noInternetAccess">No Internet Access</string>
 	<string name="error_invalidUsernamePassword">Invalid Username/Password</string>
 	<string name="error_defaultError">Your request cannot be processed at this time</string>
-	<string name="error_noCurrentProjects">No Current Projects Select \'+\' To Create A Project</string>
-	<string name="error_noCurrentTasks">No Current Tasks Select \'+\' To Create A Task</string>
+	<string name="error_noCurrentProjects">No Current Projects</string>
+	<string name="error_noCurrentTasks">No Current Tasks Assigned</string>
 	<string name="error_refreshBoard">Please refresh board</string>
 	<string name="error_underConstruction">This page is under construction, this will be filled in future updates</string>
 
