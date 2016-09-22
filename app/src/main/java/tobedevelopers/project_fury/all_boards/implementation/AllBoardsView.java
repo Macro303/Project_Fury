@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Toast;
 
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.all_boards.AllBoardsContract;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
 import tobedevelopers.project_fury.model.Project;
@@ -29,10 +26,9 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 	private AllBoardsRecyclerAdapter mAdapter;
 
 	private FloatingActionButton mCreateProjectButton;
+	private ProgressDialog mProgressDialog;
 
 	private AllBoardsContract.Presenter presenter;
-
-	private ProgressDialog mProgressDialog;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -55,23 +51,13 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		presenter.userOpensBoard();
 
 		//Button config
-		mCreateProjectButton.setOnClickListener( new View.OnClickListener(){
+		mCreateProjectButton.setOnClickListener( new android.view.View.OnClickListener(){
 			@Override
-			public void onClick( View view ){
+			public void onClick( android.view.View view ){
 				mCreateProjectButton.setEnabled( false );
 				presenter.userSelectCreateProject();
 			}
 		} );
-	}
-
-	@Override
-	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
-	}
-
-	@Override
-	public void displayDefaultErrorMessage(){
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
 
 	@Override
@@ -131,12 +117,5 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 				startActivity( new Intent( getParam1(), CreateProjectView.class ) );
 			}
 		} );
-	}
-
-	@Override
-	protected void onRestart(){
-		super.onRestart();
-		finish();
-		startActivity( getIntent() );
 	}
 }

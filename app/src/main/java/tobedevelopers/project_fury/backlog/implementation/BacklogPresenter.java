@@ -25,15 +25,6 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		this.model = new Model();
 	}
 
-//	@Override
-//	public void userSelectCreateTask(){
-//		BacklogContract.View view = viewWeakReference.get();
-//		BacklogContract.Navigation navigation = navigationWeakReference.get();
-//
-//		if( view != null && navigation != null )
-//			new CreateTask().execute();
-//	}
-
 	@Override
 	public void loadProjects(){
 		BacklogContract.View view = viewWeakReference.get();
@@ -50,37 +41,6 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		loadProjectsTask.cancel( condition );
 	}
 
-//	private class CreateTask extends AsyncTask< String, Void, ProjectResponse >{
-//
-//		@Override
-//		protected void onPreExecute(){
-//			viewWeakReference.get().loadingProjectsInProgress();
-//		}
-//
-//		@Override
-//		protected ProjectResponse doInBackground( String... strings ){
-//			return model.getAllProjects();
-//		}
-//
-//		@Override
-//		protected void onPostExecute( ProjectResponse response ){
-//			BacklogContract.View view = viewWeakReference.get();
-//			BacklogContract.Navigation navigation = navigationWeakReference.get();
-//
-//			switch( response.getMessage() ){
-//				case "Success":
-//					Model.setSelectedProject( response.getProjects()[ 0 ] );
-//					navigation.navigateToCreateTask();
-//					break;
-//				case "No Internet Access":
-//					view.noInternetAccessValidation();
-//					break;
-//				default:
-//					break;
-//			}
-//		}
-//	}
-
 	private class LoadProjectsTask extends AsyncTask< Void, Void, Holder >{
 		@Override
 		protected void onPreExecute(){
@@ -92,13 +52,13 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		}
 
 		@Override
-		protected Holder doInBackground( Void... voids ){
-			Holder holder = null;
+		protected Holder doInBackground( Void... inputs ){
+			Holder holder;
 			holder = new Holder( model.getAllProjects().getProjects() );
 			for( Project project : holder.getProjects() ){
-				if( isCancelled() ){
+				if( isCancelled() )
 					break;
-				}else{
+				else{
 					holder.addTasks( project.getName(), model.getAllProjectTasks( project.getProjectID() ).getTasks() );
 					holder.addColumns( project.getName(), model.getAllProjectColumns( project.getProjectID() ).getColumns() );
 				}
@@ -111,15 +71,15 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 			super.onPostExecute( result );
 			BacklogContract.View view = viewWeakReference.get();
 
-			if( view != null )
+			if( view != null ){
 				view.hideProjectUpdatingInProgress();
 				view.fillProjects( result );
+			}
 		}
 
 		@Override
 		protected void onCancelled( Holder result ){
 			super.onCancelled( result );
 		}
-
 	}
 }

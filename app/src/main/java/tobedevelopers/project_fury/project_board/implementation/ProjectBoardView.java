@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,9 +57,9 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		mTabLayout.setupWithViewPager( mViewPager );
 
 		//Button Config
-		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
+		mCreateTaskButton.setOnClickListener( new android.view.View.OnClickListener(){
 			@Override
-			public void onClick( View view ){
+			public void onClick( android.view.View view ){
 				mCreateTaskButton.setEnabled( false );
 				presenter.userSelectCreateTask();
 			}

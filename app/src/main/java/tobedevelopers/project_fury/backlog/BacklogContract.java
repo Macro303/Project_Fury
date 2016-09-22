@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.backlog;
 
+import tobedevelopers.project_fury.BaseContract;
 import tobedevelopers.project_fury.backlog.implementation.Holder;
 
 /**
@@ -7,27 +8,19 @@ import tobedevelopers.project_fury.backlog.implementation.Holder;
  */
 public interface BacklogContract{
 
-	interface View{
-		void noInternetAccessValidation();
-
-//		void loadingProjectsInProgress();
-
+	interface View extends BaseContract.View{
 		void fillProjects( Holder holder );
-
-		void defaultErrorMessage();
 
 		void showProjectUpdatingInProgress();
 
 		void hideProjectUpdatingInProgress();
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToCreateTask();
 	}
 
-	interface Presenter{
-//		void userSelectCreateTask();
-
+	interface Presenter extends BaseContract.Presenter{
 		void loadProjects();
 
 		void cancelAllAsyncTasks( Boolean condition );

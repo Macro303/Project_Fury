@@ -7,8 +7,7 @@ import android.util.Log;
 /**
  * Created by Macro303 on 10/08/2016.
  */
-public class BaseView extends AppCompatActivity{
-
+public abstract class BaseView extends AppCompatActivity implements BaseContract.View{
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
@@ -48,6 +47,16 @@ public class BaseView extends AppCompatActivity{
 	@Override
 	protected void onRestart(){
 		super.onRestart();
+		finish();
+		startActivity( getIntent() );
 		Log.i( getString( R.string.app_name ), getTitle() + " Restarted" );
+	}
+
+	public void noInternetAccessValidation(){
+		Log.i( getString( R.string.app_name ), getString( R.string.error_noInternetAccess ) );
+	}
+
+	public void defaultErrorMessage(){
+		Log.i( getString( R.string.app_name ), getString( R.string.error_defaultError ) );
 	}
 }

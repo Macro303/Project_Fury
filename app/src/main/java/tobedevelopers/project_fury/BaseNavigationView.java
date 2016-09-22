@@ -19,7 +19,7 @@ import tobedevelopers.project_fury.settings.implementation.SettingsView;
 /**
  * Created by Macro303 on 13/08/2016.
  */
-public class BaseNavigationView extends BaseView{
+public abstract class BaseNavigationView extends BaseView{
 
 	//UI References
 	private DrawerLayout mDrawerLayout;

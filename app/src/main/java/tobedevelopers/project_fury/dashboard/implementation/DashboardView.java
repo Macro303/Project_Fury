@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -68,7 +67,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	}
 
 	@OnClick( { R.id.listHeader_projectCreateButton, R.id.listHeader_taskCreateButton } )
-	public void onUserSelectAButton( View view ){
+	public void onUserSelectAButton( android.view.View view ){
 		switch( view.getId() ){
 			case R.id.listHeader_projectCreateButton:
 				setEnabledAllButtons( false );
@@ -141,10 +140,10 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	@Override
 	public void loadProjectsIntoList( ProjectHolder projectHolder ){
 		if( projectHolder.getProjects().length != 0 ){
-			mCreateTaskButton.setVisibility( View.VISIBLE );
+			mCreateTaskButton.setVisibility( android.view.View.VISIBLE );
 			mDashboardProjectRecyclerAdapter.setData( projectHolder );
 		}else{
-			mCreateTaskButton.setVisibility( View.GONE );
+			mCreateTaskButton.setVisibility( android.view.View.GONE );
 			mDashboardProjectRecyclerAdapter.setData( projectHolder );
 		}
 	}
@@ -165,7 +164,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingProjectsProgressbar.setVisibility( View.VISIBLE );
+				mLoadingProjectsProgressbar.setVisibility( android.view.View.VISIBLE );
 			}
 		} );
 	}
@@ -175,7 +174,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingProjectsProgressbar.setVisibility( View.GONE );
+				mLoadingProjectsProgressbar.setVisibility( android.view.View.GONE );
 			}
 		} );
 	}
@@ -185,7 +184,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingTasksProgressbar.setVisibility( View.VISIBLE );
+				mLoadingTasksProgressbar.setVisibility( android.view.View.VISIBLE );
 			}
 		} );
 	}
@@ -195,7 +194,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingTasksProgressbar.setVisibility( View.GONE );
+				mLoadingTasksProgressbar.setVisibility( android.view.View.GONE );
 			}
 		} );
 	}

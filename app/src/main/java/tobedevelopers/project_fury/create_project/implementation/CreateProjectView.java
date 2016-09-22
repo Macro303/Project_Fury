@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -49,7 +48,7 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 
 	//Button Listener
 	@OnClick( R.id.createProjectActivity_createProjectButton )
-	public void onUserSelectAButton( View view ){
+	public void onUserSelectAButton( android.view.View view ){
 		switch( view.getId() ){
 			case R.id.createProjectActivity_createProjectButton:
 				mCreateProjectButton.setEnabled( false );

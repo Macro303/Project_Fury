@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.login.implementation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -48,7 +47,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 
 	//Buttons Listener
 	@OnClick( { R.id.loginActivity_loginButton, R.id.loginActivity_registerButton } )
-	public void onUserSelectAButton( View view ){
+	public void onUserSelectAButton( android.view.View view ){
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
 				mRegisterButton.setEnabled( false );
@@ -73,7 +72,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( android.view.View.GONE );
 				startActivity( new Intent( getParam1(), RegisterView.class ) );
 			}
 		} );
@@ -84,7 +83,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( android.view.View.GONE );
 				finish();
 				startActivity( new Intent( getParam1(), DashboardView.class ) );
 			}
@@ -116,7 +115,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.VISIBLE );
+				mLoadingProgressbar.setVisibility( android.view.View.VISIBLE );
 				ToastLog.makeDebug( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG );
 			}
 		} );
@@ -127,7 +126,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( android.view.View.GONE );
 			}
 		} );
 	}

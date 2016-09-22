@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
-import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
@@ -25,13 +23,12 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	protected TabLayout mTabLayout;
 	@Bind( R.id.backlogActivity_viewPager )
 	protected ViewPager mViewPager;
-//	@Bind( R.id.backlogActivity_createTaskButton )
-//	protected FloatingActionButton mCreateTaskButton;
 
 	private BacklogContract.Presenter presenter;
 
 	private Holder holder;
 	private ProgressDialog progressDialog;
+	private BacklogFragmentPagerAdapter mAdapter;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -46,17 +43,9 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 		ButterKnife.bind( this );
 
 		//Tab Config
-		mViewPager.setAdapter( new BacklogFragmentPagerAdapter( getSupportFragmentManager() ) );
+		mAdapter = new BacklogFragmentPagerAdapter( getSupportFragmentManager() );
+		mViewPager.setAdapter( mAdapter );
 		mTabLayout.setupWithViewPager( mViewPager );
-
-//		Button Config
-//		mCreateTaskButton.setOnClickListener( new View.OnClickListener(){
-//			@Override
-//			public void onClick( View view ){
-//				Model.setSelectedProject( holder.getProjects()[ mTabLayout.getSelectedTabPosition() ] );
-//				presenter.userSelectCreateTask();
-//			}
-//		} );
 
 		presenter.loadProjects();
 	}
@@ -68,16 +57,9 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	}
 
 	@Override
-	protected void onRestart(){
-		super.onRestart();
-		finish();
-		startActivity( getIntent() );
-	}
-
-	@Override
 	public void fillProjects( Holder holder ){
 		this.holder = holder;
-		( ( BacklogFragmentPagerAdapter ) mViewPager.getAdapter() ).setData( this.holder );
+		mAdapter.setData( this.holder );
 	}
 
 	@Override
@@ -88,26 +70,6 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 				startActivity( new Intent( getParam1(), CreateTaskView.class ) );
 			}
 		} );
-	}
-
-//	@Override
-//	public void loadingProjectsInProgress(){
-//		runOnUiThread( new Runnable1Param< BacklogView >( this ){
-//			@Override
-//			public void run(){
-//				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Loading" ), Toast.LENGTH_LONG );
-//			}
-//		} );
-//	}
-
-	@Override
-	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
-	}
-
-	@Override
-	public void defaultErrorMessage(){
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
 
 	@Override

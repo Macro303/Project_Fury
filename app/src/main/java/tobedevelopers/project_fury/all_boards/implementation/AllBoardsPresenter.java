@@ -28,21 +28,21 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 	@Override
 	public void userOpensBoard(){
 		AllBoardsContract.View view = viewWeakReference.get();
+		AllBoardsContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null )
+		if( view != null && navigation != null )
 			new LoadProjectsTask().execute();
 	}
 
 	@Override
 	public void userSelectCreateProject(){
-		AllBoardsContract.View view = viewWeakReference.get();
 		AllBoardsContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToCreateProject();
 	}
 
-	private class LoadProjectsTask extends AsyncTask< String, Void, ProjectResponse >{
+	private class LoadProjectsTask extends AsyncTask< Void, Void, ProjectResponse >{
 
 		@Override
 		protected void onPreExecute(){
@@ -54,27 +54,27 @@ public class AllBoardsPresenter implements AllBoardsContract.Presenter{
 		}
 
 		@Override
-		protected ProjectResponse doInBackground( String... strings ){
+		protected ProjectResponse doInBackground( Void... inputs ){
 			return model.getAllProjects();
 		}
 
 		@Override
-		protected void onPostExecute( ProjectResponse response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( ProjectResponse result ){
+			super.onPostExecute( result );
 			AllBoardsContract.View view = viewWeakReference.get();
 
 			if( view != null ){
 				view.hideProjectUpdatingInProgress();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Success":
-						view.setRecyclerItems( response.getProjects() );
+						view.setRecyclerItems( result.getProjects() );
 						break;
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
 					default:
-						view.displayDefaultErrorMessage();
+						view.defaultErrorMessage();
 						break;
 				}
 			}

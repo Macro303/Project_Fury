@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -74,7 +73,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void setProjectSpinner( final Project[] projects ){
-		mProjectsSpinnerRow.setVisibility( View.VISIBLE );
+		mProjectsSpinnerRow.setVisibility( android.view.View.VISIBLE );
 		String[] projectNames = new String[ projects.length ];
 		for( int i = 0; i < projects.length; i++ )
 			projectNames[ i ] = projects[ i ].getName();
@@ -83,7 +82,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 		mProjectsSpinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener(){
 			@Override
-			public void onItemSelected( AdapterView< ? > adapterView, View view, int i, long l ){
+			public void onItemSelected( AdapterView< ? > adapterView, android.view.View view, int i, long l ){
 				Model.setSelectedProject( projects[ mProjectsSpinner.getSelectedItemPosition() ] );
 				addItemsToSpinner();
 			}
@@ -131,7 +130,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	//Button Listener
 	@OnClick( R.id.createTaskActivity_createTaskButton )
-	public void onUserSelectAButton( View view ){
+	public void onUserSelectAButton( android.view.View view ){
 		switch( view.getId() ){
 			case R.id.createTaskActivity_createTaskButton:
 				mCreateTaskButton.setEnabled( false );

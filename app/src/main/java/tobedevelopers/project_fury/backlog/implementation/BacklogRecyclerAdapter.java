@@ -2,7 +2,6 @@ package tobedevelopers.project_fury.backlog.implementation;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,12 +80,10 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 
 	}
 
-	@NonNull
 	private String getColumnName( Task current ){
-		for( Column column : columns ){
+		for( Column column : columns )
 			if( column.getColumnID().equals( current.getColumnID() ) )
 				return column.getName();
-		}
 		return null;
 	}
 

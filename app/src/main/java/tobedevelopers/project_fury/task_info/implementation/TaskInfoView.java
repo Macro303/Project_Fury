@@ -8,12 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -147,7 +143,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	//Button Listeners
 	@OnClick( { R.id.taskInfoActivity_updateTaskButton, R.id.taskInfoActivity_saveTaskButton, R.id.taskInfoActivity_deleteTaskButton } )
-	public void onUserSelectAButton( View view ){
+	public void onUserSelectAButton( android.view.View view ){
 		switch( view.getId() ){
 			case R.id.taskInfoActivity_updateTaskButton:
 				ToastLog.makeDebug( this, "Update Task", Toast.LENGTH_SHORT );
@@ -277,13 +273,13 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( View.GONE );
+				getParam1().setVisibility( android.view.View.GONE );
 				setEditTextEnabled( getParam2(), true );
 				setEditTextEnabled( getParam3(), true );
 				setSpinnerEnabled( getParam4(), true );
 				setSpinnerEnabled( getParam5(), true );
 				setSpinnerEnabled( getParam6(), true );
-				getParam7().setVisibility( View.VISIBLE );
+				getParam7().setVisibility( android.view.View.VISIBLE );
 			}
 		} );
 	}
@@ -301,13 +297,13 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( View.VISIBLE );
+				getParam1().setVisibility( android.view.View.VISIBLE );
 				setEditTextEnabled( getParam2(), false );
 				setEditTextEnabled( getParam3(), false );
 				setSpinnerEnabled( getParam4(), false );
 				setSpinnerEnabled( getParam5(), false );
 				setSpinnerEnabled( getParam6(), false );
-				getParam7().setVisibility( View.GONE );
+				getParam7().setVisibility( android.view.View.GONE );
 			}
 		} );
 	}
@@ -365,21 +361,5 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam1().setEnabled( true );
 			}
 		} );
-	}
-
-	private void setListViewHeightBasedOnChildren( ListView listView ){
-		ListAdapter listAdapter = listView.getAdapter();
-		if( listAdapter == null )
-			return;
-		int totalHeight = 0;
-		for( int i = 0; i < listAdapter.getCount(); i++ ){
-			View listItem = listAdapter.getView( i, null, listView );
-			listItem.measure( 0, 0 );
-			totalHeight += listItem.getMeasuredHeight();
-		}
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight + ( listView.getDividerHeight() * ( listAdapter.getCount() - 1 ) ) + 50;
-		listView.setLayoutParams( params );
-		listView.requestFocus();
 	}
 }

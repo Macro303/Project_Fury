@@ -44,7 +44,6 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 		final AllBoardsContract.Navigation navigation = navigationWeakReference.get();
 
 		if( projects != null && projects.length != 0 ){
-
 			holder.mNoProjectTextView.setVisibility( View.GONE );
 			holder.mProjectBoardImageView.setVisibility( View.VISIBLE );
 			holder.mProjectInfoButton.setVisibility( View.VISIBLE );

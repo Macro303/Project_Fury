@@ -177,8 +177,12 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 			DashboardContract.View view = viewWeakReference.get();
 
 			if( view != null ){
-				view.loadingProjectsFinished();
-				view.loadProjectsIntoList( response );
+				if( response == null )
+					view.noInternetAccessValidation();
+				else{
+					view.loadingProjectsFinished();
+					view.loadProjectsIntoList( response );
+				}
 			}
 		}
 

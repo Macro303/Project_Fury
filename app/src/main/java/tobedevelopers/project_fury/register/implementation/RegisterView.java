@@ -3,7 +3,6 @@ package tobedevelopers.project_fury.register.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -51,7 +50,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	//Buttons Listeners
 	@OnClick( { R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton } )
-	public void onUserSelectAButton( View view ){
+	public void onUserSelectAButton( android.view.View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
 				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT );
@@ -107,7 +106,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void navigateToLogin(){
-		mLoadingProgressbar.setVisibility( View.GONE );
+		mLoadingProgressbar.setVisibility( android.view.View.GONE );
 		finish();
 	}
 
@@ -137,7 +136,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.VISIBLE );
+				mLoadingProgressbar.setVisibility( android.view.View.VISIBLE );
 				ToastLog.makeDebug( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
 			}
 		} );
@@ -148,7 +147,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( android.view.View.GONE );
 			}
 		} );
 	}
@@ -179,7 +178,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( View.GONE );
+				mLoadingProgressbar.setVisibility( android.view.View.GONE );
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
 				mUserNameEditText.requestFocus();
 				mPasswordEditText.getEditableText().clear();
