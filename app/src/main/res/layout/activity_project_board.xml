@@ -29,12 +29,7 @@
 
 		<android.support.design.widget.FloatingActionButton
 			android:id="@+id/projectBoardActivity_createTaskButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="bottom|right"
-			android:layout_margin="16dp"
-			android:scaleType="center"
-			android:src="@drawable/ic_add_white_36dp"
+			style="@style/FloatingActionButton"
 			app:borderWidth="0dp"
 			app:layout_anchor="@id/projectBoardActivity_viewPager"
 			app:layout_anchorGravity="bottom|right|end"/>

@@ -1,66 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:card_view="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/projectBoardFragment_cardView"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	card_view:cardBackgroundColor="@color/colorTextPrimary"
-	card_view:cardCornerRadius="15dp"
-	card_view:cardElevation="5dp"
-	card_view:cardUseCompatPadding="true">
+	style="@style/CardStyle">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<TextView
-			android:id="@+id/projectBoardFragment_taskTextView"
+		<LinearLayout
+			android:id="@+id/projectBoardFragment_layout"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentStart="true"
-			android:layout_alignParentTop="true"
-			android:layout_marginStart="20dp"
-			android:layout_marginTop="10dp"
-			android:maxLines="1"
-			android:text="@string/textView_task"
-			android:textAppearance="?android:textAppearanceMedium"
-			android:textColor="@color/windowBackground"
-			android:textStyle="bold"/>
+			android:minWidth="150dp"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/projectBoardFragment_taskTextView"
+				style="@style/TextStyle.Title"
+				android:maxLines="1"
+				android:text="@string/textView_task"
+				android:textColor="@color/windowBackground"
+				android:textSize="@dimen/baseTextSize"/>
+
+			<TextView
+				android:id="@+id/projectBoardFragment_userAssignedTextView"
+				style="@style/TextStyle"
+				android:maxLines="1"
+				android:text="@string/textView_assignee"
+				android:textColor="@color/windowBackground"/>
+
+		</LinearLayout>
 
 		<TextView
 			android:id="@+id/projectBoardFragment_priorityTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignEnd="@id/projectBoardFragment_taskTextView"
-			android:layout_alignParentEnd="true"
+			style="@style/TextStyle"
 			android:layout_centerVertical="true"
-			android:layout_marginEnd="20dp"
-			android:layout_marginTop="5dp"
+			android:layout_toEndOf="@id/projectBoardFragment_layout"
+			android:gravity="end"
 			android:text="@string/textView_priority"
 			android:textColor="@color/windowBackground"/>
 
 		<TextView
 			android:id="@+id/projectBoardFragment_noTasksTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/TextStyle"
 			android:layout_centerInParent="true"
+			android:gravity="center"
 			android:text="@string/textView_noTasksFound"
 			android:textColor="@color/windowBackground"
 			android:visibility="gone"/>
 
-
-		<TextView
-			android:id="@+id/projectBoardFragment_userAssignedTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentStart="true"
-			android:layout_below="@id/projectBoardFragment_priorityTextView"
-			android:layout_marginBottom="10dp"
-			android:layout_marginStart="20dp"
-			android:layout_marginTop="20dp"
-			android:text="@string/textView_assignee"
-			android:textColor="@color/windowBackground"/>
-
 	</RelativeLayout>
+
 </android.support.v7.widget.CardView>

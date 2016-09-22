@@ -1,71 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:card_view="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/backlogFragment_cardView"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	card_view:cardBackgroundColor="@color/colorTextPrimary"
-	card_view:cardCornerRadius="15dp"
-	card_view:cardElevation="5dp"
-	card_view:cardUseCompatPadding="true">
-
+	style="@style/CardStyle">
 
 	<TableLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="15dp"
+		style="@style/TableStyle"
 		android:stretchColumns="0,2">
 
 		<TableRow
-			android:layout_marginBottom="5dp"
-			android:layout_marginTop="5dp">
+			style="@style/TableStyle.Row">
 
 			<TextView
 				android:id="@+id/backlogFragment_taskName"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				style="@style/TextStyle.Title"
 				android:layout_column="0"
-				android:gravity="start"
 				android:textColor="@color/windowBackground"
-				android:textStyle="bold"/>
+				android:textSize="@dimen/baseTextSize"/>
 
 			<TextView
 				android:id="@+id/backlogFragment_noTaskTextView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				style="@style/TextStyle"
 				android:layout_column="1"
-				android:gravity="center_horizontal"
 				android:text="@string/textView_noTasksFound"
 				android:textColor="@color/windowBackground"/>
 
 			<TextView
 				android:id="@+id/backlogFragment_taskPriority"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				style="@style/TextStyle"
 				android:layout_column="2"
 				android:gravity="end"
 				android:textColor="@color/windowBackground"/>
 
-
 		</TableRow>
 
 		<TableRow
-			android:layout_marginBottom="5dp"
-			android:layout_marginTop="5dp">
+			style="@style/TableStyle.Row">
 
 			<TextView
 				android:id="@+id/backlogFragment_taskAssignee"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				style="@style/TextStyle"
 				android:layout_column="0"
-				android:gravity="start"
 				android:textColor="@color/windowBackground"/>
 
 			<TextView
 				android:id="@+id/backlogFragment_taskColumn"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				style="@style/TextStyle"
 				android:layout_column="2"
 				android:gravity="end"
 				android:textColor="@color/windowBackground"/>

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_margin="20dp"
-	android:orientation="vertical">
+	style="@style/OutsideLayout">
 
 	<android.support.design.widget.TextInputLayout
 		style="@style/EditTextLayoutStyle">
@@ -12,8 +9,7 @@
 		<android.support.design.widget.TextInputEditText
 			android:id="@+id/createProjectActivity_projectNameEditText"
 			style="@style/EditTextStyle.Restrictive"
-			android:hint="@string/hint_projectName"
-			android:inputType="textNoSuggestions"/>
+			android:hint="@string/hint_projectName"/>
 
 	</android.support.design.widget.TextInputLayout>
 
@@ -23,16 +19,12 @@
 		<android.support.design.widget.TextInputEditText
 			android:id="@+id/createProjectActivity_projectDescriptionEditText"
 			style="@style/EditTextStyle.Restrictive.Description"
-			android:hint="@string/hint_projectDescription"
-			android:inputType="textNoSuggestions"/>
+			android:hint="@string/hint_projectDescription"/>
 
 	</android.support.design.widget.TextInputLayout>
 
 	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:gravity="bottom|center"
-		android:orientation="vertical">
+		style="@style/BottomLayout">
 
 		<Button
 			android:id="@+id/createProjectActivity_createProjectButton"

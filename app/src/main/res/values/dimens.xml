@@ -13,11 +13,11 @@
 	<dimen name="buttonPadding">16dp</dimen>
 	<dimen name="spinnerPaddingEnd">0dp</dimen>
 	<dimen name="spinnerPaddingStart">10dp</dimen>
+	<dimen name="minWidthDimen">150dp</dimen>
 
 	<dimen name="buttonPaddingDimen">16dp</dimen>
 	<dimen name="buttonMarginDimen">30dp</dimen>
 	<dimen name="editTextMarginDimen">10dp</dimen>
 	<dimen name="layoutMarginDimen">20dp</dimen>
-	<dimen name="minWidthDimen">150dp</dimen>
 	<dimen name="textSizeDimen">16sp</dimen>
 </resources>

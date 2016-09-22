@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:card_view="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	card_view:cardBackgroundColor="@color/colorPrimaryDark"
-	card_view:cardCornerRadius="2dp"
-	card_view:cardElevation="0dp"
-	card_view:cardPreventCornerOverlap="false"
-	card_view:cardUseCompatPadding="true"
-	card_view:contentPadding="4dp">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	style="@style/CardStyle"
+	app:cardBackgroundColor="@color/colorPrimaryDark"
+	app:contentPadding="2dp">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
@@ -17,24 +12,17 @@
 
 		<TextView
 			android:id="@+id/listItem_columnName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentStart="true"
-			android:layout_centerInParent="true"
-			android:layout_marginLeft="10dp"
-			android:text="New"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:textColor="@color/colorTextPrimary"/>
+			style="@style/TextStyle.Title"
+			android:textColor="@color/colorTextPrimary"
+			android:textSize="@dimen/baseTextSize"/>
 
 		<ImageView
 			android:id="@+id/listItem_image"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentEnd="true"
-			android:layout_centerInParent="true"
-			android:layout_marginRight="10dp"
 			android:background="@drawable/four_layer_hamburger_32x32"
-			android:foregroundGravity="center"/>
+			android:contentDescription="@string/hint_columnName"/>
 
 	</RelativeLayout>
 

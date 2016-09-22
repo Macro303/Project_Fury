@@ -5,12 +5,7 @@
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
-		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
-		<item name="android:textAppearanceButton">@color/colorLightPrimary</item>
-		<item name="android:textColorHighlight">@color/colorPrimary</item>
 		<item name="colorControlNormal">@color/colorTextPrimary</item>
-		<item name="android:textSize">16sp</item>
-		<item name="android:fontFamily">sans-serif</item>
 	</style>
 
 	<style name="AppTheme.NoActionBar">
@@ -18,17 +13,6 @@
 		<item name="windowNoTitle">true</item>
 	</style>
 
-	<style name="buttonAppearance" parent="Theme.AppCompat">
-		<item name="android:background">@color/colorPrimaryDark</item>
-		<item name="android:textColor">@color/colorTextIcon</item>
-		<item name="android:fontFamily">sans-serif-smallcaps</item>
-		<item name="android:textSize">18sp</item>
-		<item name="android:textStyle">bold</item>
-		<item name="android:paddingStart">@dimen/buttonPaddingStart</item>
-		<item name="android:paddingEnd">@dimen/buttonPaddingEnd</item>
-	</style>
-
-	<!-- Jonah's Attempt at Styles -->
 	<style name="BaseStyle" parent="AppTheme">
 		<item name="android:colorBackground">@color/windowBackground</item>
 		<item name="android:textColorPrimary">@color/colorTextPrimary</item>
@@ -55,6 +39,7 @@
 		<item name="android:maxLength">20</item>
 		<item name="android:singleLine">true</item>
 		<item name="android:digits">@string/alphaNumericCharacters</item>
+		<item name="android:inputType">textNoSuggestions</item>
 	</style>
 
 	<style name="EditTextStyle.Restrictive.Disabled">
@@ -110,6 +95,8 @@
 		<item name="android:textStyle">normal</item>
 		<item name="android:fontFamily">sans-serif</item>
 		<item name="android:textSize">@dimen/baseTextSize</item>
+		<item name="android:minWidth">35dp</item>
+		<item name="android:minHeight">35dp</item>
 	</style>
 
 	<style name="ButtonStyle.Image">
@@ -125,12 +112,12 @@
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textColor">@color/colorTextPrimary</item>
+		<item name="android:gravity">start|center</item>
 	</style>
 
 	<style name="TextStyle.Title">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_alignParentStart">true</item>
-		<item name="android:layout_marginStart">10dp</item>
 		<item name="android:gravity">start</item>
 		<item name="android:layout_centerVertical">true</item>
 		<item name="android:textSize">24sp</item>
@@ -149,6 +136,7 @@
 		<item name="android:paddingEnd">@dimen/spinnerPaddingEnd</item>
 		<item name="android:paddingStart">@dimen/spinnerPaddingStart</item>
 		<item name="android:layout_column">1</item>
+		<item name="android:minWidth">@dimen/minWidthDimen</item>
 	</style>
 
 	<style name="TableStyle" parent="BaseStyle">
@@ -157,7 +145,56 @@
 	</style>
 
 	<style name="TableStyle.Row">
-		<item name="android:layout_margin">@dimen/editTextMargin</item>
+		<item name="android:paddingTop">5dp</item>
+		<item name="android:paddingBottom">5dp</item>
+	</style>
+
+	<style name="DrawerLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:clickable">true</item>
+		<item name="android:focusableInTouchMode">true</item>
+	</style>
+
+	<style name="Navigation">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_gravity">start</item>
+		<item name="android:choiceMode">singleChoice</item>
+	</style>
+
+	<style name="FloatingActionButton">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_gravity">bottom|right</item>
+		<item name="android:layout_margin">16dp</item>
+		<item name="android:scaleType">center</item>
+		<item name="android:src">@drawable/ic_add_white_36dp</item>
+	</style>
+
+	<style name="OutsideLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_margin">20dp</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="BottomLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:gravity">bottom|center</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="CardStyle" parent="CardView">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="cardUseCompatPadding">true</item>
+		<item name="cardCornerRadius">15dp</item>
+		<item name="cardElevation">5dp</item>
+		<item name="cardMaxElevation">5dp</item>
+		<item name="cardBackgroundColor">@color/colorTextPrimary</item>
+		<item name="contentPadding">10dp</item>
 	</style>
 
 </resources>

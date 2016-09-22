@@ -3,10 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/navigation_drawerLayout"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:clickable="true"
-	android:focusableInTouchMode="true">
+	style="@style/DrawerLayout">
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -35,12 +32,7 @@
 
 			<android.support.design.widget.FloatingActionButton
 				android:id="@+id/allBoards_createProjectButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom|right"
-				android:layout_margin="16dp"
-				android:scaleType="center"
-				android:src="@drawable/ic_add_white_36dp"
+				style="@style/FloatingActionButton"
 				app:borderWidth="0dp"
 				app:layout_anchor="@id/allBoardsActivity_recyclerView"
 				app:layout_anchorGravity="end|bottom"/>
@@ -51,10 +43,7 @@
 
 	<android.support.design.widget.NavigationView
 		android:id="@+id/navigation_navigationView"
-		android:layout_width="wrap_content"
-		android:layout_height="match_parent"
-		android:layout_gravity="start"
-		android:choiceMode="singleChoice"
+		style="@style/Navigation"
 		app:headerLayout="@layout/navigation_layout"
 		app:menu="@menu/navigation_menu"/>
 
