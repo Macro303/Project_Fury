@@ -44,6 +44,8 @@
 				android:id="@+id/projectInfoActivity_columnNameTitle"
 				style="@style/TextStyle.Title"
 				android:layout_toStartOf="@id/projectInfoActivity_addColumnButton"
+				android:paddingEnd="0dp"
+				android:paddingStart="10dp"
 				android:text="@string/textView_addColumnHeader"/>
 
 		</RelativeLayout>
@@ -57,12 +59,24 @@
 			android:padding="5dp"
 			android:scrollbars="vertical"/>
 
-		<TextView
-			android:id="@+id/projectInfoActivity_deleteText"
-			style="@style/TextStyle.Question"
-			android:layout_gravity="end"
-			android:text="@string/textView_deleteColumnInstruction"
-			android:visibility="invisible"/>
+		<RelativeLayout
+			android:id="@+id/projectInfoActivity_textLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<TextView
+				style="@style/TextStyle.Question"
+				android:layout_alignParentStart="true"
+				android:text="@string/textView_deleteInstruction"
+				android:textSize="12sp"/>
+
+			<TextView
+				style="@style/TextStyle.Question"
+				android:layout_alignParentEnd="true"
+				android:text="@string/textView_reorderInstruction"
+				android:textSize="12sp"/>
+
+		</RelativeLayout>
 
 	</LinearLayout>
 

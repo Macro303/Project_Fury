@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.List;
@@ -41,12 +41,13 @@ import tobedevelopers.project_fury.runnable_param.Runnable7Param;
  */
 public class ProjectInfoView extends BaseView implements ProjectInfoContract.View, ProjectInfoContract.Navigation{
 
+	@Bind( R.id.projectInfoActivity_textLayout )
+//	TextView mDeleteText;
+	protected RelativeLayout mTextLayout;
 	@Bind( R.id.projectInfoActivity_projectNameEditText )
 	TextInputEditText mProjectNameEditText;
 	@Bind( R.id.projectInfoActivity_projectDescriptionEditText )
 	TextInputEditText mProjectDescriptionEditText;
-	@Bind( R.id.projectInfoActivity_deleteText )
-	TextView mDeleteText;
 	@Bind( R.id.projectInfoActivity_editProjectButton )
 	Button mEditProjectButton;
 	@Bind( R.id.projectInfoActivity_saveProjectButton )
@@ -315,7 +316,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void editProjectDescription(){
-		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, ImageButton >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mSaveProjectButton, mAddColumnButton ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button, ImageButton >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mSaveProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -339,7 +340,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void saveProjectDescription(){
-		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, TextView, ItemTouchHelper, Button, ImageButton >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mDeleteText, touchHelper, mEditProjectButton, mAddColumnButton ){
+		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button, ImageButton >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mEditProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );

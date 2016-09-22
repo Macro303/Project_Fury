@@ -46,6 +46,8 @@
 					<TextView
 						style="@style/TextStyle.Title"
 						android:layout_toStartOf="@id/listHeader_projectCreateButton"
+						android:paddingEnd="0dp"
+						android:paddingStart="10dp"
 						android:text="@string/textView_projectListTitle"/>
 
 				</RelativeLayout>
@@ -90,6 +92,8 @@
 					<TextView
 						style="@style/TextStyle.Title"
 						android:layout_toStartOf="@id/listHeader_taskCreateButton"
+						android:paddingEnd="0dp"
+						android:paddingStart="10dp"
 						android:text="@string/textView_taskListTitle"/>
 
 				</RelativeLayout>

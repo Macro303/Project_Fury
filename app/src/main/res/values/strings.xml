@@ -66,7 +66,8 @@
 	<string name="textView_noTasksFound">No Tasks found</string>
 	<string name="textView_addColumnHeader">Columns</string>
 	<string name="textView_noProjectsFound">No Projects found</string>
-	<string name="textView_deleteColumnInstruction">Swipe to Delete Column</string>
+	<string name="textView_deleteInstruction">Swipe to Delete</string>
+	<string name="textView_reorderInstruction">Hold and Drag to Reorder</string>
 
 	<!-- Hints -->
 	<string name="hint_username">Username</string>
