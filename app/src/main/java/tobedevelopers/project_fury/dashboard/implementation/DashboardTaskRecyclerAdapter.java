@@ -51,7 +51,7 @@ public class DashboardTaskRecyclerAdapter extends RecyclerView.Adapter< Dashboar
 
 	@Override
 	public int getItemCount(){
-		if( taskHolder.getPairList().size() > 0 )
+		if( taskHolder != null && taskHolder.getPairList().size() > 0 )
 			return taskHolder.getPairList().size();
 		return 1;
 	}
