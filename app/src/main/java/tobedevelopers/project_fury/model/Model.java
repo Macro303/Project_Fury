@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Macro303 on 16/08/2016.
@@ -20,6 +21,7 @@ public class Model implements ModelContract{
 	private static Task selectedTask;
 	private static Column selectedColumn;
 	private static Column[] selectedColumns;
+	private static List< Project > selectedProjects;
 
 	public Model(){
 	}
@@ -54,6 +56,14 @@ public class Model implements ModelContract{
 
 	public static void setSelectedColumns( Column[] _selectedColumns ){
 		selectedColumns = _selectedColumns;
+	}
+
+	public static List< Project > getSelectedProjects(){
+		return selectedProjects;
+	}
+
+	public static void setSelectedProjects( List< Project > selectedProjects ){
+		Model.selectedProjects = selectedProjects;
 	}
 
 	public String getToken(){

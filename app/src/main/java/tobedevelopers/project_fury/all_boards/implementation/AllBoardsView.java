@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,9 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 	private AllBoardsRecyclerAdapter mAdapter;
 	private ProgressDialog mProgressDialog;
+
+	@Bind (R.id.allBoardsActivity_noProjectsFoundTextView)
+	protected TextView mNoProjectsFound;
 
 	private AllBoardsContract.Presenter presenter;
 
@@ -75,6 +79,10 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 	@Override
 	public void setRecyclerItems( Project[] projects ){
+		if( projects.length <= 0 ){
+			mRecyclerView.setVisibility( View.GONE );
+			mNoProjectsFound.setVisibility( View.VISIBLE );
+		}
 		mAdapter.setData( projects );
 	}
 

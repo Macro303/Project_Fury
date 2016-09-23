@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.ModelContract;
-import tobedevelopers.project_fury.model.Project;
+import tobedevelopers.project_fury.model.ProjectResponse;
 
 /**
  * Created by Macro303 on 12/08/2016.
@@ -17,7 +17,6 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 	private WeakReference< BacklogContract.View > viewWeakReference;
 	private WeakReference< BacklogContract.Navigation > navigationWeakReference;
 	private ModelContract model;
-	private LoadProjectsTask loadProjectsTask;
 
 	public BacklogPresenter( BacklogContract.View view, BacklogContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
@@ -31,17 +30,11 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		BacklogContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-			loadProjectsTask = new LoadProjectsTask();
-			loadProjectsTask.execute();
+			new LoadProjectsTask().execute();
 		}
 	}
 
-	@Override
-	public void cancelAllAsyncTasks( Boolean condition ){
-		loadProjectsTask.cancel( condition );
-	}
-
-	private class LoadProjectsTask extends AsyncTask< Void, Void, Holder >{
+	private class LoadProjectsTask extends AsyncTask< Void, Void, ProjectResponse >{
 		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
@@ -52,34 +45,28 @@ public class BacklogPresenter implements BacklogContract.Presenter{
 		}
 
 		@Override
-		protected Holder doInBackground( Void... inputs ){
-			Holder holder;
-			holder = new Holder( model.getAllProjects().getProjects() );
-			for( Project project : holder.getProjects() ){
-				if( isCancelled() )
-					break;
-				else{
-					holder.addTasks( project.getName(), model.getAllProjectTasks( project.getProjectID() ).getTasks() );
-					holder.addColumns( project.getName(), model.getAllProjectColumns( project.getProjectID() ).getColumns() );
-				}
-			}
-			return holder;
+		protected ProjectResponse doInBackground( Void... inputs ){
+			return model.getAllProjects();
 		}
 
 		@Override
-		protected void onPostExecute( Holder result ){
+		protected void onPostExecute( ProjectResponse result ){
 			super.onPostExecute( result );
 			BacklogContract.View view = viewWeakReference.get();
 
 			if( view != null ){
-				view.hideProjectUpdatingInProgress();
-				view.fillProjects( result );
+				switch( result.getMessage() ){
+					case "Success":
+						view.hideProjectUpdatingInProgress();
+						view.fillProjects( result.getProjects() );
+						break;
+				}
 			}
 		}
 
 		@Override
-		protected void onCancelled( Holder result ){
-			super.onCancelled( result );
+		protected void onCancelled( ProjectResponse response ){
+			super.onCancelled( response );
 		}
 	}
 }

@@ -25,10 +25,24 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-			<android.support.v7.widget.RecyclerView
-				android:id="@+id/allBoardsActivity_recyclerView"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"/>
+			<RelativeLayout
+				android:layout_width="match_parent" android:layout_height="match_parent">
+
+				<android.support.v7.widget.RecyclerView
+					android:id="@+id/allBoardsActivity_recyclerView"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"/>
+
+				<TextView
+					android:id="@+id/allBoardsActivity_noProjectsFoundTextView"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_centerInParent="true"
+					android:text="@string/textView_noProjectsFound"
+					android:textSize="22sp"
+					android:visibility="gone"/>
+
+			</RelativeLayout>
+
 
 			<android.support.design.widget.FloatingActionButton
 				android:id="@+id/allBoardsActivity_createProjectButton"
