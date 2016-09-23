@@ -5,7 +5,7 @@ import tobedevelopers.project_fury.BaseContract;
 /**
  * Created by A on 8/9/2016.
  */
-public interface LoginContract extends BaseContract{
+public interface LoginContract{
 
 	interface View extends BaseContract.View{
 		void enableLoginButton();

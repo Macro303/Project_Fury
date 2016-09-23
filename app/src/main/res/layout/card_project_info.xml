@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/projectInfoFragment_columnCard"
 	style="@style/CardStyle"
 	app:cardBackgroundColor="@color/colorPrimaryDark"
 	app:contentPadding="5dp">
@@ -11,13 +12,13 @@
 		android:layout_height="match_parent">
 
 		<TextView
-			android:id="@+id/dashboardFragment_taskCard_columnName"
+			android:id="@+id/projectInfoFragment_columnCard_columnName"
 			style="@style/TextStyle.Title"
 			android:textColor="@color/colorTextPrimary"
 			android:textSize="@dimen/baseTextSize"/>
 
 		<ImageView
-			android:id="@+id/listItem_image"
+			android:id="@+id/projectInfoFragment_columnCard_dragImage"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentEnd="true"

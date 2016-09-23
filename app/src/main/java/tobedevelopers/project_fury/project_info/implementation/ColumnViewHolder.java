@@ -1,6 +1,6 @@
 package tobedevelopers.project_fury.project_info.implementation;
 
-import android.support.v7.appcompat.BuildConfig;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,23 +14,19 @@ import tobedevelopers.project_fury.model.Column;
  */
 public class ColumnViewHolder extends RecyclerView.ViewHolder{
 
-	private TextView columnName;
-	private ImageView image;
+	private CardView mCardView;
+	private TextView mColumnName;
+	private ImageView mDragImage;
 
 	public ColumnViewHolder( View view ){
 		super( view );
-		columnName = ( TextView ) view.findViewById( R.id.dashboardFragment_taskCard_columnName );
-		image = ( ImageView ) view.findViewById( R.id.listItem_image );
+		mCardView = ( CardView ) view.findViewById( R.id.projectInfoFragment_columnCard );
+		mColumnName = ( TextView ) view.findViewById( R.id.projectInfoFragment_columnCard_columnName );
+		mDragImage = ( ImageView ) view.findViewById( R.id.projectInfoFragment_columnCard_dragImage );
 	}
 
 	public void bindView( Column data ){
-		if( data != null ){
-			columnName.setText( data.getName() );
-//			image.getDrawable();
-		}else{
-			if( BuildConfig.DEBUG ){
-				throw new IllegalArgumentException( "Null data passed to ColumnViewHolder" );
-			}
-		}
+		if( data != null )
+			mColumnName.setText( data.getName() );
 	}
 }

@@ -8,7 +8,7 @@ import tobedevelopers.project_fury.model.Column;
 /**
  * Created by Macro303 on 11/08/2016.
  */
-public interface ProjectInfoContract extends BaseContract{
+public interface ProjectInfoContract{
 
 	interface View extends BaseContract.View{
 		void editProjectDescription();

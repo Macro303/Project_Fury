@@ -6,7 +6,7 @@ import tobedevelopers.project_fury.model.Column;
 /**
  * Created by Macro303 on 13/08/2016.
  */
-public interface ProjectBoardContract extends BaseContract{
+public interface ProjectBoardContract{
 
 	interface View extends BaseContract.View{
 		void setTabTitles( Column[] columns );
