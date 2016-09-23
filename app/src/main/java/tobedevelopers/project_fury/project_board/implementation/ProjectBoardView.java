@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.ToastLog;
@@ -28,14 +29,17 @@ import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 public class ProjectBoardView extends BaseView implements ProjectBoardContract.View, ProjectBoardContract.Navigation{
 
 	//UI References
-	private TabLayout mTabLayout;
-	private ViewPager mViewPager;
-	private ProjectBoardFragmentPagerAdapter mProjectBoardFragmentPagerAdapter;
-	private FloatingActionButton mCreateTaskButton;
+	@Bind( R.id.projectBoardActivity_tabLayout )
+	protected TabLayout mTabLayout;
+	@Bind( R.id.projectBoardActivity_viewPager )
+	protected ViewPager mViewPager;
+	@Bind( R.id.projectBoardActivity_createTaskButton )
+	protected FloatingActionButton mCreateTaskButton;
+
+	private ProjectBoardFragmentPagerAdapter mAdapter;
+	private ProgressDialog mProgressDialog;
 
 	private ProjectBoardContract.Presenter presenter;
-
-	private ProgressDialog mProgressDialog;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -44,26 +48,31 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 		super.onCreate( savedInstanceState );
 		presenter = new ProjectBoardPresenter( this, this );
 
+		ButterKnife.bind( this );
+
 		//UI References
-		mTabLayout = ( TabLayout ) findViewById( R.id.projectBoardActivity_tabLayout );
-		mViewPager = ( ViewPager ) findViewById( R.id.projectBoardActivity_viewPager );
-		mCreateTaskButton = ( FloatingActionButton ) findViewById( R.id.projectBoardActivity_createTaskButton );
 		mProgressDialog = new ProgressDialog( this );
 
 		//Tab Config
-		mProjectBoardFragmentPagerAdapter = new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() );
-		presenter.userLoadsBoard();
-		mViewPager.setAdapter( mProjectBoardFragmentPagerAdapter );
+		mAdapter = new ProjectBoardFragmentPagerAdapter( getSupportFragmentManager() );
+		mViewPager.setAdapter( mAdapter );
 		mTabLayout.setupWithViewPager( mViewPager );
 
-		//Button Config
-		mCreateTaskButton.setOnClickListener( new android.view.View.OnClickListener(){
-			@Override
-			public void onClick( android.view.View view ){
+		presenter.userLoadsBoard();
+	}
+
+	//Button Listener
+	@OnClick( { R.id.projectBoardActivity_createTaskButton } )
+	public void onUserSelectAButton( View view ){
+		switch( view.getId() ){
+			case R.id.projectBoardActivity_createTaskButton:
 				mCreateTaskButton.setEnabled( false );
 				presenter.userSelectCreateTask();
-			}
-		} );
+				break;
+			default:
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				break;
+		}
 	}
 
 	@Override
@@ -78,22 +87,20 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	public void noInternetAccessValidation(){
+		super.noInternetAccessValidation();
 		mCreateTaskButton.setEnabled( true );
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
-	public void displayDefaultErrorMessage(){
+	public void defaultErrorMessage(){
+		super.defaultErrorMessage();
 		mCreateTaskButton.setEnabled( true );
-		ToastLog.makeWarn( this, getString( R.string.error_refreshBoard ), Toast.LENGTH_LONG );
 	}
 
 	@Override
 	public void setTabTitles( Column[] columns ){
-		List< Column > columnList = new ArrayList<>();
-		columnList.addAll( Arrays.asList( columns ) );
-		Collections.sort( columnList );
-		mProjectBoardFragmentPagerAdapter.setData( columnList );
+		Arrays.sort( columns );
+		mAdapter.setData( columns );
 	}
 
 	@Override
@@ -118,13 +125,6 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 				mProgressDialog.dismiss();
 			}
 		} );
-	}
-
-	@Override
-	protected void onRestart(){
-		super.onRestart();
-		finish();
-		startActivity( getIntent() );
 	}
 
 }

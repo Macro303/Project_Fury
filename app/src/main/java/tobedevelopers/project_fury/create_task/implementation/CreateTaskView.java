@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,11 +41,12 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	@Bind( R.id.createTaskActivity_assigneeSpinner )
 	protected AppCompatSpinner mAssigneeSpinner;
 	@Bind( R.id.createTaskActivity_taskNameEditText )
-	TextInputEditText mTaskNameEditText;
+	protected TextInputEditText mTaskNameEditText;
 	@Bind( R.id.createTaskActivity_taskDescriptionEditText )
-	TextInputEditText mTaskDescriptionEditText;
+	protected TextInputEditText mTaskDescriptionEditText;
 	@Bind( R.id.createTaskActivity_createTaskButton )
-	Button mCreateTaskButton;
+	protected Button mCreateTaskButton;
+
 	private CreateTaskContract.Presenter presenter;
 
 	private ProgressDialog progressDialog;
@@ -73,7 +75,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void setProjectSpinner( final Project[] projects ){
-		mProjectsSpinnerRow.setVisibility( android.view.View.VISIBLE );
+		mProjectsSpinnerRow.setVisibility( View.VISIBLE );
 		String[] projectNames = new String[ projects.length ];
 		for( int i = 0; i < projects.length; i++ )
 			projectNames[ i ] = projects[ i ].getName();
@@ -82,7 +84,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 		mProjectsSpinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener(){
 			@Override
-			public void onItemSelected( AdapterView< ? > adapterView, android.view.View view, int i, long l ){
+			public void onItemSelected( AdapterView< ? > adapterView, View view, int i, long l ){
 				Model.setSelectedProject( projects[ mProjectsSpinner.getSelectedItemPosition() ] );
 				addItemsToSpinner();
 			}
@@ -129,16 +131,15 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 	}
 
 	//Button Listener
-	@OnClick( R.id.createTaskActivity_createTaskButton )
-	public void onUserSelectAButton( android.view.View view ){
+	@OnClick( { R.id.createTaskActivity_createTaskButton } )
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createTaskActivity_createTaskButton:
 				mCreateTaskButton.setEnabled( false );
-				ToastLog.makeDebug( this, "Create Task", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateTask( mAssigneeSpinner.getSelectedItem().toString() );
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -227,13 +228,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 
 	@Override
 	public void noInternetAccessValidation(){
+		super.noInternetAccessValidation();
 		mCreateTaskButton.setEnabled( true );
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
-	}
-
-	@Override
-	public void errorValidation(){
-		mCreateTaskButton.setEnabled( true );
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
 }

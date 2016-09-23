@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -116,32 +117,28 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	//Button Listener
 	@OnClick( { R.id.projectInfoActivity_editProjectButton, R.id.projectInfoActivity_saveProjectButton, R.id.projectInfoActivity_deleteProjectButton, R.id.projectInfoActivity_addColumnButton } )
-	public void onUserSelectAButton( android.view.View view ){
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.projectInfoActivity_editProjectButton:
-				ToastLog.makeDebug( this, "Edit Project", Toast.LENGTH_SHORT );
 				mEditProjectButton.setEnabled( false );
 				presenter.userSelectEditProject();
 				break;
 			case R.id.projectInfoActivity_saveProjectButton:
-				ToastLog.makeDebug( this, "Save Project", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
 				presenter.userSelectSaveProject( columnRecyclerAdapter.columnList );
 				break;
 			case R.id.projectInfoActivity_deleteProjectButton:
-				ToastLog.makeDebug( this, "Delete Project", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
 				alertDeleteProject();
 				break;
 			case R.id.projectInfoActivity_addColumnButton:
-				ToastLog.makeDebug( this, "Add Column", Toast.LENGTH_SHORT );
 				setEnabledAllButtons( false );
 				alertAddColumn();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -318,12 +315,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button, ImageButton >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mSaveProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( android.view.View.GONE );
+				getParam1().setVisibility( View.GONE );
 				setEditTextEnabled( getParam2(), true );
 				setEditTextEnabled( getParam3(), true );
-				getParam4().setVisibility( android.view.View.VISIBLE );
+				getParam4().setVisibility( View.VISIBLE );
 				getParam5().attachToRecyclerView( mRecyclerView );
-				getParam6().setVisibility( android.view.View.VISIBLE );
+				getParam6().setVisibility( View.VISIBLE );
 				getParam7().setEnabled( true );
 			}
 		} );
@@ -342,12 +339,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button, ImageButton >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mEditProjectButton, mAddColumnButton ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( android.view.View.GONE );
+				getParam1().setVisibility( View.GONE );
 				setEditTextEnabled( getParam2(), false );
 				setEditTextEnabled( getParam3(), false );
-				getParam4().setVisibility( android.view.View.INVISIBLE );
+				getParam4().setVisibility( View.INVISIBLE );
 				getParam5().attachToRecyclerView( null );
-				getParam6().setVisibility( android.view.View.VISIBLE );
+				getParam6().setVisibility( View.VISIBLE );
 				setEnabledAllButtons( true );
 				getParam7().setEnabled( false );
 			}
@@ -441,14 +438,8 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void noInternetAccessValidation(){
+		super.noInternetAccessValidation();
 		setEnabledAllButtons( true );
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
-	}
-
-	@Override
-	public void defaultErrorMessage(){
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
-		//mProjectDescriptionEditText.getEditableText().clear();
 	}
 
 	@Override

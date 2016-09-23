@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.ToastLog;
 import tobedevelopers.project_fury.all_boards.AllBoardsContract;
 import tobedevelopers.project_fury.create_project.implementation.CreateProjectView;
 import tobedevelopers.project_fury.model.Project;
@@ -22,10 +28,12 @@ import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 public class AllBoardsView extends BaseNavigationView implements AllBoardsContract.View, AllBoardsContract.Navigation{
 
 	//UI References
-	private RecyclerView mRecyclerView;
-	private AllBoardsRecyclerAdapter mAdapter;
+	@Bind( R.id.allBoardsActivity_recyclerView )
+	protected RecyclerView mRecyclerView;
+	@Bind( R.id.allBoardsActivity_createProjectButton )
+	protected FloatingActionButton mCreateProjectButton;
 
-	private FloatingActionButton mCreateProjectButton;
+	private AllBoardsRecyclerAdapter mAdapter;
 	private ProgressDialog mProgressDialog;
 
 	private AllBoardsContract.Presenter presenter;
@@ -37,9 +45,9 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		super.onCreate( savedInstanceState );
 		presenter = new AllBoardsPresenter( this, this );
 
+		ButterKnife.bind( this );
+
 		//UI References
-		mRecyclerView = ( RecyclerView ) findViewById( R.id.allBoardsActivity_recyclerView );
-		mCreateProjectButton = ( FloatingActionButton ) findViewById( R.id.allBoards_createProjectButton );
 		mProgressDialog = new ProgressDialog( this );
 
 		//Recycler Config
@@ -49,15 +57,20 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
 
 		presenter.userOpensBoard();
+	}
 
-		//Button config
-		mCreateProjectButton.setOnClickListener( new android.view.View.OnClickListener(){
-			@Override
-			public void onClick( android.view.View view ){
+	//Button Listener
+	@OnClick( { R.id.allBoardsActivity_createProjectButton } )
+	public void onUserSelectAButton( View view ){
+		switch( view.getId() ){
+			case R.id.allBoardsActivity_createProjectButton:
 				mCreateProjectButton.setEnabled( false );
 				presenter.userSelectCreateProject();
-			}
-		} );
+				break;
+			default:
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				break;
+		}
 	}
 
 	@Override

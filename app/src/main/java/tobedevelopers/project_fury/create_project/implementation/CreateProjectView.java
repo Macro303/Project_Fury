@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -23,11 +24,11 @@ import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 public class CreateProjectView extends BaseView implements CreateProjectContract.View, CreateProjectContract.Navigation{
 
 	@Bind( R.id.createProjectActivity_projectNameEditText )
-	TextInputEditText mProjectNameEditText;
+	protected TextInputEditText mProjectNameEditText;
 	@Bind( R.id.createProjectActivity_projectDescriptionEditText )
-	TextInputEditText mProjectDescriptionEditText;
+	protected TextInputEditText mProjectDescriptionEditText;
 	@Bind( R.id.createProjectActivity_createProjectButton )
-	Button mCreateProjectButton;
+	protected Button mCreateProjectButton;
 
 	private CreateProjectContract.Presenter presenter;
 
@@ -47,16 +48,15 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	}
 
 	//Button Listener
-	@OnClick( R.id.createProjectActivity_createProjectButton )
-	public void onUserSelectAButton( android.view.View view ){
+	@OnClick( { R.id.createProjectActivity_createProjectButton } )
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.createProjectActivity_createProjectButton:
 				mCreateProjectButton.setEnabled( false );
-				ToastLog.makeDebug( this, "Create Project", Toast.LENGTH_SHORT );
 				presenter.userSelectCreateProject();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -103,16 +103,6 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 	}
 
 	@Override
-	public void projectCreationInProgress(){
-		runOnUiThread( new Runnable1Param< CreateProjectView >( this ){
-			@Override
-			public void run(){
-				ToastLog.makeInfo( getParam1(), String.format( getString( R.string.error_inProgress ), "Project Creation" ), Toast.LENGTH_LONG );
-			}
-		} );
-	}
-
-	@Override
 	public void setProjectNameUnderValidation(){
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override
@@ -144,8 +134,8 @@ public class CreateProjectView extends BaseView implements CreateProjectContract
 
 	@Override
 	public void noInternetAccessValidation(){
+		super.noInternetAccessValidation();
 		mCreateProjectButton.setEnabled( true );
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override

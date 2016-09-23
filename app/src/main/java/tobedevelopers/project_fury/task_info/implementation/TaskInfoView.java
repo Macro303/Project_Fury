@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -143,28 +144,25 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	//Button Listeners
 	@OnClick( { R.id.taskInfoActivity_updateTaskButton, R.id.taskInfoActivity_saveTaskButton, R.id.taskInfoActivity_deleteTaskButton } )
-	public void onUserSelectAButton( android.view.View view ){
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.taskInfoActivity_updateTaskButton:
-				ToastLog.makeDebug( this, "Update Task", Toast.LENGTH_SHORT );
 				mUpdateTask.setEnabled( false );
 				presenter.userSelectEditTask();
 				break;
 			case R.id.taskInfoActivity_saveTaskButton:
-				ToastLog.makeDebug( this, "Save Task", Toast.LENGTH_SHORT );
 				mSaveTask.setEnabled( false );
 				mDeleteTask.setEnabled( false );
 				presenter.userSelectSaveTask( mAssignee.getSelectedItem().toString(), mPriority.getSelectedItem().toString(), columns[ mColumn.getSelectedItemPosition() ] );
 				break;
 			case R.id.taskInfoActivity_deleteTaskButton:
-				ToastLog.makeDebug( this, "Remove Task", Toast.LENGTH_SHORT );
 				mUpdateTask.setEnabled( false );
 				mSaveTask.setEnabled( false );
 				mDeleteTask.setEnabled( false );
 				alertDeleteProject();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -255,7 +253,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 	@Override
 	public void defaultErrorMessage(){
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
+		super.defaultErrorMessage();
 		mTaskName.setText( initialValues[ 0 ] );
 		mTaskDescription.setText( initialValues[ 1 ] );
 		setSpinnerValue( mAssignee, initialValues[ 2 ], 2 );
@@ -273,13 +271,13 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( android.view.View.GONE );
+				getParam1().setVisibility( View.GONE );
 				setEditTextEnabled( getParam2(), true );
 				setEditTextEnabled( getParam3(), true );
 				setSpinnerEnabled( getParam4(), true );
 				setSpinnerEnabled( getParam5(), true );
 				setSpinnerEnabled( getParam6(), true );
-				getParam7().setVisibility( android.view.View.VISIBLE );
+				getParam7().setVisibility( View.VISIBLE );
 			}
 		} );
 	}
@@ -297,13 +295,13 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, AppCompatSpinner, AppCompatSpinner, AppCompatSpinner, Button >( mUpdateTask, mTaskName, mTaskDescription, mAssignee, mPriority, mColumn, mSaveTask ){
 			@Override
 			public void run(){
-				getParam1().setVisibility( android.view.View.VISIBLE );
+				getParam1().setVisibility( View.VISIBLE );
 				setEditTextEnabled( getParam2(), false );
 				setEditTextEnabled( getParam3(), false );
 				setSpinnerEnabled( getParam4(), false );
 				setSpinnerEnabled( getParam5(), false );
 				setSpinnerEnabled( getParam6(), false );
-				getParam7().setVisibility( android.view.View.GONE );
+				getParam7().setVisibility( View.GONE );
 			}
 		} );
 	}
@@ -336,11 +334,6 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 128 ), 128 ) );
 			}
 		} );
-	}
-
-	@Override
-	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override

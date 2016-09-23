@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:card_view="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/dashboard_Task_CardView"
+	android:id="@+id/dashboardFragment_taskCard"
 	style="@style/CardStyle"
 	card_view:cardBackgroundColor="@color/colorPrimary">
 
@@ -11,14 +11,14 @@
 		android:layout_height="wrap_content">
 
 		<TextView
-			android:id="@+id/listItem_taskName"
+			android:id="@+id/dashboardFragment_taskCard_taskName"
 			style="@style/TextStyle.Title"
 			android:textSize="@dimen/baseTextSize"/>
 
 		<TextView
-			android:id="@+id/listItem_columnName"
+			android:id="@+id/dashboardFragment_taskCard_columnName"
 			style="@style/TextStyle"
-			android:layout_toEndOf="@id/listItem_taskName"
+			android:layout_toEndOf="@id/dashboardFragment_taskCard_taskName"
 			android:gravity="end"
 			android:textColor="#000"/>
 

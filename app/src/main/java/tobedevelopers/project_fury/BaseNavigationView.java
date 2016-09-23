@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import tobedevelopers.project_fury.all_boards.implementation.AllBoardsView;
 import tobedevelopers.project_fury.backlog.implementation.BacklogView;
 import tobedevelopers.project_fury.dashboard.implementation.DashboardView;
@@ -22,18 +24,17 @@ import tobedevelopers.project_fury.settings.implementation.SettingsView;
 public abstract class BaseNavigationView extends BaseView{
 
 	//UI References
-	private DrawerLayout mDrawerLayout;
-	private Toolbar mToolbar;
-	private NavigationView mNavigationView;
+	@Bind( R.id.navigation_drawerLayout )
+	protected DrawerLayout mDrawerLayout;
+	@Bind( R.id.navigation_toolbar )
+	protected Toolbar mToolbar;
+	@Bind( R.id.navigation_navigationView )
+	protected NavigationView mNavigationView;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
-
-		//UI References
-		mDrawerLayout = ( DrawerLayout ) findViewById( R.id.navigation_drawerLayout );
-		mToolbar = ( Toolbar ) findViewById( R.id.navigation_toolbar );
-		mNavigationView = ( NavigationView ) findViewById( R.id.navigation_navigationView );
+		ButterKnife.bind( this );
 
 		//Toolbar Config
 		setSupportActionBar( mToolbar );
@@ -70,7 +71,7 @@ public abstract class BaseNavigationView extends BaseView{
 						startActivity( new Intent( getApplicationContext(), LoginView.class ) );
 						return true;
 					default:
-						ToastLog.makeError( getApplicationContext(), "Something happened in the Navigation Code", Toast.LENGTH_LONG );
+						ToastLog.makeError( getApplicationContext(), getString( R.string.app_name ), "Something happened in the Navigation Code", Toast.LENGTH_LONG );
 						return true;
 				}
 			}

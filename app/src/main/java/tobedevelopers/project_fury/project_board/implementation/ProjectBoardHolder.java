@@ -14,18 +14,18 @@ public class ProjectBoardHolder extends RecyclerView.ViewHolder{
 
 	//UI References
 	public CardView mCardView;
-	public TextView mTaskTextView;
-	public TextView mPriorityTextView;
-	public TextView mAssigneeTextView;
-	public TextView mNoTaskViewTextView;
+	public TextView mTaskName;
+	public TextView mAssigneeName;
+	public TextView mNoTasks;
+	public TextView mPriorityName;
 
 	public ProjectBoardHolder( View view ){
 		super( view );
-		mCardView = ( CardView ) view.findViewById( R.id.projectBoardFragment_cardView );
-		mTaskTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskTextView );
-		mPriorityTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_priorityTextView );
-		mAssigneeTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_userAssignedTextView );
-		mNoTaskViewTextView = ( TextView ) view.findViewById( R.id.projectBoardFragment_noTasksTextView );
+		mCardView = ( CardView ) view.findViewById( R.id.projectBoardFragment_taskCard );
+		mTaskName = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskCard_taskName );
+		mAssigneeName = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskCard_assigneeName );
+		mNoTasks = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskCard_noTasks );
+		mPriorityName = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskCard_priorityName );
 	}
 
 }

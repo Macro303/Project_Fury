@@ -26,10 +26,9 @@ public class LoginPresenter implements LoginContract.Presenter{
 
 	@Override
 	public void userSelectRegister(){
-		LoginContract.View view = viewWeakReference.get();
 		LoginContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToRegister();
 	}
 
@@ -43,7 +42,6 @@ public class LoginPresenter implements LoginContract.Presenter{
 	}
 
 	private class LoginTask extends AsyncTask< String, Void, Response >{
-
 		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
@@ -54,27 +52,31 @@ public class LoginPresenter implements LoginContract.Presenter{
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
-			return model.login( strings[ 0 ], strings[ 1 ] );
+		protected Response doInBackground( String... inputs ){
+			return model.login( inputs[ 0 ], inputs[ 1 ] );
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
+		protected void onPostExecute( Response result ){
+			super.onPostExecute( result );
 			LoginContract.View view = viewWeakReference.get();
 			LoginContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null && navigation != null ){
 				view.logInFinished();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Success":
 						navigation.navigateToDashboard();
 						break;
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
-					default:
+					case "401 Error":
 						view.setInvalidUserValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
 						break;
 				}
 			}

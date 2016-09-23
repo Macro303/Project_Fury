@@ -83,24 +83,35 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null ){
-			new CreateTask().execute( mAssignee );
+			new CreateTask().execute( mTaskName, mTaskDescription, mAssignee );
 		}
 	}
 
 	private class GetProjectsTask extends AsyncTask< Void, Void, ProjectResponse >{
 		@Override
-		protected ProjectResponse doInBackground( Void... voids ){
+		protected ProjectResponse doInBackground( Void... inputs ){
 			return model.getAllProjects();
 		}
 
 		@Override
-		protected void onPostExecute( ProjectResponse projectResponse ){
-			super.onPostExecute( projectResponse );
+		protected void onPostExecute( ProjectResponse result ){
+			super.onPostExecute( result );
 			CreateTaskContract.View view = viewWeakReference.get();
 			CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
-			if( view != null && navigation != null && projectResponse.getMessage().equals( "Success" ) )
-				view.setProjectSpinner( projectResponse.getProjects() );
+			if( view != null && navigation != null ){
+				switch( result.getMessage() ){
+					case "Success":
+						view.setProjectSpinner( result.getProjects() );
+						break;
+					case "No Internet Access":
+						view.noInternetAccessValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
+						break;
+				}
+			}
 		}
 
 		@Override
@@ -121,25 +132,27 @@ public class CreateTaskPresenter implements CreateTaskContract.Presenter{
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
-			return model.createTask( Model.getSelectedProject().getProjectID(), mTaskName, mTaskDescription, strings[ 0 ] );
+		protected Response doInBackground( String... inputs ){
+			return model.createTask( Model.getSelectedProject().getProjectID(), inputs[ 0 ], inputs[ 1 ], inputs[ 2 ] );
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
+		protected void onPostExecute( Response result ){
+			super.onPostExecute( result );
 			CreateTaskContract.View view = viewWeakReference.get();
+			CreateTaskContract.Navigation navigation = navigationWeakReference.get();
 
-			if( view != null ){
+			if( view != null && navigation != null ){
 				view.hideTaskUpdatingInProgress();
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Task creation successful.":
-						navigationWeakReference.get().navigateToPrevious();
+						navigation.navigateToPrevious();
 						break;
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
 					default:
-						view.errorValidation();
+						view.defaultErrorMessage();
 						break;
 				}
 			}

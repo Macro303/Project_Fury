@@ -11,7 +11,7 @@
 		android:layout_height="match_parent">
 
 		<TextView
-			android:id="@+id/listItem_columnName"
+			android:id="@+id/dashboardFragment_taskCard_columnName"
 			style="@style/TextStyle.Title"
 			android:textColor="@color/colorTextPrimary"
 			android:textSize="@dimen/baseTextSize"/>

@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.all_boards.AllBoardsContract;
-import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
 
 /**
@@ -35,46 +34,15 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 	@Override
 	public AllBoardsHolder onCreateViewHolder( ViewGroup parent, int viewType ){
 		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_all_boards, parent, false );
-		return new AllBoardsHolder( view );
+		return new AllBoardsHolder( view, navigationWeakReference.get() );
 	}
 
 	@Override
-	public void onBindViewHolder( final AllBoardsHolder holder, final int position ){
-
-		final AllBoardsContract.Navigation navigation = navigationWeakReference.get();
-
-		if( projects != null && projects.length != 0 ){
-			holder.mNoProjectTextView.setVisibility( View.GONE );
-			holder.mProjectBoardImageView.setVisibility( View.VISIBLE );
-			holder.mProjectInfoButton.setVisibility( View.VISIBLE );
-
-			holder.mProjectInfoButton.setEnabled( true );
-			holder.mCardView.setEnabled( true );
-
-			holder.mProjectInfoButton.setText( projects[ position ].getName() );
-			holder.mCardView.setOnClickListener( new View.OnClickListener(){
-				@Override
-				public void onClick( View view ){
-					holder.mProjectInfoButton.setEnabled( false );
-					holder.mCardView.setEnabled( false );
-					Model.setSelectedProject( projects[ position ] );
-					navigation.navigateToProjectBoard();
-				}
-			} );
-			holder.mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
-				@Override
-				public void onClick( View view ){
-					holder.mProjectInfoButton.setEnabled( false );
-					holder.mCardView.setEnabled( false );
-					Model.setSelectedProject( projects[ position ] );
-					navigation.navigateToProjectInfo();
-				}
-			} );
-		}else{
-			holder.mNoProjectTextView.setVisibility( View.VISIBLE );
-			holder.mProjectInfoButton.setVisibility( View.INVISIBLE );
-			holder.mProjectBoardImageView.setVisibility( View.INVISIBLE );
-		}
+	public void onBindViewHolder( AllBoardsHolder holder, int position ){
+		if( projects != null && projects.length > 0 )
+			holder.bindView( projects[ position ] );
+		else
+			holder.bindView( null );
 	}
 
 	@Override

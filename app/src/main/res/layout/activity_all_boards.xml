@@ -31,7 +31,7 @@
 				android:layout_height="match_parent"/>
 
 			<android.support.design.widget.FloatingActionButton
-				android:id="@+id/allBoards_createProjectButton"
+				android:id="@+id/allBoardsActivity_createProjectButton"
 				style="@style/FloatingActionButton"
 				app:borderWidth="0dp"
 				app:layout_anchor="@id/allBoardsActivity_recyclerView"
@@ -39,6 +39,7 @@
 
 
 		</android.support.design.widget.CoordinatorLayout>
+
 	</LinearLayout>
 
 	<android.support.design.widget.NavigationView

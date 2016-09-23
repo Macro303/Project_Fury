@@ -24,8 +24,7 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 	private WeakReference< ProjectInfoView > viewWeakReference;
 
 	public void setData( Column[] columns, ProjectInfoView view ){
-		columnList = new ArrayList<>();
-		columnList.addAll( Arrays.asList( columns ) );
+		columnList = new ArrayList<>( Arrays.asList( columns ) );
 		Collections.sort( columnList );
 		viewWeakReference = new WeakReference<>( view );
 		notifyDataSetChanged();
@@ -33,7 +32,7 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 
 	@Override
 	public ColumnViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
-		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_project_info_columns, parent, false );
+		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_project_info, parent, false );
 		return new ColumnViewHolder( view );
 	}
 

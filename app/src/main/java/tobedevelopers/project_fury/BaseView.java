@@ -3,6 +3,7 @@ package tobedevelopers.project_fury;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Macro303 on 10/08/2016.
@@ -53,10 +54,10 @@ public abstract class BaseView extends AppCompatActivity implements BaseContract
 	}
 
 	public void noInternetAccessValidation(){
-		Log.i( getString( R.string.app_name ), getString( R.string.error_noInternetAccess ) );
+		ToastLog.makeInfo( this, getString( R.string.app_name ), getString( R.string.error_noInternetAccess ), Toast.LENGTH_SHORT );
 	}
 
 	public void defaultErrorMessage(){
-		Log.i( getString( R.string.app_name ), getString( R.string.error_defaultError ) );
+		ToastLog.makeWarn( this, getString( R.string.app_name ), getString( R.string.error_defaultError ), Toast.LENGTH_SHORT );
 	}
 }

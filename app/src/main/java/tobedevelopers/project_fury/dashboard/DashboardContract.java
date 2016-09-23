@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.dashboard;
 
+import tobedevelopers.project_fury.BaseContract;
 import tobedevelopers.project_fury.dashboard.implementation.ProjectHolder;
 import tobedevelopers.project_fury.dashboard.implementation.TaskHolder;
 
@@ -8,9 +9,7 @@ import tobedevelopers.project_fury.dashboard.implementation.TaskHolder;
  */
 public interface DashboardContract{
 
-	interface View{
-		void noInternetAccessValidation();
-
+	interface View extends BaseContract.View{
 		void loadingProjectsInProgress();
 
 		void loadingProjectsFinished();
@@ -22,11 +21,9 @@ public interface DashboardContract{
 		void loadProjectsIntoList( ProjectHolder holder );
 
 		void loadTasksIntoList( TaskHolder holder );
-
-		void defaultErrorMessage();
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToCreateProject();
 
 		void navigateToCreateTask();
@@ -36,7 +33,7 @@ public interface DashboardContract{
 		void navigateToTaskInfo();
 	}
 
-	interface Presenter{
+	interface Presenter extends BaseContract.Presenter{
 		void userSelectCreateProject();
 
 		void userSelectCreateTask();

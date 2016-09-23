@@ -19,14 +19,14 @@ public class ColumnViewHolder extends RecyclerView.ViewHolder{
 
 	public ColumnViewHolder( View view ){
 		super( view );
-		columnName = ( TextView ) view.findViewById( R.id.listItem_columnName );
+		columnName = ( TextView ) view.findViewById( R.id.dashboardFragment_taskCard_columnName );
 		image = ( ImageView ) view.findViewById( R.id.listItem_image );
 	}
 
 	public void bindView( Column data ){
 		if( data != null ){
 			columnName.setText( data.getName() );
-			image.getDrawable();
+//			image.getDrawable();
 		}else{
 			if( BuildConfig.DEBUG ){
 				throw new IllegalArgumentException( "Null data passed to ColumnViewHolder" );

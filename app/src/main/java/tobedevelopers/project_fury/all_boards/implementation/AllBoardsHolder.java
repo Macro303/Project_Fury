@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import tobedevelopers.project_fury.R;
+import tobedevelopers.project_fury.all_boards.AllBoardsContract;
+import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Project;
 
 /**
  * Created by Macro303 on 13/08/2016.
@@ -15,16 +18,58 @@ import tobedevelopers.project_fury.R;
 public class AllBoardsHolder extends RecyclerView.ViewHolder{
 
 	//UI References
-	public ImageView mProjectBoardImageView;
-	public Button mProjectInfoButton;
-	public TextView mNoProjectTextView;
-	public CardView mCardView;
+	private CardView mCardView;
+	private Button mProjectInfoButton;
+	private TextView mNoProjects;
+	private ImageView mProjectBoardImage;
 
-	public AllBoardsHolder( View view ){
+	private AllBoardsContract.Navigation navigation;
+
+	public AllBoardsHolder( View view, AllBoardsContract.Navigation navigation ){
 		super( view );
-		mProjectBoardImageView = ( ImageView ) view.findViewById( R.id.allBoardsActivity_projectBoardImageView );
-		mProjectInfoButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectInfoButton );
-		mNoProjectTextView = ( TextView ) view.findViewById( R.id.allBoardsActivity_noTaskTextView );
-		mCardView = ( CardView ) view.findViewById( R.id.allBoardsFragment_cardView );
+		mCardView = ( CardView ) view.findViewById( R.id.allBoardsActivity_projectCard );
+		mProjectInfoButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectCard_projectInfoButton );
+		mNoProjects = ( TextView ) view.findViewById( R.id.allBoardsActivity_projectCard_noProjects );
+		mProjectBoardImage = ( ImageView ) view.findViewById( R.id.allBoardsActivity_projectCard_projectBoardImage );
+		this.navigation = navigation;
+	}
+
+	public void bindView( Project current ){
+		if( current != null ){
+			mProjectInfoButton.setText( current.getName() );
+			setVisibility( current, true );
+		}else
+			setVisibility( current, false );
+	}
+
+	private void setVisibility( final Project current, boolean value ){
+		mProjectInfoButton.setVisibility( value ? View.VISIBLE : View.GONE );
+		mNoProjects.setVisibility( !value ? View.VISIBLE : View.GONE );
+		mProjectBoardImage.setVisibility( value ? View.VISIBLE : View.GONE );
+		mCardView.setEnabled( value );
+		mProjectInfoButton.setEnabled( value );
+		if( value ){
+			mCardView.setOnClickListener( new View.OnClickListener(){
+				@Override
+				public void onClick( View view ){
+					mProjectInfoButton.setEnabled( false );
+					mCardView.setEnabled( false );
+					Model.setSelectedProject( current );
+					navigation.navigateToProjectBoard();
+				}
+			} );
+			mProjectInfoButton.setOnClickListener( new View.OnClickListener(){
+				@Override
+				public void onClick( View view ){
+					mProjectInfoButton.setEnabled( false );
+					mCardView.setEnabled( false );
+					Model.setSelectedProject( current );
+					navigation.navigateToProjectInfo();
+				}
+			} );
+		}else{
+			mCardView.setOnClickListener( null );
+			mProjectInfoButton.setOnClickListener( null );
+		}
 	}
 }

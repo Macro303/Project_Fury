@@ -2,15 +2,15 @@ package tobedevelopers.project_fury.project_info;
 
 import java.util.List;
 
+import tobedevelopers.project_fury.BaseContract;
 import tobedevelopers.project_fury.model.Column;
 
 /**
  * Created by Macro303 on 11/08/2016.
  */
-public interface ProjectInfoContract{
+public interface ProjectInfoContract extends BaseContract{
 
-	interface View{
-
+	interface View extends BaseContract.View{
 		void editProjectDescription();
 
 		void saveProjectDescription();
@@ -31,20 +31,16 @@ public interface ProjectInfoContract{
 
 		void disableSave();
 
-		void noInternetAccessValidation();
-
-		void defaultErrorMessage();
-
 		void setInvalidUserValidation();
 
 		void fillColumnList( Column[] columns );
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToPrevious();
 	}
 
-	interface Presenter{
+	interface Presenter extends BaseContract.Presenter{
 		void userSelectBack();
 
 		void userSelectDeleteProject();
@@ -54,8 +50,6 @@ public interface ProjectInfoContract{
 		void userSelectSaveProject( List< Column > columnList );
 
 		void userSelectAddColumn( String columnName );
-
-//		void userSelectSaveColumns( List< Column > columnList );
 
 		void saveColumnsBeforeDeleting( List< Column > columnList );
 

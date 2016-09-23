@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.create_task;
 
+import tobedevelopers.project_fury.BaseContract;
 import tobedevelopers.project_fury.model.Project;
 
 /**
@@ -7,7 +8,7 @@ import tobedevelopers.project_fury.model.Project;
  */
 public interface CreateTaskContract{
 
-	interface View{
+	interface View extends BaseContract.View{
 		void enableCreateTaskButton();
 
 		void disableCreateTaskButton();
@@ -18,10 +19,6 @@ public interface CreateTaskContract{
 
 		void setTaskDescriptionOverValidation();
 
-		void noInternetAccessValidation();
-
-		void errorValidation();
-
 		void setProjectSpinner( Project[] projects );
 
 		void showTaskUpdatingInProgress();
@@ -29,11 +26,11 @@ public interface CreateTaskContract{
 		void hideTaskUpdatingInProgress();
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToPrevious();
 	}
 
-	interface Presenter{
+	interface Presenter extends BaseContract.Presenter{
 		void userSelectCreateTask( final String mAssignee );
 
 		void userSelectBack();

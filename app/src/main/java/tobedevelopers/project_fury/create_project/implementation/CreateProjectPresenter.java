@@ -16,7 +16,7 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 
 	private WeakReference< CreateProjectContract.View > viewWeakReference;
 	private WeakReference< CreateProjectContract.Navigation > navigationWeakReference;
-	private ModelContract modelContract;
+	private ModelContract model;
 
 	private String mProjectName;
 	private String mProjectDescription;
@@ -24,7 +24,7 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 	public CreateProjectPresenter( CreateProjectContract.View view, CreateProjectContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
-		this.modelContract = new Model();
+		this.model = new Model();
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new CreateProjectTask().execute();
+			new CreateProjectTask().execute( mProjectName, mProjectDescription );
 	}
 
 	@Override
@@ -79,27 +79,30 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
-			return modelContract.createProject( mProjectName, mProjectDescription );
+		protected Response doInBackground( String... inputs ){
+			return model.createProject( inputs[ 0 ], inputs[ 1 ] );
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
+		protected void onPostExecute( Response result ){
+			super.onPostExecute( result );
 			CreateProjectContract.View view = viewWeakReference.get();
 			CreateProjectContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null && navigation != null ){
 				view.hideProjectUpdatingInProgress();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Project creation successful.":
 						navigation.navigateToPrevious();
 						break;
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
-					default:
+					case "Project already exists.":
 						view.setProjectAlreadyUsedValidation();
+					default:
+						view.defaultErrorMessage();
 						break;
 				}
 			}

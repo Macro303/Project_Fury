@@ -21,6 +21,7 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 	private WeakReference< DashboardContract.View > viewWeakReference;
 	private WeakReference< DashboardContract.Navigation > navigationWeakReference;
 	private ModelContract model;
+
 	private LoadTasksAsyncTask loadTasksAsyncTask;
 	private LoadProjectsAsyncTask loadProjectsAsyncTask;
 	private SetProjectAsyncTask setProjectAsyncTask;
@@ -33,28 +34,25 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 
 	@Override
 	public void userSelectCreateProject(){
-		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToCreateProject();
 	}
 
 	@Override
 	public void userSelectCreateTask(){
-		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToCreateTask();
 	}
 
 	@Override
 	public void userSelectProjectInfo(){
-		DashboardContract.View view = viewWeakReference.get();
 		DashboardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToProjectInfo();
 	}
 
@@ -104,7 +102,7 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 
 	private class SetProjectAsyncTask extends AsyncTask< Void, Void, ProjectResponse >{
 		@Override
-		protected ProjectResponse doInBackground( Void... voids ){
+		protected ProjectResponse doInBackground( Void... inputs ){
 			return model.getProject( Model.getSelectedTask().getProjectID() );
 		}
 
@@ -130,8 +128,8 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		}
 
 		@Override
-		protected void onCancelled( ProjectResponse projectResponse ){
-			super.onCancelled( projectResponse );
+		protected void onCancelled( ProjectResponse result ){
+			super.onCancelled( result );
 		}
 
 		@Override
@@ -150,7 +148,7 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		}
 
 		@Override
-		protected ProjectHolder doInBackground( Void... voids ){
+		protected ProjectHolder doInBackground( Void... inputs ){
 			ProjectHolder projectHolder = null;
 			ProjectResponse projectResponse = model.getAllProjects();
 			if( projectResponse.getMessage().equals( "Success" ) ){
@@ -172,23 +170,21 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		}
 
 		@Override
-		protected void onPostExecute( ProjectHolder response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( ProjectHolder result ){
+			super.onPostExecute( result );
 			DashboardContract.View view = viewWeakReference.get();
 
-			if( view != null ){
-				if( response == null )
-					view.noInternetAccessValidation();
-				else{
+			if( view != null )
+				if( result != null ){
 					view.loadingProjectsFinished();
-					view.loadProjectsIntoList( response );
-				}
-			}
+					view.loadProjectsIntoList( result );
+				}else
+					view.noInternetAccessValidation();
 		}
 
 		@Override
-		protected void onCancelled( ProjectHolder response ){
-			super.onCancelled( response );
+		protected void onCancelled( ProjectHolder result ){
+			super.onCancelled( result );
 		}
 
 	}
@@ -203,7 +199,7 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		}
 
 		@Override
-		protected TaskHolder doInBackground( Void... voids ){
+		protected TaskHolder doInBackground( Void... inputs ){
 			TaskHolder taskHolder = new TaskHolder();
 			TaskResponse taskResponse = model.getAllUserTasks();
 			for( Task task : taskResponse.getTasks() ){
@@ -218,19 +214,21 @@ public class DashboardPresenter implements DashboardContract.Presenter{
 		}
 
 		@Override
-		protected void onPostExecute( TaskHolder response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( TaskHolder result ){
+			super.onPostExecute( result );
 			DashboardContract.View view = viewWeakReference.get();
 
-			if( view != null ){
-				view.loadingTasksFinished();
-				view.loadTasksIntoList( response );
-			}
+			if( view != null )
+				if( result != null ){
+					view.loadingTasksFinished();
+					view.loadTasksIntoList( result );
+				}else
+					view.noInternetAccessValidation();
 		}
 
 		@Override
-		protected void onCancelled( TaskHolder response ){
-			super.onCancelled( response );
+		protected void onCancelled( TaskHolder result ){
+			super.onCancelled( result );
 		}
 	}
 }

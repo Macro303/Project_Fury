@@ -3,6 +3,7 @@ package tobedevelopers.project_fury.register.implementation;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -50,22 +51,20 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	//Buttons Listeners
 	@OnClick( { R.id.registerActivity_createAccountButton, R.id.registerActivity_returnToLoginButton } )
-	public void onUserSelectAButton( android.view.View view ){
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.registerActivity_createAccountButton:
-				ToastLog.makeDebug( this, "Create Account", Toast.LENGTH_SHORT );
 				mCreateAccountButton.setEnabled( false );
 				mReturnToLoginButton.setEnabled( false );
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
-				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				mCreateAccountButton.setEnabled( false );
 				mReturnToLoginButton.setEnabled( false );
 				presenter.userSelectLogin();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -106,7 +105,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void navigateToLogin(){
-		mLoadingProgressbar.setVisibility( android.view.View.GONE );
+		mLoadingProgressbar.setVisibility( View.GONE );
 		finish();
 	}
 
@@ -136,8 +135,8 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.VISIBLE );
-				ToastLog.makeDebug( getParam1(), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
+				mLoadingProgressbar.setVisibility( View.VISIBLE );
+				ToastLog.makeDebug( getParam1(), getString( R.string.app_name ), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -147,7 +146,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< RegisterView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 			}
 		} );
 	}
@@ -178,7 +177,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
 				mUserNameEditText.requestFocus();
 				mPasswordEditText.getEditableText().clear();
@@ -229,7 +228,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void noInternetAccessValidation(){
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
+		super.noInternetAccessValidation();
 		mReturnToLoginButton.setEnabled( true );
 	}
 }

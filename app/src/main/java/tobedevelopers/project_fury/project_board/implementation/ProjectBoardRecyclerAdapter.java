@@ -27,6 +27,7 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 
 	public void setData( Task[] tasks ){
 		this.tasks = tasks;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -38,16 +39,16 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 	@Override
 	public void onBindViewHolder( final ProjectBoardHolder holder, final int position ){
 		if( tasks != null && tasks.length != 0 ){
-			holder.mNoTaskViewTextView.setVisibility( View.INVISIBLE );
-			holder.mAssigneeTextView.setVisibility( View.VISIBLE );
-			holder.mPriorityTextView.setVisibility( View.VISIBLE );
-			holder.mTaskTextView.setVisibility( View.VISIBLE );
+			holder.mNoTasks.setVisibility( View.INVISIBLE );
+			holder.mAssigneeName.setVisibility( View.VISIBLE );
+			holder.mPriorityName.setVisibility( View.VISIBLE );
+			holder.mTaskName.setVisibility( View.VISIBLE );
 
 			holder.mCardView.setEnabled( true );
 
-			holder.mTaskTextView.setText( tasks[ position ].getName() );
-			holder.mPriorityTextView.setText( tasks[ position ].getPriority().getNameValue() );
-			holder.mAssigneeTextView.setText( tasks[ position ].getAssignee() );
+			holder.mTaskName.setText( tasks[ position ].getName() );
+			holder.mPriorityName.setText( tasks[ position ].getPriority().getNameValue() );
+			holder.mAssigneeName.setText( tasks[ position ].getAssignee() );
 			holder.mCardView.setOnClickListener( new View.OnClickListener(){
 				@Override
 				public void onClick( View view ){
@@ -57,10 +58,10 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 				}
 			} );
 		}else{
-			holder.mNoTaskViewTextView.setVisibility( View.VISIBLE );
-			holder.mAssigneeTextView.setVisibility( View.INVISIBLE );
-			holder.mPriorityTextView.setVisibility( View.INVISIBLE );
-			holder.mTaskTextView.setVisibility( View.INVISIBLE );
+			holder.mNoTasks.setVisibility( View.VISIBLE );
+			holder.mAssigneeName.setVisibility( View.INVISIBLE );
+			holder.mPriorityName.setVisibility( View.INVISIBLE );
+			holder.mTaskName.setVisibility( View.INVISIBLE );
 		}
 	}
 

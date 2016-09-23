@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/allBoardsFragment_cardView"
+	android:id="@+id/allBoardsActivity_projectCard"
 	style="@style/CardStyle">
 
 	<RelativeLayout
@@ -9,14 +9,14 @@
 		android:layout_height="wrap_content">
 
 		<Button
-			android:id="@+id/allBoardsActivity_projectInfoButton"
+			android:id="@+id/allBoardsActivity_projectCard_projectInfoButton"
 			style="@style/ButtonStyle.Borderless"
 			android:maxLines="1"
 			android:textColor="@color/windowBackground"
 			android:textStyle="bold"/>
 
 		<TextView
-			android:id="@+id/allBoardsActivity_noTaskTextView"
+			android:id="@+id/allBoardsActivity_projectCard_noProjects"
 			style="@style/TextStyle"
 			android:layout_centerInParent="true"
 			android:gravity="center"
@@ -25,7 +25,7 @@
 			android:visibility="gone"/>
 
 		<ImageView
-			android:id="@+id/allBoardsActivity_projectBoardImageView"
+			android:id="@+id/allBoardsActivity_projectCard_projectBoardImage"
 			style="@style/ButtonStyle.Image"
 			android:contentDescription="@string/button_projectBoard"
 			android:src="@drawable/ic_forward_white_36dp"

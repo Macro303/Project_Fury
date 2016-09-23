@@ -3,6 +3,7 @@ package tobedevelopers.project_fury.login.implementation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -47,22 +48,20 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 
 	//Buttons Listener
 	@OnClick( { R.id.loginActivity_loginButton, R.id.loginActivity_registerButton } )
-	public void onUserSelectAButton( android.view.View view ){
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
 			case R.id.loginActivity_loginButton:
 				mRegisterButton.setEnabled( false );
 				mLoginButton.setEnabled( false );
 				presenter.userSelectLogin( mUsernameEditText.getEditableText().toString(), mPasswordEditText.getEditableText().toString() );
-				ToastLog.makeDebug( this, "Login", Toast.LENGTH_SHORT );
 				break;
 			case R.id.loginActivity_registerButton:
 				mRegisterButton.setEnabled( false );
 				mLoginButton.setEnabled( false );
 				presenter.userSelectRegister();
-				ToastLog.makeDebug( this, "Register", Toast.LENGTH_SHORT );
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
 	}
@@ -72,7 +71,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 				startActivity( new Intent( getParam1(), RegisterView.class ) );
 			}
 		} );
@@ -83,7 +82,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 				finish();
 				startActivity( new Intent( getParam1(), DashboardView.class ) );
 			}
@@ -115,8 +114,7 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.VISIBLE );
-				ToastLog.makeDebug( getParam1(), String.format( getString( R.string.error_inProgress ), "Login" ), Toast.LENGTH_LONG );
+				mLoadingProgressbar.setVisibility( View.VISIBLE );
 			}
 		} );
 	}
@@ -126,16 +124,16 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 		runOnUiThread( new Runnable1Param< LoginView >( this ){
 			@Override
 			public void run(){
-				mLoadingProgressbar.setVisibility( android.view.View.GONE );
+				mLoadingProgressbar.setVisibility( View.GONE );
 			}
 		} );
 	}
 
 	@Override
 	public void noInternetAccessValidation(){
+		super.noInternetAccessValidation();
 		mLoginButton.setEnabled( true );
 		mRegisterButton.setEnabled( true );
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
@@ -149,12 +147,5 @@ public class LoginView extends BaseView implements LoginContract.View, LoginCont
 				getParam2().setError( getString( R.string.error_invalidUsernamePassword ) );
 			}
 		} );
-	}
-
-	@Override
-	protected void onRestart(){
-		super.onRestart();
-		finish();
-		startActivity( getIntent() );
 	}
 }

@@ -1,24 +1,22 @@
 package tobedevelopers.project_fury.create_project;
 
+import tobedevelopers.project_fury.BaseContract;
+
 /**
  * Created by Macro303 on 11/08/2016.
  */
 public interface CreateProjectContract{
 
-	interface View{
+	interface View extends BaseContract.View{
 		void enableCreateProjectButton();
 
 		void disableCreateProjectButton();
-
-		void projectCreationInProgress();
 
 		void setProjectNameUnderValidation();
 
 		void setProjectNameOverValidation();
 
 		void setProjectDescriptionOverValidation();
-
-		void noInternetAccessValidation();
 
 		void setProjectAlreadyUsedValidation();
 
@@ -27,11 +25,11 @@ public interface CreateProjectContract{
 		void hideProjectUpdatingInProgress();
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToPrevious();
 	}
 
-	interface Presenter{
+	interface Presenter extends BaseContract.Presenter{
 		void userSelectCreateProject();
 
 		void userEnterProjectName( String projectName );

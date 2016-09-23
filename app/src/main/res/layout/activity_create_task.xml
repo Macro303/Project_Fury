@@ -28,22 +28,9 @@
 		android:layout_marginEnd="@dimen/editTextMargin"
 		android:layout_marginStart="@dimen/editTextMargin"
 		android:layout_marginTop="@dimen/editTextMargin"
+		android:paddingEnd="5dp"
+		android:paddingStart="5dp"
 		android:stretchColumns="1">
-
-		<TableRow
-			style="@style/TableStyle.Row"
-			android:paddingBottom="10dp">
-
-			<TextView
-				style="@style/TextStyle"
-				android:layout_column="0"
-				android:text="@string/hint_assigneeSpinner"/>
-
-			<android.support.v7.widget.AppCompatSpinner
-				android:id="@+id/createTaskActivity_assigneeSpinner"
-				style="@style/SpinnerStyle"/>
-
-		</TableRow>
 
 		<TableRow
 			android:id="@+id/createTaskActivity_projectSpinnerRow"
@@ -58,6 +45,21 @@
 
 			<android.support.v7.widget.AppCompatSpinner
 				android:id="@+id/createTaskActivity_projectSpinner"
+				style="@style/SpinnerStyle"/>
+
+		</TableRow>
+
+		<TableRow
+			style="@style/TableStyle.Row"
+			android:paddingBottom="10dp">
+
+			<TextView
+				style="@style/TextStyle"
+				android:layout_column="0"
+				android:text="@string/hint_assigneeSpinner"/>
+
+			<android.support.v7.widget.AppCompatSpinner
+				android:id="@+id/createTaskActivity_assigneeSpinner"
 				style="@style/SpinnerStyle"/>
 
 		</TableRow>

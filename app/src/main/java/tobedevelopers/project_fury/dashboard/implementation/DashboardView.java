@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -24,18 +25,21 @@ import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 
 public class DashboardView extends BaseNavigationView implements DashboardContract.View, DashboardContract.Navigation{
 
-	@Bind( R.id.dashboard_LoadingProjectsProgressBar )
-	protected ProgressBar mLoadingProjectsProgressbar;
-	@Bind( R.id.dashboard_LoadingTasksProgressBar )
-	protected ProgressBar mLoadingTasksProgressbar;
-	@Bind( R.id.listHeader_projectCreateButton )
-	ImageButton mCreateProjectButton;
-	@Bind( R.id.listHeader_taskCreateButton )
-	ImageButton mCreateTaskButton;
-	private RecyclerView mProjectRecyclerView;
-	private RecyclerView mTaskRecyclerView;
-	private DashboardProjectRecyclerAdapter mDashboardProjectRecyclerAdapter;
-	private DashboardTaskRecyclerAdapter mDashboardTaskRecyclerAdapter;
+	@Bind( R.id.dashboardActivity_projectsLoadingProgressBar )
+	protected ProgressBar mProjectsLoadingProgressbar;
+	@Bind( R.id.dashboardActivity_tasksLoadingProgressBar )
+	protected ProgressBar mTasksLoadingProgressbar;
+	@Bind( R.id.dashboardActivity_projectCreateButton )
+	protected ImageButton mCreateProjectButton;
+	@Bind( R.id.dashboardActivity_taskCreateButton )
+	protected ImageButton mCreateTaskButton;
+	@Bind( R.id.dashboardActivity_projectRecyclerView )
+	protected RecyclerView mProjectRecyclerView;
+	@Bind( R.id.dashboardActivity_taskRecyclerView )
+	protected RecyclerView mTaskRecyclerView;
+
+	private DashboardProjectRecyclerAdapter mProjectAdapter;
+	private DashboardTaskRecyclerAdapter mTaskAdapter;
 
 	private DashboardContract.Presenter presenter;
 
@@ -49,46 +53,36 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 
 		ButterKnife.bind( this );
 
-		mProjectRecyclerView = ( RecyclerView ) findViewById( R.id.dashboard_Project_RecyclerView );
 		mProjectRecyclerView.setHasFixedSize( true );
 		mProjectRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
-		mDashboardProjectRecyclerAdapter = new DashboardProjectRecyclerAdapter( this, presenter );
-		mProjectRecyclerView.setAdapter( mDashboardProjectRecyclerAdapter );
+		mProjectAdapter = new DashboardProjectRecyclerAdapter( this, presenter );
+		mProjectRecyclerView.setAdapter( mProjectAdapter );
 
-		mTaskRecyclerView = ( RecyclerView ) findViewById( R.id.dashboard_Task_RecyclerView );
 		mTaskRecyclerView.setHasFixedSize( true );
 		mTaskRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
-		mDashboardTaskRecyclerAdapter = new DashboardTaskRecyclerAdapter( this, presenter );
-		mTaskRecyclerView.setAdapter( mDashboardTaskRecyclerAdapter );
+		mTaskAdapter = new DashboardTaskRecyclerAdapter( this, presenter );
+		mTaskRecyclerView.setAdapter( mTaskAdapter );
 
 		presenter.loadProjects();
 		presenter.loadTasks();
-
 	}
 
-	@OnClick( { R.id.listHeader_projectCreateButton, R.id.listHeader_taskCreateButton } )
-	public void onUserSelectAButton( android.view.View view ){
+	@OnClick( { R.id.dashboardActivity_projectCreateButton, R.id.dashboardActivity_taskCreateButton } )
+	public void onUserSelectAButton( View view ){
 		switch( view.getId() ){
-			case R.id.listHeader_projectCreateButton:
+			case R.id.dashboardActivity_projectCreateButton:
 				setEnabledAllButtons( false );
 				presenter.userSelectCreateProject();
 				break;
-			case R.id.listHeader_taskCreateButton:
+			case R.id.dashboardActivity_taskCreateButton:
 				Model.setSelectedProject( null );
 				setEnabledAllButtons( false );
 				presenter.userSelectCreateTask();
 				break;
 			default:
-				ToastLog.makeError( this, String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
+				ToastLog.makeError( this, getString( R.string.app_name ), String.format( getString( R.string.error_message ), getTitle() ), Toast.LENGTH_SHORT );
 				break;
 		}
-	}
-
-	@Override
-	protected void onRestart(){
-		super.onRestart();
-		finish();
-		startActivity( getIntent() );
 	}
 
 	private void setEnabledAllButtons( Boolean condition ){
@@ -140,23 +134,23 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 	@Override
 	public void loadProjectsIntoList( ProjectHolder projectHolder ){
 		if( projectHolder.getProjects().length != 0 ){
-			mCreateTaskButton.setVisibility( android.view.View.VISIBLE );
-			mDashboardProjectRecyclerAdapter.setData( projectHolder );
+			mCreateTaskButton.setVisibility( View.VISIBLE );
+			mProjectAdapter.setData( projectHolder );
 		}else{
-			mCreateTaskButton.setVisibility( android.view.View.GONE );
-			mDashboardProjectRecyclerAdapter.setData( projectHolder );
+			mCreateTaskButton.setVisibility( View.GONE );
+			mProjectAdapter.setData( projectHolder );
 		}
 	}
 
 	@Override
 	public void loadTasksIntoList( TaskHolder taskHolder ){
-		mDashboardTaskRecyclerAdapter.setData( taskHolder );
+		mTaskAdapter.setData( taskHolder );
 	}
 
 	@Override
 	public void noInternetAccessValidation(){
+		super.noInternetAccessValidation();
 		setEnabledAllButtons( true );
-		ToastLog.makeWarn( this, getString( R.string.error_noInternetAccess ), Toast.LENGTH_LONG );
 	}
 
 	@Override
@@ -164,7 +158,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingProjectsProgressbar.setVisibility( android.view.View.VISIBLE );
+				mProjectsLoadingProgressbar.setVisibility( View.VISIBLE );
 			}
 		} );
 	}
@@ -174,7 +168,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingProjectsProgressbar.setVisibility( android.view.View.GONE );
+				mProjectsLoadingProgressbar.setVisibility( View.GONE );
 			}
 		} );
 	}
@@ -184,7 +178,7 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingTasksProgressbar.setVisibility( android.view.View.VISIBLE );
+				mTasksLoadingProgressbar.setVisibility( View.VISIBLE );
 			}
 		} );
 	}
@@ -194,15 +188,15 @@ public class DashboardView extends BaseNavigationView implements DashboardContra
 		runOnUiThread( new Runnable1Param< DashboardView >( this ){
 			@Override
 			public void run(){
-				mLoadingTasksProgressbar.setVisibility( android.view.View.GONE );
+				mTasksLoadingProgressbar.setVisibility( View.GONE );
 			}
 		} );
 	}
 
 	@Override
 	public void defaultErrorMessage(){
+		super.defaultErrorMessage();
 		setEnabledAllButtons( true );
-		ToastLog.makeWarn( this, getString( R.string.error_defaultError ), Toast.LENGTH_LONG );
 	}
 
 	@Override

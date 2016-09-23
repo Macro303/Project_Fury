@@ -26,22 +26,22 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 
 	@Override
 	public void userSelectCreateTask(){
-		ProjectBoardContract.View view = viewWeakReference.get();
 		ProjectBoardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToCreateTask();
 	}
 
 	@Override
 	public void userLoadsBoard(){
 		ProjectBoardContract.View view = viewWeakReference.get();
+		ProjectBoardContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null )
+		if( view != null && navigation != null )
 			new LoadProjectColumnsTask().execute();
 	}
 
-	private class LoadProjectColumnsTask extends AsyncTask< String, Void, ColumnResponse >{
+	private class LoadProjectColumnsTask extends AsyncTask< Void, Void, ColumnResponse >{
 
 		@Override
 		protected void onPreExecute(){
@@ -53,27 +53,27 @@ public class ProjectBoardPresenter implements ProjectBoardContract.Presenter{
 		}
 
 		@Override
-		protected ColumnResponse doInBackground( String... strings ){
+		protected ColumnResponse doInBackground( Void... inputs ){
 			return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
 		}
 
 		@Override
-		protected void onPostExecute( ColumnResponse response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( ColumnResponse result ){
+			super.onPostExecute( result );
 			ProjectBoardContract.View view = viewWeakReference.get();
 
 			if( view != null ){
 				view.hideProjectUpdatingInProgress();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Success":
-						view.setTabTitles( response.getColumns() );
+						view.setTabTitles( result.getColumns() );
 						break;
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
 					default:
-						view.displayDefaultErrorMessage();
+						view.defaultErrorMessage();
 						break;
 				}
 			}

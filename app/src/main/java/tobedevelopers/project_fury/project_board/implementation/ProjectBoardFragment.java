@@ -50,7 +50,7 @@ public class ProjectBoardFragment extends Fragment{
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
-		return inflater.inflate( R.layout.fragment_project_board_recycler, container, false );
+		return inflater.inflate( R.layout.fragment_project_board, container, false );
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class ProjectBoardFragment extends Fragment{
 	@Override
 	public void onResume(){
 		super.onResume();
-		new LoadTasksTask().execute( Model.getSelectedColumns().get( mPage ).getProjectID(), Model.getSelectedColumns().get( mPage ).getColumnID() );
+		new LoadTasksTask().execute( Model.getSelectedColumns()[ mPage ].getProjectID(), Model.getSelectedColumns()[ mPage ].getColumnID() );
 	}
 
 	private class LoadTasksTask extends AsyncTask< String, Void, TaskResponse >{
@@ -91,14 +91,14 @@ public class ProjectBoardFragment extends Fragment{
 		}
 
 		@Override
-		protected TaskResponse doInBackground( String... strings ){
-			return model.getAllColumnTasks( strings[ 0 ], strings[ 1 ] );
+		protected TaskResponse doInBackground( String... inputs ){
+			return model.getAllColumnTasks( inputs[ 0 ], inputs[ 1 ] );
 		}
 
 		@Override
-		protected void onPostExecute( TaskResponse response ){
-			super.onPostExecute( response );
-			Task[] tasks = response.getTasks();
+		protected void onPostExecute( TaskResponse result ){
+			super.onPostExecute( result );
+			Task[] tasks = result.getTasks();
 			Arrays.sort( tasks );
 			mRecyclerAdapter.setData( tasks );
 			mRecyclerAdapter.notifyDataSetChanged();
