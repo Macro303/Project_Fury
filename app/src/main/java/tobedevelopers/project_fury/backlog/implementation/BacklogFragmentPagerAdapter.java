@@ -4,53 +4,45 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import tobedevelopers.project_fury.model.Column;
+import java.util.List;
+
+import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
-import tobedevelopers.project_fury.model.Task;
 
 /**
  * Created by Macro303 on 12/08/2016.
  */
 public class BacklogFragmentPagerAdapter extends FragmentStatePagerAdapter{
 
-	private Holder holder;
+	//	private Holder holder;
+	private List< Project > projects;
 
 	public BacklogFragmentPagerAdapter( FragmentManager fragmentManager ){
 		super( fragmentManager );
 	}
 
-	public void setData( Holder holder ){
-		this.holder = holder;
-		notifyDataSetChanged();
+	public void setData( List< Project > projects ){
+		this.projects = projects;
+		Model.setSelectedProjects( projects );
 	}
 
 	@Override
 	public int getCount(){
-		if( holder != null && holder.getProjects() != null && holder.getProjects().length > 0 )
-			return holder.getProjects().length;
-		else
-			return 1;
+		return projects != null && projects.size() != 0 ? projects.size() : 1;
 	}
 
 	@Override
 	public CharSequence getPageTitle( int position ){
-		if( holder != null && holder.getProjects() != null && holder.getProjects().length > 0 ){
-			Project[] projects = holder.getProjects();
-			return projects[ position ].getName();
-		}else{
-			return "No Projects";
-		}
+		return projects != null && projects.size() != 0 ? projects.get( position ).getName() : "";
 	}
 
 	@Override
 	public Fragment getItem( int position ){
-		if( holder != null && holder.getProjects() != null && holder.getProjects().length > 0 ){
-			Project[] projects = holder.getProjects();
-			Task[] tasks = holder.getTasks( projects[ position ].getName() );
-			Column[] columns = holder.getColumns( projects[ position ].getName() );
-			return new BacklogFragment().setData( tasks, columns, projects[ position ] );
-		}else{
-			return new BacklogFragment();
-		}
+		return projects != null && projects.size() != 0 ? BacklogFragment.newInstance( position ) : BacklogEmptyFragment.newInstance();
+	}
+
+	@Override
+	public int getItemPosition( Object object ){
+		return POSITION_NONE;
 	}
 }

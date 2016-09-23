@@ -61,7 +61,6 @@ public class ProjectBoardFragment extends Fragment{
 
 		mRecyclerAdapter = new ProjectBoardRecyclerAdapter( getActivity() );
 		mRecyclerView.setAdapter( mRecyclerAdapter );
-		mRecyclerView.invalidate();
 
 		mRecyclerView.setLayoutManager( new LinearLayoutManager( getActivity() ) );
 

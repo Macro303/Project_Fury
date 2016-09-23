@@ -21,6 +21,7 @@ public class Model implements ModelContract{
 	private static Task selectedTask;
 	private static Column selectedColumn;
 	private static List< Column > selectedColumns;
+	private static List< Project > selectedProjects;
 
 	public Model(){
 	}
@@ -55,6 +56,14 @@ public class Model implements ModelContract{
 
 	public static void setSelectedColumns( List< Column > _selectedColumns ){
 		selectedColumns = _selectedColumns;
+	}
+
+	public static List< Project > getSelectedProjects(){
+		return selectedProjects;
+	}
+
+	public static void setSelectedProjects( List< Project > selectedProjects ){
+		Model.selectedProjects = selectedProjects;
 	}
 
 	public String getToken(){

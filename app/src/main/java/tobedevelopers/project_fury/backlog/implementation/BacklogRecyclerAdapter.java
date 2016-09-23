@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.model.Column;
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.model.Task;
 import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 
@@ -22,11 +23,16 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 	private Task[] tasks;
 	private FragmentActivity activity;
 	private Column[] columns;
+	private Model model;
 
-	public BacklogRecyclerAdapter( FragmentActivity activity, Task[] tasks, Column[] columns ){
+	public BacklogRecyclerAdapter( FragmentActivity activity ){
 		this.activity = activity;
-		this.tasks = tasks;
+		this.model = new Model();
+	}
+
+	public void setData( Column[] columns, Task[] tasks ){
 		this.columns = columns;
+		this.tasks = tasks;
 	}
 
 	@Override
@@ -57,7 +63,7 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 				public void onClick( View view ){
 					holder.mCardView.setEnabled( false );
 					Model.setSelectedTask( current );
-					new LoadTaskInfoTask().execute();
+					new LoadTaskInfoTask().execute( current );
 				}
 			} );
 			if( current.getName().length() <= 16 )
@@ -77,7 +83,6 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 			holder.mTaskColumn.setVisibility( View.INVISIBLE );
 			holder.mNoTaskViewTextView.setVisibility( View.VISIBLE );
 		}
-
 	}
 
 	private String getColumnName( Task current ){
@@ -87,21 +92,17 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 		return null;
 	}
 
-	private void navigateAway(){
-		activity.startActivity( new Intent( activity, TaskInfoView.class ) );
-	}
-
-	private class LoadTaskInfoTask extends AsyncTask< Void, Void, Void >{
+	private class LoadTaskInfoTask extends AsyncTask< Task, Void, Project >{
 		@Override
-		protected Void doInBackground( Void... voids ){
-			Model.setSelectedProject( new Model().getProject( Model.getSelectedTask().getProjectID() ).getProjects()[ 0 ] );
-			return null;
+		protected Project doInBackground( Task... inputs ){
+			return model.getProject( inputs[ 0 ].getProjectID() ).getProjects()[ 0 ];
 		}
 
 		@Override
-		protected void onPostExecute( Void aVoid ){
-			super.onPostExecute( aVoid );
-			navigateAway();
+		protected void onPostExecute( Project result ){
+			super.onPostExecute( result );
+			Model.setSelectedProject( result );
+			activity.startActivity( new Intent( activity, TaskInfoView.class ) );
 		}
 
 		@Override

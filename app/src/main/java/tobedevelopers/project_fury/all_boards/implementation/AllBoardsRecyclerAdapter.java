@@ -70,10 +70,6 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 					navigation.navigateToProjectInfo();
 				}
 			} );
-		}else{
-			holder.mNoProjectTextView.setVisibility( View.VISIBLE );
-			holder.mProjectInfoButton.setVisibility( View.INVISIBLE );
-			holder.mProjectBoardImageView.setVisibility( View.INVISIBLE );
 		}
 	}
 

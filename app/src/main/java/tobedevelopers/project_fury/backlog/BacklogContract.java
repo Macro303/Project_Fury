@@ -1,7 +1,7 @@
 package tobedevelopers.project_fury.backlog;
 
 import tobedevelopers.project_fury.BaseContract;
-import tobedevelopers.project_fury.backlog.implementation.Holder;
+import tobedevelopers.project_fury.model.Project;
 
 /**
  * Created by Macro303 on 12/08/2016.
@@ -9,7 +9,7 @@ import tobedevelopers.project_fury.backlog.implementation.Holder;
 public interface BacklogContract{
 
 	interface View extends BaseContract.View{
-		void fillProjects( Holder holder );
+		void fillProjects( Project[] projects );
 
 		void showProjectUpdatingInProgress();
 
@@ -22,7 +22,5 @@ public interface BacklogContract{
 
 	interface Presenter extends BaseContract.Presenter{
 		void loadProjects();
-
-		void cancelAllAsyncTasks( Boolean condition );
 	}
 }

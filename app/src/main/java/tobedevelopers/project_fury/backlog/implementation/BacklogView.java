@@ -5,6 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -12,6 +18,7 @@ import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.backlog.BacklogContract;
 import tobedevelopers.project_fury.create_task.implementation.CreateTaskView;
+import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
 
 /**
@@ -26,7 +33,6 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 
 	private BacklogContract.Presenter presenter;
 
-	private Holder holder;
 	private ProgressDialog progressDialog;
 	private BacklogFragmentPagerAdapter mAdapter;
 
@@ -51,15 +57,14 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 	}
 
 	@Override
-	protected void onPause(){
-		super.onPause();
-		presenter.cancelAllAsyncTasks( true );
-	}
-
-	@Override
-	public void fillProjects( Holder holder ){
-		this.holder = holder;
-		mAdapter.setData( this.holder );
+	public void fillProjects( Project[] projects ){
+		List< Project > projectList = new ArrayList<>();
+		projectList.addAll( Arrays.asList( projects ) );
+		Collections.sort( projectList );
+		if( projectList.size() <= 0 )
+			mTabLayout.setVisibility( View.GONE );
+		mAdapter.setData( projectList );
+		mAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -95,4 +100,5 @@ public class BacklogView extends BaseNavigationView implements BacklogContract.V
 			}
 		} );
 	}
+
 }

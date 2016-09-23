@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
@@ -28,6 +30,8 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 	private FloatingActionButton mCreateProjectButton;
 	private ProgressDialog mProgressDialog;
 
+	private TextView mNoProjectsFound;
+
 	private AllBoardsContract.Presenter presenter;
 
 	@Override
@@ -39,6 +43,7 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 		//UI References
 		mRecyclerView = ( RecyclerView ) findViewById( R.id.allBoardsActivity_recyclerView );
+		mNoProjectsFound = ( TextView ) findViewById( R.id.allBoardsActivity_noProjectsFoundTextView );
 		mCreateProjectButton = ( FloatingActionButton ) findViewById( R.id.allBoards_createProjectButton );
 		mProgressDialog = new ProgressDialog( this );
 
@@ -62,6 +67,10 @@ public class AllBoardsView extends BaseNavigationView implements AllBoardsContra
 
 	@Override
 	public void setRecyclerItems( Project[] projects ){
+		if( projects.length <= 0 ){
+			mRecyclerView.setVisibility( View.GONE );
+			mNoProjectsFound.setVisibility( View.VISIBLE );
+		}
 		mAdapter.setData( projects );
 	}
 
