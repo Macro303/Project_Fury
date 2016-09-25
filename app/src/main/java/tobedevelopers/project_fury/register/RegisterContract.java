@@ -1,11 +1,13 @@
 package tobedevelopers.project_fury.register;
 
+import tobedevelopers.project_fury.BaseContract;
+
 /**
  * Created by Macro303 on 10/08/2016.
  */
 public interface RegisterContract{
 
-	interface View{
+	interface View extends BaseContract.View{
 		void enableCreateAccountButton();
 
 		void disableCreateAccountButton();
@@ -27,15 +29,13 @@ public interface RegisterContract{
 		void setPasswordOverValidation();
 
 		void setConfirmPasswordValidation();
-
-		void noInternetAccessValidation();
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToLogin();
 	}
 
-	interface Presenter{
+	interface Presenter extends BaseContract.Presenter{
 		void userSelectCreateAccount();
 
 		void userSelectLogin();

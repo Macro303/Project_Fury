@@ -1,5 +1,6 @@
 package tobedevelopers.project_fury.task_info;
 
+import tobedevelopers.project_fury.BaseContract;
 import tobedevelopers.project_fury.model.Column;
 
 /**
@@ -7,7 +8,7 @@ import tobedevelopers.project_fury.model.Column;
  */
 public interface TaskInfoContract{
 
-	interface View{
+	interface View extends BaseContract.View{
 		void setTaskEdited();
 
 		void setTaskSaved();
@@ -24,20 +25,16 @@ public interface TaskInfoContract{
 
 		void setTaskDescriptionOverValidation();
 
-		void noInternetAccessValidation();
-
-		void defaultErrorMessage();
-
 		void enableSaveTask();
 
 		void disableSaveTask();
 	}
 
-	interface Navigation{
+	interface Navigation extends BaseContract.Navigation{
 		void navigateToPrevious();
 	}
 
-	interface Presenter{
+	interface Presenter extends BaseContract.Presenter{
 		void userSelectBack();
 
 		void userSelectEditTask();

@@ -31,9 +31,11 @@ public interface ProjectInfoContract{
 
 		void disableSave();
 
-		void setInvalidUserValidation();
+		void setInvalidNameValidation();
 
 		void fillColumnList( Column[] columns );
+
+		void alertDeleteColumn( List< Column > columnList );
 	}
 
 	interface Navigation extends BaseContract.Navigation{

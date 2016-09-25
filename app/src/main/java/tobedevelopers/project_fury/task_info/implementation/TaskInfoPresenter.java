@@ -31,19 +31,17 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 
 	@Override
 	public void userSelectBack(){
-		TaskInfoContract.View view = viewWeakReference.get();
 		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToPrevious();
 	}
 
 	@Override
 	public void userSelectEditTask(){
 		TaskInfoContract.View view = viewWeakReference.get();
-		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( view != null )
 			view.setTaskEdited();
 	}
 
@@ -91,8 +89,9 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 	@Override
 	public void getColumnsOnProject(){
 		TaskInfoContract.View view = viewWeakReference.get();
+		TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null )
+		if( view != null && navigation != null )
 			new LoadColumnsTask().execute();
 	}
 
@@ -105,26 +104,25 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 			new UpdateAsyncTask().execute( mAssignee, mPriority, mColumn.getColumnID() );
 	}
 
-	private class LoadColumnsTask extends AsyncTask< String, Void, ColumnResponse >{
-		TaskInfoContract.View view = viewWeakReference.get();
-
+	private class LoadColumnsTask extends AsyncTask< Void, Void, ColumnResponse >{
 		@Override
 		public void onPreExecute(){
 			super.onPreExecute();
 		}
 
 		@Override
-		protected ColumnResponse doInBackground( String... strings ){
+		protected ColumnResponse doInBackground( Void... inputs ){
 			return model.getAllProjectColumns( Model.getSelectedProject().getProjectID() );
 		}
 
 		@Override
-		public void onPostExecute( ColumnResponse response ){
-			super.onPostExecute( response );
+		public void onPostExecute( ColumnResponse result ){
+			super.onPostExecute( result );
+			TaskInfoContract.View view = viewWeakReference.get();
 
-			switch( response.getMessage() ){
+			switch( result.getMessage() ){
 				case "Success":
-					view.setColumnSpinner( response.getColumns() );
+					view.setColumnSpinner( result.getColumns() );
 					break;
 				case "No Internet Access":
 					view.noInternetAccessValidation();
@@ -147,22 +145,22 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
+		protected Response doInBackground( String... inputs ){
 			if( mTaskDescription.equals( "null" ) )
 				mTaskDescription = "";
-			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), strings[ 2 ], mTaskName, mTaskDescription, strings[ 0 ], strings[ 1 ].toUpperCase() );
+			return model.updateTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID(), inputs[ 2 ], mTaskName, mTaskDescription, inputs[ 0 ], inputs[ 1 ].toUpperCase() );
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( Response result ){
+			super.onPostExecute( result );
 			TaskInfoContract.View view = viewWeakReference.get();
 			TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null && navigation != null ){
 				view.hideTaskUpdatingInProgress();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Update successful.":
 						navigation.navigateToPrevious();
 						break;
@@ -177,7 +175,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		}
 	}
 
-	private class RemoveAsyncTask extends AsyncTask< String, Void, Response >{
+	private class RemoveAsyncTask extends AsyncTask< Void, Void, Response >{
 		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
@@ -189,20 +187,20 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
+		protected Response doInBackground( Void... inputs ){
 			return model.deleteTask( Model.getSelectedProject().getProjectID(), Model.getSelectedTask().getTaskID() );
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( Response result ){
+			super.onPostExecute( result );
 			TaskInfoContract.View view = viewWeakReference.get();
 			TaskInfoContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null && navigation != null ){
 				view.hideTaskUpdatingInProgress();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Delete successful.":
 						navigation.navigateToPrevious();
 						break;
@@ -215,7 +213,6 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter{
 				}
 			}
 		}
-
 
 	}
 }

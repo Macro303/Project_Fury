@@ -16,7 +16,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
 	private WeakReference< RegisterContract.View > viewWeakReference;
 	private WeakReference< RegisterContract.Navigation > navigationWeakReference;
-	private ModelContract modelContract;
+	private ModelContract model;
 
 	private String mUsername;
 	private String mEmail;
@@ -25,7 +25,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 	public RegisterPresenter( RegisterContract.View view, RegisterContract.Navigation navigation ){
 		this.viewWeakReference = new WeakReference<>( view );
 		this.navigationWeakReference = new WeakReference<>( navigation );
-		this.modelContract = new Model();
+		this.model = new Model();
 
 	}
 
@@ -35,15 +35,14 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		RegisterContract.Navigation navigation = navigationWeakReference.get();
 
 		if( view != null && navigation != null )
-			new CreateAccountTask().execute();
+			new CreateAccountTask().execute( mUsername, mPassword, mEmail );
 	}
 
 	@Override
 	public void userSelectLogin(){
-		RegisterContract.View view = viewWeakReference.get();
 		RegisterContract.Navigation navigation = navigationWeakReference.get();
 
-		if( view != null && navigation != null )
+		if( navigation != null )
 			navigation.navigateToLogin();
 	}
 
@@ -116,28 +115,31 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 		}
 
 		@Override
-		protected Response doInBackground( String... strings ){
-			return modelContract.registerUser( mUsername, mPassword, mEmail, false );
+		protected Response doInBackground( String... inputs ){
+			return model.registerUser( inputs[ 0 ], inputs[ 1 ], inputs[ 2 ], false );
 		}
 
 		@Override
-		protected void onPostExecute( Response response ){
-			super.onPostExecute( response );
+		protected void onPostExecute( Response result ){
+			super.onPostExecute( result );
 			RegisterContract.View view = viewWeakReference.get();
 			RegisterContract.Navigation navigation = navigationWeakReference.get();
 
 			if( view != null && navigation != null ){
 				view.registrationFinished();
 
-				switch( response.getMessage() ){
+				switch( result.getMessage() ){
 					case "Registration Successful.":
 						navigation.navigateToLogin();
 						break;
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
-					default:
+					case "400 Error":
 						view.setUsernameAlreadyUsedValidation();
+						break;
+					default:
+						view.defaultErrorMessage();
 						break;
 				}
 			}

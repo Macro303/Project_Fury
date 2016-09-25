@@ -38,21 +38,21 @@ import tobedevelopers.project_fury.task_info.TaskInfoContract;
 public class TaskInfoView extends BaseView implements TaskInfoContract.View, TaskInfoContract.Navigation{
 
 	@Bind( R.id.taskInfoActivity_taskNameEditText )
-	TextInputEditText mTaskName;
+	protected TextInputEditText mTaskName;
 	@Bind( R.id.taskInfoActivity_taskDescriptionEditText )
-	TextInputEditText mTaskDescription;
+	protected TextInputEditText mTaskDescription;
 	@Bind( R.id.taskInfoActivity_assigneeSpinner )
-	AppCompatSpinner mAssignee;
+	protected AppCompatSpinner mAssignee;
 	@Bind( R.id.taskInfoActivity_prioritySpinner )
-	AppCompatSpinner mPriority;
+	protected AppCompatSpinner mPriority;
 	@Bind( R.id.taskInfoActivity_columnSpinner )
-	AppCompatSpinner mColumn;
+	protected AppCompatSpinner mColumn;
 	@Bind( R.id.taskInfoActivity_deleteTaskButton )
-	Button mDeleteTask;
+	protected Button mDeleteTask;
 	@Bind( R.id.taskInfoActivity_updateTaskButton )
-	Button mUpdateTask;
+	protected Button mUpdateTask;
 	@Bind( R.id.taskInfoActivity_saveTaskButton )
-	Button mSaveTask;
+	protected Button mSaveTask;
 
 	private TaskInfoContract.Presenter presenter;
 	private String[] initialValues = new String[ 5 ];

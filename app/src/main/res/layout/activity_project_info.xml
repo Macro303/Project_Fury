@@ -37,8 +37,7 @@
 			<ImageButton
 				android:id="@+id/projectInfoActivity_addColumnButton"
 				style="@style/ButtonStyle.Image"
-				android:contentDescription="@string/button_createColumn"
-				android:enabled="false"/>
+				android:contentDescription="@string/button_createColumn"/>
 
 			<TextView
 				android:id="@+id/projectInfoActivity_columnNameTitle"
@@ -51,7 +50,7 @@
 		</RelativeLayout>
 
 		<android.support.v7.widget.RecyclerView
-			android:id="@+id/projectInfoActivity_columnNamesList"
+			android:id="@+id/projectInfoActivity_columnsRecycler"
 			android:layout_width="match_parent"
 			android:layout_height="200dp"
 			android:layout_gravity="start"

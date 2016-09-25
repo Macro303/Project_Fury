@@ -2,6 +2,7 @@ package tobedevelopers.project_fury.settings.implementation;
 
 import android.os.Bundle;
 
+import butterknife.ButterKnife;
 import tobedevelopers.project_fury.BaseNavigationView;
 import tobedevelopers.project_fury.R;
 import tobedevelopers.project_fury.settings.SettingsContract;
@@ -19,5 +20,7 @@ public class SettingsView extends BaseNavigationView implements SettingsContract
 		setContentView( R.layout.activity_settings );
 		super.onCreate( savedInstanceState );
 		presenter = new SettingsPresenter( this, this );
+
+		ButterKnife.bind( this );
 	}
 }

@@ -34,7 +34,7 @@ import tobedevelopers.project_fury.model.Model;
 import tobedevelopers.project_fury.model.Project;
 import tobedevelopers.project_fury.project_info.ProjectInfoContract;
 import tobedevelopers.project_fury.runnable_param.Runnable1Param;
-import tobedevelopers.project_fury.runnable_param.Runnable7Param;
+import tobedevelopers.project_fury.runnable_param.Runnable6Param;
 
 /**
  * Created by Macro303 on 11/08/2016.
@@ -42,26 +42,25 @@ import tobedevelopers.project_fury.runnable_param.Runnable7Param;
 public class ProjectInfoView extends BaseView implements ProjectInfoContract.View, ProjectInfoContract.Navigation{
 
 	@Bind( R.id.projectInfoActivity_textLayout )
-//	TextView mDeleteText;
 	protected RelativeLayout mTextLayout;
 	@Bind( R.id.projectInfoActivity_projectNameEditText )
-	TextInputEditText mProjectNameEditText;
+	protected TextInputEditText mProjectNameEditText;
 	@Bind( R.id.projectInfoActivity_projectDescriptionEditText )
-	TextInputEditText mProjectDescriptionEditText;
+	protected TextInputEditText mProjectDescriptionEditText;
 	@Bind( R.id.projectInfoActivity_editProjectButton )
-	Button mEditProjectButton;
+	protected Button mEditProjectButton;
 	@Bind( R.id.projectInfoActivity_saveProjectButton )
-	Button mSaveProjectButton;
+	protected Button mSaveProjectButton;
 	@Bind( R.id.projectInfoActivity_deleteProjectButton )
-	Button mDeleteProjectButton;
+	protected Button mDeleteProjectButton;
 	@Bind( R.id.projectInfoActivity_addColumnButton )
-	ImageButton mAddColumnButton;
+	protected ImageButton mAddColumnButton;
+	@Bind( R.id.projectInfoActivity_columnsRecycler )
+	protected RecyclerView mColumnsRecycler;
 
 	private ProjectInfoContract.Presenter presenter;
 
-	private RecyclerView mRecyclerView;
-	private ColumnRecyclerAdapter columnRecyclerAdapter;
-	private ItemTouchHelper.Callback callback;
+	private ColumnRecyclerAdapter mAdapter;
 	private ItemTouchHelper touchHelper;
 	private ProgressDialog progressDialog;
 
@@ -72,7 +71,6 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		setTitle( getString( R.string.title_activity_projectInfo ) );
 		setContentView( R.layout.activity_project_info );
 		super.onCreate( savedInstanceState );
-
 		presenter = new ProjectInfoPresenter( this, this );
 
 		progressDialog = new ProgressDialog( this );
@@ -88,16 +86,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 		//List Config
 		presenter.loadColumns();
 
-		//UI References
-		mRecyclerView = ( RecyclerView ) findViewById( R.id.projectInfoActivity_columnNamesList );
-		mAddColumnButton.setEnabled( false );
-
 		//Recycler Config
-		mRecyclerView.setHasFixedSize( true );
-		mRecyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
-		columnRecyclerAdapter = new ColumnRecyclerAdapter();
-		mRecyclerView.setAdapter( columnRecyclerAdapter );
-		callback = new SimpleItemTouchHelperCallback( columnRecyclerAdapter );
+		mColumnsRecycler.setHasFixedSize( true );
+		mColumnsRecycler.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+		mAdapter = new ColumnRecyclerAdapter( this );
+		mColumnsRecycler.setAdapter( mAdapter );
+		ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback( mAdapter );
 		touchHelper = new ItemTouchHelper( callback );
 	}
 
@@ -112,7 +106,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void fillColumnList( Column[] columns ){
-		columnRecyclerAdapter.setData( columns, this );
+		mAdapter.setData( columns );
 	}
 
 	//Button Listener
@@ -126,7 +120,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 			case R.id.projectInfoActivity_saveProjectButton:
 				setEnabledAllButtons( false );
 				mAddColumnButton.setEnabled( false );
-				presenter.userSelectSaveProject( columnRecyclerAdapter.columnList );
+				presenter.userSelectSaveProject( mAdapter.columnList );
 				break;
 			case R.id.projectInfoActivity_deleteProjectButton:
 				setEnabledAllButtons( false );
@@ -312,16 +306,15 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void editProjectDescription(){
-		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button, ImageButton >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mSaveProjectButton, mAddColumnButton ){
+		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button >( mEditProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mSaveProjectButton ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
 				setEditTextEnabled( getParam2(), true );
 				setEditTextEnabled( getParam3(), true );
 				getParam4().setVisibility( View.VISIBLE );
-				getParam5().attachToRecyclerView( mRecyclerView );
+				getParam5().attachToRecyclerView( mColumnsRecycler );
 				getParam6().setVisibility( View.VISIBLE );
-				getParam7().setEnabled( true );
 			}
 		} );
 	}
@@ -336,7 +329,7 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 
 	@Override
 	public void saveProjectDescription(){
-		runOnUiThread( new Runnable7Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button, ImageButton >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mEditProjectButton, mAddColumnButton ){
+		runOnUiThread( new Runnable6Param< Button, TextInputEditText, TextInputEditText, RelativeLayout, ItemTouchHelper, Button >( mSaveProjectButton, mProjectNameEditText, mProjectDescriptionEditText, mTextLayout, touchHelper, mEditProjectButton ){
 			@Override
 			public void run(){
 				getParam1().setVisibility( View.GONE );
@@ -346,12 +339,12 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 				getParam5().attachToRecyclerView( null );
 				getParam6().setVisibility( View.VISIBLE );
 				setEnabledAllButtons( true );
-				getParam7().setEnabled( false );
 			}
 		} );
 	}
 
 	private void setEnabledAllButtons( Boolean condition ){
+		mAddColumnButton.setEnabled( condition );
 		mEditProjectButton.setEnabled( condition );
 		mSaveProjectButton.setEnabled( condition );
 		mDeleteProjectButton.setEnabled( condition );
@@ -443,7 +436,13 @@ public class ProjectInfoView extends BaseView implements ProjectInfoContract.Vie
 	}
 
 	@Override
-	public void setInvalidUserValidation(){
+	public void defaultErrorMessage(){
+		super.defaultErrorMessage();
+		setEnabledAllButtons( true );
+	}
+
+	@Override
+	public void setInvalidNameValidation(){
 		setEnabledAllButtons( true );
 		runOnUiThread( new Runnable1Param< TextInputEditText >( mProjectNameEditText ){
 			@Override

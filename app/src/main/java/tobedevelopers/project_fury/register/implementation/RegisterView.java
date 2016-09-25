@@ -24,19 +24,19 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	@Bind( R.id.registerActivity_loadingProgressBar )
 	protected ProgressBar mLoadingProgressbar;
 	@Bind( R.id.registerActivity_createAccountButton )
-	Button mCreateAccountButton;
+	protected Button mCreateAccountButton;
 	@Bind( R.id.registerActivity_returnToLoginButton )
-	Button mReturnToLoginButton;
+	protected Button mReturnToLoginButton;
 	@Bind( R.id.registerActivity_usernameEditText )
-	TextInputEditText mUserNameEditText;
+	protected TextInputEditText mUsernameEditText;
 	@Bind( R.id.registerActivity_emailEditText )
-	TextInputEditText mEmailEditText;
+	protected TextInputEditText mEmailEditText;
 	@Bind( R.id.registerActivity_passwordEditText )
-	TextInputEditText mPasswordEditText;
+	protected TextInputEditText mPasswordEditText;
 	@Bind( R.id.registerActivity_confirmPasswordEditText )
-	TextInputEditText mConfirmPasswordEditText;
+	protected TextInputEditText mConfirmPasswordEditText;
+
 	private RegisterContract.Presenter presenter;
-	private String mPassword;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
@@ -59,8 +59,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 				presenter.userSelectCreateAccount();
 				break;
 			case R.id.registerActivity_returnToLoginButton:
-				mCreateAccountButton.setEnabled( false );
-				mReturnToLoginButton.setEnabled( false );
 				presenter.userSelectLogin();
 				break;
 			default:
@@ -88,12 +86,11 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	public void onUserChangedPasswordEditText( Editable editable ){
 		mConfirmPasswordEditText.getEditableText().clear();
 		presenter.userEnterPassword( editable.toString() );
-		mPassword = editable.toString();
 	}
 
 	@OnTextChanged( value = { R.id.registerActivity_confirmPasswordEditText }, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED )
 	public void onUserChangeConfirmPasswordEditText( Editable editable ){
-		presenter.userEnterConfirmPassword( editable.toString(), mPassword );
+		presenter.userEnterConfirmPassword( editable.toString(), mPasswordEditText.getEditableText().toString() );
 	}
 
 	public void hideSoftKeyboard(){
@@ -105,7 +102,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void navigateToLogin(){
-		mLoadingProgressbar.setVisibility( View.GONE );
 		finish();
 	}
 
@@ -136,7 +132,6 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 			@Override
 			public void run(){
 				mLoadingProgressbar.setVisibility( View.VISIBLE );
-				ToastLog.makeDebug( getParam1(), getString( R.string.app_name ), String.format( getString( R.string.error_inProgress ), "Registration" ), Toast.LENGTH_LONG );
 			}
 		} );
 	}
@@ -153,7 +148,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void setUsernameUnderValidation(){
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
 				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_minCharacters, 6 ), 6 ) );
@@ -163,7 +158,7 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 
 	@Override
 	public void setUsernameOverCharValidation(){
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
 				getParam1().setError( String.format( getResources().getQuantityString( R.plurals.error_maxCharacters, 20 ), 20 ) );
@@ -174,12 +169,12 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 	@Override
 	public void setUsernameAlreadyUsedValidation(){
 		mReturnToLoginButton.setEnabled( true );
-		runOnUiThread( new Runnable1Param< TextInputEditText >( mUserNameEditText ){
+		runOnUiThread( new Runnable1Param< TextInputEditText >( mUsernameEditText ){
 			@Override
 			public void run(){
 				mLoadingProgressbar.setVisibility( View.GONE );
 				getParam1().setError( String.format( getString( R.string.error_alreadyExists ), "Username" ) );
-				mUserNameEditText.requestFocus();
+				mUsernameEditText.requestFocus();
 				mPasswordEditText.getEditableText().clear();
 				mConfirmPasswordEditText.getEditableText().clear();
 			}
@@ -224,6 +219,12 @@ public class RegisterView extends BaseView implements RegisterContract.View, Reg
 				getParam1().setError( getString( R.string.error_confirmPasswordValidation ) );
 			}
 		} );
+	}
+
+	@Override
+	public void defaultErrorMessage(){
+		super.defaultErrorMessage();
+		mReturnToLoginButton.setEnabled( true );
 	}
 
 	@Override
