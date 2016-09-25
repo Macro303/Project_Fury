@@ -47,7 +47,7 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 
 	@Override
 	public int getItemCount(){
-		return projects != null && projects.length != 0 ? projects.length : 1;
+		return projects != null && projects.length != 0 ? projects.length : 0;
 	}
 
 
