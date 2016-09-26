@@ -18,7 +18,7 @@ import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 /**
  * Created by Macro303 on 12/08/2016.
  */
-public class BacklogHolder extends RecyclerView.ViewHolder{
+public class BacklogViewHolder extends RecyclerView.ViewHolder{
 
 	//UI References
 	private CardView mCardView;
@@ -32,7 +32,7 @@ public class BacklogHolder extends RecyclerView.ViewHolder{
 	private Model model;
 	private FragmentActivity activity;
 
-	public BacklogHolder( View view, FragmentActivity activity ){
+	public BacklogViewHolder( View view, FragmentActivity activity ){
 		super( view );
 
 		mCardView = ( CardView ) view.findViewById( R.id.backlogFragment_taskCard );
@@ -51,7 +51,7 @@ public class BacklogHolder extends RecyclerView.ViewHolder{
 
 		if( current != null ){
 			if( current.getName().length() <= 16 )
-				mTaskName.setText( current.getName() );
+				mTaskName.setText( current.getName().toUpperCase() );
 			else
 				mTaskName.setText( current.getName().substring( 0, 16 ) + "..." );
 			if( current.getAssignee().length() <= 16 )
@@ -59,7 +59,7 @@ public class BacklogHolder extends RecyclerView.ViewHolder{
 			else
 				mTaskAssignee.setText( current.getAssignee().substring( 0, 16 ) + "..." );
 			mTaskPriority.setText( current.getPriority().getNameValue() );
-			mTaskColumn.setText( getColumnName( current ) );
+			mTaskColumn.setText( getColumnName( current ).toUpperCase() );
 			setVisibility( current, true );
 		}else{
 			setVisibility( current, false );

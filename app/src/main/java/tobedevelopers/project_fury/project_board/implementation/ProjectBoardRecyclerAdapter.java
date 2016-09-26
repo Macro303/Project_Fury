@@ -12,7 +12,7 @@ import tobedevelopers.project_fury.model.Task;
 /**
  * Created by Macro303 on 13/08/2016.
  */
-public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBoardHolder >{
+public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBoardViewHolder >{
 
 	private FragmentActivity activity;
 	private Task[] tasks;
@@ -28,13 +28,13 @@ public class ProjectBoardRecyclerAdapter extends RecyclerView.Adapter< ProjectBo
 	}
 
 	@Override
-	public ProjectBoardHolder onCreateViewHolder( ViewGroup parent, int viewType ){
+	public ProjectBoardViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
 		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_project_board, parent, false );
-		return new ProjectBoardHolder( view, activity );
+		return new ProjectBoardViewHolder( view, activity );
 	}
 
 	@Override
-	public void onBindViewHolder( final ProjectBoardHolder holder, final int position ){
+	public void onBindViewHolder( final ProjectBoardViewHolder holder, final int position ){
 		if( tasks != null && tasks.length > 0 ){
 			holder.bindView( tasks[ position ] );
 		}else{

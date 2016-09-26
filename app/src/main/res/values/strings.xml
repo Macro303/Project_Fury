@@ -90,12 +90,12 @@
 	<string name="navigation_close">Close</string>
 
 	<!-- Spinner Strings -->
-	<string name="spinner_taskAssignee">Unassigned</string>
+	<string name="spinner_taskAssignee">unassigned</string>
 	<string-array name="spinner_priority">
-		<item>Unassigned</item>
-		<item>Low</item>
-		<item>Normal</item>
-		<item>High</item>
+		<item>unassigned</item>
+		<item>low</item>
+		<item>normal</item>
+		<item>high</item>
 	</string-array>
 	<string name="spinner_taskProject">Project</string>
 

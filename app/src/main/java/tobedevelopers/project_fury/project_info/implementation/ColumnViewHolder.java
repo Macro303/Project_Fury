@@ -27,6 +27,6 @@ public class ColumnViewHolder extends RecyclerView.ViewHolder{
 
 	public void bindView( Column data ){
 		if( data != null )
-			mColumnName.setText( data.getName() );
+			mColumnName.setText( data.getName().toUpperCase() );
 	}
 }

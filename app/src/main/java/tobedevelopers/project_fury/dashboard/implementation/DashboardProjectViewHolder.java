@@ -41,7 +41,7 @@ public class DashboardProjectViewHolder extends RecyclerView.ViewHolder{
 
 	public void bindView( final Project current, ProjectHolder projectHolder ){
 		if( current != null ){
-			mProjectName.setText( current.getName() );
+			mProjectName.setText( current.getName().toUpperCase() );
 			if( projectHolder.getTasks( current.getName() ).length > 0 ){
 				mProjectProgressBar.setMax( projectHolder.getTasks( current.getName() ).length );
 				mProjectProgressBar.setProgress( calculateProgress( projectHolder.getTasks( current.getName() ), projectHolder.getColumns( current.getName() ) ) );
@@ -76,7 +76,7 @@ public class DashboardProjectViewHolder extends RecyclerView.ViewHolder{
 	private int calculateProgress( Task[] tasks, Column[] columns ){
 		int count = 0;
 		for( Task task : tasks )
-			if( task.getColumnID().equals( findColumn( "Archived", columns ).getColumnID() ) )
+			if( task.getColumnID().equals( findColumn( "archived", columns ).getColumnID() ) )
 				count++;
 		return count;
 	}

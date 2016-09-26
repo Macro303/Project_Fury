@@ -70,10 +70,10 @@ public class Task implements Comparable< Task >{
 	}
 
 	public enum Priority{
-		HIGH( 3, "High" ),
-		NORMAL( 2, "Normal" ),
-		LOW( 1, "Low" ),
-		UNASSIGNED( 0, "Unassigned" );
+		HIGH( 3, "high" ),
+		NORMAL( 2, "normal" ),
+		LOW( 1, "low" ),
+		UNASSIGNED( 0, "unassigned" );
 
 		private int value;
 		private String nameValue;

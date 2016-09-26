@@ -15,7 +15,7 @@ import tobedevelopers.project_fury.model.Project;
 /**
  * Created by Macro303 on 13/08/2016.
  */
-public class AllBoardsHolder extends RecyclerView.ViewHolder{
+public class AllBoardsViewHolder extends RecyclerView.ViewHolder{
 
 	//UI References
 	private CardView mCardView;
@@ -25,7 +25,7 @@ public class AllBoardsHolder extends RecyclerView.ViewHolder{
 
 	private AllBoardsContract.Navigation navigation;
 
-	public AllBoardsHolder( View view, AllBoardsContract.Navigation navigation ){
+	public AllBoardsViewHolder( View view, AllBoardsContract.Navigation navigation ){
 		super( view );
 		mCardView = ( CardView ) view.findViewById( R.id.allBoardsActivity_projectCard );
 		mProjectInfoButton = ( Button ) view.findViewById( R.id.allBoardsActivity_projectCard_projectInfoButton );
@@ -36,7 +36,7 @@ public class AllBoardsHolder extends RecyclerView.ViewHolder{
 
 	public void bindView( Project current ){
 		if( current != null ){
-			mProjectInfoButton.setText( current.getName() );
+			mProjectInfoButton.setText( current.getName().toUpperCase() );
 			setVisibility( current, true );
 		}else
 			setVisibility( current, false );

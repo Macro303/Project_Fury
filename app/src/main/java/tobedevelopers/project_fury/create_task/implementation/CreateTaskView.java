@@ -78,7 +78,7 @@ public class CreateTaskView extends BaseView implements CreateTaskContract.View,
 		mProjectsSpinnerRow.setVisibility( View.VISIBLE );
 		String[] projectNames = new String[ projects.length ];
 		for( int i = 0; i < projects.length; i++ )
-			projectNames[ i ] = projects[ i ].getName();
+			projectNames[ i ] = projects[ i ].getName().toUpperCase();
 		ArrayAdapter< String > dataAdapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, projectNames );
 		mProjectsSpinner.setAdapter( dataAdapter );
 		dataAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );

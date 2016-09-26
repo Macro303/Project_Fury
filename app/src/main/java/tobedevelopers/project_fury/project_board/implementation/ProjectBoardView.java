@@ -43,7 +43,7 @@ public class ProjectBoardView extends BaseView implements ProjectBoardContract.V
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
-		setTitle( Model.getSelectedProject().getName() + " Board" );
+		setTitle( Model.getSelectedProject().getName().toUpperCase() + " Board" );
 		setContentView( R.layout.activity_project_board );
 		super.onCreate( savedInstanceState );
 		presenter = new ProjectBoardPresenter( this, this );

@@ -13,7 +13,7 @@ import tobedevelopers.project_fury.model.Task;
 /**
  * Created by Macro303 on 12/08/2016.
  */
-public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder >{
+public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogViewHolder >{
 
 	private Task[] tasks;
 	private FragmentActivity activity;
@@ -34,13 +34,13 @@ public class BacklogRecyclerAdapter extends RecyclerView.Adapter< BacklogHolder 
 	}
 
 	@Override
-	public BacklogHolder onCreateViewHolder( ViewGroup parent, int viewType ){
+	public BacklogViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
 		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_backlog, parent, false );
-		return new BacklogHolder( view, activity );
+		return new BacklogViewHolder( view, activity );
 	}
 
 	@Override
-	public void onBindViewHolder( final BacklogHolder holder, int position ){
+	public void onBindViewHolder( final BacklogViewHolder holder, int position ){
 		if( tasks != null && tasks.length > 0 ){
 			holder.bindView( tasks[ position ], columns );
 		}else{

@@ -38,8 +38,8 @@ public class DashboardTaskViewHolder extends RecyclerView.ViewHolder{
 
 	public void bindView( Pair< Task, Column > current ){
 		if( current != null ){
-			mTaskName.setText( current.first.getName() );
-			mColumnName.setText( current.second.getName() );
+			mTaskName.setText( current.first.getName().toUpperCase() );
+			mColumnName.setText( current.second.getName().toUpperCase() );
 			setVisibility( current, true );
 		}else{
 			mTaskName.setText( context.getString( R.string.error_noCurrentTasks ) );

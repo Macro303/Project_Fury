@@ -15,7 +15,7 @@ import tobedevelopers.project_fury.task_info.implementation.TaskInfoView;
 /**
  * Created by Macro303 on 13/08/2016.
  */
-public class ProjectBoardHolder extends RecyclerView.ViewHolder{
+public class ProjectBoardViewHolder extends RecyclerView.ViewHolder{
 
 	//UI References
 	private CardView mCardView;
@@ -26,7 +26,7 @@ public class ProjectBoardHolder extends RecyclerView.ViewHolder{
 
 	private FragmentActivity activity;
 
-	public ProjectBoardHolder( View view, FragmentActivity activity ){
+	public ProjectBoardViewHolder( View view, FragmentActivity activity ){
 		super( view );
 		mCardView = ( CardView ) view.findViewById( R.id.projectBoardFragment_taskCard );
 		mTaskName = ( TextView ) view.findViewById( R.id.projectBoardFragment_taskCard_taskName );
@@ -39,7 +39,7 @@ public class ProjectBoardHolder extends RecyclerView.ViewHolder{
 
 	public void bindView( Task current ){
 		if( current != null ){
-			mTaskName.setText( current.getName() );
+			mTaskName.setText( current.getName().toUpperCase() );
 			mPriorityName.setText( current.getPriority().getNameValue() );
 			mAssigneeName.setText( current.getAssignee() );
 			setVisibility( current, true );

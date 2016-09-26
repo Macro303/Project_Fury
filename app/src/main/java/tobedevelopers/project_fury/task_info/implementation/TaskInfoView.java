@@ -79,7 +79,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 
 		//InitialValues Config
 		setInitialValues();
-		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), "Unassigned", "Unassigned", "New" };
+		initialValues = new String[]{ mTaskName.getEditableText().toString(), mTaskDescription.getEditableText().toString(), "unassigned", "unassigned", "new" };
 
 		//Column Spinner Config
 		presenter.getColumnsOnProject();
@@ -93,7 +93,7 @@ public class TaskInfoView extends BaseView implements TaskInfoContract.View, Tas
 			description = "";
 		mTaskDescription.setText( description );
 		setSpinnerValue( mAssignee, selectedTask.getAssignee(), 2 );
-		setSpinnerValue( mPriority, selectedTask.getPriority().getNameValue(), 3 );
+		setSpinnerValue( mPriority, selectedTask.getPriority().toString().toLowerCase(), 3 );
 	}
 
 	private void setAssigneeSpinner(){

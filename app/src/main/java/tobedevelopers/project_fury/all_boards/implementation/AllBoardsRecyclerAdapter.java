@@ -15,7 +15,7 @@ import tobedevelopers.project_fury.model.Project;
 /**
  * Created by Macro303 on 13/08/2016.
  */
-public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHolder >{
+public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsViewHolder >{
 
 	private WeakReference< AllBoardsContract.Navigation > navigationWeakReference;
 
@@ -32,13 +32,13 @@ public class AllBoardsRecyclerAdapter extends RecyclerView.Adapter< AllBoardsHol
 	}
 
 	@Override
-	public AllBoardsHolder onCreateViewHolder( ViewGroup parent, int viewType ){
+	public AllBoardsViewHolder onCreateViewHolder( ViewGroup parent, int viewType ){
 		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.card_all_boards, parent, false );
-		return new AllBoardsHolder( view, navigationWeakReference.get() );
+		return new AllBoardsViewHolder( view, navigationWeakReference.get() );
 	}
 
 	@Override
-	public void onBindViewHolder( AllBoardsHolder holder, int position ){
+	public void onBindViewHolder( AllBoardsViewHolder holder, int position ){
 		if( projects != null && projects.length > 0 )
 			holder.bindView( projects[ position ] );
 		else
