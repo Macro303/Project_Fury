@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/backlogFragment_cardView"
+	android:id="@+id/backlogFragment_taskCard"
 	style="@style/CardStyle">
 
 	<TableLayout
@@ -12,21 +12,21 @@
 			style="@style/TableStyle.Row">
 
 			<TextView
-				android:id="@+id/backlogFragment_taskName"
+				android:id="@+id/backlogFragment_taskCard_taskName"
 				style="@style/TextStyle.Title"
 				android:layout_column="0"
 				android:textColor="@color/windowBackground"
 				android:textSize="@dimen/baseTextSize"/>
 
 			<TextView
-				android:id="@+id/backlogFragment_noTaskTextView"
+				android:id="@+id/backlogFragment_taskCard_noTask"
 				style="@style/TextStyle"
 				android:layout_column="1"
 				android:text="@string/textView_noTasksFound"
 				android:textColor="@color/windowBackground"/>
 
 			<TextView
-				android:id="@+id/backlogFragment_taskPriority"
+				android:id="@+id/backlogFragment_taskCard_taskPriority"
 				style="@style/TextStyle"
 				android:layout_column="2"
 				android:gravity="end"
@@ -38,13 +38,13 @@
 			style="@style/TableStyle.Row">
 
 			<TextView
-				android:id="@+id/backlogFragment_taskAssignee"
+				android:id="@+id/backlogFragment_taskCard_taskAssignee"
 				style="@style/TextStyle"
 				android:layout_column="0"
 				android:textColor="@color/windowBackground"/>
 
 			<TextView
-				android:id="@+id/backlogFragment_taskColumn"
+				android:id="@+id/backlogFragment_taskCard_taskColumn"
 				style="@style/TextStyle"
 				android:layout_column="2"
 				android:gravity="end"

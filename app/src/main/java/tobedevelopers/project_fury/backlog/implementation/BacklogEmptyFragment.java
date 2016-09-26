@@ -30,6 +30,6 @@ public class BacklogEmptyFragment extends Fragment{
 	@Override
 	public void onViewCreated( View view, Bundle savedInstanceState ){
 		super.onViewCreated( view, savedInstanceState );
-		mNoTasksTextView = ( TextView ) view.findViewById( R.id.backlogFragment_noTaskTextView );
+		mNoTasksTextView = ( TextView ) view.findViewById( R.id.backlogFragment_taskCard_noTask );
 	}
 }
