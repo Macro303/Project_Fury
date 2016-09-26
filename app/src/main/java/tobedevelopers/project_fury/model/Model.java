@@ -121,7 +121,7 @@ public class Model implements ModelContract{
 	public Response createProject( String projectName, String projectDescription ){
 		urlReader = new UrlReader( apiAddress + "projects" );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + projectName + "&description=" + projectDescription;
+		String parameters = "name=" + projectName.toLowerCase() + "&description=" + projectDescription;
 		String response = urlReader.post( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
@@ -158,7 +158,7 @@ public class Model implements ModelContract{
 	public Response updateProject( String projectID, String projectName, String projectDescription ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + projectName + "&description=" + projectDescription;
+		String parameters = "name=" + projectName.toLowerCase() + "&description=" + projectDescription;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
@@ -187,7 +187,7 @@ public class Model implements ModelContract{
 	public Response createTask( String projectID, String taskName, String taskDescription, String assignee ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks" );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + assignee.toLowerCase();
+		String parameters = "name=" + taskName.toLowerCase() + "&description=" + taskDescription + "&user=" + assignee.toLowerCase();
 		String response = urlReader.post( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
@@ -248,7 +248,7 @@ public class Model implements ModelContract{
 	public Response updateTask( String projectID, String taskID, String columnID, String taskName, String taskDescription, String taskAssignee, String taskPriority ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/tasks/" + taskID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + taskName + "&description=" + taskDescription + "&user=" + taskAssignee + "&priority=" + taskPriority + "&columnIn=" + columnID;
+		String parameters = "name=" + taskName.toLowerCase() + "&description=" + taskDescription + "&user=" + taskAssignee + "&priority=" + taskPriority + "&columnIn=" + columnID;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
@@ -277,7 +277,7 @@ public class Model implements ModelContract{
 	public Response createColumn( String projectID, String columnName ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns" );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + columnName;
+		String parameters = "name=" + columnName.toLowerCase();
 		String response = urlReader.post( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
@@ -314,7 +314,7 @@ public class Model implements ModelContract{
 	public Response updateColumn( String projectID, String columnID, String columnName, int columnPosition ){
 		urlReader = new UrlReader( apiAddress + "projects/" + projectID + "/columns/" + columnID );
 		String[] headers = new String[]{ "Bearer " + token };
-		String parameters = "name=" + columnName + "&position=" + columnPosition;
+		String parameters = "name=" + columnName.toLowerCase() + "&position=" + columnPosition;
 		String response = urlReader.put( headers, parameters );
 		if( urlReader.getResponseCode() == -1 )
 			return new Response( "No Internet Access" );
