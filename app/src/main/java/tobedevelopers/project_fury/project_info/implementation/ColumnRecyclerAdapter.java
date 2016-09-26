@@ -59,7 +59,7 @@ public class ColumnRecyclerAdapter extends RecyclerView.Adapter< ColumnViewHolde
 	public void onItemDismiss( int position ){
 		ProjectInfoContract.View view = viewWeakReference.get();
 		if( view != null ){
-			if( !columnList.get( position ).getName().equals( "New" ) && !columnList.get( position ).getName().equals( "Archived" ) ){
+			if( !columnList.get( position ).getName().equals( "new" ) && !columnList.get( position ).getName().equals( "archived" ) ){
 				view.alertDeleteColumn( columnList );
 				Model.setSelectedColumn( columnList.get( position ) );
 				notifyItemRemoved( position );
