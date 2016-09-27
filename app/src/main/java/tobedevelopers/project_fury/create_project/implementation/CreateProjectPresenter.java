@@ -99,8 +99,9 @@ public class CreateProjectPresenter implements CreateProjectContract.Presenter{
 					case "No Internet Access":
 						view.noInternetAccessValidation();
 						break;
-					case "Project already exists.":
+					case "400 Error":
 						view.setProjectAlreadyUsedValidation();
+						break;
 					default:
 						view.defaultErrorMessage();
 						break;
