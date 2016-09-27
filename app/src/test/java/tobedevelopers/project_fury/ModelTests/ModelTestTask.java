@@ -1,5 +1,6 @@
-package tobedevelopers.project_fury;
+package tobedevelopers.project_fury.ModelTests;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.ProjectResponse;
 import tobedevelopers.project_fury.model.Response;
 import tobedevelopers.project_fury.model.TaskResponse;
@@ -16,30 +18,30 @@ import tobedevelopers.project_fury.model.TaskResponse;
  * Created by Macro303 on 27/09/2016.
  */
 @FixMethodOrder( MethodSorters.NAME_ASCENDING )
-public class TaskModelTest{
-
+public class ModelTestTask{
 	private static String taskID;
 	private static String columnID;
-	private Model model;
-	private String username;
-	private String password;
+
+	private ModelContract model;
+	private String username = "Model Test";
+	private String password = "Password";
 	private String projectID;
-	private String taskName;
-	private String taskDescription;
-	private String taskAssignee;
-	private String taskPriority;
+	private String taskName = "Test Task Name";
+	private String taskDescription = "Test Task Description";
+	private String taskAssignee = username.toLowerCase();
+	private String taskPriority = "normal";
 
 	@Before
 	public void setUp() throws Exception{
 		model = new Model();
-		username = "ModelTest";
-		password = "Password";
 		login();
 		getProject();
-		taskName = "Model Test Task Name";
-		taskDescription = "Model Test Task Description";
-		taskAssignee = username.toLowerCase();
-		taskPriority = "normal";
+	}
+
+	@After
+	public void tearDown() throws Exception{
+		model = null;
+		projectID = "";
 	}
 
 	private void login(){
@@ -53,78 +55,50 @@ public class TaskModelTest{
 		projectID = response.getProjects()[ response.getProjects().length - 1 ].getProjectID();
 	}
 
-	/**
-	 * Test for Creating a Task
-	 */
 	@Test
-	public void test01(){
+	public void test01Create(){
 		Response response = model.createTask( projectID, taskName, taskDescription, taskAssignee );
-		System.out.println( "Test Create Task: " + response.toString() );
 		Assert.assertTrue( "Task creation successful.".equals( response.getMessage() ) );
 	}
 
-	/**
-	 * Test for Getting all the Tasks assigned to the user
-	 */
 	@Test
-	public void test02(){
+	public void test02GetAllUser(){
 		TaskResponse response = model.getAllUserTasks();
-		System.out.println( "Test Get All User Tasks: " + response.toString() );
 		Assert.assertTrue( "Success".equals( response.getMessage() ) );
 		taskID = response.getTasks()[ response.getTasks().length - 1 ].getTaskID();
 		columnID = response.getTasks()[ response.getTasks().length - 1 ].getColumnID();
 	}
 
-	/**
-	 * Test for Getting all the Tasks on a project
-	 */
 	@Test
-	public void test03(){
+	public void test03GetAllProject(){
 		TaskResponse response = model.getAllProjectTasks( projectID );
-		System.out.println( "Test Get All Project Tasks: " + response.toString() );
 		Assert.assertTrue( "Success".equals( response.getMessage() ) );
 		taskID = response.getTasks()[ response.getTasks().length - 1 ].getTaskID();
 		columnID = response.getTasks()[ response.getTasks().length - 1 ].getColumnID();
 	}
 
-	/**
-	 * Test for Getting all the Tasks on a Column
-	 */
 	@Test
-	public void test04(){
+	public void test04GetAllColumn(){
 		TaskResponse response = model.getAllColumnTasks( projectID, columnID );
-		System.out.println( "Test Get All Column Tasks: " + response.toString() );
 		Assert.assertTrue( "Success".equals( response.getMessage() ) );
 	}
 
-	/**
-	 * Test for Getting the Selected Task
-	 */
 	@Test
-	public void test05(){
+	public void test05Get(){
 		TaskResponse response = model.getTask( projectID, taskID );
-		System.out.println( "Test Get Task: " + response.toString() );
 		Assert.assertTrue( "Success".equals( response.getMessage() ) );
 	}
 
-	/**
-	 * Test for Updating the Selected Task
-	 */
 	@Test
-	public void test06(){
+	public void test06Update(){
 		Response response = model.updateTask( projectID, taskID, columnID, taskName, taskDescription, taskAssignee, taskPriority );
-		System.out.println( "Test Update Task: " + response.toString() );
 		Assert.assertTrue( "Update successful.".equals( response.getMessage() ) );
 	}
 
-	/**
-	 * Test for Deleting the Selected Task
-	 */
 	@Test
 	@Ignore
-	public void test07(){
+	public void test07Delete(){
 		Response response = model.deleteTask( projectID, taskID );
-		System.out.println( "Test Delete Task: " + response.toString() );
 		Assert.assertTrue( "Delete successful.".equals( response.getMessage() ) );
 	}
 }

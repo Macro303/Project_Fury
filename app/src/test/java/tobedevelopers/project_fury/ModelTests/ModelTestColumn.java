@@ -1,5 +1,6 @@
-package tobedevelopers.project_fury;
+package tobedevelopers.project_fury.ModelTests;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -9,6 +10,7 @@ import org.junit.runners.MethodSorters;
 
 import tobedevelopers.project_fury.model.ColumnResponse;
 import tobedevelopers.project_fury.model.Model;
+import tobedevelopers.project_fury.model.ModelContract;
 import tobedevelopers.project_fury.model.ProjectResponse;
 import tobedevelopers.project_fury.model.Response;
 
@@ -16,24 +18,27 @@ import tobedevelopers.project_fury.model.Response;
  * Created by Macro303 on 27/09/2016.
  */
 @FixMethodOrder( MethodSorters.NAME_ASCENDING )
-public class ColumnModelTest{
-
+public class ModelTestColumn{
 	private static String columnID;
 	private static int columnPosition;
-	private Model model;
-	private String username;
-	private String password;
+
+	private ModelContract model;
+	private String username = "Model Test";
+	private String password = "Password";
 	private String projectID;
-	private String columnName;
+	private String columnName = "Test Column Name";
 
 	@Before
 	public void setUp() throws Exception{
 		model = new Model();
-		username = "ModelTest";
-		password = "Password";
 		login();
 		getProject();
-		columnName = "Model Test Column Name";
+	}
+
+	@After
+	public void tearDown() throws Exception{
+		model = null;
+		projectID = "";
 	}
 
 	private void login(){
@@ -48,41 +53,36 @@ public class ColumnModelTest{
 	}
 
 	@Test
-	public void test01(){
+	public void test01Create(){
 		Response response = model.createColumn( projectID, columnName );
-		System.out.println( "Test Create Column: " + response.toString() );
 		Assert.assertTrue( "Column creation successful.".equals( response.getMessage() ) );
 	}
 
 	@Test
-	public void test02(){
+	public void test02GetAll(){
 		ColumnResponse response = model.getAllProjectColumns( projectID );
-		System.out.println( "Test Get All Project Columns: " + response.toString() );
 		Assert.assertTrue( "Success".equals( response.getMessage() ) );
 		columnID = response.getColumns()[ response.getColumns().length - 1 ].getColumnID();
 		columnPosition = response.getColumns().length - 1;
 	}
 
 	@Test
-	public void test03(){
+	public void test03Get(){
 		ColumnResponse response = model.getColumn( projectID, columnID );
-		System.out.println( "Test Get Column: " + response.toString() );
 		Assert.assertTrue( "Success".equals( response.getMessage() ) );
 	}
 
 	@Test
-	public void test04(){
+	public void test04Update(){
 		Response response = model.updateColumn( projectID, columnID, columnName, columnPosition );
-		System.out.println( "Test Update Column: " + response.toString() );
 		Assert.assertTrue( "Update successful.".equals( response.getMessage() ) );
 	}
 
 
 	@Test
-	@Ignore( "Needs to be run separately or all hell breaks loose\n\n" )
-	public void test05(){
+	@Ignore
+	public void test05Delete(){
 		Response response = model.deleteColumn( projectID, columnID );
-		System.out.println( "Test Delete Column: " + response.toString() );
 		Assert.assertTrue( "Delete successful.".equals( response.getMessage() ) );
 	}
 }

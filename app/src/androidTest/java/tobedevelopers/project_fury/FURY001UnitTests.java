@@ -1,7 +1,9 @@
 package tobedevelopers.project_fury;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import tobedevelopers.project_fury.register.RegisterContract;
 import tobedevelopers.project_fury.register.implementation.RegisterPresenter;
@@ -12,130 +14,98 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by A on 8/18/2016.
  */
-public class FURY001UnitTests extends ApplicationTestCase< Application >{
+@FixMethodOrder( MethodSorters.NAME_ASCENDING )
+public class FURY001UnitTests{
 
-	public FURY001UnitTests(){
-		super( Application.class );
+	private RegisterContract.View view;
+	private RegisterContract.Navigation navigation;
+	private RegisterContract.Presenter presenter;
+
+//	public FURY001UnitTests(){
+//		super( Application.class );
+//	}
+
+	@BeforeClass
+	public void setUp() throws Exception{
+		view = mock( RegisterContract.View.class );
+		navigation = mock( RegisterContract.Navigation.class );
+		presenter = new RegisterPresenter( view, navigation );
 	}
 
 	//Username Validation
+	@Test
 	public void testValidUsername(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterUsername( "Andrea1234" );
-		verify(viewMock).disableCreateAccountButton();
+		presenter.userEnterUsername( "RegisterTest" );
+		verify( view ).disableCreateAccountButton();
 	}
 
+	@Test
 	public void testInvalidTooShortUsername(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterUsername( "and" );
-		verify( viewMock ).setUsernameUnderValidation();
-		verify( viewMock ).disableCreateAccountButton();
+		presenter.userEnterUsername( "Reg" );
+		verify( view ).setUsernameUnderValidation();
+		verify( view ).disableCreateAccountButton();
 	}
 
+	@Test
 	public void testInvalidTooLongUsername(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
 		presenter.userEnterUsername( "123456789012345678901" );
-		verify( viewMock ).disableCreateAccountButton();
+		verify( view ).disableCreateAccountButton();
 	}
 
 	//Email Validation
+	@Test
 	public void testValidEmail(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterEmail( "awolff@live.ca" );
-		verify(viewMock).disableCreateAccountButton();
+		presenter.userEnterEmail( "Email@Email.com" );
+		verify( view ).disableCreateAccountButton();
 	}
 
+	@Test
 	public void testInvalidEmail(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterEmail( "awolff.com+" );
-		verify( viewMock ).setEmailValidation();
-		verify( viewMock ).disableCreateAccountButton();
+		presenter.userEnterEmail( "Email.com+" );
+		verify( view ).setEmailValidation();
+		verify( view ).disableCreateAccountButton();
 	}
 
 	//Password Validation
+	@Test
 	public void testValidPassword(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterPassword( "Password123" );
-		verify(viewMock).disableCreateAccountButton();
+		presenter.userEnterPassword( "Password" );
+		verify( view ).disableCreateAccountButton();
 	}
 
+	@Test
 	public void testInvalidTooShortPassword(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterPassword( "pass" );
-		verify( viewMock ).setPasswordUnderValidation();
-		verify( viewMock ).disableCreateAccountButton();
+		presenter.userEnterPassword( "Pas" );
+		verify( view ).setPasswordUnderValidation();
+		verify( view ).disableCreateAccountButton();
 	}
 
+	@Test
 	public void testInvalidTooLongPassword(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterPassword( "abcdefgh123456789012345" );
-		verify( viewMock ).disableCreateAccountButton();
+		presenter.userEnterPassword( "123456789012345678901" );
+		verify( view ).disableCreateAccountButton();
 	}
 
 	//Confirm Validation
+	@Test
 	public void testValidConfirmPassword(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterUsername( "Andrea123" );
-		presenter.userEnterEmail( "awolff@live.ca" );
-		presenter.userEnterPassword( "123456" );
-		presenter.userEnterConfirmPassword( "123456", "123456" );
-		verify( viewMock ).enableCreateAccountButton();
+		presenter.userEnterUsername( "RegisterTest" );
+		presenter.userEnterEmail( "Email@Email.com" );
+		presenter.userEnterPassword( "Password" );
+		presenter.userEnterConfirmPassword( "Password", "Password" );
+		verify( view ).enableCreateAccountButton();
 	}
 
+	@Test
 	public void testInvalidConfirmPassword(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
-		presenter.userEnterConfirmPassword( "123456", "654321" );
-		verify( viewMock ).disableCreateAccountButton();
+		presenter.userEnterConfirmPassword( "Password", "drowssaP" );
+		verify( view ).disableCreateAccountButton();
 	}
 
 	//Login Button Navigation
+	@Test
 	public void testLoginButtonNavigation(){
-		RegisterContract.View viewMock = mock( RegisterContract.View.class );
-		RegisterContract.Navigation navigationMock = mock( RegisterContract.Navigation.class );
-
-		RegisterContract.Presenter presenter = new RegisterPresenter( viewMock, navigationMock );
-
 		presenter.userSelectLogin();
-		verify( navigationMock ).navigateToLogin();
+		verify( navigation ).navigateToLogin();
 	}
 }
